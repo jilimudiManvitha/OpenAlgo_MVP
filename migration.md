@@ -178,6 +178,13 @@ In particular, the separate `D:\Personal\historify_ATHERENERG_20260908_112029` C
 
 ## Verification record
 
-The destination was verified private and empty before migration. The existing Git history was checked for blobs over GitHub's 100 MiB ordinary-file limit; none were found. The migration backup utility passed offline round-trip, tamper/wrong-key rejection, verify-only, and non-overwrite tests. Final push, clone and release-asset verification results are recorded below after upload completes.
+The destination was verified private and empty before migration. The existing Git history was checked for blobs over GitHub's 100 MiB ordinary-file limit; none were found.
+
+- Source migration commit: `31a555cbd`; additional skill references and inventory: `9669501b3`. Both were pushed to the new `origin/main`.
+- All 64 pre-existing local tags were pushed. The migration release adds its own separate tag.
+- A fresh full clone from the new private repository succeeded, preserved the main history, and was updated to `9669501b3`. It contains 4,778 tracked files, uses only the new `origin`, and has normal skill directories instead of old-machine junctions.
+- All five migration backup tests passed: exact round-trip, verify-only, damaged-file rejection, wrong-key rejection, and refusal to overwrite different files. Ruff lint/format checks passed for the backup utility and tests.
+- Full local verification of the real migration backup succeeded: all 24 encrypted parts authenticated, and all 15 archived files matched their recorded sizes and SHA-256 hashes.
+- Release upload and remote asset verification are in progress. The release remains a draft until every uploaded asset is verified; publication will be recorded here when complete.
 
 Storage references: [GitHub ordinary-file limits](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) and [GitHub release asset limits](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases). Each encrypted part is approximately 512 MiB, below the 2 GiB release-asset limit.
