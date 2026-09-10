@@ -144,3 +144,9 @@ workspace/**/.sample.env
 .ruff_cache/
 .migration-private/
 backtesting/.test_polars_export_20260909/
+
+# Bundled skill documentation uses a directory named build (not build output).
+!**/skills/agp-9-upgrade/references/android/build/
+!**/skills/agp-9-upgrade/references/android/build/**
+# This bundled template contains empty credential fields, not live settings.
+!**/skills/fyers-trading/.env.example

@@ -1,0 +1,7 @@
+# Written by services/agent/chatgpt_oauth.py.
+#
+# This directory holds a live OpenAI OAuth refresh token as plain JSON, cached
+# from the encrypted copy in ag_secret. It must never be committed. The rule
+# below keeps runtime credentials private; only this ignore file is tracked.
+*
+!.gitignore

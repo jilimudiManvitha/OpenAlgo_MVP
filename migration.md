@@ -28,6 +28,28 @@ The backup includes the approximately 31 GB `db/historify.duckdb`, the applicati
 
 The parts use AES-256-GCM encryption with an independently authenticated encrypted manifest. Restore verifies encrypted-part hashes, authentication tags, the compressed archive hash, file inventory, and every restored file's SHA-256. The key itself is never printed by the backup utility.
 
+The migration snapshot contains **15 files**, totaling **33,211,639,221 bytes** before compression. Its **24 encrypted parts plus one manifest** total **12,740,505,228 bytes (11.87 GiB)**:
+
+```text
+.cloudflared/config.yml
+.env
+.vscode/settings.json
+db/health.db
+db/historify.duckdb
+db/latency.db
+db/logs.db
+db/market_scanner.db
+db/openalgo.db
+db/sandbox.db
+log/errors.jsonl
+log/ws_proxy_stats.json
+tmp/market-scanner-today-smoke.json
+tmp/market-scanner-today.json
+tmp/pr1999-context.md
+```
+
+SQLite snapshots can have different physical sizes from the source database files while preserving their database contents. The Cloudflare configuration also exists in the code checkout; restore skips it if it is identical to the backed-up copy.
+
 ## 1. Prepare the new Windows laptop
 
 Install these tools:
@@ -146,6 +168,7 @@ Do not use legacy public-repository one-line installers or prebuilt public Docke
 | Selected runtime logs and temporary scan outputs | Encrypted release backup |
 | Recovery key and `.migration-private/` working files | Local only; save the key separately |
 | `.venv/`, `backtesting/.venv/`, `node_modules/`, Python bytecode, test/lint caches and package metadata | Regenerate on the new laptop |
+| Untracked generated `frontend/dist/` assets and compressed `.gz`/`.br` variants | Regenerate with the frontend build and application startup; already tracked build files remain in Git |
 | Test databases and SQLite WAL/SHM sidecars | Excluded; operational SQLite state is captured by the consistent database snapshots |
 | Original `.git` directory, remote-tracking caches and hooks | A clone creates fresh Git metadata; `main` history is pushed normally |
 | `.worktrees/` and preserved nested `autoresearch` Git metadata | Local working metadata, not required for the migrated current files |
