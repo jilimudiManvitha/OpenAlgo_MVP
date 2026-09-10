@@ -1,43 +1,85 @@
-i wantdiff same calculator for crypto trading when user trading in crypto 
-
-one more change is when i watching candles.if
-i drag candle ,canlde are moving horizontoly like <- -> this ways , i want to add chat has to move in upword and downwords.
- 
-.Add news section for each stock.using dhan skills imran YT video.
-
-heatmap
-
-srenner for top gainer,looser,volume shockers.https://github.com/marketcalls/fyers-scanner
-
-autoreaserch
-
-by using ai user can automate stratagy in orderflow and backtest in UI.
-
-global markets view ,vix...india indices
-
-sector rotaion map.
-
-Swing/Postional/Longterm watchlist
-
-build watch watchlist to add and track stocks
-
-if user open then user can able to see bid/ask price,support/resistance of the stock,Bullish/bearish signals,...etc
------------------------------------------
-future implenetation
--------------------------------------
-mobile app
-pinets
-algomorror
+Add news section for each stock.using dhan skills imran YT video.
 bot integration
-55 stocks at 10:00
---------------------
-change entry price & next trade if SL hit .
-try autoreaserch for strategy parameters.
-build volume filter then backtest the strategy.
 canles data is in correct.
-candle iteeration
-scanner should work with all brokers on live data.
+--------------------------------------------------------------------
+Task for chatgpt
+think like yourself as A senior software/AI/ML/DL/DS engineer and quant researcher,analyst,
+quant devloper and finance expert .then think deeply and solve below 
+problems .a Charted accountent .and finance expert.as a algo trader.
+use all agents skills to complete below task at best way.
+
+----------------
+Task 3
+implement calculator for crypto go through D:\Personal\openalgo\delta-exchange-api-docs.md.
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232438.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232607.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232820.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232832.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232847.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232902.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232929.png"
+"C:\Users\nikhi\OneDrive\Pictures\Screenshots\Screenshot 2026-09-10 232945.png"
+if i login with deltaexchange broker.
+implement in this system https://github.com/marketcalls/Algomirror .
+use this "D:\Personal\Algomirror\README.md".for indian markets use want to use 
+"D:\Personal\openalgo" ,for crypto "D:\Personal\openalgo_Crypto" use this.
+if possible try to implement one for both indian brokers and crypto brokers.
+some times i want to use both at same time.don't change any code which is in 
+D:\Personal\openalgo use same for D:\Personal\openalgo_Crypto. 
+
+Task 1
+stratagy enchancement and backtesting/stratagies/ATHERENERG_ha_bb_vwap_backtest.py i want 
+use this stratagy for all stocks not only single stock.for OHLCV data use duckdb.
+use all csv file at store them in any DB.use them while backtest .
+backtest all stocks and me report in detailed .show profit loss , max drawdown , win rate,Sharpe ratio for each stock.
+then i will select some stocks to go with this stratagy.show me results for each stock per month ,per year
+per quater in a year,per 6 months ,per 5 years ,per 10 years .backtest stratagy on 5min time frame and
+1 min timeframe .use 1Lakh per trade. use take as many trades comes .in report i want how much capital 
+used how many trades,per day capital..etc
+stratagy chnages are 
+1.entry criteria example a 5min candle at 10:00 AM as previously mentioned price crossed bollinger
+upper band and next 10:05 5min candle cross is above the 10:00 AM candle high no need to wait close 
+this canle if cross high and price above VWAP take entry for long side trades.if 10:05 5min candle does cross
+10:00 AM candle but crossed bollinger upper band then this candle is signal candle next this candle
+means 10:10 AM candle cross high of 10:05 candle high and price above VWAP take entry. 
+do same rest . untill day end.travese this logic.
+for short side same logic but entry criteria example a 5min candle at 10:00 AM as previously mentioned price crossed bollinger
+lower band and next 10:05 5min candle cross is low of the 10:00 AM candle low no need to wait close 
+this canle if cross low and price below VWAP take entry for short side trades.if 10:05 5min candle does cross
+10:00 AM candle but crossed bollinger lower band then this candle is signal candle next this candle
+means 10:10 AM candle cross low of 10:05 candle low and price below VWAP take entry. 
+do same rest . untill day end.travese this logic.
+
+2.if i trade place at 10:00AM at 12:00 SL/TP triggered and still time left right
+if the above logic comes take entry for long/short.
+
+3.for entry don't change candles and bollinger bands criteria, but try with diff indicators or any
+try with multiple using autoreaserch.
+
+task 2
+i don't want to run D:\Personal\openalgo\scripts\market_scanner.py every time .build one section 
+in D:\Personal\openalgo\ for scanner within openalgo .when i run app.py it should run in openalgo
+it should scan and show in live data updates.it should work with all brokers on live data.
+
+task 4
+rebuild all UI look and feel use dynamic themes and colors ,fonts ,borders ,and all use css.
+use modern UI look.use material UI.use tailwind css.
 
 
-i want to update my strategy D:\Personal\openalgo\backtesting\stratagies\ATHERENERG_ha_bb_vwap_backtest.py same stratagy for all stocks.
-for entry i want make changes
+task 5
+"D:\Personal\openalgo-mobile\README.md" build a mobile app as it is like D:\Personal\openalgo like
+same functionality.it has to be like mirror same in app also.
+
+Task 6
+build new option in sandbox mode.
+I want to build diff watchlist for Swing trading,Positinal,Longterm,Mutual funds to watchlist.
+user can add stocks,current trading price,SL,TP,quantity.to their watchlist.
+if user i want to track he can see when did user bought those.
+example a user added ATHER ENERGY at 1000,SL 900,TP 1200,quantity 100 to swing trading watchlist,
+if user see later few days for user can see how much user loss/gain profit.under his portifolio.
+same for other trading styles.
+
+
+
+
+

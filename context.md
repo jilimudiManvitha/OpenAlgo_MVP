@@ -1,5 +1,11 @@
 # OpenAlgo fork - AI agent context
 
+Current six-task request (2026-09-11): see
+[`docs/plans/2026-09-11-six-task-roadmap.md`](docs/plans/2026-09-11-six-task-roadmap.md)
+for the canonical plan, pending decisions, task checklist and restart instructions.
+Planning is complete; this session did not implement features or run backtests.
+Its task numbers are separate from the historical task sections below.
+
 This file lets a new AI agent pick up where the previous session stopped
 instead of starting from scratch. It is updated at the end of every task.
 
