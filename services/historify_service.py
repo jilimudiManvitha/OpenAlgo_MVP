@@ -1315,6 +1315,7 @@ _job_executor = ThreadPoolExecutor(max_workers=int(os.getenv("HISTORIFY_MAX_WORK
 # Track running jobs for cancellation and pause state
 _running_jobs: dict[str, bool] = {}
 _paused_jobs: dict[str, threading.Event] = {}  # Event is set when NOT paused
+_retrying_jobs: set[str] = set()
 
 # Lock for thread-safe access to job state dictionaries
 _job_state_lock = threading.Lock()
@@ -2064,6 +2065,16 @@ def retry_failed_items(job_id: str, api_key: str) -> tuple[bool, dict[str, Any],
     """
     from database.historify_db import get_download_job, get_job_items, update_job_status
 
+    # Reserve before reading persisted state: two retry requests can otherwise
+    # both observe a failed/pending job and submit workers for the same items.
+    with _job_state_lock:
+        if job_id in _retrying_jobs or job_id in _running_jobs:
+            return False, {
+                "status": "error",
+                "message": "Job already has a worker; resume or cancel it first",
+            }, 400
+        _retrying_jobs.add(job_id)
+
     try:
         job = get_download_job(job_id)
         if not job:
@@ -2099,7 +2110,12 @@ def retry_failed_items(job_id: str, api_key: str) -> tuple[bool, dict[str, Any],
             _paused_jobs[job_id].set()  # Not paused initially
 
         # Start background processing
-        _job_executor.submit(_process_download_job, job_id, api_key)
+        try:
+            _job_executor.submit(_process_download_job, job_id, api_key)
+        except Exception:
+            _cleanup_job(job_id)
+            update_job_status(job_id, "failed", "Could not start retry worker")
+            raise
 
         return (
             True,
@@ -2114,6 +2130,9 @@ def retry_failed_items(job_id: str, api_key: str) -> tuple[bool, dict[str, Any],
     except Exception as e:
         logger.exception(f"Error retrying job: {e}")
         return False, {"status": "error", "message": str(e)}, 500
+    finally:
+        with _job_state_lock:
+            _retrying_jobs.discard(job_id)
 
 
 # =============================================================================

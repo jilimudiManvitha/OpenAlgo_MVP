@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import pandas as pd
 from dotenv import load_dotenv
 
+from utils.file_lock import exclusive_file_lock
 from utils.logging import get_logger
 
 # Initialize logger
@@ -28,6 +29,7 @@ HISTORIFY_DB_PATH = os.getenv("HISTORIFY_DATABASE_PATH", "db/historify.duckdb")
 # Historify shares the application host with request handling and live feeds.
 # DuckDB otherwise uses every logical CPU for each background query.
 HISTORIFY_DB_THREADS = max(1, int(os.getenv("HISTORIFY_DB_THREADS", "2")))
+HISTORIFY_DB_LOCK_TIMEOUT = max(0.0, float(os.getenv("HISTORIFY_DB_LOCK_TIMEOUT", "120")))
 
 
 def get_db_path() -> str:
@@ -53,8 +55,9 @@ def get_connection(max_retries: int = 3, retry_delay: float = 0.5):
     """
     Get a DuckDB connection with proper resource management and retry logic.
 
-    DuckDB uses exclusive file locking on Windows. This function includes retry
-    logic to handle temporary file access conflicts in concurrent scenarios.
+    Serialize the entire open/use/close lifecycle across threads and cooperating
+    processes. Progress updates and exports need the same gate as candle writes.
+    Nested database helpers must use the caller's connection, not reopen it.
 
     Args:
         max_retries: Maximum number of connection attempts (default: 3)
@@ -64,26 +67,38 @@ def get_connection(max_retries: int = 3, retry_delay: float = 0.5):
         with get_connection() as conn:
             result = conn.execute("SELECT * FROM market_data").fetchdf()
     """
+    ensure_db_directory()
+    db_path = os.path.realpath(get_db_path())
+    with exclusive_file_lock(db_path + ".lock", timeout=HISTORIFY_DB_LOCK_TIMEOUT):
+        with _open_connection(db_path, max_retries, retry_delay) as conn:
+            yield conn
+
+
+@contextmanager
+def _open_connection(db_path, max_retries, retry_delay):
+    """Open only while holding the sidecar lock; close before releasing it."""
     import time
 
-    ensure_db_directory()
-    db_path = get_db_path()
+    import duckdb
+
     conn = None
     last_error = None
 
     for attempt in range(max_retries):
         try:
-            import duckdb
-
             conn = duckdb.connect(db_path, config={"threads": HISTORIFY_DB_THREADS})
             break
-        except Exception as e:
+        except duckdb.IOException as e:
             last_error = e
             if attempt < max_retries - 1:
                 logger.debug(f"DuckDB connection attempt {attempt + 1} failed, retrying: {e}")
                 time.sleep(retry_delay * (attempt + 1))  # Exponential backoff
             else:
-                logger.exception(f"Failed to connect to DuckDB after {max_retries} attempts: {e}")
+                logger.exception(
+                    f"Failed to connect to DuckDB after {max_retries} attempts: {e}. "
+                    "Another application may have this database open. Close its connection "
+                    "or stop the extra OpenAlgo instance, then retry the interrupted job."
+                )
 
     if conn is None:
         raise last_error or Exception("Failed to connect to DuckDB")
@@ -1051,6 +1066,7 @@ def _get_daily_aggregated_ohlcv(
     target_interval: str,
     start_timestamp: int | None = None,
     end_timestamp: int | None = None,
+    connection=None,
 ) -> pd.DataFrame:
     """
     Aggregate Daily (D) data to higher timeframes (W, M, Q, Y) using DuckDB SQL.
@@ -1067,6 +1083,7 @@ def _get_daily_aggregated_ohlcv(
         target_interval: Target interval (W, M, Q, Y, or multiples like 2W, 3M)
         start_timestamp: Start epoch timestamp (optional)
         end_timestamp: End epoch timestamp (optional)
+        connection: Existing connection when called from a locked export
 
     Returns:
         DataFrame with aggregated OHLCV data
@@ -1160,7 +1177,7 @@ def _get_daily_aggregated_ohlcv(
             ORDER BY timestamp ASC
         """
 
-        with get_connection() as conn:
+        with (nullcontext(connection) if connection is not None else get_connection()) as conn:
             result = conn.execute(query, params).fetchdf()
 
         return result
@@ -2080,7 +2097,7 @@ def update_job_item_status(
 ) -> bool:
     """Update the status of a job item."""
     try:
-        with get_connection() as conn:
+        with get_connection(max_retries=5, retry_delay=1.0) as conn:
             if status == "downloading":
                 conn.execute(
                     """
@@ -2435,6 +2452,7 @@ def export_to_parquet(
                         target_interval=target_interval,
                         start_timestamp=start_timestamp,
                         end_timestamp=end_timestamp,
+                        connection=conn,
                     )
 
                 elif is_intraday_computed:
@@ -2754,6 +2772,7 @@ def export_to_zip(
                                 target_interval=interval,
                                 start_timestamp=start_timestamp,
                                 end_timestamp=end_timestamp,
+                                connection=conn,
                             )
 
                             if not df.empty:
@@ -2767,18 +2786,6 @@ def export_to_zip(
                                 df = df[
                                     ["date", "time", "open", "high", "low", "close", "volume", "oi"]
                                 ]
-
-                                # Create CSV content
-                                csv_buffer = df.to_csv(index=False)
-
-                                # Sanitize filename
-                                safe_sym = _sanitize_filename(sym)
-                                safe_exch = _sanitize_filename(exch)
-                                safe_int = _sanitize_filename(interval)
-                                filename = f"{safe_sym}_{safe_exch}_{safe_int}.csv"
-
-                                zf.writestr(filename, csv_buffer)
-                                total_records += len(df)
 
                         elif is_intraday_computed:
                             # Check if 1m data exists before attempting aggregation

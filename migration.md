@@ -176,6 +176,8 @@ Do not use legacy public-repository one-line installers or prebuilt public Docke
 
 In particular, the separate `D:\Personal\historify_ATHERENERG_20260908_112029` CSV directory and the separate `D:\Personal\openalgo_Crypto` clone are outside this migration's requested folder. Copy them separately if needed. CSVs and reports already present inside the personal backtesting folder are included in Git.
 
+Installed Windows applications, browser profiles, and credentials held by Windows/Git credential managers are also outside this folder. Install the tools and authenticate again on the new laptop. Settings, Actions secrets, issues, and release attachments belonging to the former GitHub repositories are not part of the local folder and were not migrated. No additional Git worktrees were registered when this migration was checked.
+
 ## Verification record
 
 The destination was verified private and empty before migration. The existing Git history was checked for blobs over GitHub's 100 MiB ordinary-file limit; none were found.

@@ -29,6 +29,22 @@ all years for that stock. The statistics endpoint reads catalog totals instead
 of scanning the full candle table. Disabled debug logging does not serialize
 large broker candle responses.
 
+All Historify database operations (including progress, reads, exports and
+chunk writes) acquire a shared OS file lock at `<database path>.lock` before
+opening DuckDB and hold it until the connection closes. This serializes
+threads and cooperating processes and avoids racing connection open/close
+and write transactions. Waiting yields under eventlet. The wait is bounded
+by `HISTORIFY_DB_LOCK_TIMEOUT` (120 seconds by default). Broker fetches remain
+outside this lock. Long exports can delay job progress until they release it.
+The empty sidecar remains on disk; it is not a stale lock and must not be
+deleted while the app runs. OS ownership is released on close or process exit.
+
+Use one OpenAlgo server instance. External scripts and database viewers that
+open DuckDB directly do not participate in this lock and must close their
+connections before downloads. If a lock error names another PID, stop that
+extra application normally. After restarting OpenAlgo, use **Retry** on the
+interrupted job to continue from committed windows.
+
 ## Persisted State
 
 The job record stores status, counts, interval, date range, configuration, timestamps, and error details. Each job item stores symbol, exchange, status, record count, timestamps, and its own error.
@@ -108,6 +124,10 @@ Other brokers retain their existing protection:
 | DELETE | `/historify/api/jobs/<job_id>` | A running job must be cancelled first |
 
 Pause uses a `threading.Event`; cancellation is checked between items and while paused. Control transitions update DuckDB immediately and emit the corresponding Socket.IO event where implemented.
+
+Retry reserves a job before reading/resetting persisted state. Concurrent retry
+requests and retries while a worker is queued cannot submit a second worker
+for that job. A failed executor submission releases the reservation for retry.
 
 Fyers also checks controls between chunks and while waiting for responses.
 In-flight HTTP requests can finish after cancellation, but are not written;

@@ -357,6 +357,69 @@ def test_retry_cannot_start_a_second_worker_for_a_paused_job(monkeypatch):
     assert jobs.retry_failed_items("paused-job", "test-api-key")[2] == 400
 
 
+def test_concurrent_retries_submit_only_one_worker(monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from types import SimpleNamespace
+
+    from services import historify_service as jobs
+
+    reading, release = threading.Event(), threading.Event()
+    submissions = []
+
+    def read_job(*args):
+        reading.set()
+        assert release.wait(5)
+        return {"status": "failed"}
+
+    monkeypatch.setattr(historify_db, "get_download_job", read_job)
+    monkeypatch.setattr(
+        historify_db, "get_job_items", lambda *a: [{"id": 1, "status": "downloading"}]
+    )
+    monkeypatch.setattr(historify_db, "update_job_item_status", lambda *a: True)
+    monkeypatch.setattr(historify_db, "update_job_status", lambda *a: True)
+    monkeypatch.setattr(
+        jobs, "_job_executor", SimpleNamespace(submit=lambda *a: submissions.append(a))
+    )
+    job_id = "concurrent-retry"
+    try:
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            first = pool.submit(jobs.retry_failed_items, job_id, "test-key")
+            try:
+                assert reading.wait(5)
+                assert jobs.retry_failed_items(job_id, "test-key")[2] == 400
+            finally:
+                release.set()
+            assert first.result(timeout=5)[0]
+        # Persisted status can still be pending/failed while the worker is queued.
+        assert jobs.retry_failed_items(job_id, "test-key")[2] == 400
+        assert len(submissions) == 1
+        assert job_id not in jobs._retrying_jobs
+    finally:
+        jobs._cleanup_job(job_id)
+
+
+def test_failed_retry_submission_can_be_retried_again(monkeypatch):
+    from types import SimpleNamespace
+
+    from services import historify_service as jobs
+
+    def submit(*args):
+        raise RuntimeError("executor unavailable")
+
+    monkeypatch.setattr(historify_db, "get_download_job", lambda *a: {"status": "failed"})
+    monkeypatch.setattr(
+        historify_db, "get_job_items", lambda *a: [{"id": 1, "status": "pending"}]
+    )
+    monkeypatch.setattr(historify_db, "update_job_item_status", lambda *a: True)
+    monkeypatch.setattr(historify_db, "update_job_status", lambda *a: True)
+    monkeypatch.setattr(jobs, "_job_executor", SimpleNamespace(submit=submit))
+    for _ in range(2):
+        assert jobs.retry_failed_items("retry-submit-error", "test-key")[2] == 500
+        assert "retry-submit-error" not in jobs._running_jobs
+        assert "retry-submit-error" not in jobs._paused_jobs
+        assert "retry-submit-error" not in jobs._retrying_jobs
+
+
 def test_disabled_debug_logging_does_not_serialize_candles(adapter, monkeypatch):
     request = httpx.Request("GET", "https://api-t1.fyers.in/data/history")
     response = httpx.Response(

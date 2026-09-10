@@ -40,4 +40,4 @@ scanner should work with all brokers on live data.
 
 
 i want to update my strategy D:\Personal\openalgo\backtesting\stratagies\ATHERENERG_ha_bb_vwap_backtest.py same stratagy for all stocks.
-for entry i want make changes 
+for entry i want make changes
