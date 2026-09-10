@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-05",
+  "software_tests_passed": 11,
+  "software_tests_failed": 0,
+  "market_backtest_run": false,
+  "optimization_run": false,
+  "best_strategy_validated": false,
+  "synthetic_tests_are_market_results": false,
+  "python_environment": "backtesting/.venv",
+  "vectorbt": "1.1.0",
+  "openalgo": "2.0.3",
+  "plotly": "6.9.0",
+  "test_command": ".\\backtesting\\.venv\\Scripts\\python.exe -m pytest backtesting\\stratagies\\test_nifty50_bb_vwap_ha_research.py -q -p no:cacheprovider -o addopts="
+}

@@ -31,6 +31,8 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Install, deploy & operate
 
+For this private installation's new-laptop move and sole Git remote, start with [migration.md](../migration.md).
+
 | Topic | Entry point |
 |---|---|
 | Ubuntu server install | [installation-guidelines/getting-started/ubuntu-server-installation.md](installation-guidelines/getting-started/ubuntu-server-installation.md) |

@@ -1,0 +1,21 @@
+{
+  "rows": 1257650,
+  "synthetic_symbols": 50,
+  "seconds": {
+    "pandas": [
+      2.9406422000029124,
+      1.8389771000074688,
+      1.5341153000190388
+    ],
+    "polars": [
+      0.4108203999930993,
+      0.4082195999799296,
+      0.4863017000025138
+    ]
+  },
+  "median_pandas_seconds": 1.8389771000074688,
+  "median_polars_seconds": 0.4108203999930993,
+  "speedup": 4.4763529270658395,
+  "validation": "PASS: exported values, order, columns and pandas dtypes identical",
+  "scope": "Metadata, conversion, concat, sort and ZSTD Parquet write; excludes source CSV read and database queries. Fresh processes, alternating engine order. Synthetic symbol copies; no memory measurement."
+}

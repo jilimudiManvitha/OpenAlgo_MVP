@@ -1,0 +1,23 @@
+{
+  "polars_version": "1.44.2",
+  "source_rows": 25153,
+  "included_rows": 25050,
+  "validation": "PASS: complete-session selection, OHLCV, all HA/indicators, 73 trade records, daily/monthly/exit P&L",
+  "net_pnl": -6262.724055000013,
+  "timing": {
+    "pandas_seconds": [
+      2.0532750000129454,
+      2.656566900026519,
+      3.50028450001264
+    ],
+    "polars_seconds": [
+      0.52882390000741,
+      0.5124389000120573,
+      0.8027899999869987
+    ]
+  },
+  "median_pandas_seconds": 2.656566900026519,
+  "median_polars_seconds": 0.52882390000741,
+  "preparation_speedup": 5.023537892272445,
+  "scope": "CSV load, timestamp parsing, validation, session filtering, normalized export and pandas conversion only; includes removing the old CSV reread. Not end-to-end backtest speed. Three alternating-order runs; no memory measurement."
+}

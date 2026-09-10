@@ -1,0 +1,2 @@
+# Add to the existing backtesting environment; the strategy still uses pandas/NumPy.
+polars>=1.30,<2

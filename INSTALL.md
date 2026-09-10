@@ -1,5 +1,7 @@
 # OpenAlgo Installation Guide
 
+> For this private installation and the new laptop, use [migration.md](migration.md). It contains the current repository URL, `uv`/frontend commands, and encrypted database restore procedure. The historical instructions below describe the original public project.
+
 ## Prerequisites
 
 Before installing OpenAlgo, ensure you have the following prerequisites installed:

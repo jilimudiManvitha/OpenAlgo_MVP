@@ -1,5 +1,7 @@
 # OpenAlgo - Open Source Algorithmic Trading Platform
 
+> **This installation now uses the private [OpenAlgo Indian Markets MVP repository](https://github.com/Narasimha722/openalo_indian_markets_mvp).** For the new laptop, cloning, encrypted data restore, and future pushes, follow [migration.md](migration.md). The prior OpenAlgo repositories are no longer Git remotes for this installation.
+
 <div align="center">
 
 [![PyPI Downloads](https://static.pepy.tech/badge/openalgo)](https://pepy.tech/projects/openalgo)
@@ -330,7 +332,7 @@ OpenAlgo uses the modern `uv` package manager for faster, more reliable installa
 
 ```bash
 # Clone the repository
-git clone --filter=blob:none https://github.com/marketcalls/openalgo.git
+git clone --filter=blob:none https://github.com/Narasimha722/openalo_indian_markets_mvp.git openalgo
 cd openalgo
 
 # Install UV package manager

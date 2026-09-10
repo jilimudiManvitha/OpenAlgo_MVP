@@ -1,0 +1,2 @@
+symbol,signal_time,confirmation_time,entry_time,entry,stop,target,quantity,signal_rvol,exit_time,exit,reason,gross_pnl,costs,net_pnl,net_R,equity_after
+ATHERENERG,2026-06-29 14:15:00+05:30,2026-06-29 14:20:00+05:30,2026-06-29 14:25:00+05:30,1068.64,1058.55,1088.82,4,,2026-06-29 14:45:00+05:30,1058.02,stop,-42.48000000000047,4.2533199999999995,-46.733320000000475,-1.1579117938552974,9953.266679999999

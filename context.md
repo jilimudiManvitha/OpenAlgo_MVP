@@ -5,11 +5,11 @@ instead of starting from scratch. It is updated at the end of every task.
 
 ## Repository map
 
-- Upstream: https://github.com/marketcalls/openalgo (remote `origin`)
-- This fork's push remote: https://github.com/Narasimha722/openalgo_opensource
-- Local branch: `main`. Prior HEAD was `fc1088865` (feature commit
-  `ae8dd9dbe` + fork CI dist merge `c9fd8c5f6` + local dist rebuild
-  `fc1088865`), before the TASK 6 commit lands.
+- Only active remote: `origin`, https://github.com/Narasimha722/openalo_indian_markets_mvp.git (private).
+- Local branch: `main`; use `origin/main` for future pulls and pushes. Do not recreate the former `fork` or upstream remotes.
+- New-laptop migration and the encrypted database/settings backup: [migration.md](migration.md).
+- The Fyers volume-shocker/top-gainer/top-loser backend and custom skill mirrors are committed. UI work remains deferred until the user requests it.
+- The task sections below are historical context and may describe earlier repository states.
 
 ## TASK 6 - calculator redesign + brokerage fees - IN PROGRESS (this session)
 

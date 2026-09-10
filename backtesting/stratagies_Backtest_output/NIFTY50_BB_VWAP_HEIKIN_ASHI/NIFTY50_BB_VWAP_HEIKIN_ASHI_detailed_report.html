@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NIFTY50 BB + VWAP + Heikin Ashi: Detailed Report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1
+id="nifty50-bb--vwap--heikin-ashi-strategy-review-and-backtest-status">NIFTY50
+BB + VWAP + Heikin Ashi: strategy review and backtest status</h1>
+<p>Prepared: 5 September 2026, IST.</p>
+<p><strong>Status: historical backtest and optimization are blocked by
+API access. No historical performance results exist yet, and no best
+strategy has been established.</strong></p>
+<p>The requested period is <strong>5 September 2021 through 5 September
+2026</strong>, using five-minute candles and Nifty 50 stocks only. The
+runner will use the latest completed trading session available from the
+API. These dates are the requested window, not a claim that data was
+received.</p>
+<h2 id="what-has-been-completed">What has been completed</h2>
+<ul>
+<li>Read the indicator-expert, vectorbt-expert, backtest and optimize
+skills and the relevant fee and chronological validation guidance.</li>
+<li>Inspected
+<code>backtesting/stratagies/nifty500_bb_vwap_heikin_ashi_openalgo.py</code>
+without executing its live trading entry point.</li>
+<li>Inspected <code>autoresearch/README.md</code>,
+<code>program.md</code>, and the preparation, model and evaluation
+structure in <code>prepare.py</code> and <code>train.py</code>.</li>
+<li>Implemented
+<code>backtesting/stratagies/nifty50_bb_vwap_ha_research.py</code>: an
+API-only historical runner, shared portfolio simulator, VectorBT
+accounting audit, 35 predefined experiments, chronological selection,
+and report generation.</li>
+<li>Created an isolated Python 3.13 environment at
+<code>backtesting/.venv</code>, leaving the application's Python
+environment unchanged. Pinned Plotly below version 7 after a real
+compatibility failure with VectorBT.</li>
+<li>Passed 11 synthetic tests covering source signal agreement, causal
+indicators, session resets, shared capital, whole shares, transaction
+costs, next-bar fills, gap stops, risk sizing, daily loss cutoff,
+drawdown, timestamp normalization and report/chart export.</li>
+</ul>
+<p>Synthetic test fixtures verify software behavior. They are not market
+data and were not used to claim strategy returns.</p>
+<h2 id="execution-blocker">Execution blocker</h2>
+<p>The root <code>.env</code> and current process environment contain no
+<code>OPENALGO_API_KEY</code>. The configured server,
+<code>http://127.0.0.1:5000</code>, also refused connections when
+checked.</p>
+<p>The API preflight stopped with:</p>
+<blockquote>
+<p>OPENALGO_API_KEY is missing from the root .env or process
+environment</p>
+</blockquote>
+<p><code>run_status.json</code> records the failed preflight. No market
+history was retrieved or saved. Brokerage application credentials
+already present in <code>.env</code> are not interchangeable with the
+user-facing OpenAlgo API key.</p>
+<p>To unblock, set <code>OPENALGO_API_KEY</code> in
+<code>D:\Personal\openalgo\.env</code>, start OpenAlgo, and log into the
+connected broker. If OpenAlgo runs elsewhere, set
+<code>OPENALGO_HOST</code> to that URL. Keep the key out of chat and
+reports.</p>
+<p>From <code>D:\Personal\openalgo</code>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\backtesting\<span class="op">.</span><span class="fu">venv</span>\Scripts\python<span class="op">.</span><span class="fu">exe</span> backtesting\stratagies\nifty50_bb_vwap_ha_research<span class="op">.</span><span class="fu">py</span> <span class="op">--</span>preflight</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\backtesting\<span class="op">.</span><span class="fu">venv</span>\Scripts\python<span class="op">.</span><span class="fu">exe</span> backtesting\stratagies\nifty50_bb_vwap_ha_research<span class="op">.</span><span class="fu">py</span> <span class="op">--</span>start <span class="dv">2021</span><span class="op">-</span><span class="dv">09</span><span class="op">-</span><span class="dv">05</span> <span class="op">--</span>end <span class="dv">2026</span><span class="op">-</span><span class="dv">09</span><span class="op">-</span><span class="dv">05</span></span></code></pre></div>
+<p>The full command uses read-only history and public constituent APIs.
+It contains no order-placement endpoints. Omitting explicit dates
+requests the five years ending on the actual run date.</p>
+<h2 id="source-strategy-reconstructed">Source strategy
+reconstructed</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Universe</td>
+<td>Originally Nifty 500; the research runner requests exactly 50
+current Nifty 50 symbols from the NSE JSON API</td>
+</tr>
+<tr>
+<td>Candle interval</td>
+<td>Five minutes, completed candles only</td>
+</tr>
+<tr>
+<td>Candidate filter</td>
+<td>Gain at least 1% versus previous daily close OR cumulative session
+volume at least 2x prior 20-day average daily volume</td>
+</tr>
+<tr>
+<td>Candidate ranking</td>
+<td>Maximum of normalized gain and volume scores; top 30</td>
+</tr>
+<tr>
+<td>Signal</td>
+<td>Bullish Heikin Ashi, no lower wick, HA close crosses above BB upper
+and stays above session VWAP</td>
+</tr>
+<tr>
+<td>Confirmation</td>
+<td>Immediately following candle: HA close above signal HA high, BB
+upper and VWAP; bullish and wickless</td>
+</tr>
+<tr>
+<td>Bollinger Bands</td>
+<td>SMA(20), 2 standard deviations, calculated on HA close</td>
+</tr>
+<tr>
+<td>Session behavior</td>
+<td>HA, BB and VWAP restart each morning because the live source fetches
+current-day candles</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>Rs 10,000 capital; 5x leverage; Rs 50,000 notional ceiling</td>
+</tr>
+<tr>
+<td>Position constraints</td>
+<td>One shared position across the entire universe; maximum three
+entries per day</td>
+</tr>
+<tr>
+<td>Initial stop</td>
+<td>HA-close test at entry minus Rs 10/share; not a resting market-price
+stop</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>HA close reaches 2R; default behavior continues holding rather than
+selling at the target</td>
+</tr>
+<tr>
+<td>Trail</td>
+<td>HA close below BB middle exits; this also applies before the 2R
+target</td>
+</tr>
+<tr>
+<td>Square-off</td>
+<td>15:20 IST</td>
+</tr>
+</tbody>
+</table>
+<p>The source's requirement for at least 22 completed candles means its
+first eligible signal is approximately 11:05 IST. The first possible
+confirmed market entry follows one bar later. Its displayed 09:20
+entry-window start does not eliminate this indicator warmup.</p>
+<h2 id="material-findings">Material findings</h2>
+<ol type="1">
+<li><strong>Synthetic fills:</strong> the source's paper mode enters and
+exits using HA reference prices. These are calculated values and may not
+be executable. Historical results must use real prices. The runner
+executes after confirmation at the next actual bar open, with adverse
+slippage.</li>
+<li><strong>Stop timing:</strong> the original Rs 10 stop is checked
+only against completed HA close. An actual-price move through the stop
+need not exit. Calling that a guaranteed Rs 10 maximum loss would be
+incorrect.</li>
+<li><strong>Stop removal after target:</strong> with trailing enabled,
+reaching 2R disables the initial stop; only the BB-middle condition
+remains. Enhanced candidates keep an actual-price stop active.</li>
+<li><strong>Unequal capital risk:</strong> nominally allocating Rs
+50,000 to a Rs 100 stock gives 500 shares and Rs 5,000 of specified stop
+distance, before costs. Allocating to a Rs 1,000 stock gives 50 shares
+and Rs 500 of specified stop distance. The same rule therefore has very
+different account risk across stocks.</li>
+<li><strong>Shared capital matters:</strong> running 50 independently
+funded stock backtests and adding their returns would misrepresent this
+one-position strategy. The runner selects trades chronologically from
+one shared account.</li>
+<li><strong>Historical scanner inputs:</strong> live quotes cannot be
+recreated exactly from five-minute candles. The reconstruction uses
+completed real closes and cumulative volume available at each decision
+time. Prior daily volume is shifted to avoid using the final volume of
+the day being traded.</li>
+<li><strong>Coverage and constituent bias:</strong> today's Nifty 50
+membership is not historical membership. Current members that listed or
+changed identity during the window may lack early history. Coverage is
+disclosed and unavailable data is not backfilled. Provider adjustment
+behavior for splits, dividends and demergers still needs validation
+against actual API responses.</li>
+</ol>
+<p>The runner additionally caps notional by remaining account equity and
+reserves entry fees. These constraints prevent the fixed-capital source
+configuration from silently assuming unlimited replenishment after
+losses.</p>
+<h2 id="enhancement-hypotheses-prepared-for-evaluation">Enhancement
+hypotheses prepared for evaluation</h2>
+<p>The predefined 35 configurations include:</p>
+<ul>
+<li>Original strategy reconstruction.</li>
+<li>Persistent actual-price stop with the original fixed rupee
+distance.</li>
+<li>ATR(14)-based stops at 1.0x, 1.5x and 2.0x.</li>
+<li>Risk sizing at 1% of current account equity, plus a 0.5%
+variant.</li>
+<li>A 2.5% daily loss cutoff for risk-managed variants.</li>
+<li>BB periods 15, 20 and 25, with multipliers 1.8, 2.0 and 2.2.</li>
+<li>Earlier entry cutoff, time-of-day relative-volume confirmation,
+VWAP-extension filtering and a fixed-target exit variant.</li>
+</ul>
+<p>These are <strong>untested hypotheses</strong>, not recommendations
+or claimed improvements. There is no <code>best_strategy</code>
+performance result. The executable candidate definitions are in
+<code>experiments()</code> in the research runner;
+<code>search_space.json</code> records their parameters before market
+results are available.</p>
+<h2 id="adapting-autoresearch">Adapting autoresearch</h2>
+<p>The supplied <code>autoresearch</code> project trains a GPT-style
+language model on one GPU. Its original score, <code>val_bpb</code>,
+measures language-model quality. Running its <code>prepare.py</code>
+would retrieve unrelated training data and would not backtest this
+strategy.</p>
+<p>The strategy research adopts its useful experimental method:
+establish a baseline, fix the evaluator, log each candidate, prefer
+simpler changes when evidence is similar, and keep or discard based on
+measured results. The language-model files remain unchanged.</p>
+<p>The research uses a finite, auditable search:</p>
+<ol type="1">
+<li>Development: 5 September 2021 to before 5 September 2024, divided
+into three chronological folds.</li>
+<li>Validation: 5 September 2024 to before 5 September 2025; compare the
+five strongest eligible development candidates and the baseline.</li>
+<li>Holdout: 5 September 2025 through the last completed session on or
+before 5 September 2026. Lock parameters before evaluating this
+period.</li>
+<li>Cost stress: rerun the locked candidate on holdout with slippage
+doubled from 5 to 10 basis points each side.</li>
+</ol>
+<p>The development score penalizes drawdown and instability across
+folds. Minimum trade counts and profitable-fold checks reject thin
+evidence. Holdout failure does not trigger further optimization on that
+same holdout. A selected full-period curve will be labeled
+retrospective; only the reserved final period is a holdout for
+selection.</p>
+<h2 id="costs-and-data-policy">Costs and data policy</h2>
+<p>The cost model approximates current Fyers intraday charges: brokerage
+of min(Rs 20, 0.03% turnover) each side, sell-side STT, buy-side stamp
+duty, exchange/SEBI charges, an explicit IPFT assumption and GST.
+Current rates are applied consistently across the historical period;
+historical tariff changes and charge rounding are not reconstructed.
+Sources: <a href="https://fyers.in/charges-list">Fyers charges</a> and
+<a href="https://fyers.in/calculator/brokerage">Fyers brokerage
+calculator</a>.</p>
+<p>All price and volume history must come from OpenAlgo
+<code>history(source="api")</code>. The runner requests short date
+chunks, computes in memory, and saves only reports, trade results,
+account-equity series, parameter settings and coverage metadata. It does
+not save raw OHLCV, constituent-response files or a market-data cache.
+It does not read local history databases. The constituent list comes
+from the <a
+href="https://www.nseindia.com/api/equity-stockIndices?index=NIFTY%2050">NSE
+Nifty 50 JSON API</a>.</p>
+<h2 id="reports-generated-after-a-successful-run">Reports generated
+after a successful run</h2>
+<p>The final report will replace this status report and include
+strategy-versus-NIFTY metrics, full-period and holdout results,
+drawdown, returns, CAGR, Sharpe, Sortino, trade count, win rate, profit
+factor, fees, and cost stress.</p>
+<p>Supporting files will contain baseline and selected-candidate trade
+ledgers, all 50 stocks' attribution including zero-trade stocks,
+monthly/yearly P&amp;L, interactive offline equity/drawdown charts,
+development parameter heatmaps, experiment rankings, validation results,
+locked parameters, and reproducibility metadata.</p>
+<p>At present, all historical performance fields are
+<strong>unavailable</strong>, because API access has not passed
+preflight.</p>
+</body>
+</html>

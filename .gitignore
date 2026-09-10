@@ -104,8 +104,8 @@ yarn-error.log*
 # Windows NUL file
 nul
 
-# Personal backtesting workspace (kept out of the repo unless force-added)
-backtesting/
+# Personal backtests and reports are included in this private migration repository.
+!backtesting/**/*.csv
 
 # Personal workspace: your own indicators, research, backtests and notes.
 # Only the readme is tracked -- everything else is yours and stays local.
@@ -138,3 +138,9 @@ workspace/**/.sample.env
 # there) creates the tilde as a real folder here instead of in the profile.
 # It holds credentials, so it must never be committed.
 /~/
+
+# Rebuildable local caches and private migration material.
+.pytest_cache/
+.ruff_cache/
+.migration-private/
+backtesting/.test_polars_export_20260909/

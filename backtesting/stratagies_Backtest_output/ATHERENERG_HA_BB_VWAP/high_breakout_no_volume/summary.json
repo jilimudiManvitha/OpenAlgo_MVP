@@ -1,0 +1,18 @@
+{
+  "symbol": "ATHERENERG",
+  "volume_filter": false,
+  "breakout_source": "high",
+  "ha_source": "D:\\Personal\\openalgo\\backtesting\\stratagies_Backtest_output\\ATHERENERG_HA_BB_VWAP\\ATHERENERG_heikin_ashi_5m.csv",
+  "real_source": "D:\\Personal\\openalgo\\backtesting\\stratagies_Backtest_output\\ATHERENERG_HA_BB_VWAP\\ATHERENERG_normalized_real_ohlcv.csv",
+  "signals": 3,
+  "confirmations": 1,
+  "trades": 1,
+  "capital": 10000.0,
+  "risk_budget": 50.0,
+  "planned_reward_to_risk": 2,
+  "net_pnl": 81.04031999999982,
+  "final_equity": 10081.04032,
+  "return_pct": 0.8104032000000094,
+  "max_drawdown_pct": 0.19845594602536654,
+  "win_rate_pct": 100.0
+}

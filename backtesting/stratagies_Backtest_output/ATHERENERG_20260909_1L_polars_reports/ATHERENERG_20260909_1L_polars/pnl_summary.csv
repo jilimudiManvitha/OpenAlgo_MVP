@@ -1,0 +1,14 @@
+Metric,Result
+Starting capital,"INR 100,000.00"
+Gross P&L (slippage already in fills),"INR -3,203.43"
+Modeled fees,"INR 3,059.29"
+Net P&L,"INR -6,262.72"
+Ending capital,"INR 93,737.28"
+Return,-6.26%
+Trades / wins / losses,73 / 21 / 52
+Trade win rate,28.77%
+Trade profit factor,0.587
+Maximum sampled drawdown,"8.68% / INR 8,904.37"
+Average net P&L per trade,INR -85.79
+Best / worst trade,"INR 1,435.57 / -512.21"
+Daily Sharpe / Sortino (rf=0),-1.498 / -2.327
