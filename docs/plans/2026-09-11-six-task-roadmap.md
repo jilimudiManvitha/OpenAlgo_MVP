@@ -4,6 +4,24 @@ Updated: 2026-09-11, Asia/Kolkata. Status: Task 1 baseline validation in progres
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
+## Latest restart checkpoint — Task 2 prototype and repository synchronization
+
+The user brought Task 2 forward: show live daily percentage changes for every displayed stock and complete the scanner. On the next restart the user requested review of intervening code changes and pushing all current changes to `Narasimha722/openalo_indian_markets_mvp` before continuing Task 2.
+
+- Isolated prototype: `.development/task2-scanner/`, committed by the user as `11ca386ab`. It contains a React scanner page, navigation/routes, existing scanner extensions, persistent polling orchestration and account-scoped snapshots, index CSV imports with unknown-date provenance, top-50 filtering, price/volume percentages, and bounded observed-price sparklines. **Task 2 is not complete or integrated into the original application.**
+- Verified before the intervening merge: 61 backend tests passed (9 new tests plus 52 existing scanner tests). Isolated Vite production bundling passed. Full TypeScript checking reported the same six existing `chartProfiles.ts`/installed-chart-library errors in both the original and isolated copies. Frontend lint still needs its status-region accessibility fix and intentional polling-dependency annotation. Browser verification remains pending.
+- The implementation currently uses batched polling, not full-universe streaming. Finish shared-feed integration, broker capability verification, lifecycle/reconnect/resource checks, and browser tests before declaring completion. No live orders were placed.
+- The user then merged upstream into `main` (`36f8c2742`). Changes include broker streaming/rate-limit fixes, chart object/indicator work, market-calendar service changes, application startup changes and frontend dependencies. Preserve these changes. The isolated whole-file copies predate this merge: **do not copy their old `app.py`, full frontend tree or package lock over the updated original application.** Rebase only the scanner additions onto current sources when integration is authorized.
+- Actual remotes at restart: `origin` is the requested private repository; `upstream` also exists and was used by the user. Preserve both. The old context statement that origin is the sole remote is historical.
+- The edit boundary remains unresolved. An optional question requesting permission to integrate Task 2 into the normal app was sent; no answer is recorded. Continue isolated development until clarified. The push request explicitly authorizes committing/pushing the current changes, including the existing `task.txt` newline change; it does not resolve the original-code edit boundary.
+- Task 1's later all-DuckDB request (2017-07-03 through 2026-09-10, temporarily skip the strategy volume filter) remains pending. No full-universe run was launched before the user brought Task 2 forward.
+
+Resume backend checks from the repository root:
+
+```powershell
+& .venv/Scripts/python.exe -m pytest .development/task2-scanner/test_live.py test/test_market_scanner.py --confcutdir=.development/task2-scanner -o addopts= -p no:cacheprovider --basetemp=.development/task2-scanner/test-tmp -q
+```
+
 ## Current stage — after the scanner-based strategy update
 
 We are at **Task 1 baseline validation**, before full-history backtesting or optimization. Completed evidence: inventory of 93 CSVs and metadata for 1,573 NSE stocks; four provisional unrestricted reports for ATHERENERG/RELIANCE at 1m/5m; and now a separate scanner-selected partial-day replay through September 11 12:26 IST. The latter reconstructs 191 minute-level snapshots, produces 48 trade charts, and has eight focused execution/gating tests plus ledger/data/browser verification. These remain research artifacts, not a deployed strategy.

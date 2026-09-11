@@ -11,6 +11,13 @@ instead of starting from scratch. It is updated at the end of every task.
 
 ## Repository map
 
+2026-09-11 restart correction: the user added `upstream` and merged its `main`
+into local `main` (`36f8c2742`). `origin` remains the requested private repository
+below. Preserve both current remotes; the earlier sole-remote instruction is
+historical. Task 2 now has an isolated prototype in `.development/task2-scanner/`
+(`11ca386ab`), with implementation gaps and verification recorded in the canonical
+six-task roadmap. It is not yet integrated into the original application.
+
 - Only active remote: `origin`, https://github.com/Narasimha722/openalo_indian_markets_mvp.git (private).
 - Local branch: `main`; use `origin/main` for future pulls and pushes. Do not recreate the former `fork` or upstream remotes.
 - New-laptop migration and the encrypted database/settings backup: [migration.md](migration.md).
