@@ -1,0 +1,48 @@
+{
+  "config": {
+    "allocation": 100000.0,
+    "tick": 0.01,
+    "fee_bps": 5.0,
+    "slippage_bps": 5.0,
+    "reward_r": 2.0,
+    "volume_days": 20,
+    "volume_multiple": 2.0,
+    "rollover": "fresh",
+    "filter_name": "none",
+    "stop_source": "ha",
+    "square_off": 920,
+    "target_first": false
+  },
+  "symbols": [
+    "ATHERENERG",
+    "RELIANCE"
+  ],
+  "first_timestamp": 1499053500,
+  "last_timestamp": 1789034340,
+  "source_path": "D:\\Personal\\openalgo\\db\\historify.duckdb",
+  "source_bytes": 33295183872,
+  "source_catalog_sha256": "d7741a4212ca202525b4d76fdf8e3ee22b42cd01df51c04a799c9afe76d7d25c",
+  "original_strategy_sha256": "8e9c99c69be087207ab541b5af936789b68a7fcba365a4f50db6f2662893b649",
+  "implementation": {
+    "data.py": "401f7135df0e1c266f6c34ecb6bbdc946cfdf62726193bc22f9d67e39e2b0933",
+    "engine.py": "c7e375a19e8bc26249a1979d1eb6bfc85ead017f8c732db330272901b7458ed9",
+    "report.py": "3b55f6a81a810c062f2cb5828cc6b58cc4bf0b659cc5d235d5ea2d6f71c5a3b7",
+    "run.py": "8997480d73aae469468bdf26e252ebe8956833a44b516a4b472eaff4cbd7163a"
+  },
+  "research": false,
+  "snapshot": "read-only DuckDB transaction; catalog fingerprint and source stat recorded",
+  "assumptions": [
+    "Real 1m execution bars; completed 1m HLC3 VWAP at entry; intrabar ordering approximate",
+    "HA BB(20,2), population deviation; volume >=2x prior 20 complete-session mean",
+    "One stock position at a time; unlimited subsequent trades; no global position cap",
+    "Fresh inside-to-outside band crossings; completed confirmation filters replaced by real price trigger",
+    "09:20 through before 15:20 entry; 15:20 square-off; 0.01 original tick default is configurable, not verified per-stock historical tick",
+    "5 bps fees per side and 5 bps slippage illustrative; no broker-specific fee/tax claim",
+    "Only complete regular sessions; gaps excluded; HA recurses over retained history; 20 retained prior sessions for volume warmup",
+    "Unadjusted source prices; corporate actions and point-in-time universe not verified; survivorship risk",
+    "Reference equity can deplete; all-opportunity P&L requires replenishment/funding; no constrained portfolio replay",
+    "No verified NIFTY benchmark provided; price-only same-stock buy/hold shown",
+    "5/10-year output reports actual available coverage, never extrapolated"
+  ],
+  "run_id": "1669d7de00814c6b777ad18eb0bc4380a62517a3dd738ba963c93245d1fcd3b8"
+}

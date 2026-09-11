@@ -1,0 +1,10 @@
+{
+  "symbol": "ATHERENERG",
+  "source_rows": 126419,
+  "valid_rows": 126000,
+  "source_sessions": 338,
+  "valid_sessions": 336,
+  "excluded_sessions": 2,
+  "eligible_sessions": 316,
+  "status": "evaluated"
+}

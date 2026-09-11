@@ -1,0 +1,10 @@
+{
+  "symbol": "RELIANCE",
+  "source_rows": 851008,
+  "valid_rows": 827625,
+  "source_sessions": 2279,
+  "valid_sessions": 2207,
+  "excluded_sessions": 72,
+  "eligible_sessions": 2187,
+  "status": "evaluated"
+}

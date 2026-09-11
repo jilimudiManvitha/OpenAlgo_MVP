@@ -13,7 +13,7 @@ need → drill into the specific file. Don't load everything at once.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Planning complete; implementation pending.
+mobile parity and sandbox investment portfolios. Resumed: data inventory and isolated two-stock backtest smoke verification complete; full implementation in progress.
 
 | Read this when you need… | Entry point |
 |---|---|

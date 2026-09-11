@@ -1,0 +1,7 @@
+duckdb>=1.5,<2
+numpy
+pandas
+numba
+plotly
+openalgo
+pytest

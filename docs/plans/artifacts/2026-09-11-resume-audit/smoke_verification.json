@@ -1,0 +1,39 @@
+{
+  "run_id": "1669d7de00814c6b777ad18eb0bc4380a62517a3dd738ba963c93245d1fcd3b8",
+  "report": ".development\\six-task-research\\backtesting\\all_stock_ha\\smoke_fresh_v1\\index.html",
+  "checks": [
+    {
+      "symbol": "ATHERENERG",
+      "timeframe": "1m",
+      "trades": 42,
+      "reconciled": true
+    },
+    {
+      "symbol": "ATHERENERG",
+      "timeframe": "5m",
+      "trades": 12,
+      "reconciled": true
+    },
+    {
+      "symbol": "RELIANCE",
+      "timeframe": "1m",
+      "trades": 66,
+      "reconciled": true
+    },
+    {
+      "symbol": "RELIANCE",
+      "timeframe": "5m",
+      "trades": 21,
+      "reconciled": true
+    }
+  ],
+  "original_scaffold_matches_previous_manifest": {
+    "data.py": true,
+    "engine.py": true,
+    "report.py": true,
+    "run.py": true
+  },
+  "portfolio_reconciled": true,
+  "tests": "11 passed",
+  "status": "provisional two-stock pipeline check; not all-stock or original-execution baseline"
+}

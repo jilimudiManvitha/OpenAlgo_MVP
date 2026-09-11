@@ -1,0 +1,135 @@
+{
+  "scan_id": "871316bcfe544ddbbb68bbf80072fe60",
+  "session_date": "2026-09-11",
+  "started_at": "2026-09-11T12:26:27.462912+05:30",
+  "completed_at": "2026-09-11T12:26:48.093973+05:30",
+  "total": 2642,
+  "valid_quotes": 2628,
+  "valid_baselines": 2626,
+  "partial": true,
+  "matching_counts": {
+    "volume_shockers": 319,
+    "top_gainers": 778,
+    "top_losers": 1812
+  },
+  "rate_limit_retries": 0,
+  "issues": {
+    "stale_or_invalid_quote": 14,
+    "insufficient_history": 2
+  },
+  "top_five": {
+    "volume_shockers": [
+      {
+        "symbol": "KIRLOSIND",
+        "ltp": 3865.3,
+        "change_percent": 8.06586893312458,
+        "volume": 498341.0,
+        "rvol": 137.1857622639432
+      },
+      {
+        "symbol": "ORIENTTECH",
+        "ltp": 261.26,
+        "change_percent": 11.00441876274642,
+        "volume": 7223741.0,
+        "rvol": 59.96945798085624
+      },
+      {
+        "symbol": "AIIL",
+        "ltp": 537.6,
+        "change_percent": 4.938512590279147,
+        "volume": 4629529.0,
+        "rvol": 38.96785288012673
+      },
+      {
+        "symbol": "AWFIS",
+        "ltp": 281.1,
+        "change_percent": 12.620192307692319,
+        "volume": 7688476.0,
+        "rvol": 37.06979663981748
+      },
+      {
+        "symbol": "SHERVANI",
+        "ltp": 346.9,
+        "change_percent": 11.543408360128609,
+        "volume": 2412.0,
+        "rvol": 25.389473684210525
+      }
+    ],
+    "top_gainers": [
+      {
+        "symbol": "LADDERUP",
+        "ltp": 74.31,
+        "change_percent": 19.990311642176657,
+        "volume": 58331.0,
+        "rvol": 13.67154174283973
+      },
+      {
+        "symbol": "NIBL",
+        "ltp": 36.69,
+        "change_percent": 19.980379332897318,
+        "volume": 142600.0,
+        "rvol": 11.047754811119031
+      },
+      {
+        "symbol": "GRAVISSHO",
+        "ltp": 42.7,
+        "change_percent": 19.97752177577971,
+        "volume": 428304.0,
+        "rvol": 2.2182308595862104
+      },
+      {
+        "symbol": "STLSTRINF",
+        "ltp": 21.2,
+        "change_percent": 19.977362761743052,
+        "volume": 12901.0,
+        "rvol": 5.033161672908864
+      },
+      {
+        "symbol": "ASHOKAMET",
+        "ltp": 17.2,
+        "change_percent": 19.944211994421195,
+        "volume": 972751.0,
+        "rvol": 18.883895465540203
+      }
+    ],
+    "top_losers": [
+      {
+        "symbol": "SRGHFL",
+        "ltp": 156.0,
+        "change_percent": -20.0,
+        "volume": 8327.0,
+        "rvol": 0.2968077219196441
+      },
+      {
+        "symbol": "SUNSHINE",
+        "ltp": 407.8,
+        "change_percent": -19.992152246419458,
+        "volume": 3883252.0,
+        "rvol": 1.6823439860430398
+      },
+      {
+        "symbol": "SREEL",
+        "ltp": 333.27,
+        "change_percent": -10.000000000000007,
+        "volume": 117930.0,
+        "rvol": 0.4741003631030679
+      },
+      {
+        "symbol": "MEDICAPQ",
+        "ltp": 31.7,
+        "change_percent": -9.994321408290743,
+        "volume": 55774.0,
+        "rvol": 0.46471517510765087
+      },
+      {
+        "symbol": "ATALREAL",
+        "ltp": 13.75,
+        "change_percent": -9.954158480681071,
+        "volume": 266502.0,
+        "rvol": 0.02464621707544431
+      }
+    ]
+  },
+  "ranked_rows_checked": 150,
+  "verification": "Dates, ranking, price change, and cached five-session volume arithmetic passed for every exported row."
+}

@@ -1,12 +1,20 @@
 # Six-task implementation plan and agent handoff
 
-Updated: 2026-09-11, Asia/Kolkata. Status: planning complete; implementation not started by this session.
+Updated: 2026-09-11, Asia/Kolkata. Status: Task 1 baseline validation in progress; data inventory and isolated two-stock smoke reports verified. Existing Fyers scanner snapshot verified; new Task 1 scanner-based trade selection recorded, implementation pending. See the current-stage summary and restart milestones below.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
+## Current stage — after the scanner-based strategy update
+
+We are at **Task 1 baseline validation**, before full-universe backtesting or optimization. Completed evidence: inventory of 93 CSVs and metadata for 1,573 NSE stocks; four provisional reports for ATHERENERG/RELIANCE at 1m/5m; 11 tests and report reconciliation passed. These reports predate the scanner-selection requirement and do not test it.
+
+The existing Fyers scanner produced a verified September 11 intraday snapshot and standalone top-50 report. This is partial Task 2 progress: the integrated automatic live UI, broker-neutral support, category filters and sparklines remain pending. Tasks 3–6 have not started. The original-code boundary remains unresolved, so implementation continues in the isolated development copy.
+
+**Latest user change:** Task 1 should take trades only from Volume Shockers, Top Gainers or Top Losers. The new contract is in **T1.2a** below. Next implementation milestone: historical scanner rankings and entry eligibility, followed by a bounded replay and comparison against the preserved unrestricted reference. No scanner-based strategy run or live order has been performed for this change.
+
 ## Scope and repository boundaries
 
-The user asked to plan first and save enough memory for a restarted or different agent. This session only writes planning/agent documentation. No application code, configuration, databases, trading sessions, or credentials are changed. No backtests or live orders are run.
+The user originally asked to plan first and save enough memory for a restarted or different agent. That planning session changed documentation only. Later authorized resumption added isolated research code/reports and ran the existing market-data scanner; those milestones are recorded below. Original application code and credentials remain unchanged, and no live orders have been placed.
 
 | Repository | Intended responsibility | Boundary |
 |---|---|---|
@@ -63,7 +71,7 @@ AlgoMirror should maintain a client and market-data subscription group per conne
 Recommended sequence (preserving the user's task numbers):
 
 1. P0: confirm edit boundary; inventory data and API capabilities; create isolated implementation workspace and shared theme/API contracts.
-2. T1: establish historical data coverage, exact execution contract, and baseline reports before research variants.
+2. T1: establish historical data coverage and reproduce the original baseline; bring forward T2's shared ranking/snapshot contract to implement T1.2a scanner-based selection, then produce the requested baseline reports before research variants. The full T2 UI is not a prerequisite for historical replay.
 3. T3: implement account-aware calculator and simultaneous connection support in AlgoMirror.
 4. T2: extend existing scanner and expose its live UI using the common theme foundation.
 5. T6: add persistent sandbox investment watchlists and portfolio ledger.
@@ -73,6 +81,8 @@ Recommended sequence (preserving the user's task numbers):
 This is a dependency order, not a claim that implementation has been authorized to modify protected original code. No automatic live strategy deployment follows a good backtest.
 
 ## Task 1 — All-stock strategy, DuckDB, reports and automated research
+
+“All-stock” now describes the universe scanned and historical data coverage. **The requested trading variant enters only eligible stocks from the scanner lists defined in T1.2a.** Keep the prior unrestricted variant as a clearly labeled reference for comparison, not as the updated requested strategy.
 
 ### T1.1 Data catalog and reusable ingestion
 
@@ -92,8 +102,8 @@ Freeze a versioned copy/hash of the original strategy and reproduce its baseline
 
 New execution state per symbol: `FLAT`, `ARMED_LONG`, `ARMED_SHORT`, `LONG`, `SHORT`.
 
-1. At signal-bar close, evaluate the unchanged completed HA/BB signal criteria and existing signal-time filters. Store signal time and HA high/low; also retain real OHLC for diagnostics and the original configurable real stop source.
-2. Arm the immediately following bar only. A long enters on a real traded-price break strictly above signal high while price is above the causally available VWAP; short mirrors below signal low and below VWAP. Do not wait for the entry bar to close or defer to a third candle. Use instrument tick size to define strict crossing and adverse slippage for fills.
+1. At signal-bar close, require eligibility under T1.2a, then evaluate the unchanged completed HA/BB signal criteria and existing signal-time filters. Store signal time and HA high/low; also retain real OHLC for diagnostics and the original configurable real stop source.
+2. Arm the immediately following bar only. Recheck scanner eligibility using the latest valid snapshot available before entry. A long enters on a real traded-price break strictly above signal high while price is above the causally available VWAP; short mirrors below signal low and below VWAP. Do not wait for the entry bar to close or defer to a third candle. Use instrument tick size to define strict crossing and adverse slippage for fills.
 3. If that bar produces no valid entry, expire the old signal at its close. Evaluate that completed bar as a replacement signal and arm its successor when eligible. Repeat within the session. No signal is carried overnight.
 4. After SL/TP closes a trade, resume signal evaluation and allow later long or short entries that day. Remove the three-trades/day limit and the single portfolio-wide position restriction.
 5. Track simultaneous positions across stocks. Proposed default is one open position per stock, with unlimited sequential re-entry. Pyramiding multiple overlapping entries in the same stock is a separate policy to clarify, because “as many trades as come” does not specify it.
@@ -107,6 +117,41 @@ New execution state per symbol: `FLAT`, `ARMED_LONG`, `ARMED_SHORT`, `LONG`, `SH
 - VWAP at an actual tick can be computed from contemporaneous trades. Historical OHLCV cannot recover exact trade sequence or tick VWAP. Primary reproducible bar test uses the latest fully completed execution sub-bar's session HLC3 VWAP at the crossing opportunity; label this approximation and optionally compare a causal tick replay when data exists. Never use the entry bar's eventual HLC3/volume to qualify an earlier crossing.
 
 For five-minute signals, replay available one-minute execution bars; for one-minute signals use ticks/sub-minute data if available, otherwise an explicitly approximate OHLC execution model. Gap through entry fills at real open plus adverse slippage when filters are valid. A bar touching both stop and target requires an ambiguity flag and conservative stop-first convention. When entry/exit ordering itself is unknown, report conservative and alternate sensitivity rather than invent timestamps; do not count an unknowable same-bar re-entry. Store event time precision. Reject invalid stop distance, zero affordable quantity and missing required data with reasons.
+
+### T1.2a User update — scanner-based trade selection (2026-09-11)
+
+**Requested:** take/place strategy trades in stocks from Volume Shockers, Top Gainers or Top Losers. Status: requirement recorded; implementation and validation pending. This changes stock eligibility for the planned strategy, not the HA/BB/VWAP entry pattern. It does not authorize placing live orders during this planning update.
+
+**Working defaults for implementation:**
+
+| Rule | Contract |
+|---|---|
+| Candidate lists | Top 50 Volume Shockers, top 50 positive daily gainers, top 50 negative daily losers, each ranked across the entire configured eligible universe |
+| Combined universe | Union of the three lists: membership in any one is sufficient; deduplicate by exchange/instrument identity, at most 150 unique candidates per snapshot |
+| Trade direction | Preserve strategy signals: bullish setup can enter long; bearish setup can enter short. List membership alone does not force a direction. Restricting gainers to longs/losers to shorts would be a separately named policy, not an assumed user requirement |
+| Entry gate | Require membership when arming the completed signal and immediately before an executable entry, using only a valid snapshot already available at each decision |
+| Refresh | Historical working default: recompute rankings at each completed one-minute bar, available for the next execution bar; both 1m and 5m signals consume that same causal schedule. Live target uses shared streaming/cached data with an explicit snapshot availability time, not a new full history scan every minute |
+| Stale/missing selection | Block new entries when the required snapshot is missing, from another session/account, or older than the configured freshness limit (initial working value: 60 seconds after availability). Record the reason; do not fall back silently to unrestricted trading |
+| Membership changes | Newly selected stocks can arm qualifying signals once indicators are warmed. Removal invalidates an armed unfilled signal. Existing positions continue their normal SL/TP/square-off management; removal alone does not force an exit |
+| Sizing and exits | Retain INR 100,000 fixed notional per trade, whole-share sizing, one position per stock, simultaneous positions across stocks, later re-entry, and the existing planned SL/TP/square-off contract |
+
+These defaults make the requested update executable and reviewable; the user has not separately specified direction restrictions, a different list size, refresh interval or an intersection of the lists.
+
+**Ranking and indicator preservation:** reuse T2's ranking mathematics and deterministic tie-breaking. Volume shockers initially require scanner RVOL > 1 against the previous five completed full-session volume totals; rank by RVOL descending. Gainers/losers use change from the verified previous trading-session close, with positive descending/negative ascending ranking. Apply category and instrument eligibility before top-50 selection, and report fewer than 50 when appropriate. A selected category is versioned in the run; initial historical scope is the available validated NSE stock universe, with coverage exclusions disclosed.
+
+The scanner's five-session RVOL and the strategy's existing **20-session RVOL >= 2** are separate gates. Keep both and record both values/definitions. Do not disable the strategy volume filter merely because a stock was selected as a gainer or loser; any relaxation is a named research comparison. Calculate/warm indicators over each stock's available history even while it is outside the lists, so entering a list does not reset HA or VWAP.
+
+**Historical selection must be reconstructed at the time of each decision:**
+
+- Use prices, cumulative volume and completed daily baselines known by that snapshot's cutoff. The current execution bar's eventual high/low/close/volume and final day rankings cannot qualify an earlier entry. The September 11 11:36 snapshot is usable only from its actual availability time; it cannot choose stocks for that morning or prior years.
+- Reconstruct rankings jointly across all eligible instruments at a common historical cutoff, before stock-level execution. Independently backtesting each stock and filtering its completed trades by today's list is not a valid implementation. A symbol with unavailable/stale bars is excluded with its reason; do not fabricate a current price by unlimited forward filling.
+- Store `scanner_snapshots` and `scanner_memberships` (or equivalent versioned tables) with snapshot ID, market cutoff, availability time, session, source/account scope where applicable, universe/data version, ranking config, list/rank, instrument, quote/baseline timestamps, price change, cumulative/average volume, RVOL, coverage and exclusions. Preserve the actual refresh/availability delay for recorded live snapshots. Declare the assumed availability delay for historical bar reconstruction.
+- Existing 1,573-stock history does not reproduce the full 2,642-instrument live scanner universe automatically. Mark historical results as rankings within the validated available-history universe; measure missing members and survivorship limitations. Separate equities from broker-classified ETFs for stock-only runs, using verified instrument metadata. Do not label missing-universe or unverified-previous-close periods as full-market rankings.
+- The current terminal scanner is a slow one-off snapshot producer. Its successful run does not establish a continuously fresh live trade-selection service. Historical ranking can be implemented now; live strategy integration depends on T2's shared updates, freshness/coverage controls and existing order lifecycle integration. If live entry orders are later supported, reconcile fills and cancellation acknowledgements before treating an order as cancelled after membership removal.
+
+**Reports and acceptance:** every entered trade records signal/entry snapshot IDs, source-list tags, ranks, scanner RVOL/price change, strategy RVOL and eligibility decisions. Record rejected signals separately. Compare unrestricted reference versus scanner-selected strategy on identical dates, validated universe, data version, costs and execution settings; display trade count, P&L, drawdown and peak funding differences. Breakdowns by list must disclose overlapping membership and must not double-count trades in portfolio totals.
+
+Required tests: inclusion through each list; union versus intersection; top 50 after full-universe ranking; overlap producing one order/trade; long/short direction remaining signal-driven; candidate arrival/removal before entry; open-position management after removal; stale/missing snapshots blocking entries; future price/volume changes leaving earlier selections unchanged; 1m/5m timing; indicator continuity across membership changes; both volume filters retained; partial historical universe labeling; and ledger/snapshot attribution reconciliation. Run a bounded multi-stock replay that exercises competing ranks before attempting the full history or optimization. The existing two-stock smoke tests do not satisfy this acceptance.
 
 ### T1.3 Capital and metric contract
 
@@ -124,7 +169,7 @@ Deliver an offline interactive HTML report, machine-readable CSV/Parquet/JSON ta
 
 ### T1.4 Automated research with the entry pattern frozen
 
-Version the baseline above; run a bounded experiment registry varying only additional filters/exits: EMA trend/slope, ADX strength, ATR regime, RSI momentum, relative-volume variations, VWAP distance/slope, time windows and stop/target/trailing alternatives. VWAP and the requested candle/BB trigger remain mandatory; do not quietly replace them. Preserve baseline RVOL and compare alterations as named experiments. Use causal OpenAlgo TA where new indicators are needed, validated against fixtures.
+Version the scanner-selected baseline above; run a bounded experiment registry varying only additional filters/exits: EMA trend/slope, ADX strength, ATR regime, RSI momentum, relative-volume variations, VWAP distance/slope, time windows and stop/target/trailing alternatives. Scanner selection, VWAP and the requested candle/BB trigger remain mandatory in this baseline; do not quietly replace them. Preserve baseline RVOL and compare alterations as named experiments. Use causal OpenAlgo TA where new indicators are needed, validated against fixtures.
 
 Use chronological train/validation/test splits with warmup outside scored periods, walk-forward evaluation, untouched final holdout, predeclared search budget/objective, minimum trade counts, cost/slippage stress and parameter-neighborhood stability. Select on training/validation only; record all trials, failed trials, seeds, data hashes and drawdown/capital tradeoffs. Do not optimize separately on each stock's entire history and present it as out-of-sample performance. Research produces a comparison report, never automatic deployment.
 
@@ -134,6 +179,23 @@ Acceptance: hand-checked long/short rollover examples; next-bar intrabar entry; 
 
 Extend the existing scanner provider/manager/DB/routes/tests rather than creating a second scanner engine. Replace Fyers-only routing with a broker-capability adapter using common quote/history/instrument services. Preserve ranking/filter semantics and cached baseline history.
 
+### User additions recorded 2026-09-11 — volume changes, categories and sparklines
+
+These additions extend Task 2; they are saved requirements, not implemented behavior.
+
+- **Volume Shockers: show 50 stocks**, ranked by volume increase/RVOL descending. Scan the full selected universe before taking the top 50; do not scan only 50 symbols. If fewer than 50 qualify, show the actual count and coverage instead of padding results.
+- Each row shows stock name/symbol, a very small intraday price line chart (sparkline), LTP, **today's price change %**, today's cumulative traded volume, **volume change %**, and RVOL. Keep price change and volume change in separately labeled columns. Price change % = `(LTP / previous trading session close - 1) * 100`; do not use today's open or yesterday's calendar date as the default reference.
+- Volume change % = `(today's cumulative volume / selected baseline volume - 1) * 100`; RVOL uses the same baseline, so 2.5x means +150% volume change. Initially retain the existing configurable average of the prior five completed trading sessions, excluding today. Label it “Volume change vs 5-session average” (or the selected lookback), not an unlabeled daily percentage. This compares today's partial cumulative volume to historical full-day volume; expose that basis in the tooltip. An explicit “vs previous session” baseline may also be selected. Add a separately labeled same-time historical-volume baseline only when intraday history exists; never silently mix the modes. Missing/zero baseline produces N/A, not infinity or 0%.
+- **Top Gainers and Top Losers: category/index filters** for All stocks, Nifty 50, Nifty 100, Nifty Next 50, Midcap and Smallcap. Midcap supports the available Nifty Midcap 50/100/150 constituent sets; Smallcap supports Nifty Smallcap 100/250. Default broad category mappings are Midcap 150 and Smallcap 250, with the exact index name visible. Also expose Nifty 200/500 where the supplied constituent lists are imported. Start with a single-select category filter, persist it, and apply it before ranking/limiting. Make the same filter usable on Volume Shockers for consistent navigation.
+- Use the local `stock_symbols_CSVs/ind_nifty*list.csv` constituent files as import sources, including `ind_nifty50list.csv`, `ind_nifty100list.csv`, `ind_niftynext50list.csv`, `ind_niftymidcap150list.csv`, and `ind_niftysmallcap250list.csv`. Store normalized instrument membership, source, import time and effective/as-of date where known. Do not assume a snapshot is current without checking its provenance; show membership date or “date unknown” and provide a refresh path. Support legitimate overlap between index sets without duplicate rows within one result list. Match exchange symbols rather than fuzzy company-name text.
+- Rank gainers by positive daily price change % descending and losers by negative daily price change % ascending **within the selected category**. Display daily price change % for every stock. Use a 50-row default for these tables too, with actual available counts; this extends the user's explicit 50-stock requirement for Volume Shockers consistently to the other tabs.
+- **Sparkline in all three result tables:** put a compact line chart beside the stock name and daily change %. Use real timestamped intraday prices/minute closes from today's session, rendered in a small responsive SVG or equivalent lightweight component. Color by the sign of daily price change, include a neutral state, accessible text and an optional hover price/time. Keep numeric percentages legible without relying on color. Label the chart as price, not volume; it complements the volume columns.
+- Seed sparklines from cached/batched intraday history where available, then append shared live-feed observations. Bound/downsample points for a small chart; avoid a heavyweight chart instance or separate polling/WebSocket connection per row. With only live observations, show the observed period as “since connected”; never fabricate the earlier session path. Preserve gaps and show stale/no-data states. Category switches reuse cached series, respect provider limits and reset series at the new trading session.
+
+Illustrative row layout: `Stock name / symbol | small price line | LTP | Day change % | Today's volume | Volume change % | RVOL`. The gainers/losers views may keep volume fields secondary but must retain name, sparkline, LTP and day change %.
+
+### Service and lifecycle
+
 Add a Scanner navigation item/page: Volume Shockers, Top Gainers, Top Losers, universe/exchange filters, volume/RVOL/price filters, live status, update time, coverage and partial/error states. Persist preferences and auto-start setting; default the new feature to automatic startup once enabled/installed per the requested behavior. Running `app.py` initializes orchestration; scanning waits for valid broker login and automatically attaches after login/reconnection. No separate terminal command is required.
 
 Seed quotes in batches, then reuse the existing shared WebSocket feed. Use throttled updates to the browser and rate-limited polling when a broker lacks streaming/batching. Implement subscription limits, reconnect/resubscribe, backoff, token refresh, market-open scheduling and stale-data labels. Missing volume/history must show unavailable RVOL, not zero. Crypto universes, if exposed, use their own 24/7 schedule and explicit rolling/session volume definition.
@@ -141,6 +203,8 @@ Seed quotes in batches, then reuse the existing shared WebSocket feed. Use throt
 Use a single elected scanner worker/lease per instance/account across Flask reloads and production workers. Persist control state; stop/release resources on logout/shutdown. Avoid a new broker socket per tab or full-universe historical download every refresh. Broad broker support means each adapter declares capabilities and falls back honestly; keep an explicit verified-broker matrix, not a claim that untested brokers passed.
 
 Acceptance: app startup + broker login alone produces updates; two browser tabs share work; broker switch isolates data; non-Fyers supported adapter works; unsupported volume degrades clearly; 429/disconnect/token expiry recovers; duplicate workers are prevented; ranking tests remain valid; DB sessions/subscriptions/threads close correctly. Run applicable resource/FD audit on implementation.
+
+Additional acceptance for the user additions: top 50 is selected from the entire filtered universe; fewer matches remain truthful; a stock with LTP 110 and previous close 100 displays +10% regardless of today's open; cumulative volume 250,000 against baseline 100,000 displays +150% and 2.5x; zero/missing baseline gives N/A; each index filter excludes nonmembers before ranking; overlapping membership does not duplicate rows; gainers/losers use the correct sort direction; all three tabs show real small price charts with timestamps and missing-data states; category changes and 50 visible rows do not multiply broker connections or cause unbounded history requests.
 
 ## Task 3 — Crypto calculator in AlgoMirror and concurrent Indian/crypto use
 
@@ -207,12 +271,13 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 | ID | Deliverable | Status |
 |---|---|---|
 | PLAN | Repository/source review, six-task plan, durable handoff | Complete |
-| P0 | Resolve code-freeze boundary; safe development workspace; API/data inventory | Pending |
-| T1.1 | CSV catalog, DuckDB ingestion, coverage and missing-history report | Pending |
-| T1.2 | Baseline reproduction and approved enhanced execution contract | Pending |
-| T1.3 | All-stock 1m/5m reports and daily capital reconciliation | Pending |
+| P0 | Resolve code-freeze boundary; safe development workspace; API/data inventory | In progress: isolated research copy created; original-tree boundary still unresolved; API inventory pending |
+| T1.1 | CSV catalog, DuckDB ingestion, coverage and missing-history report | In progress: 93-file inventory and 1,573-stock catalog exported; full candle validation/ingestion acceptance pending |
+| T1.2 | Baseline reproduction and approved enhanced execution contract | In progress: original selftest and indicator parity pass; isolated fresh-cross default corrected; original historical execution baseline and final contract pending |
+| T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | New user requirement recorded 2026-09-11; implementation/tests pending |
+| T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | In progress: prior unrestricted two-stock smoke run reconciles; scanner-selected/full-universe reports pending |
 | T1.4 | Bounded filter/exit research and holdout comparison | Pending |
-| T2 | Broker-neutral scanner service and automatic live UI | Pending |
+| T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Existing Fyers snapshot and standalone top-50 report verified; shared strategy-selection contract brought forward for T1.2a; integrated live UI/broker-neutral extensions pending |
 | T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Pending |
 | T4 | Theme foundation and full route-by-route UI migration | Pending |
 | T5 | Flutter parity matrix, implementation and Android artifact | Pending |
@@ -220,6 +285,72 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 
 Resume by reading root `AGENTS.md`, this file, then `context.md` for prior implementation history and `docs/INDEX.md` for canonical references. Check current Git status in every target repo and applicable nested instructions before editing. Do not redo the planning pass or treat older task numbers as these tasks.
 
-Next concrete work: settle the original-tree boundary and T1 execution ambiguities when implementation is requested; meanwhile perform read-only CSV schema/coverage and account API capability inventory. Default to preserving original trees. Full all-stock coverage, exact backtest metrics, broker capability verification, installed runtime behavior, mobile builds and screenshot interaction tests are not yet performed.
+Next concrete work: use the isolated research copy below; reproduce the original strategy's historical execution baseline, implement T1.2a's shared ranking/snapshot contract and scanner eligibility gate, address the recorded data/execution/report gaps, and validate a bounded multi-stock comparison before scaling. Prior smoke outputs are unrestricted references, not scanner-selected results. Continue API capability inventory independently. The original-tree boundary question remains unanswered; preserve both original application trees. Full all-stock candle validation/reports, broker capability verification, mobile builds and screenshot interaction tests remain pending.
 
 At each milestone update this file with date, completed checklist rows, changed files, commands/results, data/run IDs, remaining decisions and next command. Keep credentials and account payloads out. Do not mark implementation complete merely because a plan or test scaffold exists.
+
+## Restart milestone — 2026-09-11
+
+The user requested resumption. Inspection found an existing untracked `backtesting/all_stock_ha/` implementation and outputs which were not recorded in the planning checklist. Treat these as inherited work, not as evidence that the six tasks were complete. Its original `smoke_v1` selects ATHERENERG/RELIANCE with research enabled, but has only partial ATHERENERG 1m outputs, zero `done.json` markers and a research DB status of `running`. This session did not overwrite those files or change that DB status.
+
+### Safe development location
+
+- New isolated **research copy**, not a Git checkout: `.development/six-task-research/`. It contains the research Python files and a frozen copy of `backtesting/stratagies/ha_bb_vwap_strategy_astra.py`; it does not contain application databases or credentials. Use the original backtesting virtual environment to run it.
+- The original code-freeze question was sent again during resumption; no answer was received at this milestone. The separate-copy fallback in this plan was used. No permission to edit original Indian/Crypto application code is inferred.
+- Original `data.py`, `engine.py`, `report.py`, and `run.py` still match all four hashes in the inherited smoke manifest. The original strategy copy matches its recorded hash. Original application code and both source databases were only read.
+- Sibling AlgoMirror, Crypto and mobile Git status were clean at inspection, using command-local `git -c safe.directory=<exact path> -C <path> status --short`; no persistent Git configuration changed. Existing `task.txt`, scanner-plan additions and untracked original research files were preserved.
+
+### Data evidence
+
+Artifacts: [audit summary](artifacts/2026-09-11-resume-audit/summary.json), [CSV inventory](artifacts/2026-09-11-resume-audit/csv_inventory.csv), [Historify catalog](artifacts/2026-09-11-resume-audit/historify_catalog.csv).
+
+- Inventoried 93 CSV files across stock lists, backtesting, data, `D:/Personal/CSVs` and the ATHERENERG Historify export. This includes seven generated research outputs. All 86 previously catalogued files still exist and match their stored SHA-256 hashes.
+- Existing research catalog: 85 imported files and one quarantined reference file. `D:/Personal/CSVs/broker_charges_comparison.csv` has extra fields at data row 119. Keep it quarantined; no source repair or tariff assumption was made.
+- Historify opened successfully in read-only mode without touching its lock file. `data_catalog` reports 1,573 NSE 1m instruments and 859,377,449 rows. Date spans are at least five years for 999 instruments and at least ten years for zero. These are **metadata date spans**, not proof of complete or valid history. Ten-year reports cannot be represented as complete from this source.
+- Only the two smoke stocks received row/session validation in this milestone: ATHERENERG 126,419 source rows, 336 retained full sessions, 2 excluded sessions; RELIANCE 851,008 source rows, 2,207 retained full sessions, 72 excluded sessions. Exclusions remain in each report's `sessions.csv`. This validation assumes normal 09:15–15:30 sessions; exchange-calendar verification is outstanding.
+
+### Isolated corrections and verification
+
+Changed only isolated `engine.py`, `run.py`, and `test_engine.py`: fresh-cross signal mode is now the default; continuation mode is a separate `rolling_continuation` experiment excluded from filter/exit selection; the manifest accurately names the selected signal policy. Added a fixture where two consecutive outside-band candles produce one fresh signal versus two continuation signals.
+
+Commands, from `D:/Personal/openalgo`:
+
+```powershell
+& backtesting/.venv/Scripts/python.exe -m pytest .development/six-task-research/backtesting/all_stock_ha/test_engine.py -q --confcutdir=.development/six-task-research/backtesting/all_stock_ha -o addopts= -p no:cacheprovider
+& backtesting/.venv/Scripts/python.exe .development/six-task-research/backtesting/stratagies/ha_bb_vwap_strategy_astra.py selftest
+& backtesting/.venv/Scripts/python.exe .development/six-task-research/backtesting/all_stock_ha/run.py run --historify D:/Personal/openalgo/db/historify.duckdb --symbols ATHERENERG RELIANCE --rollover fresh --out .development/six-task-research/backtesting/all_stock_ha/smoke_fresh_v1
+```
+
+Results: **11 pytest tests passed**; original strategy selftest passed (NumPy timedelta deprecation warning). Initial sandbox pytest access to its existing temporary directory was denied; the approved escalated rerun passed. Smoke run completed all four stock/timeframe results, with 42/12 ATHERENERG and 66/21 RELIANCE trades for 1m/5m respectively. No research sweep or live operation ran.
+
+Run ID: `1669d7de00814c6b777ad18eb0bc4380a62517a3dd738ba963c93245d1fcd3b8`.
+
+Report: `.development/six-task-research/backtesting/all_stock_ha/smoke_fresh_v1/index.html`. [Reconciliation evidence](artifacts/2026-09-11-resume-audit/smoke_verification.json) confirms trade counts, ledger P&L/costs, daily totals, six calendar-period groupings, per-trade notional <= INR 100,000 and both aggregate portfolio totals. Four completion markers exist. This is an enhanced-execution pipeline smoke test, **not** reproduction of the original confirmation/next-open historical strategy or a completed all-stock baseline.
+
+Resource audit scoped to this copy: DuckDB connections use context managers; CSV/file reads and NumPy archives use context managers/finally cleanup. The command completed and exited, releasing resources. No service, socket, thread or cache lifecycle was introduced by the correction. Full-universe memory/scaling behavior remains unverified; aggregation retains per-stock trade frames and a calendar-minute timeline and should be bounded before scaling.
+
+### Remaining gates before larger runs
+
+1. Reproduce the original historical execution baseline; preserve configurable original breakout source and exit modes in the enhanced model. Existing parity tests cover indicators/default long signals, not original historical P&L.
+2. Validate per-symbol ticks, calendar exceptions, adjustment/source policies, missing whole sessions and cross-file conflicts. Current strict session exclusion changes retained HA history and the set of prior volume sessions; determine/report the correct continuity policy.
+3. Replace the metadata-only run fingerprint with immutable candle-content versions for trustworthy resume after source changes. Existing catalog hashes and file size cannot detect every price correction.
+4. Review all entry/exit ambiguity cases: entry-bar stop/target ordering requires more than the current target-first sensitivity, and rejected entries need recorded reasons. Final execution choices remain those listed in T1.2.
+5. Current costs are illustrative 5 bps per side plus 5 bps slippage; itemized broker charges, real tick metadata, authentic benchmark coverage and a constrained-capital replay are absent. Do not present the smoke results as investment recommendations or verified net broker returns.
+6. Improve report missing/research-not-run states and bounded aggregation; complete baseline reporting before enabling research. Existing research selection needs short-history/empty-fold validation before any sweep.
+
+Resume with the isolated source and these artifacts; do not rerun or overwrite the inherited `smoke_v1` as if it were an approved baseline. Use a new output directory whenever inputs or code change.
+
+### Today's scanner request — 2026-09-11, 10:48 IST
+
+The user requested today's volume shockers and top gainers/losers. Ran the existing scanner with `uv run --no-sync python scripts/market_scanner.py --limit 50 --output tmp/market-scanner-2026-09-11.json`. The first quote batch returned HTTP 401 and the scanner stopped with `Fyers authentication failed. Log in again.` No current quotes were obtained (0/2,643); empty result lists mean authentication failure, not absence of market movers. User must renew the Fyers login in OpenAlgo before rerunning that command. The prior `tmp/market-scanner-today.json` snapshot is dated September 10 and must not be shown as September 11 data. No application code changed for this request.
+
+**Retry succeeded after the user requested “RETRY NOW”.** The same command ran from 11:18:56 to 11:36:24 IST on September 11. Scan ID `ab28f03978f848aa8caec970879b3b76`: 2,642 instruments scanned, 2,625 valid current-day quotes, 2,622 usable five-session baselines; 233 volume shockers (>1x RVOL), 736 gainers and 1,855 losers. Top 50 per list saved in `tmp/market-scanner-2026-09-11.json`. Partial coverage: 17 stale/invalid quotes, two insufficient histories and one unavailable history. No rate-limit retries; normal history pacing accounted for the approximately 17.5-minute first scan. Quotes refreshed after baseline loading. These are intraday snapshots, not closing results.
+
+Added standalone presentation/verification utilities in `.development/market-scanner-report/`, preserving original application code. `verify.py` independently checked all 150 ranked rows against current-day timestamps, sort order, previous-close percentage change and the read-only cached historical volume baselines. Evidence: `tmp/market-scanner-2026-09-11-verified.json`. `render.py` generated the searchable three-tab report at `tmp/market-scanner-2026-09-11/index.html` with separate price/volume percentages, RVOL, timestamps, coverage notes and three CSV downloads. This standalone snapshot report does not implement T2's integrated live UI, categories or sparklines. The utilities perform no broker calls; all file/SQLite handles close explicitly or via context managers. Python compilation and report structure/link checks passed.
+
+Re-render without a new broker scan:
+
+```powershell
+& .venv/Scripts/python.exe .development/market-scanner-report/verify.py tmp/market-scanner-2026-09-11.json
+& .venv/Scripts/python.exe .development/market-scanner-report/render.py tmp/market-scanner-2026-09-11.json tmp/market-scanner-2026-09-11/index.html
+```

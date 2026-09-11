@@ -1,0 +1,39 @@
+{
+  "as_of_utc": "2026-09-11T04:50:04.042333+00:00",
+  "source_mode": "read-only connections; metadata coverage only, not full candle validation",
+  "catalog_stocks": 1573,
+  "catalog_rows": 859377449,
+  "five_year_span": 999,
+  "ten_year_span": 0,
+  "csv_files": 93,
+  "csv_kinds": {
+    "reference_or_report": 42,
+    "synthetic_or_diagnostic": 12,
+    "ohlcv": 1,
+    "generated_research_output": 7,
+    "derived_ohlcv": 4,
+    "screener_snapshot": 10,
+    "daily_reference_without_volume": 6,
+    "universe": 11
+  },
+  "changed_previous_csvs": [],
+  "missing_previous_csvs": [],
+  "quarantined": [
+    {
+      "path": "D:\\Personal\\CSVs\\broker_charges_comparison.csv",
+      "sha256": "02b9e6ac81e38d28ac7f08a430073db41eb3aece32d60f64f3694e1f643489a7",
+      "kind": "reference_or_report",
+      "rows": 119,
+      "columns_json": "[\"broker\", \"segment\", \"charge type\", \"value\"]",
+      "status": "quarantined",
+      "error": "extra fields at row 119"
+    }
+  ],
+  "recorded_runs": [
+    [
+      "ee5f9b5fb1116b7c463eb2cd39fa9e790e7821cbad569f39ace301e0c534280c",
+      "running"
+    ]
+  ],
+  "completed_smoke_markers": 0
+}
