@@ -26,8 +26,8 @@ says so and links to `/apikey`.
 | Top bar | Symbol, interval, chart type, product, quantity, indicators, layout, sync, One-Click, replay, undo and redo, feed light, full screen, camera |
 | Left rail | Drawing tools in eight groups, magnet, keep-armed lock, undo, redo, delete |
 | Centre | One to eight chart panes in a grid |
-| Right panel | Watchlist, option chain, or the chart assistant |
-| Right rail | The three buttons that open those panels |
+| Right panel | Watchlist, option chain, Objects, or the chart assistant |
+| Right rail | The four controls that open those panels |
 | Bottom dock | Orders, positions, trades and GTT across every symbol |
 
 The chart grid takes whatever the rails and panels leave. Only the right panel
@@ -35,8 +35,12 @@ and the dock can be resized; the panes follow the layout preset you pick.
 
 ## Session Profiles
 
-Choose **Time Price Opportunity** or **Session Volume Profile** from the chart
-type menu. Right-click the chart and open **Chart settings...**. The existing
+**Time Price Opportunity** and **Session Volume Profile** are no longer offered
+in the chart type menu. The engine still supports both, so a saved layout that
+already selects one keeps drawing it, but there is currently no way to pick one
+from the UI. The rest of this section describes how they behave when selected.
+
+Right-click the chart and open **Chart settings...**. The existing
 **Price** tab changes to the selected profile's settings. Switching back to
 candles restores the candle controls. Each pane remembers both profile types'
 settings independently; **Reset to defaults** resets the active profile and
@@ -152,6 +156,27 @@ and, on text tools, an editor. Double-click a text drawing to reopen its editor.
 
 Drawings are saved per pane and survive a reload.
 
+## Objects Panel
+
+The text-labelled **Objects** control on the right rail opens an inventory for
+the active chart pane. Click anywhere in a pane, including its toolbar, to make
+that pane the panel's target. The panel lists the protected price source,
+indicator instances, drawings and an active session profile. Search filters the
+list by object name, kind or source id.
+
+Each row offers only actions that object supports. Indicators can be selected,
+shown or hidden, configured and removed. Drawings can also be locked and focused;
+focusing moves future or off-screen anchors into view. Drawing changes use the
+same undo history and per-pane save as edits on the canvas. Profile rows open the
+existing chart settings form. The primary price source can be configured but
+cannot be hidden, locked or removed.
+
+The panel follows selection and direct changes made on the canvas. Indicator
+visibility is remembered with its settings; older saved panes open their
+indicators as visible. Removing an external-data indicator also releases its
+data requests and empty indicator pane. Object actions do not place, modify or
+cancel orders, and replay keeps every existing order restriction in force.
+
 ## Keyboard Shortcuts
 
 Chart shortcuts fire while the pointer is over a pane, or while that pane has
@@ -222,6 +247,11 @@ choosing a start with the next twenty bars visible is choosing with hindsight.
 The transport gives you previous, play or pause, next, a scrub bar, a speed
 selector and exit. A watermark marks the chart as replayed and the trading
 panel comes off it.
+
+Live ticks and history refreshes continue in the background during replay.
+They do not reveal candles beyond the playhead or move its viewport, including
+when an older history page finishes loading. Exit replay to return to the
+updated live chart.
 
 **No order can leave the chart during replay.** Every order route on the page,
 including the dock's and the GTT tab's, refuses with the same message. Replay is

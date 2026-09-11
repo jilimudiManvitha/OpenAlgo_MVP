@@ -1,3 +1,4 @@
+historic data available only form 3rd july 2017 to 11th sep 2026. for stocks.
 Add news section for each stock.using dhan skills imran YT video.
 bot integration
 canles data is in correct.
@@ -14,13 +15,9 @@ run volume SHOCKERS and top gainers/loosers for only today
 perform backtest on them and plot each trade.
 output strategy not performing well update it. plot how it peform.
 stratagy not working well update it test on only one stock .
-
+try for crypto/nse while price really moving bollinger bands expands both bands.
 complete task 1.
 
-D:/Personal/openalgo/.development/market-scanner-report/runs/2026-09-11-1226/backtest-v4/index.html
-D:/Personal/openalgo/.development/market-scanner-report/runs/2026-09-11-1226/scanner/index.html
-
-download todays data
 update stratagy using claude if needed in 1 stock separetely in diff folder.
 try stratagy by updating exit rules set exit rule as 1:1 and 1:2 or SL.
 after one entry next trade executing change this.
