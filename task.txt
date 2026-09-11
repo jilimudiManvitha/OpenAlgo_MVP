@@ -14,3 +14,4 @@ run volume SHOCKERS and top gainers/loosers for this day
 perform backtest on them and plot each trade.
 
 complete task 1.
+task 2 update change in % stocks show live change in each stock.

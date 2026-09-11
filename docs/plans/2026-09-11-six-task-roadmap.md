@@ -1,16 +1,16 @@
 # Six-task implementation plan and agent handoff
 
-Updated: 2026-09-11, Asia/Kolkata. Status: Task 1 baseline validation in progress; data inventory and isolated two-stock smoke reports verified. Existing Fyers scanner snapshot verified; new Task 1 scanner-based trade selection recorded, implementation pending. See the current-stage summary and restart milestones below.
+Updated: 2026-09-11, Asia/Kolkata. Status: Task 1 baseline validation in progress. Isolated scanner-selected partial-day replay now completed for September 11 through 12:26 IST, with 48 individual trade charts. Full-history validation and production scanner integration remain pending. See the current-stage summary and latest milestone below.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
 ## Current stage — after the scanner-based strategy update
 
-We are at **Task 1 baseline validation**, before full-universe backtesting or optimization. Completed evidence: inventory of 93 CSVs and metadata for 1,573 NSE stocks; four provisional reports for ATHERENERG/RELIANCE at 1m/5m; 11 tests and report reconciliation passed. These reports predate the scanner-selection requirement and do not test it.
+We are at **Task 1 baseline validation**, before full-history backtesting or optimization. Completed evidence: inventory of 93 CSVs and metadata for 1,573 NSE stocks; four provisional unrestricted reports for ATHERENERG/RELIANCE at 1m/5m; and now a separate scanner-selected partial-day replay through September 11 12:26 IST. The latter reconstructs 191 minute-level snapshots, produces 48 trade charts, and has eight focused execution/gating tests plus ledger/data/browser verification. These remain research artifacts, not a deployed strategy.
 
 The existing Fyers scanner produced a verified September 11 intraday snapshot and standalone top-50 report. This is partial Task 2 progress: the integrated automatic live UI, broker-neutral support, category filters and sparklines remain pending. Tasks 3–6 have not started. The original-code boundary remains unresolved, so implementation continues in the isolated development copy.
 
-**Latest user change:** Task 1 should take trades only from Volume Shockers, Top Gainers or Top Losers. The new contract is in **T1.2a** below. Next implementation milestone: historical scanner rankings and entry eligibility, followed by a bounded replay and comparison against the preserved unrestricted reference. No scanner-based strategy run or live order has been performed for this change.
+**Latest user change:** Task 1 should take trades only from Volume Shockers, Top Gainers or Top Losers; the user then requested today's scanner, a backtest and a plot of each trade, and asked to resume the interrupted work. The contract is in **T1.2a** below. That bounded replay is complete for its frozen 12:26 IST cutoff; it does not include the afternoon or a full-history comparison. No live order has been placed. The next milestone is broader execution/data validation and comparison against the unrestricted reference before scaling.
 
 ## Scope and repository boundaries
 
@@ -120,7 +120,7 @@ For five-minute signals, replay available one-minute execution bars; for one-min
 
 ### T1.2a User update — scanner-based trade selection (2026-09-11)
 
-**Requested:** take/place strategy trades in stocks from Volume Shockers, Top Gainers or Top Losers. Status: requirement recorded; implementation and validation pending. This changes stock eligibility for the planned strategy, not the HA/BB/VWAP entry pattern. It does not authorize placing live orders during this planning update.
+**Requested:** take/place strategy trades in stocks from Volume Shockers, Top Gainers or Top Losers. Status: isolated minute-by-minute reconstruction and entry gating implemented and exercised on one partial day; broader acceptance and live integration remain pending. This changes stock eligibility for the planned strategy, not the HA/BB/VWAP entry pattern. It does not authorize placing live orders during research.
 
 **Working defaults for implementation:**
 
@@ -274,8 +274,8 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 | P0 | Resolve code-freeze boundary; safe development workspace; API/data inventory | In progress: isolated research copy created; original-tree boundary still unresolved; API inventory pending |
 | T1.1 | CSV catalog, DuckDB ingestion, coverage and missing-history report | In progress: 93-file inventory and 1,573-stock catalog exported; full candle validation/ingestion acceptance pending |
 | T1.2 | Baseline reproduction and approved enhanced execution contract | In progress: original selftest and indicator parity pass; isolated fresh-cross default corrected; original historical execution baseline and final contract pending |
-| T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | New user requirement recorded 2026-09-11; implementation/tests pending |
-| T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | In progress: prior unrestricted two-stock smoke run reconciles; scanner-selected/full-universe reports pending |
+| T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | In progress: isolated 191-minute reconstruction/gated replay verified; full acceptance, latency/coverage studies and live integration pending |
+| T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | In progress: September 11 through 12:26 replay with 48 trade charts reconciles; afternoon/full-history reports and unrestricted comparison pending |
 | T1.4 | Bounded filter/exit research and holdout comparison | Pending |
 | T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Existing Fyers snapshot and standalone top-50 report verified; shared strategy-selection contract brought forward for T1.2a; integrated live UI/broker-neutral extensions pending |
 | T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Pending |
@@ -285,7 +285,7 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 
 Resume by reading root `AGENTS.md`, this file, then `context.md` for prior implementation history and `docs/INDEX.md` for canonical references. Check current Git status in every target repo and applicable nested instructions before editing. Do not redo the planning pass or treat older task numbers as these tasks.
 
-Next concrete work: use the isolated research copy below; reproduce the original strategy's historical execution baseline, implement T1.2a's shared ranking/snapshot contract and scanner eligibility gate, address the recorded data/execution/report gaps, and validate a bounded multi-stock comparison before scaling. Prior smoke outputs are unrestricted references, not scanner-selected results. Continue API capability inventory independently. The original-tree boundary question remains unanswered; preserve both original application trees. Full all-stock candle validation/reports, broker capability verification, mobile builds and screenshot interaction tests remain pending.
+Next concrete work: use `.development/market-scanner-report/` for the partial-day scanner replay and the isolated original research copy for baseline comparison. Read the latest milestone and final report location below; do not restart the completed 2,642-instrument download. Reproduce the original historical execution baseline, add the unrestricted comparison on identical inputs, and address data/latency/ambiguity gaps before longer runs. A full-day extension requires a new cutoff and versioned inputs; the saved run ends at 12:26 IST. Continue API capability inventory independently. The original-tree boundary remains unresolved; preserve both original application trees. Full-history reports, broker capability verification, mobile builds and screenshot interaction tests remain pending.
 
 At each milestone update this file with date, completed checklist rows, changed files, commands/results, data/run IDs, remaining decisions and next command. Keep credentials and account payloads out. Do not mark implementation complete merely because a plan or test scaffold exists.
 
@@ -354,3 +354,54 @@ Re-render without a new broker scan:
 & .venv/Scripts/python.exe .development/market-scanner-report/verify.py tmp/market-scanner-2026-09-11.json
 & .venv/Scripts/python.exe .development/market-scanner-report/render.py tmp/market-scanner-2026-09-11.json tmp/market-scanner-2026-09-11/index.html
 ```
+
+## Latest milestone — today's scanner-selected backtest and every trade plot
+
+The user requested today's scanner, a backtest on its candidates, and each trade plotted, then requested resumption. The initial download completed while work was interrupted. Resumption reused the saved inputs and did not restart the completed download. No answer was received to the optional period question; the stated default, today's session so far, was retained with its original frozen cutoff.
+
+**Run directory:** `.development/market-scanner-report/runs/2026-09-11-1226/`.
+
+**Final backtest:** [backtest-v4/index.html](../../.development/market-scanner-report/runs/2026-09-11-1226/backtest-v4/index.html).
+**Current-list snapshot:** [scanner/index.html](../../.development/market-scanner-report/runs/2026-09-11-1226/scanner/index.html).
+Use `backtest-v4`; earlier `backtest`, `backtest-v2` and `backtest-v3` folders are superseded intermediate artifacts. Do not use the first version's chart count: a duplicate filename defect was corrected before final delivery. The final version has 48 unique trade IDs and 48 distinct chart pages, all verified.
+
+### Inputs and selection
+
+- Scanner `871316bcfe544ddbbb68bbf80072fe60` completed September 11 at 12:26:48 IST: 2,642 configured instruments, 2,628 valid quotes, 2,626 volume baselines, 319 volume shockers, 778 gainers, 1,812 losers; top 50 each, 127 unique current candidates. Fourteen stale/invalid quotes and two insufficient histories make coverage partial.
+- Fetched one-minute history for all 2,642 instruments with no request errors. The frozen execution window is **09:15–12:26 IST**, containing 191 completed minutes; no afternoon data enters this run. The first 127 current candidates received 50 calendar days of warmup; an additional 25 historical candidates were fetched after reconstruction. Inputs live under `inputs/today` and `inputs/warmup`; hashes are in `input_hashes.json` and the final report manifest.
+- Reconstructed the three top-50 lists at each completed minute using the same full configured universe, with price change against Fyers previous close and scanner RVOL against five prior daily volumes. No final midday list is applied backward to choose morning entries. Existing candidates retain indicator warmup even when outside a list.
+- **Partial historical coverage:** 2,078 instruments have usable continuous minute history through the cutoff. Missing bars are not fabricated; input problems/continuous-prefix exclusions are in `reconstructed_coverage.csv`. The reconstructed rankings are within this available coverage, not an assertion of exact full-exchange rankings. The broker's EQ universe can include ETFs, which remain explicitly disclosed.
+- 376 instruments entered at least one reconstructed list. Of these, 73 could also satisfy the preserved strategy volume gate (20 prior full daily sessions, RVOL >= 2); 72 were evaluated at 1m and 5m, while INFRA was excluded for insufficient warmup history. Others have explicit no-trade/coverage statuses. Trades occurred in 31 instruments. This avoids selecting history solely from the final 127-stock snapshot. `scanner_snapshots.csv`, `scanner_memberships.csv` and `rankings.npz` retain selection attribution.
+- A BSOFT candle revision was found when comparing the later warmup response with the original today download. `read_candles()` now always preserves the original today bars for both ranking and execution; later warmup contributes prior days only. All 25 overlapping downloads were checked against this rule. Original raw files remain available and hashed.
+
+### Results at the saved cutoff
+
+Each timeframe is an independent simulation with INR 100,000 notional per entry and concurrent stocks. Costs/slippage remain illustrative, as below. Open trades are marked at the last completed candle, with entry costs deducted; they are not forced into synthetic exits.
+
+| Timeframe | Trades | Closed / open | Closed net P&L | Open marked P&L after entry cost | Combined net / marked P&L |
+|---|---:|---|---:|---:|---:|
+| 1m | 43 | 29 / 14 | -14,667.52 | -3,591.46 | -18,258.98 |
+| 5m | 5 | 1 / 4 | -1,563.05 | +1,628.82 | +65.77 |
+
+The report contains every trade's real 1m candlestick chart, a separate signal-timeframe HA/BB/VWAP panel, signal marker, entry, exit or open mark, SL/TP levels, quantity, source-list ranks and costs. It includes searchable trade links, per-stock no-trade reasons, rejected signals, CSV ledgers, portfolio timelines and a price-only NIFTY reference (+0.2879% over this window). Return denominators and capital requirements are stated; Sharpe is N/A for a single partial day. Reference capital is INR 100,000 per ever-selected instrument (INR 37.6 million), not an assertion that a single lakh funded every concurrent position.
+
+### Verification and limitations
+
+- Eight focused tests passed in `test_intraday.py`: full-universe top-50/overlap behavior, previous-close math, missing-minute exclusion, signal/entry gating, continued position management after removal, open marks, ambiguity/ledger reconciliation, future-price independence of earlier entries, signal-driven direction and 5m entry rechecking.
+- `verify_backtest.py` passed all 48 trade rows: causal times, signal/entry rank attribution, 20-session volume threshold, lot/quantity/notional constraints, closed/open cutoff behavior, fees/P&L reconciliation, local chart links, all source hashes and original-today precedence for the 25 overlaps. Evidence: final `verification.json`.
+- Playwright with installed Chrome rendered all 48 chart pages, verified trade markers/search and recorded no page errors. Evidence: `browser-verification.json`, `overview.png`, `example-trade.png`. The initial missing bundled Playwright browser was resolved using installed Chrome; no browser download was needed. Visual inspection led to clearer spacing/time labels between chart panels.
+- Resource audit: SQLite connections close in `finally`, gzip/files and NumPy archives use context managers, provider calls use the existing limiter, and the headless browser closes in `finally`. No app-level worker/cache/socket lifecycle was introduced. Original application trees were unchanged. No live orders were placed.
+- Still provisional: zero modeled processing delay at historical minute close, incomplete universe/history coverage, current master metadata, 50-day HA initialization rather than full-history identity, unverified corporate-action adjustments, and 5 bps fees per side plus 5 bps slippage. Three 1m trades have ambiguous OHLC ordering and use stop-first treatment. A richer ordering sensitivity analysis and itemized broker charges remain pending. Existing daily-session volume cache is used explicitly; complete source/calendar validation is outstanding.
+- This run demonstrates isolated selection/execution/report plumbing on a partial day. It does not complete all T1.2a acceptance tests, establish full-history performance, implement T2's continuous live service, or authorize strategy deployment.
+
+### Reproduction and next command
+
+From repository root; all commands use existing inputs unless a new fetch is explicitly chosen:
+
+```powershell
+& backtesting/.venv/Scripts/python.exe -m pytest .development/market-scanner-report/test_intraday.py -q --confcutdir=.development/market-scanner-report -o addopts= -p no:cacheprovider
+& backtesting/.venv/Scripts/python.exe .development/market-scanner-report/verify_backtest.py .development/market-scanner-report/runs/2026-09-11-1226/backtest-v4
+node .development/market-scanner-report/verify_browser.cjs .development/market-scanner-report/runs/2026-09-11-1226/backtest-v4
+```
+
+The pipeline is `fetch_backtest.py` -> `reconstruct.py` -> additional warmup fetch listed in `warmup_needed.json` -> `backtest_today.py` -> verification. `backtest_today.py` refuses a completed output directory; use a new `--report-name` after any code/input change. Its code is confined to `.development/market-scanner-report/`, with the preserved indicator implementation imported from the isolated `six-task-research` copy. Next work is an unrestricted comparison on the same frozen data and outstanding execution/data tests, or a separately versioned full-day extension if requested. Never silently relabel this 12:26 report as closing-day results.

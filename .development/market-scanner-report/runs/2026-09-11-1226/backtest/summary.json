@@ -1,0 +1,40 @@
+{
+  "1m": {
+    "trades": 43,
+    "closed": 29,
+    "open": 14,
+    "closed_net_pnl": -14667.519410000028,
+    "open_marked_pnl_after_entry_cost": -3591.457189999983,
+    "net_pnl": -18258.976600000005,
+    "costs_paid": 3592.7366,
+    "win_rate_closed_percent": 13.793103448275861,
+    "max_close_marked_drawdown_inr": 22705.571890000003,
+    "peak_notional_bound": 1497554.8800000001,
+    "peak_concurrent_positions_bound": 15,
+    "funding_bound": 1515813.8566,
+    "reference_capital": 37600000,
+    "return_on_reference_percent": -0.048561107978723414,
+    "nifty_price_return_percent": 0.28792065422449387,
+    "sharpe": null,
+    "ambiguous_trades": 3
+  },
+  "5m": {
+    "trades": 5,
+    "closed": 1,
+    "open": 4,
+    "closed_net_pnl": -1563.0456400000128,
+    "open_marked_pnl_after_entry_cost": 1628.8179900000036,
+    "net_pnl": 65.77234999999087,
+    "costs_paid": 299.20765000000006,
+    "win_rate_closed_percent": 0.0,
+    "max_close_marked_drawdown_inr": 2729.9999999999804,
+    "peak_notional_bound": 499901.56000000006,
+    "peak_concurrent_positions_bound": 5,
+    "funding_bound": 501026.81078000006,
+    "reference_capital": 37600000,
+    "return_on_reference_percent": 0.00017492646276593316,
+    "nifty_price_return_percent": 0.28792065422449387,
+    "sharpe": null,
+    "ambiguous_trades": 0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "snapshots": 191,
+  "cutoff": 1789109760,
+  "universe": 2642,
+  "ever_selected": 376,
+  "can_pass_strategy_volume": 73,
+  "additional_warmup_needed": 25,
+  "full_prefix_symbols": 2078,
+  "first_snapshot_valid": 2078,
+  "last_snapshot_valid": 2078,
+  "selection_note": "Rankings are reconstructed within available continuous-price coverage. Stocks are excluded after the first missing minute; zero-volume bars are not invented. Current Fyers EQ universe includes possible ETFs.",
+  "latency_note": "Completed bars become available at close with zero modeled processing latency; one-minute bar execution is approximate."
+}

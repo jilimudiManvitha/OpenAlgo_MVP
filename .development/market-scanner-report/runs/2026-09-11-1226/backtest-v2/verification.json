@@ -1,0 +1,15 @@
+{
+  "trades_checked": 48,
+  "unique_trade_charts": 48,
+  "checks": [
+    "signal/entry scanner membership",
+    "causal signal time and next-bar expiry",
+    "20-session RVOL gate",
+    "quantity/lot/notional constraints",
+    "cutoff/open-mark integrity",
+    "cost/P&L reconciliation",
+    "all local HTML/Plotly links",
+    "all input content hashes"
+  ],
+  "status": "passed"
+}

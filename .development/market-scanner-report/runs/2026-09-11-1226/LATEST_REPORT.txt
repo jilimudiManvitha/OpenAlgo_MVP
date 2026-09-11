@@ -1,0 +1,5 @@
+Final reviewed output: backtest-v4/index.html
+Scanner snapshot: scanner/index.html
+Trading data cutoff: 2026-09-11 12:26 IST; partial day.
+Earlier backtest, backtest-v2 and backtest-v3 folders are superseded intermediate artifacts.
+Input data and model limitations are documented in backtest-v4/manifest.json and the canonical six-task roadmap.
