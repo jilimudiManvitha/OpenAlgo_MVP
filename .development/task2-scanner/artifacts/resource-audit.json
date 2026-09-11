@@ -1,0 +1,8 @@
+{
+  "iterations": 500,
+  "handles_before": 192,
+  "handles_after": 192,
+  "handle_growth": 0,
+  "account_rows": 1,
+  "static_review": "SQL connections close in context managers; auth/symbol/calendar sessions removed in finally; proxy disconnect in finally; 16 accounts, 5000 symbols, 120 points per symbol; browser timers and requests cancelled on unmount."
+}

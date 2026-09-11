@@ -1,0 +1,5 @@
+{
+  "name": "task2-scanner-verification-dependencies",
+  "private": true,
+  "dependencies": {"openalgo-charts": "2.1.7"}
+}

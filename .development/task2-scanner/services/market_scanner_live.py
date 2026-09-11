@@ -160,14 +160,21 @@ class LiveStore:
         with self.engine.begin() as c:
             c.execute(text("DELETE FROM scanner_live_lease WHERE owner=:o"), {"o": owner})
 
-    def publish(self, account, snapshot, due=None):
+    def publish(self, account, snapshot, due=None, owner=None):
         with self.engine.begin() as c:
             c.execute(
                 text(
                     "UPDATE scanner_live_accounts SET snapshot=:s, due=COALESCE(:d,due) "
-                    "WHERE account=:a"
+                    "WHERE account=:a AND (:o IS NULL OR EXISTS "
+                    "(SELECT 1 FROM scanner_live_lease WHERE id=1 AND owner=:o AND expires>:n))"
                 ),
-                {"a": account, "s": json.dumps(snapshot, allow_nan=False), "d": due},
+                {
+                    "a": account,
+                    "s": json.dumps(snapshot, allow_nan=False),
+                    "d": due,
+                    "o": owner,
+                    "n": time.time(),
+                },
             )
 
     def categories(self, imported=None):
@@ -193,6 +200,18 @@ def view_snapshot(snapshot, options, categories, category="all", now=None):
     stale = result.get("session_date") != now.date().isoformat()
     if stale:
         rows = []
+    if options.get("symbols") is not None:
+        selected = set(options["symbols"])
+        rows = [row for row in rows if row["symbol"] in selected]
+    previous_options = result.get("options", {})
+    if previous_options.get("lookback_days", options["lookback_days"]) != options["lookback_days"]:
+        for row in rows:
+            row.update(
+                rvol=None,
+                average_volume=None,
+                baseline_dates=[],
+                baseline_status="baseline_refresh_pending",
+            )
     if category != "all":
         if category not in categories:
             raise ScannerError("Unknown or unavailable index category.")
@@ -210,7 +229,7 @@ def view_snapshot(snapshot, options, categories, category="all", now=None):
         filtered_quotes=len(rows),
         market_open=market_open(now),
         server_time=now.isoformat(),
-        transport="batched_polling",
+        transport=result.get("transport", "batched_polling"),
         refresh_seconds=60,
         membership=categories.get(category),
     )
@@ -236,6 +255,8 @@ class PublishingManager(ScannerManager):
         self.store, self.account, self.owner, self.series = store, account, owner, series
         self.last_publish = 0
         self.last_auth_check = 0
+        self.feed = None
+        self.observation_lock = Lock()
 
     def _check_stop(self, job):
         super()._check_stop(job)
@@ -249,14 +270,17 @@ class PublishingManager(ScannerManager):
 
     def _update(self, job, **values):
         if "rows" in values:
-            for row in values["rows"]:
-                key = (job["session_date"], row["symbol"])
-                points = self.series.setdefault(key, deque(maxlen=120))
-                stamp = row["last_trade_at"]
-                if not points or stamp > points[-1][0]:
-                    points.append([stamp, row["ltp"]])
-                row["sparkline"] = list(points)
-                row["sparkline_basis"] = "since connected"
+            if self.feed:
+                values["rows"] = self.feed.merge(values["rows"], self.clock())
+            with self.observation_lock:
+                for row in values["rows"]:
+                    key = (job["session_date"], row["symbol"])
+                    points = self.series.setdefault(key, deque(maxlen=120))
+                    stamp = row["last_trade_at"]
+                    if not points or stamp > points[-1][0]:
+                        points.append([stamp, row["ltp"]])
+                    row["sparkline"] = list(points)
+                    row["sparkline_basis"] = "since connected"
         super()._update(job, **values)
         if self.store.owns(self.owner) and (
             time.monotonic() - self.last_publish >= 2 or values.get("state")
@@ -265,7 +289,9 @@ class PublishingManager(ScannerManager):
             with self.lock:
                 result = self._snapshot(job)
                 result["rows"] = list(job["rows"])
-            self.store.publish(self.account, result)
+            if self.feed:
+                result.update(transport=self.feed.status, streaming_symbols=self.feed.subscribed)
+            self.store.publish(self.account, result, owner=self.owner)
 
 
 class LiveCoordinator:
@@ -275,6 +301,7 @@ class LiveCoordinator:
         self.stop_event = Event()
         self.managers = {}
         self.series = {}
+        self.feeds = {}
         self.thread = None
 
     def start(self):
@@ -297,12 +324,23 @@ class LiveCoordinator:
                 result["rows"] = job["rows"]
                 result["closed_snapshot"] = not market_open(now) and job["state"] == "completed"
                 delay = 120 if job["state"] == "failed" else 60
-                self.store.publish(key, result, time.time() + delay)
+                self.store.publish(key, result, time.time() + delay, owner=self.owner)
             if manager._cache is not None:
                 manager._cache.engine.dispose()
             del self.managers[key]
         for account in self.store.accounts():
             key = account["account"]
+            feed = self.feeds.get(key)
+            if (not account["enabled"] or not market_open(now)) and feed:
+                feed.close()
+                del self.feeds[key]
+                feed = None
+            if account["enabled"] and market_open(now) and feed is None:
+                from services.market_scanner_feed import ScannerFeed
+
+                feed = ScannerFeed(account["user"], account["broker"], self.store, self.owner)
+                self.feeds[key] = feed
+                feed.start()
             existing = self.managers.get(key)
             if existing and existing.active:
                 if (
@@ -310,7 +348,33 @@ class LiveCoordinator:
                     or json.loads(account["options"]) != existing.jobs[account["user"]]["options"]
                 ):
                     existing.cancel(account["user"])
+                elif feed:
+                    with existing.lock:
+                        rows = list(existing.jobs[account["user"]]["rows"])
+                    updated = feed.merge(rows, now)
+                    if any(a is not b for a, b in zip(rows, updated, strict=False)):
+                        existing._update(existing.jobs[account["user"]], rows=updated)
                 continue
+            if account["enabled"] and feed and account["snapshot"]:
+                saved = json.loads(account["snapshot"])
+                if saved.get("session_date") == now.date().isoformat():
+                    updated = feed.merge(saved.get("rows", []), now)
+                    if updated != saved.get("rows", []):
+                        for row in updated:
+                            series_key = (saved["session_date"], row["symbol"])
+                            points = self.series.setdefault(key, {}).setdefault(
+                                series_key, deque(row.get("sparkline", []), maxlen=120)
+                            )
+                            if not points or row["last_trade_at"] > points[-1][0]:
+                                points.append([row["last_trade_at"], row["ltp"]])
+                            row["sparkline"] = list(points)
+                        saved.update(
+                            rows=updated,
+                            updated_at=now.isoformat(),
+                            transport=feed.status,
+                            streaming_symbols=feed.subscribed,
+                        )
+                        self.store.publish(key, saved, owner=self.owner)
             if not account["enabled"] or account["due"] > time.time():
                 continue
             old = json.loads(account["snapshot"]) if account["snapshot"] else {}
@@ -319,6 +383,7 @@ class LiveCoordinator:
                 not market_open(now)
                 and old.get("session_date") == now.date().isoformat()
                 and old.get("closed_snapshot")
+                and old.get("options") == json.loads(account["options"])
             ):
                 continue
             try:
@@ -336,11 +401,12 @@ class LiveCoordinator:
                     universe_loader=lambda b=account["broker"]: universe_for(b),
                 )
                 manager.broker = account["broker"]
+                manager.feed = feed
                 self.managers[key] = manager
                 manager.start(account["user"], json.loads(account["options"]))
             except ScannerError as exc:
                 old.update(error=str(exc), state="failed", stale=True)
-                self.store.publish(key, old, time.time() + 120)
+                self.store.publish(key, old, time.time() + 120, owner=self.owner)
 
     def _loop(self):
         from utils.logging import get_logger
@@ -353,6 +419,9 @@ class LiveCoordinator:
             self.stop_event.wait(5)
 
     def _cancel_all(self):
+        for feed in self.feeds.values():
+            feed.close()
+        self.feeds.clear()
         for manager in self.managers.values():
             if manager.active:
                 manager.cancel(manager.active)

@@ -1,10 +1,22 @@
 # Six-task implementation plan and agent handoff
 
-Updated: 2026-09-11, Asia/Kolkata. Status: Task 1 baseline validation in progress. Isolated scanner-selected partial-day replay now completed for September 11 through 12:26 IST, with 48 individual trade charts. Full-history validation and production scanner integration remain pending. See the current-stage summary and latest milestone below.
+Updated: 2026-09-11, Asia/Kolkata. Status: Task 2 brought forward; isolated live scanner implemented and verified, original-app integration awaiting edit-boundary clarification. Task 1 retains its completed partial-day replay and pending full-history request. See the latest Task 2 milestone below.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
 ## Latest restart checkpoint — Task 2 prototype and repository synchronization
+
+### Latest verified Task 2 milestone (after synchronization)
+
+The requested repository synchronization completed: `8ccc15f92` was pushed to `origin/main`, preserving the user's upstream merge and GitHub's generated frontend build. The current Task 2 follow-up is now prepared for another checkpoint push.
+
+The isolated scanner was rebased onto the upstream changes without overwriting original application source. Added an account-owned Quote connection to the existing shared broker WebSocket proxy (500-symbol default cap with full-universe polling fallback), timestamp/volume validation, fenced snapshot publication, completion/cooldown and changed-settings fixes, N/A volume degradation, persisted numeric filters, keyboard-accessible tabs, and application-start orchestration. Category filtering happens before top-50 selection. Every displayed row shows daily change from previous close and a separate volume-change percentage.
+
+Verification now supersedes the prototype limitations below: **68 backend tests passed; eight actual Chrome browser checks passed with zero page errors; full isolated TypeScript checking and Vite build passed; Python lint and scanner-page Biome checks passed.** The dependency failure was the original installation's `openalgo-charts` 2.0.2 versus the updated source requirement 2.1.7. Installed 2.1.7 only in the isolated environment; original dependencies and original application source were preserved. Real read-only Fyers quotes and five-session baselines passed for RELIANCE/SBIN/ATHERENERG on September 11 after market close. A 500-cycle SQLite audit stayed at 192 handles before/after. The native Zerodha response contract passed offline tests; other broker/account-live verification and market-hours streaming/reload stress testing remain pending.
+
+Review/restart: [.development/task2-scanner/README.md](../../.development/task2-scanner/README.md), [integration patch](../../.development/task2-scanner/artifacts/integration.patch), and [integration source hashes](../../.development/task2-scanner/artifacts/integration-manifest.json). Desktop/mobile fixture screenshots, browser results, live three-stock probe and resource audit are in the same artifacts directory. **Do not mark Task 2 fully complete or deployed:** the required original-code boundary clarification is still unanswered. Integration must apply only the eleven scanner files in the manifest to current sources and use the repository's required dependency version; do not replace the whole application with the development copy. No live orders were placed.
+
+The notes below describe the earlier prototype checkpoint and remain as history.
 
 The user brought Task 2 forward: show live daily percentage changes for every displayed stock and complete the scanner. On the next restart the user requested review of intervening code changes and pushing all current changes to `Narasimha722/openalo_indian_markets_mvp` before continuing Task 2.
 
@@ -295,7 +307,7 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 | T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | In progress: isolated 191-minute reconstruction/gated replay verified; full acceptance, latency/coverage studies and live integration pending |
 | T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | In progress: September 11 through 12:26 replay with 48 trade charts reconciles; afternoon/full-history reports and unrestricted comparison pending |
 | T1.4 | Bounded filter/exit research and holdout comparison | Pending |
-| T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Existing Fyers snapshot and standalone top-50 report verified; shared strategy-selection contract brought forward for T1.2a; integrated live UI/broker-neutral extensions pending |
+| T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Isolated implementation and integration patch ready: 68 backend tests, 8 browser checks, full typecheck/build and real 3-stock Fyers check passed. Original-app integration awaits edit-boundary clarification; live-market/multi-worker and broader broker runtime checks remain pending |
 | T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Pending |
 | T4 | Theme foundation and full route-by-route UI migration | Pending |
 | T5 | Flutter parity matrix, implementation and Android artifact | Pending |

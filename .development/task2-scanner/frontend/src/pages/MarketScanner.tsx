@@ -42,6 +42,8 @@ type Snapshot = Record<Tab, Row[]> & {
   baseline_total?: number
   filtered_quotes: number
   timestamp_support: string
+  transport?: string
+  streaming_symbols?: number
   membership?: Category
 }
 
@@ -52,7 +54,7 @@ const names: Record<Tab, string> = {
 }
 const number = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 })
 const time = (v?: string) =>
-  v ? new Date(v).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST' : 'Waiting'
+  v ? `${new Date(v).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })} IST` : 'Waiting'
 export const percent = (value: number | null) =>
   value == null || !Number.isFinite(value) ? 'N/A' : `${value > 0 ? '+' : ''}${value.toFixed(2)}%`
 const tone = (value: number) =>
@@ -114,7 +116,9 @@ export default function MarketScanner() {
   const [search, setSearch] = useState('')
   const [minRvol, setMinRvol] = useState('1')
   const [minPrice, setMinPrice] = useState('0')
+  const [maxPrice, setMaxPrice] = useState('1000000000')
   const [minVolume, setMinVolume] = useState('0')
+  const [loadedFor, setLoadedFor] = useState('')
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -122,12 +126,31 @@ export default function MarketScanner() {
   const [clock, setClock] = useState(Date.now())
   useEffect(() => {
     try {
-      setCategory(localStorage.getItem(preferenceKey) || 'all')
+      const saved = localStorage.getItem(preferenceKey)
+      const preferences = saved?.startsWith('{') ? JSON.parse(saved) : { category: saved || 'all' }
+      setCategory(preferences.category || 'all')
+      setMinRvol(preferences.minRvol ?? '1')
+      setMinPrice(preferences.minPrice ?? '0')
+      setMaxPrice(preferences.maxPrice ?? '1000000000')
+      setMinVolume(preferences.minVolume ?? '0')
     } catch {
       setCategory('all')
     }
+    setLoadedFor(preferenceKey)
     setSnapshot(null)
   }, [preferenceKey])
+  useEffect(() => {
+    if (loadedFor !== preferenceKey) return
+    try {
+      localStorage.setItem(
+        preferenceKey,
+        JSON.stringify({ category, minRvol, minPrice, maxPrice, minVolume })
+      )
+    } catch {
+      /* optional browser storage */
+    }
+  }, [loadedFor, preferenceKey, category, minRvol, minPrice, maxPrice, minVolume])
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Account changes and explicit controls must abort/restart polling.
   useEffect(() => {
     let stopped = false
     let timer: ReturnType<typeof setTimeout>
@@ -139,6 +162,7 @@ export default function MarketScanner() {
           limit: 50,
           min_rvol: Number(minRvol) || 0,
           min_price: Number(minPrice) || 0,
+          max_price: Number(maxPrice),
           min_volume: Number(minVolume) || 0,
         }
         const response = await webClient.get('/market-scanner/api/live', {
@@ -162,7 +186,7 @@ export default function MarketScanner() {
       clearTimeout(timer)
       controller.abort()
     }
-  }, [category, minRvol, minPrice, minVolume, revision, preferenceKey])
+  }, [category, minRvol, minPrice, maxPrice, minVolume, revision, preferenceKey])
   useEffect(() => {
     const id = setInterval(() => setClock(Date.now()), 5000)
     return () => clearInterval(id)
@@ -192,7 +216,9 @@ export default function MarketScanner() {
           ? 'Market closed · latest available snapshot'
           : snapshot.stale || old
             ? 'Waiting for fresh quotes'
-            : 'Auto refresh · 60s scan cycle'
+            : snapshot.transport === 'shared_websocket_and_polling'
+              ? `Live quotes · ${snapshot.streaming_symbols ?? 0} streaming · polling covers remaining stocks`
+              : 'Auto refresh · 60s scan cycle'
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -208,7 +234,11 @@ export default function MarketScanner() {
           {snapshot?.enabled ? 'Pause auto refresh' : 'Resume auto refresh'}
         </Button>
       </div>
-      <div role="status" className="rounded-lg border bg-card p-4 text-sm">
+      <section
+        aria-label="Scanner status"
+        aria-live="polite"
+        className="rounded-lg border bg-card p-4 text-sm"
+      >
         <p className="font-medium">{status}</p>
         <p className="text-muted-foreground">
           Updated {time(snapshot?.updated_at)} · Broker: {snapshot?.broker || user?.broker} ·{' '}
@@ -233,7 +263,7 @@ export default function MarketScanner() {
             excluded.
           </p>
         )}
-      </div>
+      </section>
       {(error || snapshot?.error) && (
         <p role="alert" className="rounded-lg border border-destructive p-3 text-destructive">
           {snapshot?.error || error}
@@ -243,15 +273,11 @@ export default function MarketScanner() {
         <label className="grid gap-1 text-sm">
           Category
           <select
+            aria-label="Category"
             className="h-10 rounded-md border bg-background px-3"
             value={category}
             onChange={(e) => {
               setCategory(e.target.value)
-              try {
-                localStorage.setItem(preferenceKey, e.target.value)
-              } catch {
-                /* storage optional */
-              }
             }}
           >
             <option value="all">All stocks</option>
@@ -280,6 +306,7 @@ export default function MarketScanner() {
         {[
           ['Minimum RVOL', minRvol, setMinRvol],
           ['Minimum price', minPrice, setMinPrice],
+          ['Maximum price', maxPrice, setMaxPrice],
           ['Minimum volume', minVolume, setMinVolume],
         ].map(([label, value, set]) => (
           <label className="grid gap-1 text-sm" key={label as string}>
@@ -313,11 +340,30 @@ export default function MarketScanner() {
           </button>
         </p>
       )}
-      <div role="tablist" aria-label="Scanner rankings" className="flex flex-wrap gap-2">
+      <div
+        role="tablist"
+        aria-label="Scanner rankings"
+        className="flex flex-wrap gap-2"
+        onKeyDown={(e) => {
+          const keys = Object.keys(names) as Tab[]
+          let index = keys.indexOf(tab)
+          if (e.key === 'ArrowRight') index = (index + 1) % keys.length
+          else if (e.key === 'ArrowLeft') index = (index + keys.length - 1) % keys.length
+          else if (e.key === 'Home') index = 0
+          else if (e.key === 'End') index = keys.length - 1
+          else return
+          e.preventDefault()
+          setTab(keys[index])
+          document.getElementById(`scanner-tab-${keys[index]}`)?.focus()
+        }}
+      >
         {(Object.keys(names) as Tab[]).map((t) => (
           <Button
             key={t}
             role="tab"
+            id={`scanner-tab-${t}`}
+            aria-controls="scanner-results"
+            tabIndex={tab === t ? 0 : -1}
             aria-selected={tab === t}
             variant={tab === t ? 'default' : 'outline'}
             onClick={() => setTab(t)}
@@ -339,7 +385,12 @@ export default function MarketScanner() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="overflow-auto rounded-lg border" role="tabpanel" aria-label={names[tab]}>
+      <div
+        id="scanner-results"
+        className="overflow-auto rounded-lg border"
+        role="tabpanel"
+        aria-labelledby={`scanner-tab-${tab}`}
+      >
         <table className="w-full text-sm tabular-nums">
           <thead className="bg-muted text-left">
             <tr>

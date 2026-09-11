@@ -327,6 +327,8 @@ def create_app():
     app.register_blueprint(admin_bp)  # Register Admin blueprint
     app.register_blueprint(historify_bp)  # Register Historify blueprint
     app.register_blueprint(market_scanner_bp)
+    from services.market_scanner_live import coordinator
+    coordinator()  # Lease election prevents duplicate workers across reloads.
     app.register_blueprint(ivchart_bp)  # Register IV chart blueprint
     app.register_blueprint(scalping_bp)  # Register Scalping terminal blueprint
     app.register_blueprint(watchlist_bp)  # Register charting watchlist blueprint
@@ -1251,5 +1253,15 @@ if __name__ == "__main__":
             ),
             flush=True,
         )
+
+    # Ctrl+C must stop the health collector and release this thread's sessions
+    # before the interpreter goes, or the instance keeps writing to health.db
+    # and the next start contends with a live writer rather than a stale lock
+    # (issue #2031). Only in the process that actually serves: the reloader
+    # parent has no collector to stop, and under gunicorn this block never runs.
+    if not debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        from utils.shutdown import install_signal_handlers
+
+        install_signal_handlers()
 
     socketio.run(app, host=host_ip, port=port, debug=debug, reloader_options=reloader_options)

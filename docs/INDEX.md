@@ -13,7 +13,7 @@ need → drill into the specific file. Don't load everything at once.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Resumed: data inventory, scanner snapshots and an isolated partial-day scanner-selected replay with 48 trade charts are complete; full-history validation and application implementation remain in progress.
+mobile parity and sandbox investment portfolios. Resumed: Task 2 now has an isolated live scanner with price/volume percentages, index filters, sparklines and verified tests/build. Original-app integration awaits boundary clarification. Task 1 retains its 48-chart partial-day replay; full-history validation remains pending.
 
 | Read this when you need… | Entry point |
 |---|---|

@@ -1,0 +1,57 @@
+[
+  {
+    "path": "app.py",
+    "original_sha256": "176d79dade894e24053ca70165248f58771ae3809c746698fc09a56fcbc7647c",
+    "candidate_sha256": "29b6275e95a7f8a7e501d9a492460977e9cbf9a3d4bd8fb6d7dabdfdbb5a23a9"
+  },
+  {
+    "path": "blueprints/market_scanner.py",
+    "original_sha256": "1a5f108202149d8b1e3c98f03e90f354c0e1d34230ffeac2c58e16a530789352",
+    "candidate_sha256": "d781434a5b737280fd33196c4ab78189ce39dea0c9a2098400b119bba7ba7c37"
+  },
+  {
+    "path": "blueprints/react_app.py",
+    "original_sha256": "14220c5ebac1bb635bdd066fa273e74dc8160db8babd5a7a70243f0ebc02f084",
+    "candidate_sha256": "88154a5beda2a4442fb55249a753982a7dfa0dafc184e54b5f69dc81785642be"
+  },
+  {
+    "path": "services/market_scanner_service.py",
+    "original_sha256": "0800484759e6cb5c2505ab2af184449f7098f0f8149e9149d6945275c845a89e",
+    "candidate_sha256": "6a45d1610676b18c85ec21723341bbfec864beb464a5e649d5ae94b7c397ea7c"
+  },
+  {
+    "path": "services/market_scanner_provider.py",
+    "original_sha256": "eae36679c66536caacccb22176edbaa76ebc488e0e524c5b33031af803c4c71c",
+    "candidate_sha256": "06727590afea17fef4bbf1a49e2c3ab2d0aeda2b66096bee3cbec8e240c93a0d"
+  },
+  {
+    "path": "services/market_scanner_live.py",
+    "original_sha256": null,
+    "candidate_sha256": "6106436aaf07b2401a64c34453446535b567970ee4a12c996e98dc6892a83c5a"
+  },
+  {
+    "path": "services/market_scanner_feed.py",
+    "original_sha256": null,
+    "candidate_sha256": "d0472f995442c0e2a88317aa9ea51e1ca033503416193a7d7f1ea3ea75ea0725"
+  },
+  {
+    "path": "frontend/src/App.tsx",
+    "original_sha256": "97e7e1d25b4a8b22a61cbd1ba128e7dcb05968170e1c588c1dffae6ce0a543cf",
+    "candidate_sha256": "2523a915a798568efd98d655578185fceedd00b4e021719002ef2c4ef4484ebd"
+  },
+  {
+    "path": "frontend/src/config/navigation.ts",
+    "original_sha256": "5a0364bc4a69051aefb3fffd74dd9f1f8c33fdb299534dbd9fb5b3f5e499357a",
+    "candidate_sha256": "6f05ba0d4d832bf9bee559be64e475660f00fa5b6bf24731e326c467370e6ed7"
+  },
+  {
+    "path": "frontend/src/pages/MarketScanner.tsx",
+    "original_sha256": null,
+    "candidate_sha256": "25995420d06134fb70437cef9502e7398c0fbc7151c405e6380779844b7d154b"
+  },
+  {
+    "path": "frontend/vite.config.ts",
+    "original_sha256": "b8ed2c39a2f820afe460b457f6a5e746b3d904e16190f89ff23108b239370732",
+    "candidate_sha256": "773aa86532015388edaf1804245a2080f7522858384be07ca1ec05a6fb46e49b"
+  }
+]
