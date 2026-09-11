@@ -2,9 +2,11 @@
 import gzip
 import json
 import subprocess
+import sys
 from pathlib import Path
 
-paths = subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines()
+command = ['git', 'ls-files', 'frontend/dist'] if '--all' in sys.argv else ['git', 'diff', '--name-only']
+paths = subprocess.check_output(command, text=True).splitlines()
 checked, missing_source, mismatches, deleted = [], [], [], []
 for name in paths:
     if not name.endswith('.gz'):
@@ -20,8 +22,10 @@ for name in paths:
     checked.append(name)
     if gzip.decompress(path.read_bytes()) != source.read_bytes():
         mismatches.append(name)
+        if '--repair' in sys.argv:
+            path.write_bytes(gzip.compress(source.read_bytes(), compresslevel=9, mtime=0))
 print(json.dumps({'checked_gzip': len(checked), 'deleted_gzip': len(deleted),
-                  'missing_source': missing_source, 'mismatches': mismatches,
-                  'other_changes': [p for p in paths if not p.endswith('.gz')]}, indent=2))
-if mismatches:
+                  'missing_source_count': len(missing_source), 'mismatches': mismatches,
+                  'other_changes_count': sum(not p.endswith('.gz') for p in paths)}, indent=2))
+if mismatches and '--repair' not in sys.argv:
     raise SystemExit(1)
