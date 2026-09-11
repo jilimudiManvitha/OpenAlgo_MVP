@@ -10,8 +10,17 @@ use all agents skills to complete below task at best way.
 UPDATE stratagy TAKE TRADES FROM WHICH ARE currently VOLUME SHOCKERS.
 
 --------------------------------------------------------------------------
-run volume SHOCKERS and top gainers/loosers for this day
+run volume SHOCKERS and top gainers/loosers for only today
 perform backtest on them and plot each trade.
+output strategy not performing well update it. plot how it peform.
+stratagy not working well update it test on only one stock .
 
 complete task 1.
-task 2 update change in % stocks show live change in each stock.
+
+D:/Personal/openalgo/.development/market-scanner-report/runs/2026-09-11-1226/backtest-v4/index.html
+D:/Personal/openalgo/.development/market-scanner-report/runs/2026-09-11-1226/scanner/index.html
+
+download todays data
+update stratagy using claude if needed in 1 stock separetely in diff folder.
+try stratagy by updating exit rules set exit rule as 1:1 and 1:2 or SL.
+after one entry next trade executing change this.
