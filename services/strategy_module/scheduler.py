@@ -149,19 +149,25 @@ def start(paused: bool = False) -> BackgroundScheduler:
 
 
 def shutdown() -> None:
-    """Stop the shared scheduler and drop it. Idempotent."""
+    """Stop dispatch and drain running jobs. Idempotent."""
     global _scheduler
     with _lock:
-        if _scheduler is None:
-            return
-        try:
-            if _scheduler.running:
-                _scheduler.shutdown(wait=False)
-            logger.info("Strategy module scheduler shut down")
-        except Exception:
-            logger.exception("Could not shut the strategy module scheduler down cleanly")
-        finally:
-            _scheduler = None
+        scheduler = _scheduler
+        _scheduler = None
+    if scheduler is None:
+        return
+    # Do not hold the lifecycle lock while joining workers.
+    try:
+        if scheduler.running:
+            # Let an in-progress dispatch finish before shutdown marks the
+            # scheduler stopped. Otherwise its one-shot job removal can race
+            # that state change and raise JobLookupError inside APScheduler.
+            scheduler.pause()
+            scheduler.remove_all_jobs()
+            scheduler.shutdown(wait=True)
+        logger.info("Strategy module scheduler shut down")
+    except Exception:
+        logger.exception("Could not shut the strategy module scheduler down cleanly")
 
 
 def get_scheduler() -> BackgroundScheduler | None:

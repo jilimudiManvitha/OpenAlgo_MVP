@@ -62,6 +62,20 @@ def _remove_all_scoped_sessions() -> None:
     remove_all_scoped_sessions()
 
 
+def _stop_strategy_module_scheduler() -> None:
+    """Stop only an already-loaded scheduler; teardown must not start services."""
+    module = sys.modules.get("services.strategy_module.scheduler")
+    if module is not None:
+        module.shutdown()
+
+
+def _stop_python_strategy_scheduler() -> None:
+    """The blueprint starts its scheduler at import, including in the reloader."""
+    module = sys.modules.get("blueprints.python_strategy")
+    if module is not None:
+        module.shutdown_scheduler()
+
+
 def shutdown_runtime() -> None:
     """Stop background writers and release this thread's sessions.
 
@@ -79,8 +93,8 @@ def shutdown_runtime() -> None:
     is supported, and importing the health monitor at module scope would build
     the engine that a disabled monitor never wanted.
 
-    Guarded by a plain flag rather than a lock. The only caller is the signal
-    handler on the main thread and CPython runs those one at a time, so a lock
+    Guarded by a plain flag rather than a lock. The callers are the signal
+    handler and the server's finally block on the main thread, so a lock
     would buy nothing here, and a lock on a signal path is a standing invitation
     to deadlock the moment someone widens its critical section to cover the
     steps below. The flag is set before the steps run, so a second Ctrl+C
@@ -92,7 +106,14 @@ def shutdown_runtime() -> None:
         return
     _shutdown_done = True
 
-    for step in (_stop_health_collector, _remove_all_scoped_sessions):
+    # Stop job submission before concurrent.futures' interpreter exit hook.
+    # Ordinary atexit callbacks run after that hook and are too late.
+    for step in (
+        _stop_strategy_module_scheduler,
+        _stop_python_strategy_scheduler,
+        _stop_health_collector,
+        _remove_all_scoped_sessions,
+    ):
         try:
             step()
         except Exception:

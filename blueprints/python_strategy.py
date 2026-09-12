@@ -154,6 +154,21 @@ def init_scheduler():
         logger.debug("Dead-process reaper scheduled (runs every 60 seconds)")
 
 
+def shutdown_scheduler():
+    """Stop dispatch and drain jobs before interpreter/process cleanup."""
+    global SCHEDULER
+    scheduler = SCHEDULER
+    SCHEDULER = None
+    if scheduler is not None and scheduler.running:
+        # No PROCESS_LOCK here: running jobs may need it to finish.
+        # Clear schedules while paused to finish any in-progress dispatch
+        # before shutdown changes APScheduler's state to stopped.
+        scheduler.pause()
+        scheduler.remove_all_jobs()
+        scheduler.shutdown(wait=True)
+        logger.info("Python strategy scheduler shut down")
+
+
 def load_configs():
     """Load strategy configurations from file. Backfills `exchange` for
     legacy configs (default NSE) so the exchange-aware scheduler always
@@ -2937,6 +2952,12 @@ def save_strategy(strategy_id):
 # Cleanup on shutdown
 def cleanup_on_exit():
     """Clean up all running processes on application exit"""
+    # The dev-server signal/finally path stops this earlier, before Python's
+    # executor exit hook. Keep this as an idempotent fallback for other hosts.
+    try:
+        shutdown_scheduler()
+    except Exception:
+        logger.exception("Could not shut the Python strategy scheduler down cleanly")
     logger.info("Cleaning up running strategies...")
     # Snapshot under the lock, stop outside it: stop_strategy_process takes the
     # lock itself and waits for each process, so holding it across the loop

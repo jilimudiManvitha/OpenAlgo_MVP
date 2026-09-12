@@ -12,3 +12,5 @@ Minimum RVOL
 Minimum price
 Maximum price
 Minimum volume
+
+scanner should also work with crypto.

@@ -1264,4 +1264,11 @@ if __name__ == "__main__":
 
         install_signal_handlers()
 
-    socketio.run(app, host=host_ip, port=port, debug=debug, reloader_options=reloader_options)
+    try:
+        socketio.run(app, host=host_ip, port=port, debug=debug, reloader_options=reloader_options)
+    finally:
+        # Covers normal return, startup failure and reloader SystemExit too.
+        # atexit alone is too late: concurrent.futures shuts down before it.
+        from utils.shutdown import shutdown_runtime
+
+        shutdown_runtime()

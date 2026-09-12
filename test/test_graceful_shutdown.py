@@ -28,9 +28,12 @@ from utils import shutdown as shutdown_mod
 
 
 @pytest.fixture(autouse=True)
-def _reset_state():
+def _reset_state(monkeypatch):
     """Each test starts with the guard cleared."""
     shutdown_mod._shutdown_done = False
+    # Never stop a scheduler belonging to another collected test module.
+    monkeypatch.setattr(shutdown_mod, "_stop_strategy_module_scheduler", lambda: None)
+    monkeypatch.setattr(shutdown_mod, "_stop_python_strategy_scheduler", lambda: None)
     yield
     shutdown_mod._shutdown_done = False
 
@@ -184,3 +187,25 @@ def test_installing_handlers_is_idempotent(monkeypatch):
 
     assert registered == first, "second install should be a no-op"
     assert first, "at least SIGINT should have been registered"
+
+
+@pytest.mark.parametrize("fail_first", [False, True])
+def test_schedulers_stop_before_other_cleanup_even_if_one_fails(monkeypatch, fail_first):
+    calls = []
+
+    def stop_strategy_module():
+        calls.append("strategy")
+        if fail_first:
+            raise RuntimeError("scheduler shutdown failed")
+
+    monkeypatch.setattr(shutdown_mod, "_stop_strategy_module_scheduler", stop_strategy_module)
+    monkeypatch.setattr(
+        shutdown_mod, "_stop_python_strategy_scheduler", lambda: calls.append("python")
+    )
+    monkeypatch.setattr(shutdown_mod, "_stop_health_collector", lambda: calls.append("health"))
+    monkeypatch.setattr(
+        shutdown_mod, "_remove_all_scoped_sessions", lambda: calls.append("sessions")
+    )
+    shutdown_mod.shutdown_runtime()
+    shutdown_mod.shutdown_runtime()
+    assert calls == ["strategy", "python", "health", "sessions"]
