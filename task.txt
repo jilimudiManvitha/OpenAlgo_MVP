@@ -6,3 +6,9 @@ canles data is in correct.
 backtest crypto data at D:\Personal\openalgo_Crypto\historical_data and give me reports skip volume/gaine/looser
 filter just run strategy test run and run backtest on that.in 1min,5min time frames.
 
+
+remove these filters scanner.
+Minimum RVOL
+Minimum price
+Maximum price
+Minimum volume
