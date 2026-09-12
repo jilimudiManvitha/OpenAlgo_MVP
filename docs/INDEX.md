@@ -13,7 +13,7 @@ need → drill into the specific file. Don't load everything at once.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. Task 1 and Tasks 3-6 are frozen; receive the strategy update before resuming Task 1. Market-hours and broader broker operational verification remain documented follow-up.
+mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and specifically authorized September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. Broader Task 1/full-DuckDB work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.
 
 | Read this when you need… | Entry point |
 |---|---|
@@ -27,6 +27,7 @@ mobile parity and sandbox investment portfolios. Task 2 is integrated at `/marke
 | Strategy module & risk engine (multi-leg options, signal mode, RMS) | [prompt/strategy_rms_documentation.md](prompt/strategy_rms_documentation.md) · [api/strategy-services/](api/strategy-services/) · [prd/strategy-module-rms.md](prd/strategy-module-rms.md) · [bdd/strategy_module_rms.feature](bdd/strategy_module_rms.feature) |
 | Technical indicators (`ta` library) | [<prompt/indicators/openalgo indicators - introduction.md>](<prompt/indicators/openalgo indicators - introduction.md>) |
 | September 12 HA/BB/VWAP buy/sell strategy definitions, variants and code-only contract | [Strategy package](../strategies/ha_bb_vwap_v1/README.md) |
+| September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions, reports and every trade chart | [Backtest report](../backtesting/ha_bb_vwap_v1_20260911/results/index.html) · [Method and reproduction](../backtesting/ha_bb_vwap_v1_20260911/README.md) |
 | The charting terminal at `/trading`, its order dock and its shortcuts | [userguide/32-charting-terminal](userguide/32-charting-terminal/README.md) |
 | Position calculator, brokerage estimates and automatic exit watches | [Position calculator](userguide/32-charting-terminal/position-calculator.md) |
 | Planned Fyers historical backfill: 1,500 stocks, 5-minute candles, nine years | [Fyers download plan](plans/2026-09-08-fyers-historical-data-download-plan.md) |

@@ -1,0 +1,2183 @@
+{
+  "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+  "metrics": [
+    {
+      "strategy_id": "S378",
+      "scenario": "OLHC",
+      "trades": 20,
+      "net_pnl": 5136.77077983886,
+      "gross_pnl": 6784.92000000002,
+      "reference_pnl": 8962.389999999972,
+      "fees": 1648.14922016116,
+      "slippage_cost": 2177.469999999951,
+      "win_rate": 50.0,
+      "profit_factor": 1.595660684374672,
+      "max_drawdown": 5005.105461577865,
+      "peak_notional": 694417.5900000001,
+      "return_on_11_lakh_pct": 0.4669791618035327,
+      "profitable_stocks": 8,
+      "benchmark_net": 28294.708177336375,
+      "mean_net_per_trade": 256.838538991943,
+      "rejected_entries": 0
+    },
+    {
+      "strategy_id": "S378",
+      "scenario": "OHLC",
+      "trades": 20,
+      "net_pnl": 5183.848583220759,
+      "gross_pnl": 6831.940000000039,
+      "reference_pnl": 9022.439999999995,
+      "fees": 1648.09141677928,
+      "slippage_cost": 2190.499999999957,
+      "win_rate": 50.0,
+      "profit_factor": 1.5997553087673189,
+      "max_drawdown": 4999.9894705980805,
+      "peak_notional": 694356.66,
+      "return_on_11_lakh_pct": 0.47125896211097806,
+      "profitable_stocks": 8,
+      "benchmark_net": 28294.708177336375,
+      "mean_net_per_trade": 259.1924291610379,
+      "rejected_entries": 0
+    }
+  ],
+  "stocks": [
+    {
+      "strategy_id": "S378",
+      "symbol": "AFCONS",
+      "scenario": "OLHC",
+      "trades": 3,
+      "net_pnl": 590.2977145394046,
+      "benchmark_net": 3098.9261211083085
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "AFCONS",
+      "scenario": "OHLC",
+      "trades": 3,
+      "net_pnl": 647.5720639259287,
+      "benchmark_net": 3098.9261211083085
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "CHENNPETRO",
+      "scenario": "OLHC",
+      "trades": 2,
+      "net_pnl": 689.0198855582139,
+      "benchmark_net": 5029.824464120003
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "CHENNPETRO",
+      "scenario": "OHLC",
+      "trades": 2,
+      "net_pnl": 711.8370696241916,
+      "benchmark_net": 5029.824464120003
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "COCHINSHIP",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": 4902.435704629613,
+      "benchmark_net": 8286.822277486397
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "COCHINSHIP",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": 4902.435704629613,
+      "benchmark_net": 8286.822277486397
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "DLF",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": 401.1188688055858,
+      "benchmark_net": 1149.2659673825106
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "DLF",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": 401.1188688055858,
+      "benchmark_net": 1149.2659673825106
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "GPIL",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": 96.04508936695908,
+      "benchmark_net": 1340.534122454968
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "GPIL",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": 83.86858997203862,
+      "benchmark_net": 1340.534122454968
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "IFCI",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": 485.61412104517865,
+      "benchmark_net": 1768.1444353141967
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "IFCI",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": 485.61412104517865,
+      "benchmark_net": 1768.1444353141967
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "KIRLOSENG",
+      "scenario": "OLHC",
+      "trades": 2,
+      "net_pnl": -534.3866224983874,
+      "benchmark_net": 2461.3775687456077
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "KIRLOSENG",
+      "scenario": "OHLC",
+      "trades": 2,
+      "net_pnl": -534.3866224983874,
+      "benchmark_net": 2461.3775687456077
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "MUTHOOTFIN",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": -298.2847454752,
+      "benchmark_net": -501.858316532
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "MUTHOOTFIN",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": -298.2847454752,
+      "benchmark_net": -501.858316532
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "PIIND",
+      "scenario": "OLHC",
+      "trades": 3,
+      "net_pnl": 719.1748748886084,
+      "benchmark_net": 3513.2402761759963
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "PIIND",
+      "scenario": "OHLC",
+      "trades": 3,
+      "net_pnl": 766.5749475874077,
+      "benchmark_net": 3513.2402761759963
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "POWERGRID",
+      "scenario": "OLHC",
+      "trades": 1,
+      "net_pnl": 176.3979954419958,
+      "benchmark_net": 176.3979954419958
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "POWERGRID",
+      "scenario": "OHLC",
+      "trades": 1,
+      "net_pnl": 176.3979954419958,
+      "benchmark_net": 176.3979954419958
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "TENNIND",
+      "scenario": "OLHC",
+      "trades": 4,
+      "net_pnl": -2090.662106463111,
+      "benchmark_net": 1972.0332656383978
+    },
+    {
+      "strategy_id": "S378",
+      "symbol": "TENNIND",
+      "scenario": "OHLC",
+      "trades": 4,
+      "net_pnl": -2158.8994098375933,
+      "benchmark_net": 1972.0332656383978
+    }
+  ],
+  "trades": [
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T10:55:06.666556+05:30",
+      "entry_price": 259.25,
+      "entry_reference": 259.3833333333333,
+      "quantity": 385,
+      "initial_stop": 260.5361606933428,
+      "target": 256.67767861331436,
+      "risk": 1.286160693342822,
+      "gross_pnl": 1020.2499999999912,
+      "reference_pnl": 1129.3333333333348,
+      "fees": 82.5454582635,
+      "fills": [
+        {
+          "time": "2026-09-11T10:55:06.666556+05:30",
+          "side": "sell",
+          "quantity": 385,
+          "price": 259.25,
+          "reference": 259.3833333333333,
+          "fees": 52.286352117499995,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:03:13.333111+05:30",
+          "side": "buy",
+          "quantity": 385,
+          "price": 256.6,
+          "reference": 256.45,
+          "fees": 30.259106146,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:55:06.666556+05:30",
+          260.5361606933428
+        ]
+      ],
+      "exit_time": "2026-09-11T12:03:13.333111+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 937.7045417364913,
+      "slippage_cost": 109.0833333333436,
+      "id": "T019962"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T12:11:19.999667+05:30",
+      "entry_price": 256.1,
+      "entry_reference": 256.25,
+      "quantity": 390,
+      "initial_stop": 257.94312053407884,
+      "target": 252.41375893184238,
+      "risk": 1.843120534078821,
+      "gross_pnl": 1482.0000000000045,
+      "reference_pnl": 1592.5000000000036,
+      "fees": 82.53837205600001,
+      "fills": [
+        {
+          "time": "2026-09-11T12:11:19.999667+05:30",
+          "side": "sell",
+          "quantity": 390,
+          "price": 256.1,
+          "reference": 256.25,
+          "fees": 52.30582387400001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:32:06.666556+05:30",
+          "side": "buy",
+          "quantity": 390,
+          "price": 252.3,
+          "reference": 252.16666666666666,
+          "fees": 30.232548182000002,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:11:19.999667+05:30",
+          257.94312053407884
+        ]
+      ],
+      "exit_time": "2026-09-11T13:32:06.666556+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 1399.4616279440045,
+      "slippage_cost": 110.49999999999909,
+      "id": "T019963"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T13:41:19.999667+05:30",
+      "entry_price": 248.85000000000002,
+      "entry_reference": 249.0,
+      "quantity": 401,
+      "initial_stop": 252.57350351570332,
+      "target": 241.40299296859342,
+      "risk": 3.7235035157032996,
+      "gross_pnl": -1664.149999999991,
+      "reference_pnl": -1543.8499999999976,
+      "fees": 82.71845514110001,
+      "fills": [
+        {
+          "time": "2026-09-11T13:41:19.999667+05:30",
+          "side": "sell",
+          "quantity": 401,
+          "price": 248.85000000000002,
+          "reference": 249.0,
+          "fees": 52.27991422310001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:48:39.999333+05:30",
+          "side": "buy",
+          "quantity": 401,
+          "price": 253.0,
+          "reference": 252.85,
+          "fees": 30.438540918,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T13:41:19.999667+05:30",
+          252.57350351570332
+        ]
+      ],
+      "exit_time": "2026-09-11T13:48:39.999333+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -1746.868455141091,
+      "slippage_cost": 120.29999999999336,
+      "id": "T019964"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T10:55:39.999333+05:30",
+      "entry_price": 259.1,
+      "entry_reference": 259.25,
+      "quantity": 385,
+      "initial_stop": 260.5361606933428,
+      "target": 256.2276786133144,
+      "risk": 1.4361606933427993,
+      "gross_pnl": 1116.5000000000132,
+      "reference_pnl": 1231.9999999999957,
+      "fees": 82.51848004300001,
+      "fills": [
+        {
+          "time": "2026-09-11T10:55:39.999333+05:30",
+          "side": "sell",
+          "quantity": 385,
+          "price": 259.1,
+          "reference": 259.25,
+          "fees": 52.269754421,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:03:39.999333+05:30",
+          "side": "buy",
+          "quantity": 385,
+          "price": 256.2,
+          "reference": 256.05,
+          "fees": 30.248725622000002,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:55:39.999333+05:30",
+          260.5361606933428
+        ]
+      ],
+      "exit_time": "2026-09-11T12:03:39.999333+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 1033.9815199570132,
+      "slippage_cost": 115.49999999998249,
+      "id": "T019965"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T12:11:39.999333+05:30",
+      "entry_price": 256.1,
+      "entry_reference": 256.25,
+      "quantity": 390,
+      "initial_stop": 257.94312053407884,
+      "target": 252.41375893184238,
+      "risk": 1.843120534078821,
+      "gross_pnl": 1443.0000000000066,
+      "reference_pnl": 1566.5000000000052,
+      "fees": 82.54100089,
+      "fills": [
+        {
+          "time": "2026-09-11T12:11:39.999333+05:30",
+          "side": "sell",
+          "quantity": 390,
+          "price": 256.1,
+          "reference": 256.25,
+          "fees": 52.30582387400001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:32:26.666222+05:30",
+          "side": "buy",
+          "quantity": 390,
+          "price": 252.4,
+          "reference": 252.23333333333332,
+          "fees": 30.235177015999998,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:11:39.999333+05:30",
+          257.94312053407884
+        ]
+      ],
+      "exit_time": "2026-09-11T13:32:26.666222+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 1360.4589991100065,
+      "slippage_cost": 123.49999999999864,
+      "id": "T019966"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "AFCONS",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T13:41:39.999333+05:30",
+      "entry_price": 248.85000000000002,
+      "entry_reference": 249.0,
+      "quantity": 401,
+      "initial_stop": 252.57350351570332,
+      "target": 241.40299296859342,
+      "risk": 3.7235035157032996,
+      "gross_pnl": -1664.149999999991,
+      "reference_pnl": -1543.8499999999976,
+      "fees": 82.71845514110001,
+      "fills": [
+        {
+          "time": "2026-09-11T13:41:39.999333+05:30",
+          "side": "sell",
+          "quantity": 401,
+          "price": 248.85000000000002,
+          "reference": 249.0,
+          "fees": 52.27991422310001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:48:19.999667+05:30",
+          "side": "buy",
+          "quantity": 401,
+          "price": 253.0,
+          "reference": 252.85,
+          "fees": 30.438540918,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T13:41:39.999333+05:30",
+          252.57350351570332
+        ]
+      ],
+      "exit_time": "2026-09-11T13:48:19.999667+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -1746.868455141091,
+      "slippage_cost": 120.29999999999336,
+      "id": "T019967"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "CHENNPETRO",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T10:46:19.999667+05:30",
+      "entry_price": 1614.1000000000001,
+      "entry_reference": 1615.0,
+      "quantity": 61,
+      "initial_stop": 1629.4257634808266,
+      "target": 1583.4484730383472,
+      "risk": 15.325763480826481,
+      "gross_pnl": 1836.1000000000083,
+      "reference_pnl": 1943.8666666666602,
+      "fees": 82.0110608446,
+      "fills": [
+        {
+          "time": "2026-09-11T10:46:19.999667+05:30",
+          "side": "sell",
+          "quantity": 61,
+          "price": 1614.1000000000001,
+          "reference": 1615.0,
+          "fees": 51.898023500600004,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T11:43:13.333111+05:30",
+          "side": "buy",
+          "quantity": 61,
+          "price": 1584.0,
+          "reference": 1583.1333333333334,
+          "fees": 30.113037344,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:46:19.999667+05:30",
+          1629.4257634808266
+        ]
+      ],
+      "exit_time": "2026-09-11T11:43:13.333111+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 1754.0889391554083,
+      "slippage_cost": 107.76666666665187,
+      "id": "T019968"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "CHENNPETRO",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T13:25:13.333111+05:30",
+      "entry_price": 1565.9,
+      "entry_reference": 1566.7666666666667,
+      "quantity": 63,
+      "initial_stop": 1580.5300171327663,
+      "target": 1536.6399657344678,
+      "risk": 14.63001713276617,
+      "gross_pnl": -982.7999999999943,
+      "reference_pnl": -875.7000000000057,
+      "fees": 82.26905359720001,
+      "fills": [
+        {
+          "time": "2026-09-11T13:25:13.333111+05:30",
+          "side": "sell",
+          "quantity": 63,
+          "price": 1565.9,
+          "reference": 1566.7666666666667,
+          "fees": 51.95309049020001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:59:33.332778+05:30",
+          "side": "buy",
+          "quantity": 63,
+          "price": 1581.5,
+          "reference": 1580.6666666666667,
+          "fees": 30.315963107,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T13:25:13.333111+05:30",
+          1580.5300171327663
+        ]
+      ],
+      "exit_time": "2026-09-11T13:59:33.332778+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -1065.0690535971944,
+      "slippage_cost": 107.09999999998854,
+      "id": "T019969"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "CHENNPETRO",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T10:46:39.999333+05:30",
+      "entry_price": 1614.1000000000001,
+      "entry_reference": 1615.0,
+      "quantity": 61,
+      "initial_stop": 1629.4257634808266,
+      "target": 1583.4484730383472,
+      "risk": 15.325763480826481,
+      "gross_pnl": 1909.2999999999972,
+      "reference_pnl": 2013.0,
+      "fees": 82.00612672540001,
+      "fills": [
+        {
+          "time": "2026-09-11T10:46:39.999333+05:30",
+          "side": "sell",
+          "quantity": 61,
+          "price": 1614.1000000000001,
+          "reference": 1615.0,
+          "fees": 51.898023500600004,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T11:43:39.999333+05:30",
+          "side": "buy",
+          "quantity": 61,
+          "price": 1582.8000000000002,
+          "reference": 1582.0,
+          "fees": 30.108103224799997,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:46:39.999333+05:30",
+          1629.4257634808266
+        ]
+      ],
+      "exit_time": "2026-09-11T11:43:39.999333+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 1827.2938732745972,
+      "slippage_cost": 103.70000000000277,
+      "id": "T019970"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "CHENNPETRO",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T13:25:39.999333+05:30",
+      "entry_price": 1565.2,
+      "entry_reference": 1566.0,
+      "quantity": 63,
+      "initial_stop": 1580.5300171327663,
+      "target": 1534.5399657344676,
+      "risk": 15.330017132766216,
+      "gross_pnl": -1033.2000000000057,
+      "reference_pnl": -930.299999999999,
+      "fees": 82.2568036504,
+      "fills": [
+        {
+          "time": "2026-09-11T13:25:39.999333+05:30",
+          "side": "sell",
+          "quantity": 63,
+          "price": 1565.2,
+          "reference": 1566.0,
+          "fees": 51.940415885600004,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T13:59:13.333111+05:30",
+          "side": "buy",
+          "quantity": 63,
+          "price": 1581.6000000000001,
+          "reference": 1580.7666666666667,
+          "fees": 30.316387764799998,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T13:25:39.999333+05:30",
+          1580.5300171327663
+        ]
+      ],
+      "exit_time": "2026-09-11T13:59:13.333111+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -1115.4568036504056,
+      "slippage_cost": 102.90000000000668,
+      "id": "T019971"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "COCHINSHIP",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:20:00+05:30",
+      "entry_price": 1454.8000000000002,
+      "entry_reference": 1455.6,
+      "quantity": 68,
+      "initial_stop": 1524.5742894380833,
+      "target": 1315.251421123834,
+      "risk": 69.77428943808309,
+      "gross_pnl": 4984.400000000012,
+      "reference_pnl": 5086.399999999997,
+      "fees": 81.96429537040001,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:00+05:30",
+          "side": "sell",
+          "quantity": 68,
+          "price": 1454.8000000000002,
+          "reference": 1455.6,
+          "fees": 52.03204091840001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:05:00+05:30",
+          "side": "buy",
+          "quantity": 68,
+          "price": 1381.5,
+          "reference": 1380.8,
+          "fees": 29.932254451999995,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:00+05:30",
+          1524.5742894380833
+        ]
+      ],
+      "exit_time": "2026-09-11T15:05:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 4902.435704629613,
+      "slippage_cost": 101.99999999998454,
+      "id": "T019972"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "COCHINSHIP",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:20:00+05:30",
+      "entry_price": 1454.8000000000002,
+      "entry_reference": 1455.6,
+      "quantity": 68,
+      "initial_stop": 1524.5742894380833,
+      "target": 1315.251421123834,
+      "risk": 69.77428943808309,
+      "gross_pnl": 4984.400000000012,
+      "reference_pnl": 5086.399999999997,
+      "fees": 81.96429537040001,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:00+05:30",
+          "side": "sell",
+          "quantity": 68,
+          "price": 1454.8000000000002,
+          "reference": 1455.6,
+          "fees": 52.03204091840001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:05:00+05:30",
+          "side": "buy",
+          "quantity": 68,
+          "price": 1381.5,
+          "reference": 1380.8,
+          "fees": 29.932254451999995,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:00+05:30",
+          1524.5742894380833
+        ]
+      ],
+      "exit_time": "2026-09-11T15:05:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 4902.435704629613,
+      "slippage_cost": 101.99999999998454,
+      "id": "T019973"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "DLF",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:20:06.666556+05:30",
+      "entry_price": 638.0,
+      "entry_reference": 638.3666666666667,
+      "quantity": 156,
+      "initial_stop": 657.4248964085027,
+      "target": 599.1502071829946,
+      "risk": 19.42489640850272,
+      "gross_pnl": 483.5999999999858,
+      "reference_pnl": 595.4000000000083,
+      "fees": 82.4811311944,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:06.666556+05:30",
+          "side": "sell",
+          "quantity": 156,
+          "price": 638.0,
+          "reference": 638.3666666666667,
+          "fees": 52.20494436800001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:14:39.999333+05:30",
+          "side": "buy",
+          "quantity": 156,
+          "price": 634.9000000000001,
+          "reference": 634.55,
+          "fees": 30.276186826400004,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:06.666556+05:30",
+          657.4248964085027
+        ]
+      ],
+      "exit_time": "2026-09-11T10:14:39.999333+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": 401.1188688055858,
+      "slippage_cost": 111.80000000002246,
+      "id": "T019974"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "DLF",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:20:26.666222+05:30",
+      "entry_price": 638.0,
+      "entry_reference": 638.3666666666667,
+      "quantity": 156,
+      "initial_stop": 657.4248964085027,
+      "target": 599.1502071829946,
+      "risk": 19.42489640850272,
+      "gross_pnl": 483.5999999999858,
+      "reference_pnl": 595.4000000000083,
+      "fees": 82.4811311944,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:26.666222+05:30",
+          "side": "sell",
+          "quantity": 156,
+          "price": 638.0,
+          "reference": 638.3666666666667,
+          "fees": 52.20494436800001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:14:19.999667+05:30",
+          "side": "buy",
+          "quantity": 156,
+          "price": 634.9000000000001,
+          "reference": 634.55,
+          "fees": 30.276186826400004,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:26.666222+05:30",
+          657.4248964085027
+        ]
+      ],
+      "exit_time": "2026-09-11T10:14:19.999667+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": 401.1188688055858,
+      "slippage_cost": 111.80000000002246,
+      "id": "T019975"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "GPIL",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:22:06.666556+05:30",
+      "entry_price": 245.79,
+      "entry_reference": 245.91666666666666,
+      "quantity": 406,
+      "initial_stop": 252.23395146567935,
+      "target": 232.90209706864127,
+      "risk": 6.443951465679362,
+      "gross_pnl": 178.63999999999908,
+      "reference_pnl": 281.4933333333312,
+      "fees": 82.59491063304,
+      "fills": [
+        {
+          "time": "2026-09-11T09:22:06.666556+05:30",
+          "side": "sell",
+          "quantity": 406,
+          "price": 245.79,
+          "reference": 245.91666666666666,
+          "fees": 52.28045742044,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T11:02:33.332778+05:30",
+          "side": "buy",
+          "quantity": 406,
+          "price": 245.35,
+          "reference": 245.22333333333333,
+          "fees": 30.314453212600004,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:22:06.666556+05:30",
+          252.23395146567935
+        ]
+      ],
+      "exit_time": "2026-09-11T11:02:33.332778+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": 96.04508936695908,
+      "slippage_cost": 102.8533333333321,
+      "id": "T019976"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "GPIL",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:22:33.332778+05:30",
+      "entry_price": 245.76,
+      "entry_reference": 245.88333333333333,
+      "quantity": 406,
+      "initial_stop": 252.23395146567935,
+      "target": 232.81209706864126,
+      "risk": 6.473951465679363,
+      "gross_pnl": 166.45999999999862,
+      "reference_pnl": 267.9599999999986,
+      "fees": 82.59141002796,
+      "fills": [
+        {
+          "time": "2026-09-11T09:22:33.332778+05:30",
+          "side": "sell",
+          "quantity": 406,
+          "price": 245.76,
+          "reference": 245.88333333333333,
+          "fees": 52.276956815359995,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T11:02:13.333111+05:30",
+          "side": "buy",
+          "quantity": 406,
+          "price": 245.35,
+          "reference": 245.22333333333333,
+          "fees": 30.314453212600004,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:22:33.332778+05:30",
+          252.23395146567935
+        ]
+      ],
+      "exit_time": "2026-09-11T11:02:13.333111+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": 83.86858997203862,
+      "slippage_cost": 101.5,
+      "id": "T019977"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "IFCI",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T11:00:19.999667+05:30",
+      "entry_price": 82.65,
+      "entry_reference": 82.7,
+      "quantity": 1209,
+      "initial_stop": 84.0750959178832,
+      "target": 79.79980816423361,
+      "risk": 1.4250959178831977,
+      "gross_pnl": 568.2299999999987,
+      "reference_pnl": 689.130000000009,
+      "fees": 82.61587895482,
+      "fills": [
+        {
+          "time": "2026-09-11T11:00:19.999667+05:30",
+          "side": "sell",
+          "quantity": 1209,
+          "price": 82.65,
+          "reference": 82.7,
+          "fees": 52.318714033099994,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 1209,
+          "price": 82.18,
+          "reference": 82.13,
+          "fees": 30.297164921720004,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T11:00:19.999667+05:30",
+          84.0750959178832
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 485.61412104517865,
+      "slippage_cost": 120.90000000001032,
+      "id": "T019978"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "IFCI",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T11:00:39.999333+05:30",
+      "entry_price": 82.65,
+      "entry_reference": 82.7,
+      "quantity": 1209,
+      "initial_stop": 84.0750959178832,
+      "target": 79.79980816423361,
+      "risk": 1.4250959178831977,
+      "gross_pnl": 568.2299999999987,
+      "reference_pnl": 689.130000000009,
+      "fees": 82.61587895482,
+      "fills": [
+        {
+          "time": "2026-09-11T11:00:39.999333+05:30",
+          "side": "sell",
+          "quantity": 1209,
+          "price": 82.65,
+          "reference": 82.7,
+          "fees": 52.318714033099994,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 1209,
+          "price": 82.18,
+          "reference": 82.13,
+          "fees": 30.297164921720004,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T11:00:39.999333+05:30",
+          84.0750959178832
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 485.61412104517865,
+      "slippage_cost": 120.90000000001032,
+      "id": "T019979"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "KIRLOSENG",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:45:06.666556+05:30",
+      "entry_price": 2164.3,
+      "entry_reference": 2165.4666666666667,
+      "quantity": 46,
+      "initial_stop": 2188.1837496050875,
+      "target": 2116.5325007898255,
+      "risk": 23.88374960508736,
+      "gross_pnl": -864.7999999999874,
+      "reference_pnl": -760.5333333333319,
+      "fees": 82.5825948424,
+      "fills": [
+        {
+          "time": "2026-09-11T09:45:06.666556+05:30",
+          "side": "sell",
+          "quantity": 46,
+          "price": 2164.3,
+          "reference": 2165.4666666666667,
+          "fees": 52.2135090668,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:10:39.999333+05:30",
+          "side": "buy",
+          "quantity": 46,
+          "price": 2183.1,
+          "reference": 2182.0,
+          "fees": 30.369085775600002,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:45:06.666556+05:30",
+          2188.1837496050875
+        ]
+      ],
+      "exit_time": "2026-09-11T10:10:39.999333+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -947.3825948423874,
+      "slippage_cost": 104.26666666665551,
+      "id": "T019980"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "KIRLOSENG",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T14:15:13.333111+05:30",
+      "entry_price": 2181.9,
+      "entry_reference": 2183.0,
+      "quantity": 45,
+      "initial_stop": 2207.788977990994,
+      "target": 2130.122044018012,
+      "risk": 25.888977990994135,
+      "gross_pnl": 495.0,
+      "reference_pnl": 593.9999999999918,
+      "fees": 82.00402765599999,
+      "fills": [
+        {
+          "time": "2026-09-11T14:15:13.333111+05:30",
+          "side": "sell",
+          "quantity": 45,
+          "price": 2181.9,
+          "reference": 2183.0,
+          "fees": 51.819101812999996,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 45,
+          "price": 2170.9,
+          "reference": 2169.8,
+          "fees": 30.184925843,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T14:15:13.333111+05:30",
+          2207.788977990994
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 412.995972344,
+      "slippage_cost": 98.99999999999181,
+      "id": "T019981"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "KIRLOSENG",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:45:26.666222+05:30",
+      "entry_price": 2164.3,
+      "entry_reference": 2165.4666666666667,
+      "quantity": 46,
+      "initial_stop": 2188.1837496050875,
+      "target": 2116.5325007898255,
+      "risk": 23.88374960508736,
+      "gross_pnl": -864.7999999999874,
+      "reference_pnl": -760.5333333333319,
+      "fees": 82.5825948424,
+      "fills": [
+        {
+          "time": "2026-09-11T09:45:26.666222+05:30",
+          "side": "sell",
+          "quantity": 46,
+          "price": 2164.3,
+          "reference": 2165.4666666666667,
+          "fees": 52.2135090668,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:10:19.999667+05:30",
+          "side": "buy",
+          "quantity": 46,
+          "price": 2183.1,
+          "reference": 2182.0,
+          "fees": 30.369085775600002,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:45:26.666222+05:30",
+          2188.1837496050875
+        ]
+      ],
+      "exit_time": "2026-09-11T10:10:19.999667+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -947.3825948423874,
+      "slippage_cost": 104.26666666665551,
+      "id": "T019982"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "KIRLOSENG",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T14:15:33.332778+05:30",
+      "entry_price": 2181.9,
+      "entry_reference": 2183.0,
+      "quantity": 45,
+      "initial_stop": 2207.788977990994,
+      "target": 2130.122044018012,
+      "risk": 25.888977990994135,
+      "gross_pnl": 495.0,
+      "reference_pnl": 593.9999999999918,
+      "fees": 82.00402765599999,
+      "fills": [
+        {
+          "time": "2026-09-11T14:15:33.332778+05:30",
+          "side": "sell",
+          "quantity": 45,
+          "price": 2181.9,
+          "reference": 2183.0,
+          "fees": 51.819101812999996,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 45,
+          "price": 2170.9,
+          "reference": 2169.8,
+          "fees": 30.184925843,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T14:15:33.332778+05:30",
+          2207.788977990994
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 412.995972344,
+      "slippage_cost": 98.99999999999181,
+      "id": "T019983"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "MUTHOOTFIN",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:20:19.999667+05:30",
+      "entry_price": 2745.6000000000004,
+      "entry_reference": 2747.0,
+      "quantity": 36,
+      "initial_stop": 2839.8416320483625,
+      "target": 2557.116735903276,
+      "risk": 94.24163204836213,
+      "gross_pnl": -216.0,
+      "reference_pnl": -115.19999999999345,
+      "fees": 82.2847454752,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:19.999667+05:30",
+          "side": "sell",
+          "quantity": 36,
+          "price": 2745.6000000000004,
+          "reference": 2747.0,
+          "fees": 52.0076688896,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:21:39.999333+05:30",
+          "side": "buy",
+          "quantity": 36,
+          "price": 2751.6000000000004,
+          "reference": 2750.2,
+          "fees": 30.2770765856,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:19.999667+05:30",
+          2839.8416320483625
+        ]
+      ],
+      "exit_time": "2026-09-11T10:21:39.999333+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -298.2847454752,
+      "slippage_cost": 100.80000000000655,
+      "id": "T019984"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "MUTHOOTFIN",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:20:39.999333+05:30",
+      "entry_price": 2745.6000000000004,
+      "entry_reference": 2747.0,
+      "quantity": 36,
+      "initial_stop": 2839.8416320483625,
+      "target": 2557.116735903276,
+      "risk": 94.24163204836213,
+      "gross_pnl": -216.0,
+      "reference_pnl": -115.19999999999345,
+      "fees": 82.2847454752,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:39.999333+05:30",
+          "side": "sell",
+          "quantity": 36,
+          "price": 2745.6000000000004,
+          "reference": 2747.0,
+          "fees": 52.0076688896,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:21:19.999667+05:30",
+          "side": "buy",
+          "quantity": 36,
+          "price": 2751.6000000000004,
+          "reference": 2750.2,
+          "fees": 30.2770765856,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:39.999333+05:30",
+          2839.8416320483625
+        ]
+      ],
+      "exit_time": "2026-09-11T10:21:19.999667+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -298.2847454752,
+      "slippage_cost": 100.80000000000655,
+      "id": "T019985"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:22:13.333111+05:30",
+      "entry_price": 2332.9,
+      "entry_reference": 2334.1666666666665,
+      "quantity": 42,
+      "initial_stop": 2356.447694729351,
+      "target": 2285.804610541298,
+      "risk": 23.54769472935095,
+      "gross_pnl": -29.39999999999236,
+      "reference_pnl": 74.19999999998981,
+      "fees": 81.967100158,
+      "fills": [
+        {
+          "time": "2026-09-11T09:22:13.333111+05:30",
+          "side": "sell",
+          "quantity": 42,
+          "price": 2332.9,
+          "reference": 2334.1666666666665,
+          "fees": 51.7605572108,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:18:39.999333+05:30",
+          "side": "buy",
+          "quantity": 42,
+          "price": 2333.6,
+          "reference": 2332.4,
+          "fees": 30.2065429472,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:22:13.333111+05:30",
+          2356.447694729351
+        ]
+      ],
+      "exit_time": "2026-09-11T10:18:39.999333+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -111.36710015799235,
+      "slippage_cost": 103.59999999998217,
+      "id": "T019986"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T11:46:13.333111+05:30",
+      "entry_price": 2298.0,
+      "entry_reference": 2299.2,
+      "quantity": 43,
+      "initial_stop": 2336.0764577830164,
+      "target": 2221.847084433967,
+      "risk": 38.076457783016394,
+      "gross_pnl": 3276.599999999992,
+      "reference_pnl": 3379.799999999996,
+      "fees": 82.0395304684,
+      "fills": [
+        {
+          "time": "2026-09-11T11:46:13.333111+05:30",
+          "side": "sell",
+          "quantity": 43,
+          "price": 2298.0,
+          "reference": 2299.2,
+          "fees": 51.999736484,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:12:06.666556+05:30",
+          "side": "buy",
+          "quantity": 43,
+          "price": 2221.8,
+          "reference": 2220.6,
+          "fees": 30.0397939844,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T11:46:13.333111+05:30",
+          2336.0764577830164
+        ]
+      ],
+      "exit_time": "2026-09-11T12:12:06.666556+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 3194.5604695315924,
+      "slippage_cost": 103.20000000000391,
+      "id": "T019987"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T12:15:06.666556+05:30",
+      "entry_price": 2202.4,
+      "entry_reference": 2203.6,
+      "quantity": 45,
+      "initial_stop": 2247.53361652786,
+      "target": 2112.1327669442803,
+      "risk": 45.133616527859886,
+      "gross_pnl": -2281.499999999992,
+      "reference_pnl": -2175.000000000007,
+      "fees": 82.51849448500002,
+      "fills": [
+        {
+          "time": "2026-09-11T12:15:06.666556+05:30",
+          "side": "sell",
+          "quantity": 45,
+          "price": 2202.4,
+          "reference": 2203.6,
+          "fees": 52.08423384800001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:43:33.332778+05:30",
+          "side": "buy",
+          "quantity": 45,
+          "price": 2253.1,
+          "reference": 2251.9333333333334,
+          "fees": 30.434260637,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:15:06.666556+05:30",
+          2247.53361652786
+        ]
+      ],
+      "exit_time": "2026-09-11T12:43:33.332778+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -2364.0184944849916,
+      "slippage_cost": 106.499999999985,
+      "id": "T019988"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:22:33.332778+05:30",
+      "entry_price": 2332.9,
+      "entry_reference": 2334.1666666666665,
+      "quantity": 42,
+      "initial_stop": 2356.447694729351,
+      "target": 2285.804610541298,
+      "risk": 23.54769472935095,
+      "gross_pnl": -29.39999999999236,
+      "reference_pnl": 74.19999999998981,
+      "fees": 81.967100158,
+      "fills": [
+        {
+          "time": "2026-09-11T09:22:33.332778+05:30",
+          "side": "sell",
+          "quantity": 42,
+          "price": 2332.9,
+          "reference": 2334.1666666666665,
+          "fees": 51.7605572108,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T10:18:19.999667+05:30",
+          "side": "buy",
+          "quantity": 42,
+          "price": 2333.6,
+          "reference": 2332.4,
+          "fees": 30.2065429472,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:22:33.332778+05:30",
+          2356.447694729351
+        ]
+      ],
+      "exit_time": "2026-09-11T10:18:19.999667+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -111.36710015799235,
+      "slippage_cost": 103.59999999998217,
+      "id": "T019989"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T11:46:33.332778+05:30",
+      "entry_price": 2298.1,
+      "entry_reference": 2299.3333333333335,
+      "quantity": 43,
+      "initial_stop": 2336.0764577830164,
+      "target": 2222.147084433967,
+      "risk": 37.976457783016485,
+      "gross_pnl": 3225.0,
+      "reference_pnl": 3328.200000000004,
+      "fees": 82.04453430960001,
+      "fills": [
+        {
+          "time": "2026-09-11T11:46:33.332778+05:30",
+          "side": "sell",
+          "quantity": 43,
+          "price": 2298.1,
+          "reference": 2299.3333333333335,
+          "fees": 52.0009723298,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:12:26.666222+05:30",
+          "side": "buy",
+          "quantity": 43,
+          "price": 2223.1,
+          "reference": 2221.9333333333334,
+          "fees": 30.043561979800003,
+          "reason": "fixed_target"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T11:46:33.332778+05:30",
+          2336.0764577830164
+        ]
+      ],
+      "exit_time": "2026-09-11T12:12:26.666222+05:30",
+      "exit_reason": "fixed_target",
+      "net_pnl": 3142.9554656904,
+      "slippage_cost": 103.20000000000391,
+      "id": "T019990"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "PIIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T12:15:26.666222+05:30",
+      "entry_price": 2202.5,
+      "entry_reference": 2203.6666666666665,
+      "quantity": 45,
+      "initial_stop": 2247.53361652786,
+      "target": 2112.43276694428,
+      "risk": 45.03361652785998,
+      "gross_pnl": -2182.5,
+      "reference_pnl": -2076.000000000015,
+      "fees": 82.51341794499999,
+      "fills": [
+        {
+          "time": "2026-09-11T12:15:26.666222+05:30",
+          "side": "sell",
+          "quantity": 45,
+          "price": 2202.5,
+          "reference": 2203.6666666666665,
+          "fees": 52.085527174999996,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:43:06.666556+05:30",
+          "side": "buy",
+          "quantity": 45,
+          "price": 2251.0,
+          "reference": 2249.8,
+          "fees": 30.427890769999998,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:15:26.666222+05:30",
+          2247.53361652786
+        ]
+      ],
+      "exit_time": "2026-09-11T12:43:06.666556+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -2265.013417945,
+      "slippage_cost": 106.499999999985,
+      "id": "T019991"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "POWERGRID",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T10:11:19.999667+05:30",
+      "entry_price": 269.8,
+      "entry_reference": 269.95,
+      "quantity": 370,
+      "initial_stop": 271.11922328002083,
+      "target": 267.16155343995837,
+      "risk": 1.3192232800208217,
+      "gross_pnl": 258.9999999999958,
+      "reference_pnl": 370.0,
+      "fees": 82.602004558,
+      "fills": [
+        {
+          "time": "2026-09-11T10:11:19.999667+05:30",
+          "side": "sell",
+          "quantity": 370,
+          "price": 269.8,
+          "reference": 269.95,
+          "fees": 52.290591356,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:05:00+05:30",
+          "side": "buy",
+          "quantity": 370,
+          "price": 269.1,
+          "reference": 268.95,
+          "fees": 30.311413202000004,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:11:19.999667+05:30",
+          271.11922328002083
+        ]
+      ],
+      "exit_time": "2026-09-11T15:05:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 176.3979954419958,
+      "slippage_cost": 111.0000000000042,
+      "id": "T019992"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "POWERGRID",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T10:11:39.999333+05:30",
+      "entry_price": 269.8,
+      "entry_reference": 269.95,
+      "quantity": 370,
+      "initial_stop": 271.11922328002083,
+      "target": 267.16155343995837,
+      "risk": 1.3192232800208217,
+      "gross_pnl": 258.9999999999958,
+      "reference_pnl": 370.0,
+      "fees": 82.602004558,
+      "fills": [
+        {
+          "time": "2026-09-11T10:11:39.999333+05:30",
+          "side": "sell",
+          "quantity": 370,
+          "price": 269.8,
+          "reference": 269.95,
+          "fees": 52.290591356,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:05:00+05:30",
+          "side": "buy",
+          "quantity": 370,
+          "price": 269.1,
+          "reference": 268.95,
+          "fees": 30.311413202000004,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T10:11:39.999333+05:30",
+          271.11922328002083
+        ]
+      ],
+      "exit_time": "2026-09-11T15:05:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": 176.3979954419958,
+      "slippage_cost": 111.0000000000042,
+      "id": "T019993"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:20:19.999667+05:30",
+      "entry_price": 511.15000000000003,
+      "entry_reference": 511.45,
+      "quantity": 195,
+      "initial_stop": 519.418253882275,
+      "target": 494.61349223545,
+      "risk": 8.268253882275019,
+      "gross_pnl": -516.7500000000066,
+      "reference_pnl": -406.2499999999963,
+      "fees": 82.60045204149999,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:19.999667+05:30",
+          "side": "sell",
+          "quantity": 195,
+          "price": 511.15000000000003,
+          "reference": 511.45,
+          "fees": 52.2469774955,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T09:23:33.332778+05:30",
+          "side": "buy",
+          "quantity": 195,
+          "price": 513.8000000000001,
+          "reference": 513.5333333333333,
+          "fees": 30.353474545999998,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:19.999667+05:30",
+          519.418253882275
+        ]
+      ],
+      "exit_time": "2026-09-11T09:23:33.332778+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -599.3504520415066,
+      "slippage_cost": 110.50000000001029,
+      "id": "T019994"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T09:31:13.333111+05:30",
+      "entry_price": 511.75,
+      "entry_reference": 512.0333333333333,
+      "quantity": 195,
+      "initial_stop": 515.3858134705687,
+      "target": 504.47837305886264,
+      "risk": 3.635813470568678,
+      "gross_pnl": -477.75000000000887,
+      "reference_pnl": -367.2500000000207,
+      "fees": 82.63933621150001,
+      "fills": [
+        {
+          "time": "2026-09-11T09:31:13.333111+05:30",
+          "side": "sell",
+          "quantity": 195,
+          "price": 511.75,
+          "reference": 512.0333333333333,
+          "fees": 52.2806039975,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T09:57:33.332778+05:30",
+          "side": "buy",
+          "quantity": 195,
+          "price": 514.2,
+          "reference": 513.9166666666667,
+          "fees": 30.358732214000003,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:31:13.333111+05:30",
+          515.3858134705687
+        ]
+      ],
+      "exit_time": "2026-09-11T09:57:33.332778+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -560.3893362115089,
+      "slippage_cost": 110.49999999998818,
+      "id": "T019995"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T12:30:19.999667+05:30",
+      "entry_price": 508.15000000000003,
+      "entry_reference": 508.45,
+      "quantity": 196,
+      "initial_stop": 510.2991704809125,
+      "target": 503.8516590381751,
+      "risk": 2.14917048091246,
+      "gross_pnl": -499.8000000000022,
+      "reference_pnl": -382.1999999999978,
+      "fees": 82.57204220759999,
+      "fills": [
+        {
+          "time": "2026-09-11T12:30:19.999667+05:30",
+          "side": "sell",
+          "quantity": 196,
+          "price": 508.15000000000003,
+          "reference": 508.45,
+          "fees": 52.224890344399995,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:57:33.332778+05:30",
+          "side": "buy",
+          "quantity": 196,
+          "price": 510.70000000000005,
+          "reference": 510.4,
+          "fees": 30.3471518632,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:30:19.999667+05:30",
+          510.2991704809125
+        ]
+      ],
+      "exit_time": "2026-09-11T12:57:33.332778+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -582.3720422076022,
+      "slippage_cost": 117.60000000000446,
+      "id": "T019996"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OLHC",
+      "entry_time": "2026-09-11T14:51:13.333111+05:30",
+      "entry_price": 506.20000000000005,
+      "entry_reference": 506.5,
+      "quantity": 197,
+      "initial_stop": 507.82639549481377,
+      "target": 502.9472090103726,
+      "risk": 1.6263954948137211,
+      "gross_pnl": -265.9499999999933,
+      "reference_pnl": -147.75,
+      "fees": 82.60027600250001,
+      "fills": [
+        {
+          "time": "2026-09-11T14:51:13.333111+05:30",
+          "side": "sell",
+          "quantity": 197,
+          "price": 506.20000000000005,
+          "reference": 506.5,
+          "fees": 52.2605286884,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 197,
+          "price": 507.55,
+          "reference": 507.25,
+          "fees": 30.339747314100002,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T14:51:13.333111+05:30",
+          507.82639549481377
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": -348.5502760024933,
+      "slippage_cost": 118.19999999999328,
+      "id": "T019997"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:20:39.999333+05:30",
+      "entry_price": 511.15000000000003,
+      "entry_reference": 511.45,
+      "quantity": 195,
+      "initial_stop": 519.418253882275,
+      "target": 494.61349223545,
+      "risk": 8.268253882275019,
+      "gross_pnl": -526.4999999999977,
+      "reference_pnl": -415.99999999998744,
+      "fees": 82.60110925,
+      "fills": [
+        {
+          "time": "2026-09-11T09:20:39.999333+05:30",
+          "side": "sell",
+          "quantity": 195,
+          "price": 511.15000000000003,
+          "reference": 511.45,
+          "fees": 52.2469774955,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T09:23:06.666556+05:30",
+          "side": "buy",
+          "quantity": 195,
+          "price": 513.85,
+          "reference": 513.5833333333333,
+          "fees": 30.3541317545,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:20:39.999333+05:30",
+          519.418253882275
+        ]
+      ],
+      "exit_time": "2026-09-11T09:23:06.666556+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -609.1011092499978,
+      "slippage_cost": 110.50000000001029,
+      "id": "T019998"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T09:31:39.999333+05:30",
+      "entry_price": 511.5,
+      "entry_reference": 511.8,
+      "quantity": 195,
+      "initial_stop": 515.3858134705687,
+      "target": 503.72837305886264,
+      "risk": 3.885813470568678,
+      "gross_pnl": -536.25,
+      "reference_pnl": -419.25000000000665,
+      "fees": 82.62598237750001,
+      "fills": [
+        {
+          "time": "2026-09-11T09:31:39.999333+05:30",
+          "side": "sell",
+          "quantity": 195,
+          "price": 511.5,
+          "reference": 511.8,
+          "fees": 52.26659295500001,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T09:57:13.333111+05:30",
+          "side": "buy",
+          "quantity": 195,
+          "price": 514.25,
+          "reference": 513.95,
+          "fees": 30.359389422500005,
+          "reason": "indicator_stop"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T09:31:39.999333+05:30",
+          515.3858134705687
+        ]
+      ],
+      "exit_time": "2026-09-11T09:57:13.333111+05:30",
+      "exit_reason": "indicator_stop",
+      "net_pnl": -618.8759823775,
+      "slippage_cost": 116.99999999999335,
+      "id": "T019999"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T12:30:39.999333+05:30",
+      "entry_price": 508.15000000000003,
+      "entry_reference": 508.45,
+      "quantity": 196,
+      "initial_stop": 510.2991704809125,
+      "target": 503.8516590381751,
+      "risk": 2.14917048091246,
+      "gross_pnl": -499.8000000000022,
+      "reference_pnl": -385.4666666666726,
+      "fees": 82.57204220759999,
+      "fills": [
+        {
+          "time": "2026-09-11T12:30:39.999333+05:30",
+          "side": "sell",
+          "quantity": 196,
+          "price": 508.15000000000003,
+          "reference": 508.45,
+          "fees": 52.224890344399995,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T12:57:13.333111+05:30",
+          "side": "buy",
+          "quantity": 196,
+          "price": 510.70000000000005,
+          "reference": 510.4166666666667,
+          "fees": 30.3471518632,
+          "reason": "stop_loss"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T12:30:39.999333+05:30",
+          510.2991704809125
+        ]
+      ],
+      "exit_time": "2026-09-11T12:57:13.333111+05:30",
+      "exit_reason": "stop_loss",
+      "net_pnl": -582.3720422076022,
+      "slippage_cost": 114.33333333332962,
+      "id": "T020000"
+    },
+    {
+      "strategy_id": "S378",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXvwap_tick_TXnone",
+      "symbol": "TENNIND",
+      "side": "sell",
+      "minutes": 5,
+      "scenario": "OHLC",
+      "entry_time": "2026-09-11T14:51:33.332778+05:30",
+      "entry_price": 506.20000000000005,
+      "entry_reference": 506.5,
+      "quantity": 197,
+      "initial_stop": 507.82639549481377,
+      "target": 502.9472090103726,
+      "risk": 1.6263954948137211,
+      "gross_pnl": -265.9499999999933,
+      "reference_pnl": -147.75,
+      "fees": 82.60027600250001,
+      "fills": [
+        {
+          "time": "2026-09-11T14:51:33.332778+05:30",
+          "side": "sell",
+          "quantity": 197,
+          "price": 506.20000000000005,
+          "reference": 506.5,
+          "fees": 52.2605286884,
+          "reason": "entry"
+        },
+        {
+          "time": "2026-09-11T15:20:00+05:30",
+          "side": "buy",
+          "quantity": 197,
+          "price": 507.55,
+          "reference": 507.25,
+          "fees": 30.339747314100002,
+          "reason": "square_off"
+        }
+      ],
+      "stop_path": [
+        [
+          "2026-09-11T14:51:33.332778+05:30",
+          507.82639549481377
+        ]
+      ],
+      "exit_time": "2026-09-11T15:20:00+05:30",
+      "exit_reason": "square_off",
+      "net_pnl": -348.5502760024933,
+      "slippage_cost": 118.19999999999328,
+      "id": "T020001"
+    }
+  ]
+}

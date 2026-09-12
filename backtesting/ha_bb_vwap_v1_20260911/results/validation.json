@@ -1,0 +1,9 @@
+{
+  "strategies": 404,
+  "stock_inputs": 22,
+  "strategy_stock_path_runs": 8888,
+  "round_trips": 20783,
+  "trade_charts": 20783,
+  "vectorbt_ledgers_verified": 8888,
+  "all_positions_closed": true
+}

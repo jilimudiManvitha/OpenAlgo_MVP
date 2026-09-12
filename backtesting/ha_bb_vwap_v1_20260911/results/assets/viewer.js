@@ -1,0 +1,21 @@
+
+const t=window.TRADE,b=window.BARS;
+const labels=b.map(x=>x.time);
+function bucket(iso){const d=new Date(iso); const ist=new Date(d.getTime()+330*60000);return String(ist.getUTCHours()).padStart(2,'0')+':'+String(Math.floor(ist.getUTCMinutes()/t.minutes)*t.minutes).padStart(2,'0');}
+const green='#22c55e',red='#ef4444';
+let traces=[{type:'candlestick',name:'Heikin Ashi',x:labels,open:b.map(x=>x.ha[0]),high:b.map(x=>x.ha[1]),low:b.map(x=>x.ha[2]),close:b.map(x=>x.ha[3]),increasing:{line:{color:green},fillcolor:green},decreasing:{line:{color:red},fillcolor:red}}];
+traces.push({type:'candlestick',name:'Real candles (toggle)',visible:'legendonly',x:labels,open:b.map(x=>x.raw[0]),high:b.map(x=>x.raw[1]),low:b.map(x=>x.raw[2]),close:b.map(x=>x.raw[3]),increasing:{line:{color:green},fillcolor:green},decreasing:{line:{color:red},fillcolor:red}});
+for(const [key,name,color] of [['bb_upper','BB upper','#a78bfa'],['bb_mid','BB middle','#7c83b5'],['bb_lower','BB lower','#a78bfa'],['vwap','VWAP','#f59e0b']]) traces.push({type:'scatter',mode:'lines',name,x:labels,y:b.map(x=>x[key]),line:{color,width:1.4}});
+for(const [key,name,color] of [['sma9','SMA9','#4ade80'],['ema9','EMA9','#38bdf8'],['ema21','EMA21','#ec4899'],['supertrend','Supertrend','#94a3b8']])traces.push({type:'scatter',mode:'lines',name,x:labels,y:b.map(x=>x[key]),visible:t.name.includes(key)?true:'legendonly',line:{color,width:1}});
+const signalTime=bucket(new Date(new Date(t.entry_time).getTime()-t.minutes*60000).toISOString());
+const signal=b.find(x=>x.time===signalTime);
+if(signal)traces.push({type:'scatter',mode:'markers',name:'Completed signal',x:[signalTime],y:[signal.ha[t.side==='buy'?1:2]],marker:{symbol:'diamond-open',color:'#38bdf8',size:12,line:{width:2}}});
+traces.push({type:'scatter',mode:'markers',name:'Entry fill',x:[bucket(t.entry_time)],y:[t.entry_price],marker:{symbol:t.side==='buy'?'triangle-up':'triangle-down',color:'#facc15',size:15,line:{color:'black',width:1}},text:[t.entry_time+' | '+t.quantity+' shares @ '+t.entry_price.toFixed(4)],hovertemplate:'%{text}<extra>Entry</extra>'});
+traces.push({type:'scatter',mode:'markers',name:'Exit fills',x:t.fills.slice(1).map(x=>bucket(x.time)),y:t.fills.slice(1).map(x=>x.price),marker:{symbol:'x',color:'#f8fafc',size:12},text:t.fills.slice(1).map(x=>x.time+' | '+x.reason+' | '+x.quantity+' @ '+x.price.toFixed(4)),hovertemplate:'%{text}<extra>Exit</extra>'});
+for(const [name,y,color] of [['Entry',t.entry_price,'#facc15'],['Initial SL',t.initial_stop,'#ef4444'],['Fixed target',t.target,'#22c55e']])traces.push({type:'scatter',mode:'lines',name,x:[bucket(t.entry_time),bucket(t.exit_time)],y:[y,y],line:{color,dash:'dash',width:1.5}});
+if(t.stop_path.length)traces.push({type:'scatter',mode:'lines+markers',name:'Trailing SL',x:t.stop_path.map(x=>bucket(x[0])),y:t.stop_path.map(x=>x[1]),line:{color:'#fb923c',shape:'hv'},marker:{size:4}});
+const categories=[];for(let m=555;m<=930;m+=t.minutes)categories.push(String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'));
+const tickvals=categories.filter((x,i)=>i===0||x.endsWith(':00')||x.endsWith(':30')||x==='15:30');
+const oscillator=t.name.includes('rsi_')?'rsi':t.name.includes('macd_')?'macd':null;
+if(oscillator){for(const key of oscillator==='rsi'?['rsi']:['macd','macd_signal'])traces.push({type:'scatter',mode:'lines',name:key.toUpperCase(),x:labels,y:b.map(x=>x[key]),yaxis:'y2',line:{width:1.5}});}
+Plotly.newPlot('chart',traces,{paper_bgcolor:'#101722',plot_bgcolor:'#101722',font:{color:'#e2e8f0'},margin:{l:70,r:35,t:100,b:75},xaxis:{type:'category',categoryorder:'array',categoryarray:categories,range:[-.5,categories.length-.5],tickmode:'array',tickvals,rangeslider:{visible:false},title:{text:'11 September 2026 • IST • Full session 09:15–15:30'}},yaxis:{title:{text:'Price (Rs)'},gridcolor:'#263449',autorange:true,domain:oscillator?[.28,1]:[0,1]},yaxis2:{domain:[0,.2],title:{text:oscillator?.toUpperCase()},gridcolor:'#263449'},legend:{orientation:'h',y:1.15},shapes:[{type:'rect',xref:'x',yref:'paper',x0:bucket(t.entry_time),x1:bucket(t.exit_time),y0:0,y1:1,fillcolor:'#64748b',opacity:.12,line:{width:0}}]}, {responsive:true,displaylogo:false,toImageButtonOptions:{format:'png',filename:t.id,width:1800,height:950,scale:2}});

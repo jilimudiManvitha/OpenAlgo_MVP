@@ -12,7 +12,7 @@ report of the each strategy. plot each trade chat clearly from 9:15 candle to 3:
 at the end give report which is works best and why.
 
 give dry run backtest results to auto research to get better results optimize the strategy. 
-
+try same in ETH also
 explain later we will remove these filters scanner.
 Minimum RVOL
 Minimum price
@@ -26,3 +26,39 @@ Maximum price
 Minimum volume
 scanner should also work with other brokers(mainly delta exchange D:\Personal\openalgo\delta-exchange-api-docs.md ).
 for Day change % add filter to see high % changes to low, low to high.
+
+The best observed buy result is the 1-minute 6.5R version: ₹57,719–₹58,490 net across the two scenarios. The 5-minute 13R buy version earned less but had a  much smaller modeled drawdown.                                                                                                                             
+                                                                                                                                                             
+  The best sell result is the 1-minute 9R version. Several 5-minute sell versions tied because their targets were never reached. I’m adding that explanation 
+  and the stock-level profit concentration to the report.
+
+ All 20,783 trade records and 41,802 fills passed reconciliation, including the session cutoffs, position sizes and all 44 source-file hashes. The chart    
+  checks also passed.
+                                                                                                                                                             
+  One important finding: none of the four group leaders beat the simple same-direction basket reference on this day. The report explains why the winning     
+  strategy results still need caution on a hindsight-selected gainers/losers list. 
+
+  Completed 404 strategies across 22 stocks for 11 September 2026, with 20,783 individual trade charts covering 09:15–15:30, using red/green candles.        
+                                                                                                                                                             
+  - Open all strategy reports and trade charts (backtesting/ha_bb_vwap_v1_20260911/results/index.html)                                                       
+  - Detailed findings: which performed best and why (backtesting/ha_bb_vwap_v1_20260911/results/findings.html)                                               
+  - Complete ZIP: reports, charts, CSVs and code (backtesting/ha_bb_vwap_v1_20260911/ha_bb_vwap_v1_20260911_report.zip)                                      
+  - Code and rerun instructions (backtesting/ha_bb_vwap_v1_20260911/README.md)                                                                               
+                                                                                                                                                             
+   Group        Best observed version          Net profit*                                                                                                   
+  ━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━                                                                                                  
+   Buy 1min     S092 — 6.5R                     ₹57,718.69                                                                                                   
+  ───────────  ─────────────────────────────  ─────────────                                                                                                  
+   Buy 5min     S109 — 13R                      ₹43,439.56                                                                                                   
+  ───────────  ─────────────────────────────  ─────────────                                                                                                  
+   Sell 1min    S299 — 9R                       ₹14,272.30                                                                                                   
+  ───────────  ─────────────────────────────  ─────────────                                                                                                  
+   Sell 5min    26 tied versions, RR 8–20.5      ₹7,181.03                                                                                                   
+                                                                                                                                                             
+  After estimated fees/slippage, using the lower-profit of two modeled candle paths. Allocation: ₹1 lakh per stock/trade.                                    
+                                                                                                                                                             
+  S092 earned the most by retaining larger winners. S109 had much lower modeled drawdown: ₹4,661 versus ₹12,909.                                             
+                                                                                                                                                             
+  All trade ledgers reconciled; 63 tests passed. These are candle-path approximations on one hindsight-selected day. None of the four leaders beat its       
+  corresponding simple basket reference.                                                                                                                     
+                                         

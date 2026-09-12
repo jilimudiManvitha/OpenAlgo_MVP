@@ -1,0 +1,1102 @@
+[
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\ASHOKAMET_NSE_1m.csv",
+    "sha256": "6125cb9428a20b22002b9d3d9ce879c98b3139a3f8d5357a485198889f4e4b8d",
+    "source_rows": 358,
+    "target_rows": 358,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:32:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 136
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\ASHOKAMET_NSE_5m.csv",
+    "sha256": "e04f163bfb76bbcbdcc5b0544df8f5aa92a19a09799fa68ee4f0a2f80d3faa91",
+    "source_rows": 72,
+    "target_rows": 72,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:30:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 4
+  },
+  {
+    "symbol": "ASHOKAMET",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "ASHOKAMET",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "ASHOKAMET",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "ASHOKAMET",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\BBOX_NSE_1m.csv",
+    "sha256": "bd47a16c4383d59245e623f5609841cbc0e9ee0f699d58a0c87afa1e9c453661",
+    "source_rows": 591562,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 200,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\BBOX_NSE_5m.csv",
+    "sha256": "7d1c16c5e01bcee19fbc1082f8e431d96885eb6a84d20526b68b31ce229a92e1",
+    "source_rows": 151464,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 43,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "BBOX",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "BBOX",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "BBOX",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "BBOX",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\DIGJAMLMTD_NSE_1m.csv",
+    "sha256": "a0f1509ffd493d98be8c14e623b1895a1b0f909e8795f4626726b96dd1335ee6",
+    "source_rows": 375,
+    "target_rows": 375,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 18
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\DIGJAMLMTD_NSE_5m.csv",
+    "sha256": "147c2766dc239afe7632614e36317e1d89bb26fff62024e5f7d5274bca457531",
+    "source_rows": 75,
+    "target_rows": 75,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "DIGJAMLMTD",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DIGJAMLMTD",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DIGJAMLMTD",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DIGJAMLMTD",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\DRREDDY_NSE_1m.csv",
+    "sha256": "8b2ef9a970ac87f7ffe2a1d39a16c8031952a7dacdde9b36e410c5250579bafb",
+    "source_rows": 851385,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 266,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 14
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\DRREDDY_NSE_5m.csv",
+    "sha256": "395c466c0df2d2fabcf04df3f7442ec45f31dc8d7037fb8e151f15b8f8326f03",
+    "source_rows": 170293,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 63,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 2
+  },
+  {
+    "symbol": "DRREDDY",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DRREDDY",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DRREDDY",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DRREDDY",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\FILATEX_NSE_1m.csv",
+    "sha256": "b62c3678991bf2b3464b811e3938634d3b4ecf956902c4de2711b737b206e019",
+    "source_rows": 764979,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 158,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\FILATEX_NSE_5m.csv",
+    "sha256": "ee766e83e569c25c868eb3a94cb1193c4f6a0980bce55bc356f171b162020cb6",
+    "source_rows": 168230,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 39,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "FILATEX",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "FILATEX",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "FILATEX",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "FILATEX",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\HDFCBANK_NSE_1m.csv",
+    "sha256": "1d2fe551dc0c96aaa8f62f852df1679ece3f69ea809040f6154fa15e43768b1b",
+    "source_rows": 851317,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 261,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 13
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\HDFCBANK_NSE_5m.csv",
+    "sha256": "13fb7365cbca00d7fd2542b34bb3d09a9431dc792a6f403b84430c2f3b01a2d7",
+    "source_rows": 170283,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 53,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "symbol": "HDFCBANK",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "HDFCBANK",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "HDFCBANK",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "HDFCBANK",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\KIRLOSIND_NSE_1m.csv",
+    "sha256": "5e83004589a7dbfea3f033cb3ea84506dc3d679012599b9bc4f70eea108ce741",
+    "source_rows": 623512,
+    "target_rows": 374,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 352,
+    "first_time": "09:16:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\KIRLOSIND_NSE_5m.csv",
+    "sha256": "a175c61660fbe59f7dfd9870e8614eda7fe94e2279bf07455bf2016cc90f0e94",
+    "source_rows": 156343,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 67,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "KIRLOSIND",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSIND",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSIND",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSIND",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\LADDERUP_NSE_1m.csv",
+    "sha256": "7f95fbc0f8a62a2eb76e572cf087f7ab0060d30690f98f6925593040e001e843",
+    "source_rows": 375,
+    "target_rows": 375,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 296
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\LADDERUP_NSE_5m.csv",
+    "sha256": "054f32ecd4eeca1a0ef8175c57b0b7683726286182bf72c8ffb2e09eacc30129",
+    "source_rows": 75,
+    "target_rows": 75,
+    "warmup_rows": 0,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 31
+  },
+  {
+    "symbol": "LADDERUP",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "LADDERUP",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "LADDERUP",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "LADDERUP",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\PINELABS_NSE_1m.csv",
+    "sha256": "34db73824d527e36cfaefb3c97550d280f272ecfc299f4b41048c89c311b7b4d",
+    "source_rows": 77257,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 14,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\PINELABS_NSE_5m.csv",
+    "sha256": "7199a8e63012ac46157de3d0252296c5849d282d66167bcdd1cbd40f829b2613",
+    "source_rows": 15450,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 3,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "PINELABS",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PINELABS",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PINELABS",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PINELABS",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\PRICOLLTD_NSE_1m.csv",
+    "sha256": "dab24f720ae93fd30f6aca4500013ba24e66e66a54de2a8399773b6e95f7d461",
+    "source_rows": 799504,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 172,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\PRICOLLTD_NSE_5m.csv",
+    "sha256": "7f38870cd5aafd819ef99e9e53366f1421cc15691cbdd1d89c02401231469b8e",
+    "source_rows": 169701,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 44,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "PRICOLLTD",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PRICOLLTD",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PRICOLLTD",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PRICOLLTD",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\QUADFUTURE_NSE_1m.csv",
+    "sha256": "e4cbc092f925f5802918c58f8af5f48254ed3606bb0d053c9747223a0271ad04",
+    "source_rows": 154547,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\GainersOn11092026\\historify_export_20260912_194124\\QUADFUTURE_NSE_5m.csv",
+    "sha256": "82de898ce40f655c63a36907d5d5f35a73b3b9ff31e0bc0cc9bb587859809719",
+    "source_rows": 30909,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "QUADFUTURE",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "QUADFUTURE",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "QUADFUTURE",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "QUADFUTURE",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\AFCONS_NSE_1m.csv",
+    "sha256": "8454fc31bb5a3194451ecd54af64b7fc03b95ed48a293562160a4c4c10027957",
+    "source_rows": 172542,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\AFCONS_NSE_5m.csv",
+    "sha256": "4eaa160fd406b61cb1fbbd560a8bcc516aa218878c9080573e3bf7f95504c040",
+    "source_rows": 34508,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "AFCONS",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "AFCONS",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "AFCONS",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "AFCONS",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\CHENNPETRO_NSE_1m.csv",
+    "sha256": "5fae2965bf5c54ea44306b9c2f8ae7d2aacd1853ecd675a3ff7317d0f9dce903",
+    "source_rows": 849078,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 184,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\CHENNPETRO_NSE_5m.csv",
+    "sha256": "8a67d59045263b83de7316c2703db2b46585eb1b00b300b8974d64748fe73025",
+    "source_rows": 170294,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 49,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "CHENNPETRO",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "CHENNPETRO",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "CHENNPETRO",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "CHENNPETRO",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\COCHINSHIP_NSE_1m.csv",
+    "sha256": "c87794a5452f75c3c113afcf5a5798f2d27086111639ed235b6c5fe390643038",
+    "source_rows": 836749,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 200,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 13
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\COCHINSHIP_NSE_5m.csv",
+    "sha256": "44b672330c317aa8c332b72327b8d25a2a0ca4eadf787ef81927522412a9cb0f",
+    "source_rows": 168147,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 48,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "symbol": "COCHINSHIP",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "COCHINSHIP",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "COCHINSHIP",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "COCHINSHIP",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\DLF_NSE_1m.csv",
+    "sha256": "eb72be5573e77af709cd87253ebd54b33ad15ca64dddb6aa61fee42429a7f9c3",
+    "source_rows": 851392,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 249,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 13
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\DLF_NSE_5m.csv",
+    "sha256": "3bd3a1da439deac3ccef736bb2c6d49caa13a136fcf9b7e65db04e1717581b2b",
+    "source_rows": 170298,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 49,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "symbol": "DLF",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DLF",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DLF",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "DLF",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\GPIL_NSE_1m.csv",
+    "sha256": "2ac1be343ff1383ed02370206efb29033fc5b665708e94dc4409f9bad8a186b3",
+    "source_rows": 805034,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 161,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\GPIL_NSE_5m.csv",
+    "sha256": "60a84769cb3687c7a3531763f6fe1a0704c940e507c6dd2ccbe5fd6aa3e464c9",
+    "source_rows": 169462,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 52,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "GPIL",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "GPIL",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "GPIL",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "GPIL",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\IFCI_NSE_1m.csv",
+    "sha256": "01198703ffbb97a31bce47229767776a796504eaf5404e933c3aefb72786fbc5",
+    "source_rows": 849482,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 159,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\IFCI_NSE_5m.csv",
+    "sha256": "e64d98e7debedd019877c10ba3644d820f2050eb11daae3e4333acf3f614cd9f",
+    "source_rows": 170281,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 36,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "IFCI",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "IFCI",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "IFCI",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "IFCI",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\KIRLOSENG_NSE_1m.csv",
+    "sha256": "323edb4e180d087e0fb9384219dae26bbe8de2914b48c5f056ebfda923b73cca",
+    "source_rows": 753010,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 168,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\KIRLOSENG_NSE_5m.csv",
+    "sha256": "0c343369d41e8f42edc64d33728caefe70bccbdec99e1fc828454f718ecd2e70",
+    "source_rows": 168205,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 34,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "KIRLOSENG",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSENG",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSENG",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "KIRLOSENG",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\MUTHOOTFIN_NSE_1m.csv",
+    "sha256": "f18043074e7e909526bf12270e7a9a2739601034b024b9c948e053664378b830",
+    "source_rows": 851337,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 249,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 13
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\MUTHOOTFIN_NSE_5m.csv",
+    "sha256": "c3f45514c1ef3909640f86b78628d19a9b86f532963dffb7c971b9f64814cc25",
+    "source_rows": 170294,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 62,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "symbol": "MUTHOOTFIN",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "MUTHOOTFIN",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "MUTHOOTFIN",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "MUTHOOTFIN",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\PIIND_NSE_1m.csv",
+    "sha256": "d093af29fe8fd54913a23df95c96e80411ec0310723e53cc6d83531d1ce6d907",
+    "source_rows": 847214,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 207,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 13
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\PIIND_NSE_5m.csv",
+    "sha256": "76c0d0b017d4672474d359fcb6e887b7e57157b3f03c483ab8405bd15260e131",
+    "source_rows": 170290,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 51,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "symbol": "PIIND",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PIIND",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PIIND",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "PIIND",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\POWERGRID_NSE_1m.csv",
+    "sha256": "9ed04c7202d8b324be18b0e4056c42e588c0c2f14a5d1aa6e514ed315e4bfab5",
+    "source_rows": 851410,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 221,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 14
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\POWERGRID_NSE_5m.csv",
+    "sha256": "985c95c366d8444f1dd6615a39174ad924912cc0c5ff9be9eb04c7de905aa098",
+    "source_rows": 170303,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 59,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 2
+  },
+  {
+    "symbol": "POWERGRID",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "POWERGRID",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "POWERGRID",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "POWERGRID",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\TENNIND_NSE_1m.csv",
+    "sha256": "00dd89c2403f9758cd2f247c4afc74283e10b1300fbd04681fa3f17cbb86738f",
+    "source_rows": 76092,
+    "target_rows": 375,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:29:00",
+    "zero_volume_target_bars": 1
+  },
+  {
+    "file": "CSVs\\LoosersOn11092026\\historify_export_20260912_195613\\TENNIND_NSE_5m.csv",
+    "sha256": "d0e7b73330d1eea1fb34de61709badcef8978f37cee54085fab27a76717a8a5c",
+    "source_rows": 15216,
+    "target_rows": 75,
+    "warmup_rows": 600,
+    "historical_invalid_ranges": 0,
+    "first_time": "09:15:00",
+    "last_time": "15:25:00",
+    "zero_volume_target_bars": 0
+  },
+  {
+    "symbol": "TENNIND",
+    "minutes": 1,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "TENNIND",
+    "minutes": 1,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "TENNIND",
+    "minutes": 5,
+    "scenario": "OLHC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  },
+  {
+    "symbol": "TENNIND",
+    "minutes": 5,
+    "scenario": "OHLC",
+    "five_minute_reaggregation_differences": [],
+    "note": "Target-session 5m bars reaggregated from supplied 1m to permit forming updates; 5m CSV supplies prior warmup."
+  }
+]

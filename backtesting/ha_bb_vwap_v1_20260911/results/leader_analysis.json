@@ -1,0 +1,749 @@
+[
+  {
+    "top": {
+      "strategy_id": "S092",
+      "name": "V1_buy_1m_HA_BB20x2_VWAP_SL0p1_RR6p5_TR0_PXnone_SXnone_TXnone",
+      "side": "buy",
+      "minutes": 1,
+      "worst_path_net": 57718.69311397831,
+      "mean_path_net": 58104.1434149631,
+      "net_OLHC": 58489.59371594789,
+      "net_OHLC": 57718.69311397831,
+      "trades_OLHC": 27,
+      "trades_OHLC": 27,
+      "max_drawdown_worse": 12908.595904780375,
+      "sl_buffer": 0.1,
+      "reward_risk": 6.5,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\buy\\1m\\V1_buy_1m_HA_BB20x2_VWAP_SL0p1_RR6p5_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "worst": {
+      "strategy_id": "S092",
+      "scenario": "OHLC",
+      "trades": 27,
+      "net_pnl": 57718.69311397831,
+      "gross_pnl": 59965.12999999997,
+      "reference_pnl": 62894.41999999998,
+      "fees": 2246.43688602166,
+      "slippage_cost": 2929.2900000000054,
+      "win_rate": 44.44444444444444,
+      "profit_factor": 4.202125747624566,
+      "max_drawdown": 12908.595904780375,
+      "peak_notional": 898563.2500000002,
+      "return_on_11_lakh_pct": 5.247153919452574,
+      "profitable_stocks": 8,
+      "benchmark_net": 92411.64828364392,
+      "mean_net_per_trade": 2137.729374591789,
+      "rejected_entries": 0
+    },
+    "baseline": {
+      "strategy_id": "S059",
+      "name": "V1_buy_1m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone",
+      "side": "buy",
+      "minutes": 1,
+      "worst_path_net": 23583.300005767585,
+      "mean_path_net": 24300.17661074176,
+      "net_OLHC": 23583.300005767585,
+      "net_OHLC": 25017.05321571593,
+      "trades_OLHC": 55,
+      "trades_OHLC": 58,
+      "max_drawdown_worse": 13785.299388007665,
+      "sl_buffer": 0.1,
+      "reward_risk": 2.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\buy\\1m\\V1_buy_1m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "stocks": [
+      {
+        "strategy_id": "S092",
+        "symbol": "FILATEX",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": 17132.270997876767,
+        "benchmark_net": 14430.74898026319
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "PINELABS",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": 15444.759442504474,
+        "benchmark_net": 16550.726498500324
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "KIRLOSIND",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": 10152.360508540392,
+        "benchmark_net": 6823.149529557204
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "QUADFUTURE",
+        "scenario": "OHLC",
+        "trades": 3,
+        "net_pnl": 8329.558731154197,
+        "benchmark_net": 11117.734118954
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "ASHOKAMET",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 7418.767375756766,
+        "benchmark_net": 18054.189057024323
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "BBOX",
+        "scenario": "OHLC",
+        "trades": 3,
+        "net_pnl": 5512.586455946288,
+        "benchmark_net": 7948.541460728991
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "HDFCBANK",
+        "scenario": "OHLC",
+        "trades": 4,
+        "net_pnl": 1659.5912693470937,
+        "benchmark_net": 2953.2813092532106
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "DRREDDY",
+        "scenario": "OHLC",
+        "trades": 3,
+        "net_pnl": 1229.6295863306118,
+        "benchmark_net": 3234.145262500784
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "LADDERUP",
+        "scenario": "OHLC",
+        "trades": 0,
+        "net_pnl": 0.0,
+        "benchmark_net": 1600.7077693096462
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "PRICOLLTD",
+        "scenario": "OHLC",
+        "trades": 5,
+        "net_pnl": -2903.578206941303,
+        "benchmark_net": 2502.8881279315938
+      },
+      {
+        "strategy_id": "S092",
+        "symbol": "DIGJAMLMTD",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": -6257.253046536979,
+        "benchmark_net": 7195.536169620662
+      }
+    ],
+    "exits": {
+      "stop_loss": 13,
+      "fixed_target": 8,
+      "square_off": 6
+    },
+    "ties": [
+      {
+        "strategy_id": "S092",
+        "reward_risk": 6.5
+      }
+    ]
+  },
+  {
+    "top": {
+      "strategy_id": "S109",
+      "name": "V1_buy_5m_HA_BB20x2_VWAP_SL0p1_RR13_TR0_PXnone_SXnone_TXnone",
+      "side": "buy",
+      "minutes": 5,
+      "worst_path_net": 43439.558827173794,
+      "mean_path_net": 43499.590752673736,
+      "net_OLHC": 43439.558827173794,
+      "net_OHLC": 43559.62267817368,
+      "trades_OLHC": 9,
+      "trades_OHLC": 9,
+      "max_drawdown_worse": 4660.669521578493,
+      "sl_buffer": 0.1,
+      "reward_risk": 13.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\buy\\5m\\V1_buy_5m_HA_BB20x2_VWAP_SL0p1_RR13_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "worst": {
+      "strategy_id": "S109",
+      "scenario": "OLHC",
+      "trades": 9,
+      "net_pnl": 43439.558827173794,
+      "gross_pnl": 44194.69999999995,
+      "reference_pnl": 45176.81999999998,
+      "fees": 755.14117282616,
+      "slippage_cost": 982.120000000024,
+      "win_rate": 77.77777777777777,
+      "profit_factor": 33.43174150526733,
+      "max_drawdown": 4659.117437885005,
+      "peak_notional": 695625.93,
+      "return_on_11_lakh_pct": 3.949050802470345,
+      "profitable_stocks": 7,
+      "benchmark_net": 92411.64828364392,
+      "mean_net_per_trade": 4826.617647463755,
+      "rejected_entries": 0
+    },
+    "baseline": {
+      "strategy_id": "S160",
+      "name": "V1_buy_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone",
+      "side": "buy",
+      "minutes": 5,
+      "worst_path_net": 35076.36523392829,
+      "mean_path_net": 35404.04927684997,
+      "net_OLHC": 35076.36523392829,
+      "net_OHLC": 35731.73331977165,
+      "trades_OLHC": 16,
+      "trades_OHLC": 16,
+      "max_drawdown_worse": 3918.830000000005,
+      "sl_buffer": 0.1,
+      "reward_risk": 2.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\buy\\5m\\V1_buy_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "stocks": [
+      {
+        "strategy_id": "S109",
+        "symbol": "QUADFUTURE",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 16154.547399415089,
+        "benchmark_net": 11117.734118954
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "PINELABS",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 11880.012273857532,
+        "benchmark_net": 16550.726498500324
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "FILATEX",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 8225.757657326601,
+        "benchmark_net": 14430.74898026319
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "BBOX",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 5895.320863162409,
+        "benchmark_net": 7948.541460728991
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "DRREDDY",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 1630.751690358184,
+        "benchmark_net": 3234.145262500784
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "HDFCBANK",
+        "scenario": "OLHC",
+        "trades": 2,
+        "net_pnl": 416.201405779587,
+        "benchmark_net": 2953.2813092532106
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "PRICOLLTD",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": 153.14207442439402,
+        "benchmark_net": 2502.8881279315938
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "DIGJAMLMTD",
+        "scenario": "OLHC",
+        "trades": 0,
+        "net_pnl": 0.0,
+        "benchmark_net": 7195.536169620662
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "ASHOKAMET",
+        "scenario": "OLHC",
+        "trades": 0,
+        "net_pnl": 0.0,
+        "benchmark_net": 18054.189057024323
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "LADDERUP",
+        "scenario": "OLHC",
+        "trades": 0,
+        "net_pnl": 0.0,
+        "benchmark_net": 1600.7077693096462
+      },
+      {
+        "strategy_id": "S109",
+        "symbol": "KIRLOSIND",
+        "scenario": "OLHC",
+        "trades": 1,
+        "net_pnl": -916.1745371500024,
+        "benchmark_net": 6823.149529557204
+      }
+    ],
+    "exits": {
+      "square_off": 7,
+      "stop_loss": 1,
+      "fixed_target": 1
+    },
+    "ties": [
+      {
+        "strategy_id": "S109",
+        "reward_risk": 13.0
+      }
+    ]
+  },
+  {
+    "top": {
+      "strategy_id": "S299",
+      "name": "V1_sell_1m_HA_BB20x2_VWAP_SL0p1_RR9_TR0_PXnone_SXnone_TXnone",
+      "side": "sell",
+      "minutes": 1,
+      "worst_path_net": 14272.30368083523,
+      "mean_path_net": 14381.68654936782,
+      "net_OLHC": 14491.06941790041,
+      "net_OHLC": 14272.30368083523,
+      "trades_OLHC": 18,
+      "trades_OHLC": 17,
+      "max_drawdown_worse": 5650.603493874578,
+      "sl_buffer": 0.1,
+      "reward_risk": 9.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\sell\\1m\\V1_sell_1m_HA_BB20x2_VWAP_SL0p1_RR9_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "worst": {
+      "strategy_id": "S299",
+      "scenario": "OHLC",
+      "trades": 17,
+      "net_pnl": 14272.30368083523,
+      "gross_pnl": 15672.51999999995,
+      "reference_pnl": 17485.896666666667,
+      "fees": 1400.21631916472,
+      "slippage_cost": 1813.376666666718,
+      "win_rate": 58.8235294117647,
+      "profit_factor": 3.8819420713221406,
+      "max_drawdown": 5650.603493874578,
+      "peak_notional": 1094228.42,
+      "return_on_11_lakh_pct": 1.2974821528032028,
+      "profitable_stocks": 9,
+      "benchmark_net": 28294.70817733637,
+      "mean_net_per_trade": 839.5472753432488,
+      "rejected_entries": 0
+    },
+    "baseline": {
+      "strategy_id": "S261",
+      "name": "V1_sell_1m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone",
+      "side": "sell",
+      "minutes": 1,
+      "worst_path_net": 8530.527635420116,
+      "mean_path_net": 9620.285262014706,
+      "net_OLHC": 8530.527635420116,
+      "net_OHLC": 10710.042888609298,
+      "trades_OLHC": 32,
+      "trades_OHLC": 29,
+      "max_drawdown_worse": 5233.376431203475,
+      "sl_buffer": 0.1,
+      "reward_risk": 2.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\sell\\1m\\V1_sell_1m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "stocks": [
+      {
+        "strategy_id": "S299",
+        "symbol": "COCHINSHIP",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 5473.471538322403,
+        "benchmark_net": 8286.822277486397
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "AFCONS",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": 3596.764887464898,
+        "benchmark_net": 3098.9261211083085
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "CHENNPETRO",
+        "scenario": "OHLC",
+        "trades": 3,
+        "net_pnl": 2777.3923530466,
+        "benchmark_net": 5029.824464120003
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "IFCI",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 1966.0035289203183,
+        "benchmark_net": 1768.1444353141967
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "PIIND",
+        "scenario": "OHLC",
+        "trades": 3,
+        "net_pnl": 938.4404888865809,
+        "benchmark_net": 3513.2402761759963
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "TENNIND",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 897.2819712054022,
+        "benchmark_net": 1972.0332656383976
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "POWERGRID",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 341.7959527690916,
+        "benchmark_net": 176.3979954419958
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "GPIL",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 303.1075221595554,
+        "benchmark_net": 1340.534122454968
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "KIRLOSENG",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": 88.5342948230043,
+        "benchmark_net": 2461.377568745608
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "DLF",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": -206.45245522501057,
+        "benchmark_net": 1149.2659673825106
+      },
+      {
+        "strategy_id": "S299",
+        "symbol": "MUTHOOTFIN",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": -1904.036401537613,
+        "benchmark_net": -501.858316532
+      }
+    ],
+    "exits": {
+      "square_off": 10,
+      "stop_loss": 5,
+      "fixed_target": 2
+    },
+    "ties": [
+      {
+        "strategy_id": "S299",
+        "reward_risk": 9.0
+      }
+    ]
+  },
+  {
+    "top": {
+      "strategy_id": "S305",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR10_TR0_PXnone_SXnone_TXnone",
+      "side": "sell",
+      "minutes": 5,
+      "worst_path_net": 7181.0328227211785,
+      "mean_path_net": 7181.636221020084,
+      "net_OLHC": 7182.23961931899,
+      "net_OHLC": 7181.0328227211785,
+      "trades_OLHC": 13,
+      "trades_OHLC": 13,
+      "max_drawdown_worse": 7223.039101812962,
+      "sl_buffer": 0.1,
+      "reward_risk": 10.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\sell\\5m\\V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR10_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "worst": {
+      "strategy_id": "S305",
+      "scenario": "OHLC",
+      "trades": 13,
+      "net_pnl": 7181.0328227211785,
+      "gross_pnl": 8251.519999999979,
+      "reference_pnl": 9648.573333333345,
+      "fees": 1070.4871772788,
+      "slippage_cost": 1397.0533333333651,
+      "win_rate": 69.23076923076923,
+      "profit_factor": 2.3195048199313857,
+      "max_drawdown": 7223.039101812962,
+      "peak_notional": 1091716.06,
+      "return_on_11_lakh_pct": 0.6528211657019253,
+      "profitable_stocks": 7,
+      "benchmark_net": 28294.70817733637,
+      "mean_net_per_trade": 552.3871402093214,
+      "rejected_entries": 0
+    },
+    "baseline": {
+      "strategy_id": "S362",
+      "name": "V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone",
+      "side": "sell",
+      "minutes": 5,
+      "worst_path_net": 3470.7996288000195,
+      "mean_path_net": 3560.659352651412,
+      "net_OLHC": 3470.7996288000195,
+      "net_OHLC": 3650.519076502804,
+      "trades_OLHC": 17,
+      "trades_OHLC": 17,
+      "max_drawdown_worse": 5933.154317557252,
+      "sl_buffer": 0.1,
+      "reward_risk": 2.0,
+      "trail_fraction": 0.0,
+      "partial": "none",
+      "stop_rule": "none",
+      "target_rule": "none",
+      "code": "strategies\\ha_bb_vwap_v1\\versions\\sell\\5m\\V1_sell_5m_HA_BB20x2_VWAP_SL0p1_RR2_TR0_PXnone_SXnone_TXnone.py"
+    },
+    "stocks": [
+      {
+        "strategy_id": "S305",
+        "symbol": "COCHINSHIP",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 4902.435704629613,
+        "benchmark_net": 8286.822277486397
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "CHENNPETRO",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 2376.3308791685977,
+        "benchmark_net": 5029.824464120003
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "AFCONS",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 1977.2951006665087,
+        "benchmark_net": 3098.9261211083085
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "TENNIND",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 619.4816990210045,
+        "benchmark_net": 1972.0332656383976
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "IFCI",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 485.61412104517865,
+        "benchmark_net": 1768.1444353141967
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "GPIL",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 258.46035771150986,
+        "benchmark_net": 1340.534122454968
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "POWERGRID",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": 176.3979954419958,
+        "benchmark_net": 176.3979954419958
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "PIIND",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": -66.42044477441937,
+        "benchmark_net": 3513.2402761759963
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "DLF",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": -651.9521097124142,
+        "benchmark_net": 1149.2659673825106
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "KIRLOSENG",
+        "scenario": "OHLC",
+        "trades": 2,
+        "net_pnl": -870.209257433196,
+        "benchmark_net": 2461.377568745608
+      },
+      {
+        "strategy_id": "S305",
+        "symbol": "MUTHOOTFIN",
+        "scenario": "OHLC",
+        "trades": 1,
+        "net_pnl": -2026.4012230432,
+        "benchmark_net": -501.858316532
+      }
+    ],
+    "exits": {
+      "square_off": 11,
+      "stop_loss": 2
+    },
+    "ties": [
+      {
+        "strategy_id": "S305",
+        "reward_risk": 10.0
+      },
+      {
+        "strategy_id": "S306",
+        "reward_risk": 10.5
+      },
+      {
+        "strategy_id": "S307",
+        "reward_risk": 11.0
+      },
+      {
+        "strategy_id": "S308",
+        "reward_risk": 11.5
+      },
+      {
+        "strategy_id": "S309",
+        "reward_risk": 12.0
+      },
+      {
+        "strategy_id": "S310",
+        "reward_risk": 12.5
+      },
+      {
+        "strategy_id": "S311",
+        "reward_risk": 13.0
+      },
+      {
+        "strategy_id": "S312",
+        "reward_risk": 13.5
+      },
+      {
+        "strategy_id": "S313",
+        "reward_risk": 14.0
+      },
+      {
+        "strategy_id": "S314",
+        "reward_risk": 14.5
+      },
+      {
+        "strategy_id": "S315",
+        "reward_risk": 15.0
+      },
+      {
+        "strategy_id": "S316",
+        "reward_risk": 15.5
+      },
+      {
+        "strategy_id": "S317",
+        "reward_risk": 16.0
+      },
+      {
+        "strategy_id": "S318",
+        "reward_risk": 16.5
+      },
+      {
+        "strategy_id": "S319",
+        "reward_risk": 17.0
+      },
+      {
+        "strategy_id": "S320",
+        "reward_risk": 17.5
+      },
+      {
+        "strategy_id": "S321",
+        "reward_risk": 18.0
+      },
+      {
+        "strategy_id": "S322",
+        "reward_risk": 18.5
+      },
+      {
+        "strategy_id": "S323",
+        "reward_risk": 19.0
+      },
+      {
+        "strategy_id": "S324",
+        "reward_risk": 19.5
+      },
+      {
+        "strategy_id": "S325",
+        "reward_risk": 20.0
+      },
+      {
+        "strategy_id": "S326",
+        "reward_risk": 20.5
+      },
+      {
+        "strategy_id": "S398",
+        "reward_risk": 8.0
+      },
+      {
+        "strategy_id": "S399",
+        "reward_risk": 8.5
+      },
+      {
+        "strategy_id": "S400",
+        "reward_risk": 9.0
+      },
+      {
+        "strategy_id": "S401",
+        "reward_risk": 9.5
+      }
+    ]
+  }
+]
