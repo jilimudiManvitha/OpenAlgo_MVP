@@ -1,8 +1,30 @@
 # Six-task implementation plan and agent handoff
 
-Updated: 2026-09-11, Asia/Kolkata. Status: Task 2 brought forward; isolated live scanner implemented and verified, original-app integration awaiting edit-boundary clarification. Task 1 retains its completed partial-day replay and pending full-history request. See the latest Task 2 milestone below.
+Updated: 2026-09-12, Asia/Kolkata. Status: Task 2 implemented and integrated into this OpenAlgo project, locally verified. Task 1 and Tasks 3-6 are frozen at the user's request. Market-hours operational validation remains as noted below.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
+
+## Current checkpoint - 2026-09-12: Task 2 integration; other tasks frozen
+
+Repository checkpoint: the user subsequently requested pushing everything to `Narasimha722/openalo_indian_markets_mvp`. The checkpoint includes the scanner integration, normal frontend build, handoff/test evidence, inherited `task.txt` edit and existing crypto backtest code/results. Credentials, runtime databases and dependency directories remain ignored. This synchronization does not resume any frozen task.
+
+The user's latest instruction was to complete Task 2 "in this project," update Task 1's strategy later, and freeze the remaining tasks. This authorizes the scanner-specific integration into `D:/Personal/openalgo`; it does not authorize changes to the Crypto tree or work on Tasks 1/3/4/5/6. Earlier unresolved-boundary and isolated-only status statements below are historical and are superseded for **Task 2 only**.
+
+- **Task 2 implementation is complete locally:** normal app startup initializes orchestration, authenticated navigation attaches the broker account, and `/market-scanner` exposes Volume Shockers, Top Gainers and Top Losers with category-before-top-50 ranking, daily price change, volume change, RVOL, observed-price sparklines, saved filters, pause/resume and honest stale/coverage states.
+- Integrated the eleven manifest files only after verifying every original and candidate SHA-256. The normalized patch failed on CRLF source files, but all hashes matched; exact verified scanner candidates were installed. The existing application/upstream changes were retained. Added live tests to `test/test_market_scanner_live.py`; isolated legacy route-test state and scanner test DB configuration. Adjusted the navbar label breakpoint to accommodate Scanner without crowding the logo.
+- Aligned the local installed `openalgo-charts` package with the repository's already-pinned **2.1.7**, using the previously installed isolated package. The old 2.0.2 package is preserved under the ignored development dependency backup. No package manifest/lock changes. Rebuilt the normal `frontend/dist` so the Flask application can serve the scanner.
+- Verification: **76 backend tests passed**, including legacy routes and new login/two-tab, disconnect/retry/token-expiry and worker-takeover tests. **5 existing navbar tests passed.** Full production TypeScript/Vite build and scanner Python/Biome checks passed. **9 Chrome checks passed on the built `/market-scanner` SPA**, zero page errors; fixtures are explicitly synthetic. A 500-cycle integrated SQLite audit held **193 handles before/after**, with 248 retained traced Python bytes after GC.
+- Current evidence: `.development/task2-scanner/artifacts/integrated/` (browser results, desktop/mobile screenshots, resource audit). `verify_integrated_browser.cjs` uses Vite preview on localhost:5188 and mocks session/scanner responses; it never places orders. The original integration patch/manifest remain historical pre-integration evidence; **do not reapply or regenerate them against the now-integrated source**.
+- Operational limits: live market-hours streaming/long-running production reload observation and account-live Zerodha/other-broker verification are not completed. Fyers' real three-stock quote/baseline evidence remains the September 11 closing-session probe. Other adapters expose capability-dependent fallback and do not claim live verification. Production deployment/restart was not performed in this session.
+- **Task 1 is frozen**, including the requested full-DuckDB run. Before resuming, first take the user's strategy update. **Tasks 3-6 are frozen.** No strategy edits or backtests were run. Preserve the inherited `task.txt`, crypto backtest/results and pre-existing compressed-build deletions; no commit/push was requested this turn.
+
+To use: restart OpenAlgo normally, log in to the broker, and open **Scanner** (`/market-scanner`). Startup/login supplies background work; no scanner terminal command is required. On a nontrading day, current-session rows may be empty and older data is not relabeled as live.
+
+Verification command from repository root:
+
+```powershell
+& .venv/Scripts/python.exe -m pytest test/test_market_scanner_live.py test/test_market_scanner.py test/test_market_scanner_routes.py --confcutdir=test -o addopts= -p no:cacheprovider -q
+```
 
 ## Latest restart checkpoint — Task 2 prototype and repository synchronization
 
@@ -301,21 +323,21 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 | ID | Deliverable | Status |
 |---|---|---|
 | PLAN | Repository/source review, six-task plan, durable handoff | Complete |
-| P0 | Resolve code-freeze boundary; safe development workspace; API/data inventory | In progress: isolated research copy created; original-tree boundary still unresolved; API inventory pending |
-| T1.1 | CSV catalog, DuckDB ingestion, coverage and missing-history report | In progress: 93-file inventory and 1,573-stock catalog exported; full candle validation/ingestion acceptance pending |
-| T1.2 | Baseline reproduction and approved enhanced execution contract | In progress: original selftest and indicator parity pass; isolated fresh-cross default corrected; original historical execution baseline and final contract pending |
-| T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | In progress: isolated 191-minute reconstruction/gated replay verified; full acceptance, latency/coverage studies and live integration pending |
-| T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | In progress: September 11 through 12:26 replay with 48 trade charts reconciles; afternoon/full-history reports and unrestricted comparison pending |
-| T1.4 | Bounded filter/exit research and holdout comparison | Pending |
-| T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Isolated implementation and integration patch ready: 68 backend tests, 8 browser checks, full typecheck/build and real 3-stock Fyers check passed. Original-app integration awaits edit-boundary clarification; live-market/multi-worker and broader broker runtime checks remain pending |
-| T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Pending |
-| T4 | Theme foundation and full route-by-route UI migration | Pending |
-| T5 | Flutter parity matrix, implementation and Android artifact | Pending |
-| T6 | Sandbox style portfolios, ledger, valuations and watch thresholds | Pending |
+| P0 | Resolve code-freeze boundary; safe development workspace; API/data inventory | Task 2 integration authorized by September 12 request; other tasks frozen and their boundaries unchanged |
+| T1.1 | CSV catalog, DuckDB ingestion, coverage and missing-history report | Frozen - resume only after the user updates the strategy. Prior status: In progress: 93-file inventory and 1,573-stock catalog exported; full candle validation/ingestion acceptance pending |
+| T1.2 | Baseline reproduction and approved enhanced execution contract | Frozen - resume only after the user updates the strategy. Prior status: In progress: original selftest and indicator parity pass; isolated fresh-cross default corrected; original historical execution baseline and final contract pending |
+| T1.2a | Scanner-based trade eligibility: union of volume shockers/gainers/losers, historical snapshots and entry gate | Frozen - resume only after the user updates the strategy. Prior status: In progress: isolated 191-minute reconstruction/gated replay verified; full acceptance, latency/coverage studies and live integration pending |
+| T1.3 | Full-universe scanner-selected 1m/5m reports and daily capital reconciliation | Frozen - resume only after the user updates the strategy. Prior status: In progress: September 11 through 12:26 replay with 48 trade charts reconciles; afternoon/full-history reports and unrestricted comparison pending |
+| T1.4 | Bounded filter/exit research and holdout comparison | Frozen - resume only after the user updates the strategy. Prior status: Pending |
+| T2 | Broker-neutral automatic live scanner; 50 volume shockers, price/volume %, index filters and row sparklines | Implementation complete and integrated locally; 76 backend tests, 5 navbar tests, 9 built-SPA browser checks, typecheck/build/lint and resource audit pass. Market-hours and broader account-live verification remain operational follow-up |
+| T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Frozen by user on 2026-09-12; not started |
+| T4 | Theme foundation and full route-by-route UI migration | Frozen by user on 2026-09-12; not started |
+| T5 | Flutter parity matrix, implementation and Android artifact | Frozen by user on 2026-09-12; not started |
+| T6 | Sandbox style portfolios, ledger, valuations and watch thresholds | Frozen by user on 2026-09-12; not started |
 
 Resume by reading root `AGENTS.md`, this file, then `context.md` for prior implementation history and `docs/INDEX.md` for canonical references. Check current Git status in every target repo and applicable nested instructions before editing. Do not redo the planning pass or treat older task numbers as these tasks.
 
-Next concrete work: use `.development/market-scanner-report/` for the partial-day scanner replay and the isolated original research copy for baseline comparison. Read the latest milestone and final report location below; do not restart the completed 2,642-instrument download. Reproduce the original historical execution baseline, add the unrestricted comparison on identical inputs, and address data/latency/ambiguity gaps before longer runs. A full-day extension requires a new cutoff and versioned inputs; the saved run ends at 12:26 IST. Continue API capability inventory independently. The original-tree boundary remains unresolved; preserve both original application trees. Full-history reports, broker capability verification, mobile builds and screenshot interaction tests remain pending.
+Next concrete work: no Task 1 or Tasks 3-6 implementation until the user resumes them. Task 2 is integrated locally; use the current checkpoint above for usage and pending live operational checks. For Task 1, receive the strategy update first, then resume from existing saved research artifacts without redoing completed downloads.
 
 At each milestone update this file with date, completed checklist rows, changed files, commands/results, data/run IDs, remaining decisions and next command. Keep credentials and account payloads out. Do not mark implementation complete merely because a plan or test scaffold exists.
 

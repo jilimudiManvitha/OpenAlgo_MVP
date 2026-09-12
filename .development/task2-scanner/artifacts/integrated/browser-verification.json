@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "50 rows",
+    "price and volume percentages",
+    "automatic price update",
+    "50 SVG charts",
+    "category filtering",
+    "keyboard tabs",
+    "pause control",
+    "desktop/mobile rendering",
+    "production SPA route and navigation"
+  ],
+  "pageErrors": []
+}

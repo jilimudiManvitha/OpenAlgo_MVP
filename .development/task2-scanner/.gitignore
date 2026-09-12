@@ -2,6 +2,8 @@ test-tmp*/
 resource-check.db*
 node_modules/
 dependencies/node_modules/
+dependencies/original-openalgo-charts-2.0.2/
+integrated-test-tmp/
 frontend/node_modules/
 frontend/dist/
 __pycache__/

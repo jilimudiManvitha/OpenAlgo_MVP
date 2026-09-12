@@ -1,6 +1,41 @@
-# Fyers stock scanner: volume shockers and daily movers
+# Live stock scanner: volume shockers and daily movers
 
-Implemented on 10 September 2026. This phase adds the scanner backend and a terminal command. The frontend, navigation and visual design are deferred until requested.
+The automatic scanner is integrated into OpenAlgo as of 12 September 2026. Start the app normally, log in to your broker, and open **Scanner** at `/market-scanner`. The existing Fyers terminal scanner remains available separately.
+
+## Live page
+
+Volume Shockers, Top Gainers and Top Losers each show up to 50 matches from the selected NSE equity category. Category membership is applied before ranking across the available universe. Each row shows LTP, daily change from previous close, cumulative volume, volume change from the selected daily baseline, RVOL and a small observed-price chart. Missing volume or history displays N/A.
+
+For example, LTP 110 against previous close 100 means +10%, regardless of today's open. Volume 250,000 against average volume 100,000 means +150% and 2.5x RVOL. Price lines contain real timestamped observations since connection, at most 120 points per stock; gaps are preserved and earlier prices are not invented.
+
+Filter by index, price, minimum volume and RVOL. Browser filters are saved per account; pause/resume and baseline settings persist on the server. Index lists come from `stock_symbols_CSVs/ind_*list.csv`; **Reimport local lists** reloads them. Provenance is displayed, including unknown effective dates in the supplied lists.
+
+App startup starts a lease-elected coordinator. Authenticated navigation attaches the account, so no separate scanner command is needed. Tabs share one account snapshot and scanner worker. The scanner uses an account-owned connection to the existing WebSocket proxy, with a default 500-symbol stream cap and batched polling for the full available universe. Full passes repeat after 60 seconds; the browser reads shared results every five seconds. Cold history loading and provider quotas can extend a pass. Cached baselines are reused.
+
+The market calendar controls streaming. Rows from another trading date are not shown as today's movers. Timestamps, coverage, missing data and paused/closed-market states remain visible. A Saturday or holiday can therefore show empty tables. Logging out or losing the lease stops authenticated feed work; retries back off and token refresh is picked up on a subsequent attempt.
+
+Configuration: `SCANNER_LIVE_DB` sets the SQLite control/snapshot path (default `db/market_scanner_live.db`); `SCANNER_STREAM_LIMIT` sets the stream cap (1–5000, default 500). The proxy uses the existing `WEBSOCKET_HOST` and `WEBSOCKET_PORT`. No order endpoint is invoked.
+
+| Broker | Support and verification |
+| --- | --- |
+| Fyers | Native batched quotes/history and shared proxy; real three-stock quote/baseline probe passed after the September 11 close |
+| Zerodha | Native quote timestamps and common history; offline response and calculation checks passed; account-live validation pending |
+| Other Indian equity adapters | Common market-data fallback where available; quotes without native timestamps are excluded and unavailable volume/history remains N/A; account-live validation not claimed |
+| Crypto/BSE/derivatives | Outside this NSE stock scanner's scope |
+
+Live market-hours streaming and long-running production reload observation remain operational follow-up. Local integration checks passed: 76 backend tests, five navbar tests, nine browser checks on the production SPA, full typecheck/build, scanner lint and a 500-cycle SQLite audit with zero handle growth.
+
+## Live session API
+
+These routes require the logged-in broker session, use `Cache-Control: no-store`, and retain normal CSRF protection on POST requests.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/market-scanner/api/live` | Shared snapshot; optional category, min_rvol, min_price, max_price, min_volume and limit filters |
+| POST | `/market-scanner/api/live` | Persist `enabled` and/or scanner `options`, including `lookback_days` |
+| POST | `/market-scanner/api/categories/refresh` | Reimport local index membership and provenance |
+
+The remaining sections document the underlying calculations and legacy Fyers snapshot/terminal API.
 
 ## What it scans
 
@@ -29,7 +64,7 @@ This compares today's cumulative volume so far with prior **full-day** volume. I
 - Missing/invalid history, fewer than N completed bars, or a zero average means no RVOL. An otherwise valid price quote can still rank among gainers or losers.
 - Price and minimum-volume filters apply to all three lists. The RVOL threshold applies only to the volume-shocker list.
 
-## Daily use before the UI is built
+## Optional legacy Fyers terminal use
 
 Start OpenAlgo normally and log in to Fyers:
 
@@ -52,9 +87,9 @@ uv run scripts/market_scanner.py --output tmp/market-scanner-today.json
 
 The command uses your stored Fyers login without printing its token. If multiple active Fyers logins exist, provide `--username YOUR_OPENALGO_USERNAME`. It prints progress and all three result lists. It does not submit orders. The terminal command runs a separate scanner process, so its results are printed/exported rather than appearing in the web process's results API. Avoid simultaneous full-universe scans in multiple processes because they share the broker account quota.
 
-No new dependencies are required. The frontend requires no rebuild for these backend endpoints. Restart the app to load the registered blueprint. Starting the app makes the API available; it does not automatically launch a market-wide scan before login.
+The terminal command needs no frontend rebuild. The live page requires the current frontend build and an app restart after installation. Avoid running a separate full-universe terminal scan alongside the automatic scanner because both consume the broker's quota.
 
-## Backend API
+## Legacy Fyers snapshot API
 
 All routes require a valid OpenAlgo web session for the logged-in Fyers user and return `Cache-Control: no-store`. POST requests retain the app's normal CSRF protection. These are session APIs, not `/api/v1` API-key endpoints.
 
@@ -101,15 +136,18 @@ The implementation reuses the existing Fyers HTTP wrapper, connection pool, rate
 
 Validated completed daily volume bars are cached in `db/market_scanner.db`, keyed by Fyers symbol and India scan date. Subsequent same-day scans reuse them across application restarts. Cache entries older than seven days are pruned. API errors and malformed history are not cached as successful empty data. The cache stores no credentials and no live quotes.
 
-Results are kept in memory, separately for each user, with one active worker and at most 16 retained user results per process. Restarting loses results but keeps baselines. The supported daily launch is the requested single-process `uv run app.py`; a multi-worker deployment would need shared job coordination/results storage. Cancellation takes effect between broker calls, after any in-flight request/retry returns.
+Legacy snapshot results are kept in memory, separately for each user, with one active worker and at most 16 retained user results per process. Restarting loses those results but keeps baselines. The live page instead persists shared account snapshots and controls in SQLite and elects its coordinator with a lease. The application still requires its supported single-worker production configuration for other services. Cancellation takes effect between broker calls, after any in-flight request/retry returns.
 
 ## Files changed
 
 | File | Responsibility |
 | --- | --- |
-| `app.py` | Registers the scanner blueprint |
+| `app.py` | Registers the scanner blueprint and starts live orchestration |
 | `blueprints/market_scanner.py` | Authenticated, CSRF-protected backend API |
-| `services/market_scanner_provider.py` | Fyers credentials, master universe, quotes/history requests |
+| `services/market_scanner_provider.py` | Broker credentials, master universe, native Fyers/Zerodha quotes and common history/quote fallback |
+| `services/market_scanner_live.py` | Persistent controls, snapshots, lease election, categories and live orchestration |
+| `services/market_scanner_feed.py` | Shared proxy connection, timestamp validation, polling fallback and cleanup |
+| `frontend/src/pages/MarketScanner.tsx` | Scanner tabs, filters, percentages, price sparklines and controls |
 | `services/market_scanner_service.py` | Validation, RVOL/rankings, background jobs and filtering |
 | `database/market_scanner_db.py` | Persistent daily baseline cache |
 | `scripts/market_scanner.py` | Daily terminal command |

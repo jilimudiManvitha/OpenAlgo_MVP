@@ -118,8 +118,8 @@ def make_row(instrument, quote, history, session_date, lookback_days, fetched_at
         raise ValueError("stale_or_invalid_quote_date")
     ltp = number(quote.get("lp"))
     previous_close = number(quote.get("prev_close_price"))
-    volume = number(quote.get("volume"))
-    if ltp <= 0 or previous_close <= 0 or volume <= 0:
+    volume = number(quote["volume"]) if quote.get("volume") is not None else None
+    if ltp <= 0 or previous_close <= 0 or (volume is not None and volume <= 0):
         raise ValueError("invalid_price_or_no_trades")
     row = {
         "symbol": instrument["symbol"],
@@ -147,11 +147,13 @@ def make_row(instrument, quote, history, session_date, lookback_days, fetched_at
             average = math.fsum(item["volume"] for item in selected) / lookback_days
             row["average_volume"] = average
             row["baseline_status"] = "zero_average_volume"
-            if average > 0:
+            if average > 0 and volume is not None:
                 row["rvol"] = volume / average
                 if not math.isfinite(row["rvol"]):
                     raise ValueError("invalid_relative_volume")
                 row["baseline_status"] = "ready"
+    if volume is None:
+        row["baseline_status"] = "current_volume_unavailable"
     return row
 
 
@@ -160,7 +162,12 @@ def rank_rows(rows, options):
         row
         for row in rows
         if options["min_price"] <= row["ltp"] <= options["max_price"]
-        and row["volume"] >= options["min_volume"]
+        and (
+            row["volume"] is None
+            and options["min_volume"] == 0
+            or row["volume"] is not None
+            and row["volume"] >= options["min_volume"]
+        )
     ]
     shockers = sorted(
         (row for row in filtered if row["rvol"] is not None and row["rvol"] > options["min_rvol"]),
@@ -379,6 +386,7 @@ class ScannerManager:
                     self._cache = self.cache_factory()
                 self._cache.prune(job["session_date"])
             failures = 0
+            refreshed_at = time.monotonic()
             for index, instrument in enumerate(eligible):
                 self._check_stop(job)
                 symbol = instrument["broker_symbol"]
@@ -406,6 +414,10 @@ class ScannerManager:
                 except (ValueError, TypeError, OverflowError, OSError):
                     self._issue(job, instrument, "invalid_history")
                 self._update(job, baselines_processed=index + 1)
+                if time.monotonic() - refreshed_at >= 60:
+                    live_rows, _ = self._fetch_quotes(job, provider, universe, histories)
+                    self._update(job, rows=live_rows)
+                    refreshed_at = time.monotonic()
             if eligible:
                 # Refresh after slow cold history loading. Keep the first
                 # snapshot visible, with its own timestamps, until replaced.

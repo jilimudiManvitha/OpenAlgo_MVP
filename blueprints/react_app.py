@@ -210,6 +210,11 @@ def react_holdings():
     return serve_react_app()
 
 
+@react_bp.route("/market-scanner", strict_slashes=False)
+def react_market_scanner():
+    return serve_react_app()
+
+
 # Scalping Terminal
 @react_bp.route("/scalping", strict_slashes=False)
 def react_scalping():

@@ -11,15 +11,24 @@ from services.market_scanner_service import IST
 
 
 @pytest.fixture
-def client(monkeypatch):
+def client(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    from services import market_scanner_live as live
+
+    store = live.LiveStore("sqlite:///" + (tmp_path / "scanner-routes.db").as_posix())
+    monkeypatch.setattr(live, "coordinator", lambda: SimpleNamespace(store=store))
     app = Flask(__name__)
     app.config.update(TESTING=True, SECRET_KEY="scanner-test-only")
     CSRFProtect(app)
     app.register_blueprint(routes.market_scanner_bp)
     app.get("/test-csrf")(lambda: {"token": generate_csrf()})
     monkeypatch.setattr(routes, "get_fyers_token", lambda user: "test-token")
-    with app.test_client() as client:
-        yield client
+    try:
+        with app.test_client() as client:
+            yield client
+    finally:
+        store.engine.dispose()
 
 
 def login(client, broker="fyers"):

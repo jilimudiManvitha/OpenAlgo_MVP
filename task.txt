@@ -2,22 +2,7 @@ historic data available only form 3rd july 2017 to 11th sep 2026. for stocks.
 Add news section for each stock.using dhan skills imran YT video.
 bot integration
 canles data is in correct.
---------------------------------------------------------------------
-Task for chatgpt
-think like yourself as A senior software/AI/ML/DL/DS engineer and quant researcher,analyst,
-quant devloper and finance expert .then think deeply and solve below 
-problems .a Charted accountent .and finance expert.as a algo trader.
-use all agents skills to complete below task at best way.
-UPDATE stratagy TAKE TRADES FROM WHICH ARE currently VOLUME SHOCKERS.
-
 --------------------------------------------------------------------------
-run volume SHOCKERS and top gainers/loosers for only today
-perform backtest on them and plot each trade.
-output strategy not performing well update it. plot how it peform.
-stratagy not working well update it test on only one stock .
-try for crypto/nse while price really moving bollinger bands expands both bands.
-complete task 1.
+backtest crypto data at D:\Personal\openalgo_Crypto\historical_data and give me reports skip volume/gaine/looser
+filter just run strategy test run and run backtest on that.in 1min,5min time frames.
 
-update stratagy using claude if needed in 1 stock separetely in diff folder.
-try stratagy by updating exit rules set exit rule as 1:1 and 1:2 or SL.
-after one entry next trade executing change this.

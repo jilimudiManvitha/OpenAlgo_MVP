@@ -327,6 +327,8 @@ def create_app():
     app.register_blueprint(admin_bp)  # Register Admin blueprint
     app.register_blueprint(historify_bp)  # Register Historify blueprint
     app.register_blueprint(market_scanner_bp)
+    from services.market_scanner_live import coordinator
+    coordinator()  # Lease election prevents duplicate workers across reloads.
     app.register_blueprint(ivchart_bp)  # Register IV chart blueprint
     app.register_blueprint(scalping_bp)  # Register Scalping terminal blueprint
     app.register_blueprint(watchlist_bp)  # Register charting watchlist blueprint

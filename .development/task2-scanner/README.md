@@ -1,11 +1,19 @@
 # Task 2 live scanner development copy
 
-The scanner changes are implemented here. They are **not installed in the normal
-OpenAlgo application** because AGENTS.md still requires clarification before
-editing the original application code. Review `artifacts/integration.patch` and
-`artifacts/integration-manifest.json`; the latter records hashes so integration
-cannot silently overwrite newer source changes. Do not replace the whole original
-frontend directory with this development copy.
+**Integrated into the normal OpenAlgo application on September 12.** The current
+source of truth is the root `services/`, `blueprints/` and `frontend/src/` tree,
+with regression tests in `test/test_market_scanner_live.py`. This development
+copy and its original patch/manifest are historical evidence; do not reapply
+or regenerate the integration patch. See the current checkpoint in
+`docs/plans/2026-09-11-six-task-roadmap.md` for verification and frozen tasks.
+
+Current integrated verification: 76 backend tests, five navbar tests, nine built-SPA
+browser checks, full typecheck/build, scanner lint and a 500-cycle SQLite audit
+with zero handle growth. Integrated browser/resource artifacts are under
+`artifacts/integrated/`. Run `verify_integrated_browser.cjs` against the production
+Vite preview at localhost:5188; it uses synthetic sessions and scanner data.
+
+The notes below record the pre-integration development verification.
 
 The page provides Volume Shockers, Top Gainers and Top Losers; top 50 within the
 selected index; previous-close price change; separate volume change and RVOL;

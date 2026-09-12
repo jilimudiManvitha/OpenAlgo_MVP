@@ -13,7 +13,7 @@ need → drill into the specific file. Don't load everything at once.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Resumed: Task 2 now has an isolated live scanner with price/volume percentages, index filters, sparklines and verified tests/build. Original-app integration awaits boundary clarification. Task 1 retains its 48-chart partial-day replay; full-history validation remains pending.
+mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. Task 1 and Tasks 3-6 are frozen; receive the strategy update before resuming Task 1. Market-hours and broader broker operational verification remain documented follow-up.
 
 | Read this when you need… | Entry point |
 |---|---|
@@ -52,7 +52,7 @@ For this private installation's new-laptop move and sole Git remote, start with 
 | Agent (`/agent`) | [design/55-agent/README.md](design/55-agent/README.md) |
 | Scalping Terminal (`/scalping`) | [scalping/PRD.md](scalping/PRD.md) |
 | Scanner architecture | [scanner-architecture.md](scanner-architecture.md) |
-| Fyers volume shockers and today's top gainers/losers (backend and terminal) | [api/market-scanner.md](api/market-scanner.md) |
+| Live stock scanner: volume shockers, gainers/losers, filters and sparklines | [api/market-scanner.md](api/market-scanner.md) |
 | WhatsApp alerts | [whatsapp.md](whatsapp.md) |
 | Telegram chart rendering | [telegram-chart-rendering.md](telegram-chart-rendering.md) |
 | Health monitoring | [HEALTH_MONITORING_IMPLEMENTATION.md](HEALTH_MONITORING_IMPLEMENTATION.md) · [HEALTH_MONITOR_REACT_FRONTEND.md](HEALTH_MONITOR_REACT_FRONTEND.md) |

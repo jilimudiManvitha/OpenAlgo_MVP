@@ -31,6 +31,7 @@ const BrokerTOTP = lazy(() => import('@/pages/BrokerTOTP'))
 const SamcoAuth = lazy(() => import('@/pages/SamcoAuth'))
 
 // Main pages
+const MarketScanner = lazy(() => import('@/pages/MarketScanner'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Positions = lazy(() => import('@/pages/Positions'))
 const OrderBook = lazy(() => import('@/pages/OrderBook'))
@@ -185,7 +186,8 @@ function App() {
 
               {/* Protected routes - requires broker auth */}
               <Route element={<Layout />}>
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/market-scanner" element={<MarketScanner />} />
+              <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/positions" element={<Positions />} />
                 <Route path="/orderbook" element={<OrderBook />} />
                 <Route path="/tradebook" element={<TradeBook />} />

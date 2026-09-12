@@ -201,15 +201,15 @@ export function Navbar({ fluid = false }: NavbarProps = {}) {
         </Sheet>
 
         {/* Logo */}
-        <Link to="/dashboard" className="flex items-center gap-2 mr-6">
+        <Link to="/dashboard" className="flex shrink-0 items-center gap-2 mr-6">
           <img src="/logo.png" alt="OpenAlgo" className="h-8 w-8" />
           <span className="hidden font-semibold sm:inline-block">OpenAlgo</span>
         </Link>
 
         {/* Desktop Navigation.
-            Icon-only between md and xl so all 9 items fit portrait monitors
-            and small laptops (768-1280px wide) without squashing or pushing
-            the profile menu off-screen; full labels from xl up (issue #1384). */}
+            Icon-only between md and 2xl so the scanner and existing tools fit
+            laptops without crowding the logo or profile menu. Full labels
+            appear on wider screens; every icon retains its title. */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             const active = isActive(item.href)
@@ -222,7 +222,7 @@ export function Navbar({ fluid = false }: NavbarProps = {}) {
             const content = (
               <>
                 <item.icon className="h-4 w-4 shrink-0" />
-                <span className="hidden xl:inline">{item.label}</span>
+                <span className="hidden 2xl:inline">{item.label}</span>
               </>
             )
             // Flask-served pages (e.g. /trading) need a full page load,

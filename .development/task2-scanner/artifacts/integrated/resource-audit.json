@@ -1,0 +1,9 @@
+{
+  "iterations": 500,
+  "handles_before": 193,
+  "handles_after": 193,
+  "handle_growth": 0,
+  "retained_python_bytes": 248,
+  "peak_python_bytes": 29792,
+  "source": "integrated services.market_scanner_live"
+}
