@@ -26,6 +26,7 @@ mobile parity and sandbox investment portfolios. Task 2 is integrated at `/marke
 | Service-layer functions & Flow JSON import | [prompt/services_documentation.md](prompt/services_documentation.md) · [prompt/flow-import-format.md](prompt/flow-import-format.md) |
 | Strategy module & risk engine (multi-leg options, signal mode, RMS) | [prompt/strategy_rms_documentation.md](prompt/strategy_rms_documentation.md) · [api/strategy-services/](api/strategy-services/) · [prd/strategy-module-rms.md](prd/strategy-module-rms.md) · [bdd/strategy_module_rms.feature](bdd/strategy_module_rms.feature) |
 | Technical indicators (`ta` library) | [<prompt/indicators/openalgo indicators - introduction.md>](<prompt/indicators/openalgo indicators - introduction.md>) |
+| September 12 HA/BB/VWAP buy/sell strategy definitions, variants and code-only contract | [Strategy package](../strategies/ha_bb_vwap_v1/README.md) |
 | The charting terminal at `/trading`, its order dock and its shortcuts | [userguide/32-charting-terminal](userguide/32-charting-terminal/README.md) |
 | Position calculator, brokerage estimates and automatic exit watches | [Position calculator](userguide/32-charting-terminal/position-calculator.md) |
 | Planned Fyers historical backfill: 1,500 stocks, 5-minute candles, nine years | [Fyers download plan](plans/2026-09-08-fyers-historical-data-download-plan.md) |

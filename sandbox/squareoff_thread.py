@@ -371,20 +371,24 @@ def stop_squareoff_scheduler():
     global _scheduler
 
     with _scheduler_lock:
-        if _scheduler is None or not _scheduler.running:
-            logger.debug("Square-off scheduler not running")
-            return True, "Square-off scheduler not running"
+        scheduler = _scheduler
+        _scheduler = None
+    if scheduler is None or not scheduler.running:
+        logger.debug("Square-off scheduler not running")
+        return True, "Square-off scheduler not running"
 
-        try:
-            logger.info("Stopping square-off scheduler...")
-            _scheduler.shutdown(wait=True)
-            _scheduler = None
-            logger.info("Square-off scheduler stopped successfully")
-            return True, "Square-off scheduler stopped"
+    # Jobs may need application locks while finishing. Join outside the lock.
+    try:
+        logger.info("Stopping square-off scheduler...")
+        scheduler.pause()
+        scheduler.remove_all_jobs()
+        scheduler.shutdown(wait=True)
+        logger.info("Square-off scheduler stopped successfully")
+        return True, "Square-off scheduler stopped"
 
-        except Exception as e:
-            logger.exception(f"Error stopping square-off scheduler: {e}")
-            return False, f"Error stopping square-off scheduler: {str(e)}"
+    except Exception as e:
+        logger.exception(f"Error stopping square-off scheduler: {e}")
+        return False, f"Error stopping square-off scheduler: {str(e)}"
 
 
 def is_squareoff_scheduler_running():

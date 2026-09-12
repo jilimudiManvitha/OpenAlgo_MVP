@@ -502,10 +502,13 @@ class HistorifyScheduler:
                 logger.warning(f"Failed to emit {event}: {e}")
 
     def shutdown(self):
-        """Shutdown the scheduler"""
-        if self._scheduler:
-            self._scheduler.shutdown(wait=False)
-            self._initialized = False
+        """Stop dispatch without deleting persisted download schedules."""
+        scheduler = self._scheduler
+        self._scheduler = None
+        self._initialized = False
+        if scheduler is not None and scheduler.running:
+            scheduler.pause()
+            scheduler.shutdown(wait=True)
             logger.info("Historify Scheduler shutdown")
 
 

@@ -6,7 +6,10 @@ restore the operator's processes/configuration or start trading jobs.
 
 import ast
 import logging
+import sys
+import tempfile
 import threading
+from datetime import datetime, timedelta
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -19,28 +22,51 @@ ROOT = Path(__file__).resolve().parents[1]
 def load_functions(path, names, namespace):
     tree = ast.parse((ROOT / path).read_text(encoding="utf-8"))
     functions = [
-        node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in names
+        node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name in names
     ]
     assert {node.name for node in functions} == set(names)
     exec(compile(ast.Module(body=functions, type_ignores=[]), path, "exec"), namespace)
     return namespace
 
 
-@pytest.mark.parametrize("kind", ["strategy_module", "python_strategy"])
+@pytest.mark.parametrize(
+    "kind", ["strategy_module", "python_strategy", "squareoff", "chartink", "flow", "historify"]
+)
 def test_shutdown_joins_active_jobs_and_scheduler_without_holding_locks(kind):
     scheduler = BackgroundScheduler()
     lock = threading.Lock()
-    namespace = {"logger": logging.getLogger(__name__), "_lock": lock, "PROCESS_LOCK": lock}
+    namespace = {
+        "logger": logging.getLogger(__name__),
+        "_lock": lock,
+        "PROCESS_LOCK": lock,
+        "_scheduler_lock": lock,
+    }
     if kind == "strategy_module":
         namespace["_scheduler"] = scheduler
         load_functions("services/strategy_module/scheduler.py", ["shutdown"], namespace)
         stop = namespace["shutdown"]
         singleton = "_scheduler"
-    else:
+    elif kind == "python_strategy":
         namespace["SCHEDULER"] = scheduler
         load_functions("blueprints/python_strategy.py", ["shutdown_scheduler"], namespace)
         stop = namespace["shutdown_scheduler"]
         singleton = "SCHEDULER"
+    elif kind == "squareoff":
+        namespace["_scheduler"] = scheduler
+        load_functions("sandbox/squareoff_thread.py", ["stop_squareoff_scheduler"], namespace)
+        stop = namespace["stop_squareoff_scheduler"]
+        singleton = "_scheduler"
+    elif kind == "chartink":
+        namespace["sys"] = SimpleNamespace(
+            modules={"blueprints.chartink": SimpleNamespace(scheduler=scheduler)}
+        )
+        load_functions("utils/shutdown.py", ["_stop_chartink_scheduler"], namespace)
+        stop = namespace["_stop_chartink_scheduler"]
+    else:
+        owner = SimpleNamespace(_scheduler=scheduler, _initialized=True)
+        load_functions(f"services/{kind}_scheduler_service.py", ["shutdown"], namespace)
+        def stop():
+            namespace["shutdown"](owner)
 
     started, release, completed, stopped = (threading.Event() for _ in range(4))
 
@@ -68,7 +94,10 @@ def test_shutdown_joins_active_jobs_and_scheduler_without_holding_locks(kind):
         assert completed.is_set()
         assert not scheduler_thread.is_alive()
         assert all(not worker.is_alive() for worker in workers)
-        assert namespace[singleton] is None
+        if kind in ("flow", "historify"):
+            assert owner._scheduler is None and not owner._initialized
+        elif kind != "chartink":
+            assert namespace[singleton] is None
         stop()  # repeated cleanup is harmless
     finally:
         release.set()
@@ -146,3 +175,109 @@ def test_shutdown_helpers_only_touch_already_loaded_services():
     namespace["_stop_strategy_module_scheduler"]()
     namespace["_stop_python_strategy_scheduler"]()
     assert calls == ["strategy", "python"]
+
+
+@pytest.mark.parametrize("failed", [None, "squareoff", "chartink", "flow", "historify"])
+def test_runtime_stops_all_schedulers_even_when_one_fails(monkeypatch, failed):
+    from utils import shutdown as shutdown_mod
+
+    calls = []
+
+    def stop(name):
+        calls.append(name)
+        if name == failed:
+            raise RuntimeError("simulated shutdown failure")
+
+    # Real runtime helpers, fake already-loaded owners: no trading services start.
+    monkeypatch.setitem(
+        sys.modules,
+        "sandbox.squareoff_thread",
+        SimpleNamespace(stop_squareoff_scheduler=lambda: (stop("squareoff") is None, "stopped")),
+    )
+    monkeypatch.setitem(
+        sys.modules,
+        "blueprints.chartink",
+        SimpleNamespace(
+            scheduler=SimpleNamespace(
+                running=True,
+                pause=lambda: None,
+                remove_all_jobs=lambda: None,
+                shutdown=lambda wait: stop("chartink"),
+            )
+        ),
+    )
+    for name in ("flow", "historify"):
+        owner = SimpleNamespace(shutdown=lambda name=name: stop(name))
+        monkeypatch.setitem(
+            sys.modules,
+            f"services.{name}_scheduler_service",
+            SimpleNamespace(**{f"{name}_scheduler": owner}),
+        )
+    monkeypatch.setitem(
+        sys.modules,
+        "services.strategy_module.scheduler",
+        SimpleNamespace(shutdown=lambda: stop("strategy")),
+    )
+    monkeypatch.setitem(
+        sys.modules,
+        "blueprints.python_strategy",
+        SimpleNamespace(shutdown_scheduler=lambda: stop("python")),
+    )
+    monkeypatch.setattr(shutdown_mod, "_shutdown_done", False)
+    monkeypatch.setattr(shutdown_mod, "_stop_health_collector", lambda: stop("health"))
+    monkeypatch.setattr(shutdown_mod, "_remove_all_scoped_sessions", lambda: stop("sessions"))
+    shutdown_mod.shutdown_runtime()
+    shutdown_mod.shutdown_runtime()
+    assert calls == [
+        "squareoff",
+        "chartink",
+        "flow",
+        "historify",
+        "strategy",
+        "python",
+        "health",
+        "sessions",
+    ]
+
+
+@pytest.mark.parametrize("name", ["flow", "historify"])
+def test_persistent_scheduler_shutdown_keeps_saved_jobs(name):
+    from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+
+    from database.engine_factory import create_db_engine
+
+    namespace = {"logger": logging.getLogger(__name__)}
+    load_functions(f"services/{name}_scheduler_service.py", ["shutdown"], namespace)
+    # Explicit workspace location: never use the operator's database/job store.
+    with tempfile.TemporaryDirectory(prefix="scheduler-test-", dir=ROOT / ".development") as folder:
+        url = "sqlite:///" + (Path(folder) / "jobs.db").as_posix()
+
+        def create_scheduler():
+            return BackgroundScheduler(
+                jobstores={"default": SQLAlchemyJobStore(engine=create_db_engine(url))}
+            )
+
+        scheduler = create_scheduler()
+        scheduler.add_job(
+            print,
+            "date",
+            run_date=datetime.now() + timedelta(days=1),
+            args=["test job must not execute"],
+            id="preserved-job",
+        )
+        scheduler.start(paused=True)
+        owner = SimpleNamespace(_scheduler=scheduler, _initialized=True)
+        try:
+            namespace["shutdown"](owner)
+            namespace["shutdown"](owner)
+            assert not scheduler.running
+            assert owner._scheduler is None and not owner._initialized
+            restored = create_scheduler()
+            restored.start(paused=True)
+            try:
+                assert restored.get_job("preserved-job") is not None
+            finally:
+                restored.shutdown()
+        finally:
+            if scheduler.running:
+                scheduler.shutdown()

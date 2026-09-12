@@ -1,16 +1,28 @@
 historic data available only form 3rd july 2017 to 11th sep 2026. for stocks.
 Add news section for each stock.using dhan skills imran YT video.
 bot integration
-canles data is in correct.
---------------------------------------------------------------------------
 backtest crypto data at D:\Personal\openalgo_Crypto\historical_data and give me reports skip volume/gaine/looser
 filter just run strategy test run and run backtest on that.in 1min,5min time frames.
 
 
-remove these filters scanner.
+
+backtest on 11/09/2026 data is available at D:\Personal\openalgo\CSVs\GainersOn11092026 for buy trade strategies.
+for sell trade strategies use D:\Personal\openalgo\CSVs\LosersOn11092026.backtest and plot each trade.and check how it performs.give me 
+report of the each strategy. plot each trade chat clearly from 9:15 candle to 3:30 candle .add candle colors red and green.
+at the end give report which is works best and why.
+
+give dry run backtest results to auto research to get better results optimize the strategy. 
+
+explain later we will remove these filters scanner.
 Minimum RVOL
 Minimum price
 Maximum price
 Minimum volume
-
-scanner should also work with crypto.
+Volume baseline
+20-session average
+Minimum RVOL
+Minimum price
+Maximum price
+Minimum volume
+scanner should also work with other brokers(mainly delta exchange D:\Personal\openalgo\delta-exchange-api-docs.md ).
+for Day change % add filter to see high % changes to low, low to high.

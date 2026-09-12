@@ -1,0 +1,115 @@
+hey below i will dicsribe my strategy  write separe codes for each version, name strategies with combination used.
+write only codes for now later we will backtest/forward test them.
+i will give you short/sell trades strategy write it all same conditions for 1min and 5min time frames.
+for each code strategy write complete strategy doc .
+in that doc include
+1. strategy name
+2. strategy description
+3. entry conditions
+4. exit conditions
+5. stop loss
+6. target profit
+
+strategy:-
+when a 5min/1min hekin ashi(HA) candle price cross or close/high below  the bollinger lower band and price below the VWAP the this candle is considered as a signal 
+candle .this signal candle should not be no upper wick[price should not come above the open(if wrong correct it)].if next candle cross the signal
+candle low and bollinger lower band ,price below the VWAP then place buy order,this is entry candle this candle also should not have upper wick.
+for signal and entry candles open price might be above the VWAP then no problem. but low or close should be below bollinger lower band
+and VWAP.for bollinger band.if signal and entry HA candles doesn't have lower wicks ignore but remaining criteria should pass price below VWAP or bollinger lower band.
+place order when entry  candle cross signal candle low no need to wait entry candle close.
+
+run this strategy from 9:15 AM to 3:05PM(for f&o stocks) 3:20Pm for non-f&o stocks square off times.
+
+this is main logic.
+
+entry is fixed .
+capital is 1 lakh per trade fixed.
+SL is above signal candle low +0.10 points.(default)
+Target price is 1:2(default)
+clearly document this file.
+
+version 1(V1)
+i want to try diffrent exits criteria.try all combinations write separate code for each combination versions.
+try with diff stoploss for now default is below signal candle low -0.10 points.try others as below try each one 
+1.below signal candle low +0.10 points
+2.below signal candle low +0.15 points
+3.below signal candle low +0.20 points
+4.below signal candle low +0.25 points
+5.below signal candle low +0.30 points
+
+
+target is fixed 1:2 as default.
+try with diff targetprice as below
+1.1:2
+2.1:2.5
+3.1:3
+4.1:3.5
+5.1:4
+upto 1:30
+try with diff trailsloss as below. trailsloss will be active only when target price is 1:2.0 or more.
+1. trailsloss trail by 20% of target price when 1:1 or more profit is made.
+2. trailsloss trail by 30% of target price when 1:1 or more profit is made.
+3. trailsloss trail by 40% of target price when 1:1 or more profit is made.
+4. trailsloss trail by 50% of target price when 1:1 or more profit is made.
+5. trailsloss trail by 60% of target price when 1:1 or more profit is made.
+6. trailsloss trail by 70% of target price when 1:1 or more profit is made.
+
+to lock profits trail stoploss.
+
+exit positions(quantity)
+example place a trade with 100 quantity.when 1:1 profit is made exit 50% of quantity.
+when 1:2 profit is made exit remaining 50% of quantity.
+when 1:1.5 profit is made exit 25% of quantity.
+when 1:2.5 profit is made exit remaining 75% of quantity.
+
+stoploss when price become above bollinger middle band.
+stoploss when complete HA candle price (OHLC) is above bollinger middle band.
+stoploss when complete HA candle price (OHLC) close above VWAP
+stoploss when price become above VWAP
+stoploss when complete HA candle price (OHLC) is  supertrend green color
+stoploss when price become supertrend green color
+stoploss when complete HA candle price (OHLC) close above MA(9)
+stoploss when price become above MA(9)
+stoploss when complete HA candle price (OHLC) close above EMA 9
+stoploss when price become above EMA 9
+stoploss when complete HA candle price (OHLC) close above EMA 21
+stoploss when price become above EMA 21
+stoploss when complete HA candle price (OHLC) close below RSI 40
+stoploss when price become below RSI 40
+stoploss when complete HA candle price (OHLC) close below/above MACD cross
+stoploss when price become below/above MACD cross.
+
+targetprice when price become above bollinger middle band.
+targetprice when complete HA candle price (OHLC) is above bollinger middle band.
+targetprice when complete HA candle price (OHLC) close above VWAP
+targetprice when price become above VWAP
+targetprice when complete HA candle price (OHLC) supertrend green color
+targetprice when price become  supertrend green color
+targetprice when complete HA candle price (OHLC) close above MA(9)
+targetprice when price become above MA(9)
+targetprice when complete HA candle price (OHLC) close above EMA 9
+targetprice when price become above EMA 9
+targetprice when complete HA candle price (OHLC) close above EMA 21
+targetprice when price become above EMA 21
+targetprice when complete HA candle price (OHLC) close above RSI 40
+targetprice when price become above RSI 40
+targetprice when complete HA candle price (OHLC) close below/above MACD cross
+targetprice when price become below/above MACD cross.
+
+
+
+All indicator settings
+Bollinger band length:-20
+Bollinger band standard deviation:-2
+Bollinger band type:-SMA
+
+MA(9)
+EMA(9)
+EMA(21)
+RSI(upper limit:-60,lower limit:40,length:-14)
+MACD(fast:-12,slow:-26,signal:-9)
+VWAP
+supertrend.(period 14, multiplier 2)
+
+
+try all combinations of above stoplosses with the 1min and 5min timeframes and write separate code for each combination versions.

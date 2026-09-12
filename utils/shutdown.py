@@ -76,6 +76,37 @@ def _stop_python_strategy_scheduler() -> None:
         module.shutdown_scheduler()
 
 
+def _stop_squareoff_scheduler() -> None:
+    module = sys.modules.get("sandbox.squareoff_thread")
+    if module is not None:
+        success, message = module.stop_squareoff_scheduler()
+        if not success:
+            raise RuntimeError(message)
+
+
+def _stop_chartink_scheduler() -> None:
+    module = sys.modules.get("blueprints.chartink")
+    scheduler = getattr(module, "scheduler", None)
+    if scheduler is not None and scheduler.running:
+        scheduler.pause()
+        scheduler.remove_all_jobs()  # Chartink uses an in-memory job store.
+        scheduler.shutdown(wait=True)
+
+
+def _stop_flow_scheduler() -> None:
+    module = sys.modules.get("services.flow_scheduler_service")
+    owner = getattr(module, "flow_scheduler", None)
+    if owner is not None:
+        owner.shutdown()
+
+
+def _stop_historify_scheduler() -> None:
+    module = sys.modules.get("services.historify_scheduler_service")
+    owner = getattr(module, "historify_scheduler", None)
+    if owner is not None:
+        owner.shutdown()
+
+
 def shutdown_runtime() -> None:
     """Stop background writers and release this thread's sessions.
 
@@ -109,6 +140,10 @@ def shutdown_runtime() -> None:
     # Stop job submission before concurrent.futures' interpreter exit hook.
     # Ordinary atexit callbacks run after that hook and are too late.
     for step in (
+        _stop_squareoff_scheduler,
+        _stop_chartink_scheduler,
+        _stop_flow_scheduler,
+        _stop_historify_scheduler,
         _stop_strategy_module_scheduler,
         _stop_python_strategy_scheduler,
         _stop_health_collector,

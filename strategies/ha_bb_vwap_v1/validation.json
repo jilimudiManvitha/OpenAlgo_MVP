@@ -1,0 +1,18 @@
+{
+  "synthetic_tests_passed": 59,
+  "separate_python_strategies": 404,
+  "separate_strategy_documents": 404,
+  "groups": {
+    "buy/1m": 101,
+    "buy/5m": 101,
+    "sell/1m": 101,
+    "sell/5m": 101
+  },
+  "full_cartesian_configurations": 6918660,
+  "all_generated_modules_imported_and_matched_manifest": true,
+  "combined_configuration_materialization_verified": true,
+  "market_backtest_run": false,
+  "forward_test_run": false,
+  "broker_orders_sent": 0,
+  "notes": "Full Cartesian configurations are available via generator, not all pre-materialized."
+}

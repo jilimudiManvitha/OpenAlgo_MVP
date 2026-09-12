@@ -34,6 +34,10 @@ def _reset_state(monkeypatch):
     # Never stop a scheduler belonging to another collected test module.
     monkeypatch.setattr(shutdown_mod, "_stop_strategy_module_scheduler", lambda: None)
     monkeypatch.setattr(shutdown_mod, "_stop_python_strategy_scheduler", lambda: None)
+    monkeypatch.setattr(shutdown_mod, "_stop_squareoff_scheduler", lambda: None)
+    monkeypatch.setattr(shutdown_mod, "_stop_chartink_scheduler", lambda: None)
+    monkeypatch.setattr(shutdown_mod, "_stop_flow_scheduler", lambda: None)
+    monkeypatch.setattr(shutdown_mod, "_stop_historify_scheduler", lambda: None)
     yield
     shutdown_mod._shutdown_done = False
 
