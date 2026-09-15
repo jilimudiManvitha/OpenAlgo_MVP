@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "strategyRows": 404,
+  "searchPassed": true,
+  "renderedTradeExamples": [
+    "buy_1_OLHC",
+    "buy_1_OHLC",
+    "partial",
+    "macd",
+    "rsi",
+    "supertrend",
+    "buy_5_OLHC",
+    "buy_5_OHLC",
+    "sell_1_OLHC",
+    "sell_1_OHLC",
+    "sell_5_OLHC",
+    "sell_5_OHLC"
+  ],
+  "pageErrors": []
+}

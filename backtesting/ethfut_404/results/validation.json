@@ -1,0 +1,10 @@
+{
+  "completed": 404,
+  "total": 404,
+  "all_fill_ledgers_reconciled_with_vectorbt": true,
+  "all_positions_closed": true,
+  "final_marks_equal_trade_net": true,
+  "source_sha256_rechecked": true,
+  "tests": "See tests.txt for all-404 reference parity and boundary tests",
+  "completed_at": "2026-09-13T06:23:14.235438+00:00"
+}

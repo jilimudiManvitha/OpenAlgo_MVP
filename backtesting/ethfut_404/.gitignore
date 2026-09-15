@@ -1,0 +1,4 @@
+__pycache__/
+results/events_*.npy
+results/*.nbc
+results/*.nbi

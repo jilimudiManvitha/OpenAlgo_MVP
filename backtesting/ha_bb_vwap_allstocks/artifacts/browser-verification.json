@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "calendarGroupingChecks": 8,
+  "timeLookup": true,
+  "partialExitPositions": true,
+  "tradeChart": true,
+  "csvExport": true,
+  "notRunState": true,
+  "pageErrors": [],
+  "syntheticOnly": true
+}

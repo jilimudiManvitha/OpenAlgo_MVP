@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-04.csv.zip",
+      "member": "ETHUSD_2024-04.csv",
+      "rows": 200367,
+      "sha256": "9e218b812ae5bbf5d2894dcda0fe1fe117a4882a31723371148a31620aab5339"
+    },
+    {
+      "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-05.csv.zip",
+      "member": "ETHUSD_2024-05.csv",
+      "rows": 318308,
+      "sha256": "6310f876cccef0252d8942f444c8231cb26a907fc4a6aaaa5d30393ec4b95920"
+    }
+  ],
+  "rows": 518675,
+  "first": "2024-04-01T00:03:51.567431+00:00",
+  "last": "2024-05-31T23:59:05.143982+00:00",
+  "timezone_assumption": "UTC",
+  "equal_timestamp_pairs": 0,
+  "gaps_over_5_minutes": 223,
+  "largest_gap_seconds": 6234.488855,
+  "empty_years": [
+    2025,
+    2026
+  ]
+}

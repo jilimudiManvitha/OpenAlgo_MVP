@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "strategyPathRows": 808,
+  "lookupChecks": 40,
+  "testedStrategyIds": [
+    "S092",
+    "S109",
+    "S299",
+    "S305",
+    "S060"
+  ],
+  "knownPeakVerified": "S092/OHLC 10:51 IST: 9 open trades",
+  "pageErrors": []
+}

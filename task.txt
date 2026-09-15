@@ -2,17 +2,21 @@ historic data available only form 3rd july 2017 to 11th sep 2026. for stocks.
 Add news section for each stock.using dhan skills imran YT video.
 bot integration
 backtest crypto data at D:\Personal\openalgo_Crypto\historical_data and give me reports skip volume/gaine/looser
-filter just run strategy test run and run backtest on that.in 1min,5min time frames.
-
+-----------------------------------------------------------------------------------------------------
 
 
 backtest on 11/09/2026 data is available at D:\Personal\openalgo\CSVs\GainersOn11092026 for buy trade strategies.
 for sell trade strategies use D:\Personal\openalgo\CSVs\LosersOn11092026.backtest and plot each trade.and check how it performs.give me 
 report of the each strategy. plot each trade chat clearly from 9:15 candle to 3:30 candle .add candle colors red and green.
 at the end give report which is works best and why.
+----------------------------------------------------------------------------------------------------------------------------------------
 
 give dry run backtest results to auto research to get better results optimize the strategy. 
 try same in ETH also
+
+=-------------------------------------------------------------------------------------------------------------------------------------------
+
+
 explain later we will remove these filters scanner.
 Minimum RVOL
 Minimum price
@@ -27,6 +31,8 @@ Minimum volume
 scanner should also work with other brokers(mainly delta exchange D:\Personal\openalgo\delta-exchange-api-docs.md ).
 for Day change % add filter to see high % changes to low, low to high.
 
+------------------------------------------------------------------------------------------------------------------------------------------
+
 The best observed buy result is the 1-minute 6.5R version: ₹57,719–₹58,490 net across the two scenarios. The 5-minute 13R buy version earned less but had a  much smaller modeled drawdown.                                                                                                                             
                                                                                                                                                              
   The best sell result is the 1-minute 9R version. Several 5-minute sell versions tied because their targets were never reached. I’m adding that explanation 
@@ -37,7 +43,7 @@ The best observed buy result is the 1-minute 6.5R version: ₹57,719–₹58,490
                                                                                                                                                              
   One important finding: none of the four group leaders beat the simple same-direction basket reference on this day. The report explains why the winning     
   strategy results still need caution on a hindsight-selected gainers/losers list. 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
   Completed 404 strategies across 22 stocks for 11 September 2026, with 20,783 individual trade charts covering 09:15–15:30, using red/green candles.        
                                                                                                                                                              
   - Open all strategy reports and trade charts (backtesting/ha_bb_vwap_v1_20260911/results/index.html)                                                       
@@ -60,5 +66,46 @@ The best observed buy result is the 1-minute 6.5R version: ₹57,719–₹58,490
   S092 earned the most by retaining larger winners. S109 had much lower modeled drawdown: ₹4,661 versus ₹12,909.                                             
                                                                                                                                                              
   All trade ledgers reconciled; 63 tests passed. These are candle-path approximations on one hindsight-selected day. None of the four leaders beat its       
-  corresponding simple basket reference.                                                                                                                     
-                                         
+  corresponding simple basket reference.                                                                                                                  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  next task
+do same but some updates are write code to backtest on all stock . source is DuckDB access historic data. data available from 3rd july 2017 to 10 sep        2026.at the give me report ,brokerage ,capital used...etc. just write code for now later we will backtest.i want reports dashboard in clear reports like
+  day wise ,week,month,quater,6 months,per yaer ,per 5 years, and final on hole data.in report i want capital used ,brokerage,max win,max loss, max
+  capital ,avg, win rate ,drawdown,profit factor,total no.of trades,at perticulor time no.of trades...etc in intractive dashboard
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+before that run generate.py to backtest all strategies.
+after this backtest on all data pick one best strategy  again backtest it with diff capital and filter.
+=================================================
+Some were already included; I’ve now added the complete breakdown for all 404 strategies, separately for both modeled paths.                                
+                                                                                                                                                              
+  Open capital, brokerage and risk reports (backtesting/ha_bb_vwap_v1_20260911/results/capital_overview.html) · Download metrics CSV (backtesting/            
+  ha_bb_vwap_v1_20260911/results/capital_risk_metrics.csv)                                                                                                    
+                                                                                                                                                              
+  Example: S092, OHLC path                                                                                                                                    
+                                                                                                                                                              
+   Metric                                        Value                                                                                                        
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━                                                                                                       
+   Brokerage only                            ₹1,080.00                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Total brokerage + other charges           ₹2,246.44                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Allocated capital                        ₹11,00,000                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Maximum simultaneous capital used      ₹8,98,563.25                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Total trades                                     27                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Maximum open trades                  9 at 10:51 IST                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Maximum bar-close drawdown               ₹12,908.60                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Biggest winning trade, net               ₹18,021.12                                                                                                        
+  ───────────────────────────────────  ────────────────                                                                                                       
+   Biggest losing trade, net                −₹6,217.90                                                                                                        
+                                                                                                                                                              
+  Each report now has a time picker showing open trades, stock names, remaining shares and capital used at your selected time. It also records drawdown peak/ 
+  trough times and session maximum/minimum P&L.                                                                                                               
+                                                                                                                                                              
+  Capital used means remaining entry notional, not broker margin. Figures retain the backtest’s estimated execution and cost assumptions.                     
+                                                                                                                                          
+

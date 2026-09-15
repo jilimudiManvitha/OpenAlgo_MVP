@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "strategy_path_metrics": 808,
+  "timeline_rows": 37993,
+  "mtm_rows": 182608,
+  "fills_with_fee_breakdown": 41802,
+  "existing_fees_peak_notional_drawdown_reconciled": true
+}

@@ -1,0 +1,146 @@
+{
+  "date": "2026-09-11",
+  "strategies": 404,
+  "scenarios": [
+    "OLHC",
+    "OHLC"
+  ],
+  "warmup_bars": 600,
+  "steps_per_leg": 3,
+  "slippage_per_fill": 0.0005,
+  "metadata": {
+    "ASHOKAMET": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "BBOX": {
+      "tick_size": 0.05,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "DIGJAMLMTD": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "DRREDDY": {
+      "tick_size": 0.1,
+      "is_fo": true,
+      "derivative_example": "DRREDDY29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "FILATEX": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "HDFCBANK": {
+      "tick_size": 0.05,
+      "is_fo": true,
+      "derivative_example": "HDFCBANK29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "KIRLOSIND": {
+      "tick_size": 0.1,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "LADDERUP": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "PINELABS": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "PRICOLLTD": {
+      "tick_size": 0.05,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "QUADFUTURE": {
+      "tick_size": 0.05,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "AFCONS": {
+      "tick_size": 0.05,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "CHENNPETRO": {
+      "tick_size": 0.1,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "COCHINSHIP": {
+      "tick_size": 0.1,
+      "is_fo": true,
+      "derivative_example": "COCHINSHIP29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "DLF": {
+      "tick_size": 0.05,
+      "is_fo": true,
+      "derivative_example": "DLF29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "GPIL": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "IFCI": {
+      "tick_size": 0.01,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "KIRLOSENG": {
+      "tick_size": 0.1,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "MUTHOOTFIN": {
+      "tick_size": 0.1,
+      "is_fo": true,
+      "derivative_example": "MUTHOOTFIN29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "PIIND": {
+      "tick_size": 0.1,
+      "is_fo": true,
+      "derivative_example": "PIIND29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "POWERGRID": {
+      "tick_size": 0.05,
+      "is_fo": true,
+      "derivative_example": "POWERGRID29SEP26FUT",
+      "source": "read-only local symtoken master, September 13 snapshot"
+    },
+    "TENNIND": {
+      "tick_size": 0.05,
+      "is_fo": false,
+      "derivative_example": null,
+      "source": "read-only local symtoken master, September 13 snapshot"
+    }
+  },
+  "code_fingerprint": "95e7bb9a36b1243e9273f2e745f2fbffb1e13e2d0120081f0abf686c992fa3d3"
+}

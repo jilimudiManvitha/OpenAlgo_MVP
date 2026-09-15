@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "strategies": 404,
+  "paths": 808,
+  "stock_runs": 8888,
+  "trades_checked": 20783,
+  "fills_checked": 41802,
+  "source_hashes_checked": 44,
+  "chart_files_and_script_links_checked": 20783,
+  "checks": [
+    "P&L/fees/size reconciliation",
+    "whole-share quantity and tick alignment",
+    "date and square-off limits",
+    "no same-stock position overlaps",
+    "correct buy/sell universe",
+    "ranking and report totals",
+    "immutable input hashes"
+  ]
+}

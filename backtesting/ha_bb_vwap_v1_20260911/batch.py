@@ -34,4 +34,5 @@ if __name__ == "__main__":
         list(executor.map(run_stock, symbols))
     subprocess.run([sys.executable, str(HERE / "run.py"), "--report-only"], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(HERE / "findings.py")], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, str(HERE / "capital_report.py")], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(HERE / "verify.py")], cwd=ROOT, check=True)

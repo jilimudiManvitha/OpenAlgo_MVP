@@ -1,0 +1,24 @@
+{
+  "symbol": "20MICRONS",
+  "day": "2017-07-03",
+  "strategies": 404,
+  "paths": [
+    "OLHC",
+    "OHLC"
+  ],
+  "seconds": 43.87535899999784,
+  "stages": {
+    "read_source_seconds": 0.6310611000080826,
+    "events_1_OLHC": 0.35279640000953805,
+    "replay_reconcile_accumulate_1_OLHC": 10.293792399999802,
+    "events_1_OHLC": 0.3326344999950379,
+    "replay_reconcile_accumulate_1_OHLC": 10.097290400008205,
+    "events_5_OLHC": 0.27118809999956284,
+    "replay_reconcile_accumulate_5_OLHC": 10.900619799998822,
+    "events_5_OHLC": 0.26136039999255445,
+    "replay_reconcile_accumulate_5_OHLC": 10.238140000001295
+  },
+  "trades": 0,
+  "uncompressed_trade_json_bytes": 1616,
+  "notes": "One early stock-session, cold VectorBT JIT, cProfile and concurrent runner overhead; not a full-history ETA. Accumulator constructors are per replay here, per day in the full runner."
+}

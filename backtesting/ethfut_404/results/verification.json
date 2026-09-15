@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "versions": 404,
+  "fills": 308920,
+  "trades": 153656,
+  "overnight_trades": 5211,
+  "entries_outside_nse_hours": 114379,
+  "source_hashes_preserved": true,
+  "every_fill_matches_actual_source_trade_plus_slippage": true,
+  "every_csv_total_reconciled": true,
+  "dependency_hashes": {
+    "strategies\\ha_bb_vwap_v1\\engine.py": "111329bb64e7b02210bbd443eaa098f730a696ab5734fef57532758c1336532d",
+    "strategies\\ha_bb_vwap_v1\\models.py": "6b810bb96ccb6f78707867731b061505baf6720f4de9a27a78665bdfc3f44b86",
+    "strategies\\ha_bb_vwap_v1\\indicators.py": "82725499195f66740f8d787295e786afe7f245022c896f38e12def1be79029cc",
+    "backtesting\\ha_bb_vwap_v1_20260911\\replay.py": "f83213262d740f75abefab3a7bc64d9fd618a0c7f6e5dc77f1ac0f24fb71b129"
+  },
+  "packages": {
+    "openalgo": "2.0.3",
+    "numba": "0.67.0",
+    "numpy": "2.5.2",
+    "polars": "1.44.2",
+    "vectorbt": "1.1.0",
+    "pandas": "2.3.3"
+  }
+}
