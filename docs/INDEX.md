@@ -13,7 +13,7 @@ need → drill into the specific file. Don't load everything at once.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and specifically authorized September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. Broader Task 1/full-DuckDB work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.
+mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. The separately authorized all-stock DuckDB runner and dashboard are implemented and verified with synthetic tests; historical execution has been launched and remains incomplete. Other Task 1 work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.
 
 | Read this when you need… | Entry point |
 |---|---|
@@ -28,6 +28,11 @@ mobile parity and sandbox investment portfolios. Task 2 is integrated at `/marke
 | Technical indicators (`ta` library) | [<prompt/indicators/openalgo indicators - introduction.md>](<prompt/indicators/openalgo indicators - introduction.md>) |
 | September 12 HA/BB/VWAP buy/sell strategy definitions, variants and code-only contract | [Strategy package](../strategies/ha_bb_vwap_v1/README.md) |
 | September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions, reports and every trade chart | [Backtest report](../backtesting/ha_bb_vwap_v1_20260911/results/index.html) · [Method and reproduction](../backtesting/ha_bb_vwap_v1_20260911/README.md) |
+| All-stock DuckDB HA/BB/VWAP backtest, run/resume commands and interactive historical dashboard | [Runner and dashboard guide](../backtesting/ha_bb_vwap_allstocks/README.md) |
+| Four selected September 11 leaders on full DuckDB history; stopped by user September 15, incomplete | [Selection, run and resume guide](../backtesting/ha_bb_vwap_allstocks/SELECTED_FOUR.md) |
+| Four selected versions on January-June 2026 Nifty 50 data; 49 available stocks, BAJAJ-AUTO missing | [Six-month run and coverage](../backtesting/ha_bb_vwap_allstocks/NIFTY50_2026_H1.md) |
+| Completed ETHFUT 24/7 replay of all 404 versions on supplied April-May 2024 trade archives | [Interactive report](../backtesting/ethfut_404/results/index.html) · [ETH runner and assumptions](../backtesting/ethfut_404/README.md) |
+| Portable BTC/ETH/SOL/XAUT trade-to-HA conversion and S029/S104/S232/S344 replay code for the new PC | [Transfer package and Windows commands](../backtesting/crypto_four_portable/README.md) |
 | The charting terminal at `/trading`, its order dock and its shortcuts | [userguide/32-charting-terminal](userguide/32-charting-terminal/README.md) |
 | Position calculator, brokerage estimates and automatic exit watches | [Position calculator](userguide/32-charting-terminal/position-calculator.md) |
 | Planned Fyers historical backfill: 1,500 stocks, 5-minute candles, nine years | [Fyers download plan](plans/2026-09-08-fyers-historical-data-download-plan.md) |
@@ -55,6 +60,7 @@ For this private installation's new-laptop move and sole Git remote, start with 
 | Scalping Terminal (`/scalping`) | [scalping/PRD.md](scalping/PRD.md) |
 | Scanner architecture | [scanner-architecture.md](scanner-architecture.md) |
 | Live stock scanner: volume shockers, gainers/losers, filters and sparklines | [api/market-scanner.md](api/market-scanner.md) |
+| Selected stock/crypto Bollinger crossing alerts: isolated dashboard, setup and exact rules | [Bollinger alerts](../.development/bollinger-alerts/README.md) |
 | WhatsApp alerts | [whatsapp.md](whatsapp.md) |
 | Telegram chart rendering | [telegram-chart-rendering.md](telegram-chart-rendering.md) |
 | Health monitoring | [HEALTH_MONITORING_IMPLEMENTATION.md](HEALTH_MONITORING_IMPLEMENTATION.md) · [HEALTH_MONITOR_REACT_FRONTEND.md](HEALTH_MONITOR_REACT_FRONTEND.md) |

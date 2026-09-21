@@ -1,5 +1,2 @@
-__pycache__/
-.pytest_cache/
-test_tmp*/
-output/
-demo_output/
+/selected_four_output/
+/nifty50_2026_h1_output/

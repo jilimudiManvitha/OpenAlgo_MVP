@@ -1,0 +1,65 @@
+[
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-04.csv.zip",
+    "member": "ETHUSD_2024-04.csv",
+    "sha256_uncompressed": "48428ce707832e588929b7e90a3087f4d8edd3a380d9515dcd46d6873a3283c2",
+    "status": "imported",
+    "rows": 200367
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-05.csv.zip",
+    "member": "ETHUSD_2024-05.csv",
+    "sha256_uncompressed": "ecc1c8b75d127547a543ca6e3f936a9459df82beb563d8395b57ca50f2e0e1d4",
+    "status": "imported",
+    "rows": 318308
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-06.csv.zip",
+    "member": "ETHUSD_2024-06.csv",
+    "sha256_uncompressed": "ac28c2496489e5fcb193f3f2ccb8e607c692cf52b4c6949faa9696ad6a95f8a4",
+    "status": "imported",
+    "rows": 159819
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-07.csv.zip",
+    "member": "ETHUSD_2024-07.csv",
+    "sha256_uncompressed": "8d3f833619ce011f490790fe7a74d516c5c75208aea1b7f6d15886a0f71227ee",
+    "status": "imported",
+    "rows": 244408
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-08.csv.zip",
+    "member": "ETHUSD_2024-08.csv",
+    "sha256_uncompressed": "3057051f7cd04612147ce0114516dde6c4ebde66a957c9568b1efc0ac6b91f92",
+    "status": "imported",
+    "rows": 454556
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-09.csv.zip",
+    "member": "ETHUSD_2024-09.csv",
+    "sha256_uncompressed": "3ee5a5384394810c238243e5c494b0cc306c5c631c9eb2f3db331a8da7c6bd1b",
+    "status": "imported",
+    "rows": 649275
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-10.csv.zip",
+    "member": "ETHUSD_2024-10.csv",
+    "sha256_uncompressed": "6cab4a44ee9b1333049013c65ad76bbdfd87e0329fbf8cd548d3eaeed2ab0028",
+    "status": "imported",
+    "rows": 671643
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-11.csv.zip",
+    "member": "ETHUSD_2024-11.csv",
+    "sha256_uncompressed": "5a90ad448f7dfcd31c9b848ae3a1b5454d367c4da9973cd9eac182b692d1d286",
+    "status": "imported",
+    "rows": 1682012
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\ethfut\\2024\\futures-trades-monthly-ETHUSD-2024-12.csv.zip",
+    "member": "ETHUSD_2024-12.csv",
+    "sha256_uncompressed": "b6151e2e6dd7a4ffd3d28fd2eafea787dc5608e1418eca82b95b3f9b4489a9c9",
+    "status": "imported",
+    "rows": 1821736
+  }
+]

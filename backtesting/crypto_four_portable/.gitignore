@@ -1,0 +1,7 @@
+/.venv/
+/results/*/import.csv
+/results/writer.lock
+/benchmark_results/
+/__pycache__/
+/validation_tmp/
+/results_full/writer.lock

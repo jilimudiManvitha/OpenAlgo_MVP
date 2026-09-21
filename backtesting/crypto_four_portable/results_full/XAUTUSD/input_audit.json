@@ -1,0 +1,30 @@
+[
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\xautusdfut\\2026\\futures-trades-monthly-apr-XAUTUSD-2026-04.csv",
+    "member": "XAUTUSD_2026-04.csv",
+    "sha256_uncompressed": "584a7b1a36fb00660093058dc551f2a8dea5c14bdea3a22cca0a36554bc16e26",
+    "status": "imported",
+    "rows": 228642
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\xautusdfut\\2026\\futures-trades-monthly-july-XAUTUSD-2026-07.csv",
+    "member": "XAUTUSD_2026-07.csv",
+    "sha256_uncompressed": "6fd726bfaeef8a8445e44ad3e2c9e9b1e1efc1910c4c1814ce9af930d9275bfa",
+    "status": "imported",
+    "rows": 6125249
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\xautusdfut\\2026\\futures-trades-monthly-june-XAUTUSD-2026-06.csv",
+    "member": "XAUTUSD_2026-06.csv",
+    "sha256_uncompressed": "b82aef6de5a9b974f1622c93969c0d2e5c64fcd38ef44ee6454687be0337155d",
+    "status": "imported",
+    "rows": 4388572
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\xautusdfut\\2026\\futures-trades-monthly-may-XAUTUSD-2026-05.csv",
+    "member": "XAUTUSD_2026-05.csv",
+    "sha256_uncompressed": "8eebaaaff94140609a9997f95f15ca2fd79f5a46d9084b94459d82885bdda0d1",
+    "status": "imported",
+    "rows": 2199210
+  }
+]

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bollinger alerts</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b1020;color:#e7edf8}*{box-sizing:border-box}body{max-width:1280px;margin:auto;padding:32px 24px}header{display:flex;justify-content:space-between;align-items:center;gap:16px}h1{font-size:30px;margin:0}h2{font-size:20px}p,.muted{color:#98aac6;line-height:1.6}.panel{background:#131d31;border:1px solid #293952;border-radius:14px;padding:24px;margin-top:24px}form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}label{font-size:13px;color:#bdcbe0;display:flex;flex-direction:column;gap:8px}input,select,button{font:inherit;border-radius:8px;border:1px solid #3b4c67;padding:11px;background:#0d1628;color:#e7edf8;min-width:0}button{cursor:pointer;background:#234b82}button:hover{background:#3064a9}button:disabled{opacity:.5;cursor:wait}button.small{font-size:12px;padding:7px;margin:3px}.wide{grid-column:span 2}.notice{color:#f9ca7d}#error{color:#ffaaaa;min-height:24px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:13px 10px;text-align:left;border-bottom:1px solid #293952;vertical-align:top}th{color:#98aac6;font-weight:500}.scroll{overflow:auto}.pill{display:inline-block;border-radius:5px;padding:3px 7px;background:#263d5b}.upper{color:#65e3c1}.lower{color:#ffaa9e}.empty{text-align:center;padding:30px;color:#98aac6}#flash{position:fixed;right:24px;bottom:24px;max-width:440px;background:#234b82;padding:20px;border-radius:12px;box-shadow:0 12px 40px #0008;display:none}.connection{margin-right:20px}@media(max-width:700px){body{padding:20px 12px}header{align-items:flex-start;flex-direction:column}form{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:16px}h1{font-size:25px}}
+</style></head><body>
+<header><div><h1>Bollinger alerts</h1><p>Watch selected stocks and crypto for an upper or lower band crossing.</p></div><button id="sound">Enable sound</button></header>
+<div id="connections" class="muted"></div>
+<section class="panel"><h2>Add a watch</h2>
+<form id="watchform">
+<label>Market connection<select name="connection"><option value="stocks">Stocks</option><option value="crypto">Crypto</option></select></label>
+<label>Symbol<input name="symbol" required placeholder="RELIANCE or BTCUSD" maxlength="64"></label>
+<label>Exchange<input name="exchange" value="NSE" required maxlength="64"></label>
+<label>Candle timeframe<select name="interval"><option>1m</option><option selected>5m</option><option>15m</option><option>30m</option><option>1h</option></select></label>
+<label>Period<input name="period" type="number" min="2" max="200" value="20" required></label>
+<label>Standard deviations<input name="deviation" type="number" min="0.1" max="10" step="0.1" value="2" required></label>
+<label>Trigger<select name="mode"><option value="live">Live price crossing</option><option value="close">Completed candle close</option></select></label>
+<label>Bands<select name="side"><option value="both">Upper and lower</option><option value="upper">Upper only</option><option value="lower">Lower only</option></select></label>
+<div class="wide muted">Normal candle closes · SMA · population standard deviation. Use the exact symbol and exchange from your connected OpenAlgo host.</div><button class="wide" type="submit">Add watch</button>
+</form><p id="error" role="alert"></p>
+<p class="muted">One alert per band per candle. A new crossing requires the price to return inside that band first. Startup and reconnection establish a baseline without replaying old crossings.</p></section>
+<section class="panel"><h2>Your watches</h2><p id="health" class="muted">Connecting to monitor…</p><div class="scroll"><table><thead><tr><th>Instrument</th><th>Rule</th><th>Price</th><th>Lower / Upper</th><th>Status</th><th>Controls</th></tr></thead><tbody id="watches"></tbody></table></div></section>
+<section class="panel"><h2>Recent alerts</h2><p class="muted">The monitor must stay running. Sound requires this page to stay open and may be restricted by the browser. Closing the page keeps server-side monitoring and history active.</p><div class="scroll"><table><thead><tr><th>Time</th><th>Instrument</th><th>Crossing</th><th>Price</th><th>Band value</th><th>Trigger</th></tr></thead><tbody id="events"></tbody></table></div></section>
+<div id="flash" role="status"></div>
+<script>
+let token='', cursor=null, audio=null, soundEnabled=false, busy=false;
+const $=id=>document.getElementById(id), format=n=>Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:6}):'—';
+function cell(row,text,cls){const td=document.createElement('td');td.textContent=text;if(cls)td.className=cls;row.append(td);return td;}
+function empty(body,text,colspan){const row=document.createElement('tr');const td=cell(row,text,'empty');td.colSpan=colspan;body.append(row);}
+function beep(){if(!soundEnabled||!audio)return;audio.resume().then(()=>{const osc=audio.createOscillator(), gain=audio.createGain();osc.connect(gain);gain.connect(audio.destination);osc.frequency.value=740;gain.gain.setValueAtTime(.12,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.5);osc.start();osc.stop(audio.currentTime+.5);}).catch(()=>{});}
+$('sound').onclick=async()=>{try{audio??=new AudioContext();await audio.resume();soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'Sound on':'Enable sound';if(soundEnabled)beep();}catch{$('error').textContent='Sound is unavailable in this browser.';}};
+async function post(path,data){const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Alert-Token':token},body:JSON.stringify(data||{})});if(!r.ok){let d={};try{d=await r.json();}catch{}throw Error(d.error||'Unable to save. Refresh the page and try again.');}}
+$('watchform').onsubmit=async e=>{e.preventDefault();if(busy)return;busy=true;const btn=e.target.querySelector('button');btn.disabled=true;try{const d=Object.fromEntries(new FormData(e.target));d.period=Number(d.period);d.deviation=Number(d.deviation);await post('/api/watches',d);$('error').textContent='';await refresh();}catch(err){$('error').textContent=err.message;}finally{busy=false;btn.disabled=false;}};
+function render(data){
+ token=data.token;
+ $('connections').replaceChildren();for(const c of data.connections){const span=document.createElement('span');span.className='connection '+(c.configured?'':'notice');span.textContent=c.id+': '+(c.configured?'API key configured':'setup required in local .env');$('connections').append(span);}
+ $('watches').replaceChildren();for(const w of data.watches){const tr=document.createElement('tr');cell(tr,w.symbol+' · '+w.exchange+' / '+w.connection);cell(tr,w.interval+' · BB('+w.period+', '+w.deviation+') · '+w.side+' · '+w.mode);cell(tr,format(w.price));cell(tr,format(w.lower)+' / '+format(w.upper));cell(tr,w.status+(w.feed?' · '+w.feed:'')+(w.timestamp?' · '+new Date(w.timestamp*1000).toLocaleTimeString():''));const controls=cell(tr,'');for(const action of ['toggle','delete']){const b=document.createElement('button');b.className='small';b.textContent=action==='delete'?'Remove':w.enabled?'Pause':'Resume';b.onclick=async()=>{b.disabled=true;try{await post('/api/watches/'+w.id+'/'+action);await refresh();}catch(e){$('error').textContent=e.message;}finally{b.disabled=false;}};controls.append(b);}$('watches').append(tr);}if(!data.watches.length)empty($('watches'),'No watches yet. Add your first instrument above.',6);
+ $('events').replaceChildren();for(const e of data.events){const tr=document.createElement('tr');cell(tr,new Date(e.timestamp*1000).toLocaleString());cell(tr,e.symbol+' · '+e.connection+' · '+e.interval);cell(tr,e.band==='upper'?'Crossed above upper':'Crossed below lower',e.band);cell(tr,format(e.price));cell(tr,format(e[e.band]));cell(tr,e.mode==='live'?'Live price':'Candle close');$('events').append(tr);}if(!data.events.length)empty($('events'),'No crossing alerts recorded yet.',6);
+ const newest=data.events[0];if(cursor!==null&&newest&&newest.id>cursor){beep();$('flash').textContent=newest.symbol+' crossed '+newest.band+' band at '+format(newest.price);$('flash').style.display='block';setTimeout(()=>$('flash').style.display='none',8000);}cursor=Math.max(cursor||0,newest?.id||0);
+ $('health').textContent=(data.worker_running?'Monitor running':'Monitor not running (or preview only)')+' · updated '+new Date().toLocaleTimeString()+' · '+data.watches.length+'/20 watches';
+}
+async function refresh(){try{const r=await fetch('/api/state');if(!r.ok)throw Error();render(await r.json());}catch{$('health').textContent='Monitor unreachable. Alerts may be stopped; check the server terminal.';}}
+async function poll(){await refresh();setTimeout(poll,2000);}poll();
+</script></body></html>

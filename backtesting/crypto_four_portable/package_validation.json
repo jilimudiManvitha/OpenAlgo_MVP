@@ -1,0 +1,70 @@
+{
+  "isolated_zip_tests": "passed",
+  "synthetic_coins": 4,
+  "strategy_coin_results": 16,
+  "resume_and_benchmark_cli": "passed",
+  "zip_sha256": "4639992ac7cd7ee6730b44a18a23da345f2f1d3e4f1ae89fb8a6fcd502081b8c",
+  "checks": [
+    {
+      "args": [
+        "-m",
+        "unittest",
+        "-v",
+        "test_crypto_backtest"
+      ],
+      "exit_code": 0,
+      "stdout": "BTCUSD: importing bad.csv \nBTCUSD: importing disguised.csv nested/ticks.csv\nBTCUSD: importing ticks.csv \nBTCUSD: 500/500 ticks; replay ETA 0.0 min\nBTCUSD: already complete\nBTCUSD: importing bad.csv \nBTCUSD: importing one.csv \nBTCUSD: importing two.csv \nBTCUSD: importing one.csv \nBTCUSD: importing two.csv \n",
+      "stderr": "test_bb_population_variance (test_crypto_backtest.CoreTests.test_bb_population_variance) ... ok\ntest_five_minutes_from_raw_ticks (test_crypto_backtest.CoreTests.test_five_minutes_from_raw_ticks) ... ok\ntest_long_short_fill_and_chunk_parity (test_crypto_backtest.CoreTests.test_long_short_fill_and_chunk_parity) ... ok\ntest_midnight_vwap_reset_ha_continuity (test_crypto_backtest.CoreTests.test_midnight_vwap_reset_ha_continuity) ... ok\ntest_raw_ha_and_chunk_continuity (test_crypto_backtest.CoreTests.test_raw_ha_and_chunk_continuity) ... ok\ntest_source_trade_fills_not_ha (test_crypto_backtest.CoreTests.test_source_trade_fills_not_ha) ... ok\ntest_stale_signal_rejected (test_crypto_backtest.CoreTests.test_stale_signal_rejected) ... ok\ntest_ambiguous_time_rejected (test_crypto_backtest.ImportTests.test_ambiguous_time_rejected) ... ok\ntest_disguised_zip_duplicate_copy_and_sort (test_crypto_backtest.ImportTests.test_disguised_zip_duplicate_copy_and_sort) ... ok\ntest_end_to_end_and_resume (test_crypto_backtest.ImportTests.test_end_to_end_and_resume) ... ok\ntest_nonfinite_price_rejected (test_crypto_backtest.ImportTests.test_nonfinite_price_rejected) ... ok\ntest_nonidentical_overlapping_exports_rejected (test_crypto_backtest.ImportTests.test_nonidentical_overlapping_exports_rejected) ... ok\ntest_removed_cached_input_rejected (test_crypto_backtest.ImportTests.test_removed_cached_input_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 16.377s\n\nOK\n"
+    },
+    {
+      "args": [
+        "crypto_backtest.py",
+        "--data",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_data",
+        "--output",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\benchmark_output",
+        "--workers",
+        "2",
+        "--memory",
+        "256MB"
+      ],
+      "exit_code": 0,
+      "stdout": "Output: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_output; 2 CPU workers; GPU unused\nFree output disk: 69.6 GB\nBTCUSD: importing synthetic.csv \nETHUSD: importing synthetic.csv \nETHUSD: 1,000/1,000 ticks; replay ETA 0.0 min\nBTCUSD: 1,000/1,000 ticks; replay ETA 0.0 min\nSOLUSD: importing synthetic.csv \nXAUTUSD: importing synthetic.csv \nSOLUSD: 1,000/1,000 ticks; replay ETA 0.0 min\nXAUTUSD: 1,000/1,000 ticks; replay ETA 0.0 min\nFinished: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_output\\index.html\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "crypto_backtest.py",
+        "--data",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_data",
+        "--output",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\benchmark_output",
+        "--workers",
+        "2",
+        "--memory",
+        "256MB"
+      ],
+      "exit_code": 0,
+      "stdout": "Output: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_output; 2 CPU workers; GPU unused\nFree output disk: 69.5 GB\nBTCUSD: already complete\nETHUSD: already complete\nSOLUSD: already complete\nXAUTUSD: already complete\nFinished: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_output\\index.html\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "crypto_backtest.py",
+        "--data",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\synthetic_data",
+        "--output",
+        "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\benchmark_output",
+        "--workers",
+        "2",
+        "--memory",
+        "256MB",
+        "--benchmark-ticks",
+        "500"
+      ],
+      "exit_code": 0,
+      "stdout": "Output: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\benchmark_output; 2 CPU workers; GPU unused\nFree output disk: 69.5 GB\nBTCUSD: importing synthetic.csv \nETHUSD: importing synthetic.csv \nETHUSD: 500/500 ticks; replay ETA 0.0 min\nBTCUSD: 500/500 ticks; replay ETA 0.0 min\nSOLUSD: importing synthetic.csv \nXAUTUSD: importing synthetic.csv \nSOLUSD: 500/500 ticks; replay ETA 0.0 min\nXAUTUSD: 500/500 ticks; replay ETA 0.0 min\nFinished: D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\validation_tmp\\tmp8_um_4wl\\benchmark_output\\index.html\nETHUSD: measured import 0.0 min; projected full replay 0.0 min (early sample estimate)\nBTCUSD: measured import 0.0 min; projected full replay 0.0 min (early sample estimate)\nSOLUSD: measured import 0.0 min; projected full replay 0.0 min (early sample estimate)\nXAUTUSD: measured import 0.0 min; projected full replay 0.0 min (early sample estimate)\n",
+      "stderr": ""
+    }
+  ]
+}

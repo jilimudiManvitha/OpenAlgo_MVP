@@ -1,0 +1,18 @@
+{
+  "pid": 8448,
+  "started_at": "2026-09-15T14:27:00.857863+00:00",
+  "command": [
+    "D:\\Personal\\openalgo\\backtesting\\.venv\\Scripts\\python.exe",
+    "-u",
+    "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\crypto_backtest.py",
+    "--data",
+    "D:/Personal/OpenAlgo_Crypto/historical_data",
+    "--output",
+    "D:\\Personal\\openalgo\\backtesting\\crypto_four_portable\\results",
+    "--workers",
+    "1",
+    "--memory",
+    "1GB"
+  ],
+  "status": "launched"
+}

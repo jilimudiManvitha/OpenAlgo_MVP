@@ -1,0 +1,198 @@
+[
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-04.csv.zip",
+    "member": "BTCUSD_2024-04.csv",
+    "sha256_uncompressed": "19188b417feef86cfeac6b68ef1c767cff1afde2d44a80a8d558ef4a15008b33",
+    "status": "cached",
+    "rows": 979696
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-05.csv.zip",
+    "member": "BTCUSD_2024-05.csv",
+    "sha256_uncompressed": "9d11d2c806804af86fcd5155a1ae122d1e66ec7e6ab56986761586ac407cc751",
+    "status": "cached",
+    "rows": 1156201
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-06.csv.zip",
+    "member": "BTCUSD_2024-06.csv",
+    "sha256_uncompressed": "ef696d3a414fb6b201aeac173255d0cd74fed1930de386c3f5864019eee5ad46",
+    "status": "cached",
+    "rows": 831679
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-07.csv.zip",
+    "member": "BTCUSD_2024-07.csv",
+    "sha256_uncompressed": "53d069aaf98add0d58298aa7236855aba4fb00ac88b8411b4cd359ccc9ffb4b3",
+    "status": "cached",
+    "rows": 1968571
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-08.csv.zip",
+    "member": "BTCUSD_2024-08.csv",
+    "sha256_uncompressed": "829bbd1c5fa9565000dac71cbc19018e949016e31562fe90c490a2f4fd322a2a",
+    "status": "cached",
+    "rows": 3434574
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-09.csv.zip",
+    "member": "BTCUSD_2024-09.csv",
+    "sha256_uncompressed": "8596b88e368c4ee769ff44b13eb2e31ebdc93165122d75f9efe7e0b9a3959bc0",
+    "status": "cached",
+    "rows": 4741693
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-10.csv.zip",
+    "member": "BTCUSD_2024-10.csv",
+    "sha256_uncompressed": "177711aa8770ef4498050f472ba88de3811906d9170d27267b5c2226f92ad591",
+    "status": "cached",
+    "rows": 4486995
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-11.csv.zip",
+    "member": "BTCUSD_2024-11.csv",
+    "sha256_uncompressed": "2a237d876957d6369e1371e24f52223f82d6219d1443aa5d29ab98822285a49d",
+    "status": "cached",
+    "rows": 6888888
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2024\\futures-trades-monthly-BTCUSD-2024-12.csv.zip",
+    "member": "BTCUSD_2024-12.csv",
+    "sha256_uncompressed": "4fb521c1a55867b7323fd291ac8f25a383b61ff039a1fc3ea5097e90b3904eee",
+    "status": "cached",
+    "rows": 9431558
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-01.csv.zip",
+    "member": "BTCUSD_2025-01.csv",
+    "sha256_uncompressed": "6a757aaa823cc0e4d58c174d6dd8bc45bad516574fc75b1731fe5ca736984347",
+    "status": "cached",
+    "rows": 9734776
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-02.csv.zip",
+    "member": "BTCUSD_2025-02.csv",
+    "sha256_uncompressed": "2b8f4091c1c2d39f1eae8b05afa46ec98e388ec77a00ced517cf1b98b8b84813",
+    "status": "cached",
+    "rows": 7132766
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-03.csv.zip",
+    "member": "BTCUSD_2025-03.csv",
+    "sha256_uncompressed": "d0b73dbc385cba0f96e84d90e3fc6a6262a3166f976891593800b1c1f7bea3c3",
+    "status": "cached",
+    "rows": 9972204
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-04.csv.zip",
+    "member": "BTCUSD_2025-04.csv",
+    "sha256_uncompressed": "a1a76b7ba8ef620e9ffed9243eb9445fe4553abfaccb6906a69d82d9c0adfa83",
+    "status": "cached",
+    "rows": 8169088
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-05.csv.zip",
+    "member": "BTCUSD_2025-05.csv",
+    "sha256_uncompressed": "4030df9746821344a523fb6c9fe49a4baf7556508e381a5f7947119edc04f463",
+    "status": "cached",
+    "rows": 5763946
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-06.csv.zip",
+    "member": "BTCUSD_2025-06.csv",
+    "sha256_uncompressed": "153eb1a209e3170ec77de07cdef7b851133e5164231de752d9bc24f23034da3f",
+    "status": "cached",
+    "rows": 4800563
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-07.csv.zip",
+    "member": "BTCUSD_2025-07.csv",
+    "sha256_uncompressed": "bd7e224b5ef9bdffefc5a9c3519fc7ccef983f796c093733a77839e9af6e8a2f",
+    "status": "cached",
+    "rows": 4897159
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-08.csv.zip",
+    "member": "BTCUSD_2025-08.csv",
+    "sha256_uncompressed": "15bef40783599fddfe1e6c3d11d10a5ba0198b70f03e7d69caad55e030de2a2e",
+    "status": "cached",
+    "rows": 4687131
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-09.csv.zip",
+    "member": "BTCUSD_2025-09.csv",
+    "sha256_uncompressed": "e7f7f01be1389ecc771c1d3938be2074e9358dd291c9f938b6e8d6ad42207fa8",
+    "status": "cached",
+    "rows": 4082607
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-10.csv.zip",
+    "member": "BTCUSD_2025-10.csv",
+    "sha256_uncompressed": "bfa1c0d902063d114b3d91199e135b6bef066cd950aaedf2c74f0e2380a33a02",
+    "status": "cached",
+    "rows": 6608078
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-11.csv.zip",
+    "member": "BTCUSD_2025-11.csv",
+    "sha256_uncompressed": "530ded3812acb6a44a961f889edd649fee7c001dc6b83b29b8bb6c2f6d7313f2",
+    "status": "cached",
+    "rows": 7575119
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2025\\futures-trades-monthly-BTCUSD-2025-12.csv.zip",
+    "member": "BTCUSD_2025-12.csv",
+    "sha256_uncompressed": "2e0185ba4e03066cb6ed6d2eb4df34fec7a4699274c77f9e1bff85b3044d8d9e",
+    "status": "cached",
+    "rows": 7725056
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-01.csv.zip",
+    "member": "BTCUSD_2026-01.csv",
+    "sha256_uncompressed": "93a2425c4d4d1bc05bee9fb63f12311477875246f48aa5afc85f851b1d64ee55",
+    "status": "cached",
+    "rows": 7205234
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-02.csv.zip",
+    "member": "BTCUSD_2026-02.csv",
+    "sha256_uncompressed": "cad51ca5567e0068642108ad9f52963b5d01ef6a9aa75bcea05e471df9990ad3",
+    "status": "cached",
+    "rows": 11182384
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-03.csv.zip",
+    "member": "BTCUSD_2026-03.csv",
+    "sha256_uncompressed": "53285b7023991e5951d33288bfc4c9fa4a31e9741851b407b624e321c40dcaaa",
+    "status": "cached",
+    "rows": 10901866
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-04.csv.zip",
+    "member": "BTCUSD_2026-04.csv",
+    "sha256_uncompressed": "91e37ab37ed88a3babe0e24be7d884a9de2dadb78e8a2ba94f0d66e5995d1b1a",
+    "status": "cached",
+    "rows": 8441215
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-05.csv.zip",
+    "member": "BTCUSD_2026-05.csv",
+    "sha256_uncompressed": "f2bd04925f9b4d9034ac8b916a9c4bd3f0dc546f00efef1c44d1c9ae5a0476b5",
+    "status": "cached",
+    "rows": 6753417
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-06.csv.zip",
+    "member": "BTCUSD_2026-06.csv",
+    "sha256_uncompressed": "f895392a23e162cf2ccc9e9f48ced7fc6ace7c1f1e3fdb1ebdbfc5efeb257fca",
+    "status": "cached",
+    "rows": 9479187
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\btcfut\\2026\\futures-trades-monthly-BTCUSD-2026-07.csv.zip",
+    "member": "BTCUSD_2026-07.csv",
+    "sha256_uncompressed": "38ce27ceaa4ecaba439c788e32d29ef2c3bbcbc6ed8ebcf9df5ea766f129f0cd",
+    "status": "cached",
+    "rows": 6422268
+  }
+]

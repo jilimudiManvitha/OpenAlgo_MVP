@@ -1,0 +1,23 @@
+{
+  "fixture": "existing ETH snapshots, first 12000 events per timeframe",
+  "versions": [
+    {
+      "id": "S029",
+      "fills_matched": 30
+    },
+    {
+      "id": "S104",
+      "fills_matched": 10
+    },
+    {
+      "id": "S232",
+      "fills_matched": 6
+    },
+    {
+      "id": "S344",
+      "fills_matched": 10
+    }
+  ],
+  "snapshot_parity": "1200 synthetic ticks, 1m/5m, including midnight; HA, BB and VWAP match original Maker within float tolerance",
+  "synthetic_100k_ticks_core_seconds": 0.04500239999833866
+}

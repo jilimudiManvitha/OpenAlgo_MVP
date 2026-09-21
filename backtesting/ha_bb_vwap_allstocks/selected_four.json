@@ -1,0 +1,7 @@
+{
+  "output": "backtesting/ha_bb_vwap_allstocks/selected_four_output",
+  "start": "2017-07-03",
+  "end": "2026-09-11",
+  "strategy_ids": ["S092", "S109", "S299", "S305"],
+  "symbols": []
+}

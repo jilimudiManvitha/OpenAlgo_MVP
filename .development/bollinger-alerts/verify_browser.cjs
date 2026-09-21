@@ -1,0 +1,42 @@
+const {chromium, expect} = require('../../frontend/node_modules/@playwright/test');
+const fs = require('node:fs');
+const path = require('node:path');
+(async()=>{
+ const browser = await chromium.launch({channel:'chrome',headless:true});
+ const errors=[];
+ try{
+  const page=await browser.newPage({viewport:{width:1365,height:1000}});
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:8782');
+  await expect(page.getByText('No watches yet.',{exact:false})).toBeVisible();
+  await page.locator('[name=symbol]').fill('SYNTHETIC');
+  await page.getByRole('button',{name:'Add watch',exact:true}).click();
+  await expect(page.locator('#watches')).toContainText('SYNTHETIC');
+  await page.getByRole('button',{name:'Pause',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Resume',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Resume',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Pause',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Enable sound',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Sound on',exact:true})).toBeVisible();
+  await page.locator('[name=connection]').selectOption('crypto');
+  await page.locator('[name=symbol]').fill('SYNTHETICCOIN');
+  await page.locator('[name=exchange]').fill('TEST');
+  await page.locator('[name=mode]').selectOption('close');
+  await page.getByRole('button',{name:'Add watch',exact:true}).click();
+  await expect(page.locator('#watches')).toContainText('SYNTHETICCOIN');
+  const out=path.join(__dirname,'artifacts');fs.mkdirSync(out,{recursive:true});
+  await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
+  if(overflow)throw Error('Mobile document overflows');
+  await page.getByRole('button',{name:'Remove',exact:true}).first().click();
+  await expect(page.locator('#watches tr')).toHaveCount(1);
+  await page.getByRole('button',{name:'Remove',exact:true}).click();
+  await expect(page.getByText('No watches yet.',{exact:false})).toBeVisible();
+  if(errors.length)throw Error(errors.join('\n'));
+  const result={synthetic:true,checks:['empty state','add stock','pause','resume','sound opt-in','add crypto close rule','mobile layout','remove watch'],pageErrors:errors};
+  fs.writeFileSync(path.join(out,'browser-verification.json'),JSON.stringify(result,null,2));
+  console.log(JSON.stringify(result));
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1});

@@ -1,10 +1,262 @@
 # Six-task implementation plan and agent handoff
 
-Updated: 2026-09-13, Asia/Kolkata. Status: Task 2 implemented and integrated into this OpenAlgo project, locally verified. The separately authorized September 11 CSV backtest of all 404 HA/BB/VWAP V1 versions is complete, as below. Broader Task 1/full-DuckDB work and Tasks 3-6 remain frozen. Market-hours operational validation remains as noted below.
+Updated: 2026-09-15, Asia/Kolkata. Status: Task 2 integrated and locally verified. The September 11 comparison of 404 versions and separate ETH experiment are complete. The four-selected-version full DuckDB run remains stopped and incomplete. The user authorized a separate January-June 2026 Nifty 50 run; see the current checkpoint. Other Task 1 work and Tasks 3-6 remain frozen.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
-## Current checkpoint - 2026-09-13: bounded CSV strategy comparison complete
+## New request checkpoint - 2026-09-17: selected-symbol Bollinger alerts
+
+The user requested alerts when selected stocks or crypto cross the upper or
+lower Bollinger Band. This is a new alert-only request, not a resumption of
+the frozen strategy/backtesting tasks. Existing application/Crypto boundaries
+are preserved: implementation is isolated under
+[.development/bollinger-alerts](../../.development/bollinger-alerts/README.md).
+No original application, broker, strategy or backtest code was modified.
+
+Delivered a separate localhost dashboard, saved per-connection watches,
+live-tick and completed-candle modes, configurable timeframe/period/deviation,
+upper/lower/both selection, browser sound opt-in, pause/resume, SQLite alert
+history, duplicate suppression, warmup/reconnect handling and stale-data states.
+It uses each existing OpenAlgo host's history API and WebSocket LTP stream;
+stock and crypto keys/hosts remain separate. No orders or external messages
+are sent. Default settings are 5m, SMA 20, 2 population standard deviations,
+ordinary close prices, live crossing, both bands and browser alerts. Optional
+questions about timing/settings/delivery were sent; no answer was recorded
+during implementation, so both trigger modes and editable settings were built.
+
+Verification: 13 synthetic Python checks, Ruff, and eight Chrome desktop/mobile
+checks pass with no page errors; screenshots inspected. Startup/reconnect does
+not replay historical crossings; at most one alert per band per candle. Gaps
+and delayed broker history at candle boundaries can miss crossings. Full
+nominal durations determine candle completion, including shortened end-session
+candles; all exact rules and limits are in the module README.
+
+**Not activated or integrated into the main OpenAlgo UI.** User-selected symbols,
+actual connection URLs/API keys and live stock/crypto adapter verification remain
+pending. `.env.example` contains empty key fields and example ports; credentials
+must be set locally. No credentials were read/copied and no real watch was
+created. Start with `.venv/Scripts/python.exe .development/bollinger-alerts/server.py`
+and open `http://127.0.0.1:8781`. No Telegram/WhatsApp delivery is implemented.
+Preserve existing unrelated working changes. Nothing was committed/pushed.
+
+## Repository synchronization - 2026-09-16 (historical)
+
+The user requested committing and pushing all current repository changes to
+`origin/main` (the private `openalo_indian_markets_mvp` repository). This includes
+the portable crypto package and locally present `results_full` reports, selected
+four/Nifty configurations, skills and notes. Large one-minute candle CSVs use
+Git LFS; new clones need Git LFS installed and `git lfs pull` to retrieve them.
+SQLite journals/shared-memory files and the crypto runtime writer lock are
+excluded, along with existing ignored databases, credentials and environments.
+This synchronization does not rerun or independently validate the backtests,
+change the frozen task scope, or restart any process. The September 15 execution
+checkpoints below remain historical; inspect current output before resuming work.
+
+## Current checkpoint - 2026-09-15: portable four-crypto code delivered
+
+The user requested **code only for the new PC**, without interrupting the Nifty
+run: convert BTCUSD/ETHUSD/SOLUSD/XAUTUSD trade CSVs to 1m/5m HA candles and
+backtest S029/S104/S232/S344 across all supplied years. Hardware supplied:
+i9-14900F, 32 GB RAM, RTX 4070 Ti Super 16 GB. No full crypto replay was launched
+here. The original Crypto tree remains read-only; existing engines are unchanged.
+
+Delivered [portable package and instructions](../../backtesting/crypto_four_portable/README.md)
+and `backtesting/crypto_four_portable/crypto_four_portable.zip`. The main file
+`crypto_backtest.py` is standalone; dependencies, Windows installer/run scripts,
+synthetic tests and verification evidence are bundled. Four bounded-memory CPU
+workers are the new-PC default; GPU is unused. DuckDB imports/sorts in a separate
+output cache, while Numba streams causal raw/HA/BB/VWAP calculations and the four
+exact no-trailing/no-partial strategy configurations. Fills use source trades,
+not HA prices. All 16 coin/strategy ledgers, candles, daily P&L, CSV/HTML comparison
+and source audits are exported. Exact file copies are deduplicated by content
+hash; ambiguous timestamps and non-identical overlapping exports are rejected.
+
+Read-only inventory found ~19.4 GB of uncompressed content including duplicate
+copies: real CSVs contain complete microsecond timestamps, SOL has archive and
+extracted duplicates, ETH has some 2026 copies under 2024, and XAUT `.csv` files
+are actually ZIPs. Date-folder names are not trusted. No full-source scan or
+historical result was produced for this request. S029 and S232's earlier ETH
+P&Ls are **negative** (-$6,788.67 and -$2,833.53); corrected in the guide.
+
+Verification: 13 synthetic tests passed from an extracted standalone ZIP;
+two-worker CLI exercised all four coins / 16 results, completed-coin resume and
+the separately labeled benchmark mode. All 56 fills and MTM marks on 12,000
+stored ETH events per timeframe match the prior engine. HA/BB/VWAP match the
+original Maker on 1,200 synthetic ticks including midnight. Runtime/test evidence:
+`reference_validation.json` and `package_validation.json`. Ruff passed for the
+delivered main program and tests. The full new-PC run remains the user's action.
+
+Planning estimate: 30-90 minutes on the new PC with SSD, excluding setup/transfer;
+unmeasured and storage-dependent. Benchmark mode imports all data then samples
+the first million sorted trades per coin and prints measured import plus projected
+replay time. Interrupted file imports are cached; an interrupted coin's strategy
+replay restarts from its beginning. Completed coins are skipped with matching
+inputs/settings/code. Fees, 0.01 base-asset step and $100,000 notional are research
+assumptions; funding, liquidation, broker multipliers and taxes are excluded.
+
+Nifty job was not stopped/restarted by this task. At ~18:27 IST the active Nifty
+command is `run_selected_four --config .../nifty50_2026_h1.json --resume`, launcher
+PID **21592**, worker **7096** (earlier recorded PIDs are stale). Latest inspected
+log committed May 19 and was processing May 20. Inspect actual current processes
+and committed days before any future action; this task did not cause that restart.
+
+## Previous checkpoint - 2026-09-15: four selected versions, Nifty 50, January-June
+
+The user reduced the experiment to four strategies on Nifty 50 stocks from
+January 1 through June 30, 2026 inclusive. This authorizes the separate smaller
+run; the full-history output remains stopped and preserved. Versions stay S092,
+S109, S299 and S305. Rules, both modeled paths, fees/slippage, warmup and
+VectorBT reconciliation are unchanged.
+
+Read-only audit of `stock_symbols_CSVs/ind_nifty50list.csv` found 49/50 stocks:
+BAJAJ-AUTO is absent in this date range, with no matching alternate BAJAJ
+symbol. Each available stock has 45,000 minute rows; total 2,205,000 rows on
+120 source dates, January 1-June 30. An optional question about filling the gap
+received no answer before launch; announced default is the available 49 with
+BAJAJ-AUTO explicitly excluded. This is a fixed local basket, not reconstructed
+historical membership. Do not silently substitute a different company.
+
+`nifty50_2026_h1.json` freezes the date range, four IDs, 49 symbols and exclusion
+note. `run_selected_four` now accepts `--config` and rejects other strategy sets;
+its default full-history configuration is preserved. Audit/CLI imports and
+selected definitions were verified; Ruff passed. No execution-engine code changed.
+
+Background run launched at about 13:15 IST, launcher PID **17580**. Inspect
+`backtesting/ha_bb_vwap_allstocks/nifty50_2026_h1_output/process.json`, logs,
+manifest and committed SQLite days before any restart. Do not start a duplicate
+writer. Launch is not completion; final ranking and runtime remain pending.
+The wrapper generates final findings automatically only after all days commit.
+
+[Scope, assumptions and commands](../../backtesting/ha_bb_vwap_allstocks/NIFTY50_2026_H1.md).
+Resume only after verifying the prior writer stopped:
+`& backtesting/.venv/Scripts/python.exe -u -m backtesting.ha_bb_vwap_allstocks.run_selected_four --config backtesting/ha_bb_vwap_allstocks/nifty50_2026_h1.json --resume`.
+No dashboard was launched. Optional dashboard port is 8779.
+
+Runtime check at approximately 13:58 IST: launcher 17580 and Python worker
+5220 are alive, error log empty. Read-only SQLite check confirms **14/120 days
+committed through January 21**, 686 stock-sessions tested, none skipped.
+Elapsed time is 42.8 minutes since launch; manifest was written at 13:16:31 IST.
+Observed replay averages about 2.9 minutes per source day. Linear projection is
+about 5.2 hours remaining; communicate roughly 5-6 hours (around 19:00-20:00 IST)
+if speed stays similar and the machine remains awake. This is an estimate,
+not completion or a strategy-performance conclusion. No restart was performed.
+
+## Previous checkpoint - 2026-09-15: four selected versions on full DuckDB history
+
+**Stopped by user:** after requesting a runtime estimate, the user explicitly
+said "stop this backtesting task". Verified selected-four Python worker PID
+3796 and launcher PID 5820 were stopped and confirmed absent. The restarted
+run last logged 50/778 stocks on 2017-07-03; no full day had committed.
+Existing output/checkpoints, logs, configuration and source data are preserved;
+`selected_four_output/process.json` records `stopped_by_user` and stop time.
+Do not automatically resume this run or launch a replacement. The launch and
+restart details below are historical, not evidence of a currently active job.
+
+The user requested full DuckDB historical backtesting of the four group leaders
+from the 22-stock September 11 comparison. Optional questions about stock scope
+and the sell-5min tie received no answer before launch; announced defaults are
+all available NSE stocks and S305 (10R), the prior representative of 26 tied
+sell-5min variants. The selection is S092 buy-1m 6.5R, S109 buy-5m 13R,
+S299 sell-1m 9R, S305 sell-5m 10R. Other tied variants are not included.
+
+Read-only actual-row inspection found 1,576 NSE symbols, 859,729,779 minute
+rows, and source timestamps spanning 2017-07-03 through 2026-09-11. The new
+`backtesting/ha_bb_vwap_allstocks/selected_four.json` includes this final date
+(the older run stopped at September 10), selects only these four versions and
+writes separate `selected_four_output/` results. Both modeled candle paths,
+Rs 100,000 per-stock allocation, existing costs/slippage and original strategy
+factories are preserved. September 11 is both selection day and part of this
+retrospective comparison; it is not independent prospective validation.
+
+The old 404-version runner had stopped before this request: two of 2,280 days
+were committed, through 2017-07-04. Its output is preserved. The four-version
+run started at 12:38 IST and reached 275/778 stocks of the first day. The user
+then explicitly requested **restart**. Only this job's verified Python PIDs
+8256/20984 were stopped; the job restarted with `--resume` at 12:53 IST,
+launcher PID **5820**. No full day had committed, so July 3 must replay.
+Inspect `selected_four_output/process.json`, `run.log`, `run.err.log`, manifest
+and SQLite committed progress before any further launch. No duplicate writer.
+
+The new `run_selected_four` wrapper invokes the existing runner and builds the
+comparison only when all planned days are committed. Exact selection/config
+and CLI imports were checked; no engine code changed. Actual historical replay
+began before restart with no logged errors. Completion and final performance
+remain pending; do not promise an overnight runtime. Source data/application/
+Crypto and unrelated working changes are preserved.
+
+Commands, reporting assumptions and resume details:
+[Selected-four guide](../../backtesting/ha_bb_vwap_allstocks/SELECTED_FOUR.md).
+From repository root, resume only after the prior writer stops:
+`& backtesting/.venv/Scripts/python.exe -u -m backtesting.ha_bb_vwap_allstocks.run_selected_four --resume`.
+Dashboard: `& backtesting/.venv/Scripts/python.exe -m backtesting.ha_bb_vwap_allstocks serve --config backtesting/ha_bb_vwap_allstocks/selected_four.json --port 8778`.
+No dashboard server was started in this session. Final report will be
+`selected_four_output/comparison/index.html` after completion.
+
+## Previous checkpoint - 2026-09-13: separate ETHFUT 24/7 experiment
+
+The user explicitly authorized all 404 existing strategy versions on only
+`D:/Personal/OpenAlgo_Crypto/historical_data/ethfut`, without entry/exit time
+restrictions, and instructed that the running all-stock job must not be interrupted.
+This expands authorization for this isolated experiment only. Crypto remains read-only;
+the original strategy package, all-stock runner/output and other frozen work are preserved.
+
+Implementation is isolated in [backtesting/ethfut_404](../../backtesting/ethfut_404/README.md).
+The two supplied archives contain 518,675 ETHUSD trades covering April-May 2024;
+2025/2026 folders have no files. Source audit records both SHA-256 hashes, 223 gaps
+over five minutes and a largest gap of 6,234.49 seconds. UTC timestamps, UTC-midnight
+VWAP, USD 100,000 fixed notional, 0.01 ETH increments, 0.05% fee per fill and 0.05%
+adverse slippage are disclosed research assumptions. Funding/tax/FX/margin are absent.
+Signals and positions carry across midnight; only the end of the supplied data forces
+liquidation. Actual trades form causal 1m/5m snapshots; no interpolated OHLC paths.
+
+**Completed:** all 404 versions finished at 11:53 IST, and final verification
+subsequently passed. [Offline report](../../backtesting/ethfut_404/results/index.html),
+[written findings](../../backtesting/ethfut_404/results/report.md) and all 404
+trade/fill/daily CSV sets are available. Four tests passed in 206 seconds:
+all-404 compiled/reference parity on the first 12,000 real observations per timeframe,
+midnight carry, stale-signal gap rejection and final liquidation. Ruff, Python
+compilation and browser-script syntax checks pass. All 404 full-history fill ledgers
+reconciled independently with VectorBT. A separate saved CSV verification matched
+all 308,920 fills to actual source timestamps/prices plus slippage and reconciled
+153,656 trades, fees and daily P&L. It counted 5,211 overnight trades and 114,379
+entries outside NSE hours; source hashes are preserved. Offline Chrome verified
+404 rows/choices, eight chart selections, filtering and local links, with zero page
+errors; screenshot inspected. Evidence is under `results/` in `tests.txt`,
+`validation.json`, `verification.json` and `browser-verification.json`.
+
+Only 25/404 versions were profitable after modeled costs: 14 buy-5m and 11 sell-5m;
+all 1m variants lost money. Group leaders: buy-1m S029 -USD 6,788.67; buy-5m S104
++USD 12,030.83; sell-1m S232 -USD 2,833.53; sell-5m S344 +USD 3,523.78. S104 uses
+RR 10.5, 0.10 buffer, no trail/partial/indicator exit; 95 trades, 11.58% wins,
+USD 22,530.45 maximum MTM drawdown. Its largest winning trade contributed
+USD 11,951.21, leaving only USD 79.62 across all other trades. ETH buy-and-hold
+netted USD 3,069.48. Rankings are retrospective across two months and exclude
+funding/tax; they do not establish a deployable edge.
+
+The all-stock PID 11620 was still active with its original 11:08:24 start time and
+2,750.25 cumulative CPU seconds at the final operational check; no duplicate
+all-stock writer was started or process stopped. The ETH run and its verification
+processes have finished. Reproduction and assumptions are in the ETH README.
+
+## Previous checkpoint - 2026-09-13: all-stock DuckDB runner and dashboard
+
+**Latest full-completion request (2026-09-13, about 11:27 IST):** the user asked to complete the whole backtest and explain which strategy worked well. The existing run remains active (tool session 71726); the latest logged stock checkpoint is 25/778 stocks for 2017-07-03, with **0/2,280 full days committed**. No full-history winner exists yet. The first 25 stock-sessions took roughly eight minutes; the source has 859,377,449 minute rows. This serial baseline cannot reasonably complete the whole experiment within one interactive session. A bounded read-only profile of 20MICRONS/2017-07-03, all 404 versions and both paths, is recorded under `artifacts/throughput-profile.{json,txt}`. Repeated strategy snapshot validation dominates replay; its 43.9-second profiled duration includes profiler overhead, concurrent execution and more accumulator construction than production, so do not treat it as a full-history ETA. That sample generated zero trades and is not performance evidence. At this checkpoint the active result WAL was approximately 44 MB and about 75 GB remained free on D:; full retention/throughput scaling is not established. Do not claim completion or promise an overnight result.
+
+Added `backtesting/ha_bb_vwap_allstocks/comparison.py`: read-only completion checks and final all-version/group rankings by lower-path net profit and lower-path net / larger-path MTM drawdown. It preserves ties, excludes versions unprofitable on either path from leader selection, shows yearly consistency, costs, capital and configuration, and exports HTML/Markdown/JSON plus ranking/path/year CSVs. Missing source days or strategy/path daily rows refuse final ranking; synthetic fixtures stay labeled. Three new focused comparison tests pass; Ruff passes. Core run fingerprint is unchanged. A completion watcher is active in tool session **64060**, started with `& backtesting/.venv/Scripts/python.exe -u -m backtesting.ha_bb_vwap_allstocks.comparison --watch`. It polls committed progress and writes `output/comparison/index.html` and companion files only when all planned days finish. It does not make the replay faster, restart a failed runner, or imply completion; if the environment stops, resume the runner and restart the watcher explicitly. No historical comparison output exists at this checkpoint. Application/strategy/source data remain unchanged.
+
+The user first requested code only for all-stock history and then explicitly requested: "do backtest on all stocks ,tell how can i run this backtest code .give cmd to run ." This authorizes the historical run of the 404 existing HA/BB/VWAP versions, superseding the earlier freeze for this specific experiment. It does not resume unrelated frozen features or authorize live orders. Implementation is isolated in [backtesting/ha_bb_vwap_allstocks](../../backtesting/ha_bb_vwap_allstocks/README.md); source strategies, the application, Crypto and source market data are preserved.
+
+**Delivered code:** a read-only DuckDB reader, bounded stock-session replay of the actual strategy factories, VectorBT fill reconciliation, atomic daily SQLite checkpoints and resume fingerprint checks, and a localhost interactive dashboard. Defaults select all available NSE source symbols, both buy/sell directions, 1m/5m strategies, two modeled minute paths, and 2017-07-03 through 2026-09-10 inclusive. Reports cover day/week/month/quarter/half-year/year/five-year/full-period P&L, brokerage/itemized costs, peak and average simultaneous notional, win/loss averages and extremes, win rate, profit factor, cross-day bar-close MTM drawdown, trade counts and exact modeled time position lookups. Every retained trade has an on-demand full-session red/green candle chart; CSV exports stream from the indexed results store.
+
+**Verification:** nine synthetic unit/integration tests passed, including actual engine replay against invented DuckDB data, VectorBT reconciliation, source preservation, daily rollback/resume, cost dates, cross-day drawdown and partial-exit lookups. Ruff and JavaScript syntax checks passed. Headless Chrome passed all eight report groupings, time lookups, partial positions, trade charts, CSV export and honest no-results state, with zero page errors. Evidence: `backtesting/ha_bb_vwap_allstocks/artifacts/browser-verification.json` and screenshots. `demo_output` is explicitly synthetic and must not be quoted as historical performance.
+
+**Run checkpoint:** the real command `backtesting/.venv/Scripts/python.exe -u -m backtesting.ha_bb_vwap_allstocks run` was launched on 2026-09-13. DuckDB opened and fingerprinted successfully (SHA-256 `dd1137b22956d148e4efa6e0c4532cd6f1c651fe1729c811fb5f36ad32b61e02`). The manifest selects 1,573 source stocks and 2,280 source dates, 2017-07-03 through 2026-09-10. The runner began `2017-07-03: 778 source stocks, 404 strategies`; output manifest and SQLite/WAL files exist. This checkpoint does not yet establish a completed historical day or performance result. The agent tool session is 71726; do not start a duplicate writer if it is still active. Inspect `backtesting/ha_bb_vwap_allstocks/output/manifest.json`, `results.sqlite` and the dashboard for committed progress on restart. Resume only after the prior process has stopped, using `run --resume`; an interrupted day is replayed while committed days are retained. Full-history runtime and storage have not been benchmarked.
+
+**Commands from repository root:** `& backtesting/.venv/Scripts/python.exe -m backtesting.ha_bb_vwap_allstocks run`; resume with `run --resume`. In another terminal: `& backtesting/.venv/Scripts/python.exe -m backtesting.ha_bb_vwap_allstocks serve`, then open `http://127.0.0.1:8777`. README documents configuration, chunked runs, source locks/WAL handling and historical overrides. Never delete a source WAL or stop the live application to bypass source access errors.
+
+**Interpretation:** all stocks means all NSE symbols present in the configured source, not proven exchange-universe completeness. Fixed research fee rates and current local tick/F&O metadata are used unless effective-date CSVs are provided. Gross notional is not broker margin; independent Rs 100,000 stock allocations do not form a constrained shared-capital portfolio. The two interpolated candle paths, finite warmup, source gaps and missing corporate-action reconstruction limit historical conclusions. Earlier checkpoints below describe prior authorizations and are superseded only within the explicitly expanded scope above. Preserve unrelated local/staged changes, including the user's report extraction and text files.
+
+## Previous checkpoint - 2026-09-13: bounded CSV strategy comparison complete
 
 **Capital/risk follow-up (2026-09-13):** the user asked for total brokerage, capital used/maximum used, trade count, max drawdown, max profit/loss and trades open at a particular time. Added `capital_report.py` using the existing frozen fill ledgers and retained bar-close marks. No strategy rerun or trade changes. [Capital/risk overview](../../backtesting/ha_bb_vwap_v1_20260911/results/capital_overview.html) links 404 reports with separate OLHC/OHLC paths and an IST time picker listing open stocks/quantities/capital. New CSVs: 808 capital/risk rows, 37,993 exact modeled fill-time/boundary states, 182,608 bar-close MTM states, 41,802 fill-level brokerage/exchange/SEBI/STT/stamp/GST breakdowns. Reports distinguish allocated capital, cumulative reused entry notional, peak simultaneous notional, biggest individual win/loss and session MTM extrema; peak capital/concurrency and drawdown peak/trough times are recorded. All 808 fee/peak-notional/drawdown values reconcile with prior reports. Three focused accounting tests and 40 headless-browser time lookups passed; screenshot inspected. Example S092/OHLC: brokerage Rs 1,080, total charges Rs 2,246.44, peak notional Rs 898,563.25 and 9 open trades at 10:51 IST; largest winning/losing trade Rs 18,021.12 / -6,217.90. The ZIP and reproduction pipeline include the addition. Margin is not modeled; MTM remains bar-close rather than tick-complete. Broader frozen tasks remain frozen.
 

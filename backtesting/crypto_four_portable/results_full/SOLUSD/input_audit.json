@@ -1,0 +1,252 @@
+[
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-04.csv\\SOLUSD_2024-04.csv",
+    "member": null,
+    "sha256_uncompressed": "6e9c26d21e0984f895703b732a4865c311a98366bc16d9ab33cd8805c96d03ac",
+    "status": "imported",
+    "rows": 28464
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-04.csv.zip",
+    "member": "SOLUSD_2024-04.csv",
+    "sha256_uncompressed": "6e9c26d21e0984f895703b732a4865c311a98366bc16d9ab33cd8805c96d03ac",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-05.csv\\SOLUSD_2024-05.csv",
+    "member": null,
+    "sha256_uncompressed": "f88b0d935fcb74cab92c944288d23f65e4bf951d7f45d7a967a9704e6172e423",
+    "status": "imported",
+    "rows": 53917
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-05.csv.zip",
+    "member": "SOLUSD_2024-05.csv",
+    "sha256_uncompressed": "f88b0d935fcb74cab92c944288d23f65e4bf951d7f45d7a967a9704e6172e423",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-06.csv\\SOLUSD_2024-06.csv",
+    "member": null,
+    "sha256_uncompressed": "86bbd1571d90f150fe9f2a29697ad8d753e77e96013b721f3bbdfc66b4d31bec",
+    "status": "imported",
+    "rows": 61053
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-06.csv.zip",
+    "member": "SOLUSD_2024-06.csv",
+    "sha256_uncompressed": "86bbd1571d90f150fe9f2a29697ad8d753e77e96013b721f3bbdfc66b4d31bec",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-07.csv\\SOLUSD_2024-07.csv",
+    "member": null,
+    "sha256_uncompressed": "4e2974b295d8adc3aefd7eda405ea6cdd7847b1c468a9aac30251c824ce4ab65",
+    "status": "imported",
+    "rows": 131329
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-07.csv.zip",
+    "member": "SOLUSD_2024-07.csv",
+    "sha256_uncompressed": "4e2974b295d8adc3aefd7eda405ea6cdd7847b1c468a9aac30251c824ce4ab65",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-08.csv\\SOLUSD_2024-08.csv",
+    "member": null,
+    "sha256_uncompressed": "08800e1cb8426fce7ab1ce22c71aeaac30cc6521e6de5349caf301723db8e297",
+    "status": "imported",
+    "rows": 184267
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-08.csv.zip",
+    "member": "SOLUSD_2024-08.csv",
+    "sha256_uncompressed": "08800e1cb8426fce7ab1ce22c71aeaac30cc6521e6de5349caf301723db8e297",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-09.csv\\SOLUSD_2024-09.csv",
+    "member": null,
+    "sha256_uncompressed": "018338dd8a5f75572274655bd68534c074bab9821ed8873dd2cbcda2c85d15f3",
+    "status": "imported",
+    "rows": 266703
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-09.csv.zip",
+    "member": "SOLUSD_2024-09.csv",
+    "sha256_uncompressed": "018338dd8a5f75572274655bd68534c074bab9821ed8873dd2cbcda2c85d15f3",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-10.csv\\SOLUSD_2024-10.csv",
+    "member": null,
+    "sha256_uncompressed": "6e1c3c037ee5dc24f34f8cd631dcd68f5a73ecbd1eb9fe45279c9cc77d5dd356",
+    "status": "imported",
+    "rows": 313644
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-10.csv.zip",
+    "member": "SOLUSD_2024-10.csv",
+    "sha256_uncompressed": "6e1c3c037ee5dc24f34f8cd631dcd68f5a73ecbd1eb9fe45279c9cc77d5dd356",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-11.csv\\SOLUSD_2024-11.csv",
+    "member": null,
+    "sha256_uncompressed": "5cc61d4cae20687562a7d3787952112f957a1d1828c1deff242170731a1b301f",
+    "status": "imported",
+    "rows": 375053
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-11.csv.zip",
+    "member": "SOLUSD_2024-11.csv",
+    "sha256_uncompressed": "5cc61d4cae20687562a7d3787952112f957a1d1828c1deff242170731a1b301f",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-12.csv\\SOLUSD_2024-12.csv",
+    "member": null,
+    "sha256_uncompressed": "4d51ee7ed7edbec51dbb9e3537b5aa4b09ee18df39ac20b38da282333b716548",
+    "status": "imported",
+    "rows": 697498
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2024\\futures-trades-monthly-SOLUSD-2024-12.csv.zip",
+    "member": "SOLUSD_2024-12.csv",
+    "sha256_uncompressed": "4d51ee7ed7edbec51dbb9e3537b5aa4b09ee18df39ac20b38da282333b716548",
+    "status": "identical_copy_skipped"
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-01.csv.zip",
+    "member": "SOLUSD_2025-01.csv",
+    "sha256_uncompressed": "800b615d3a3ce44b70e0b5b9029f299f8c4bcadea8b878f706d5c30945a1404f",
+    "status": "imported",
+    "rows": 1950883
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-02.csv.zip",
+    "member": "SOLUSD_2025-02.csv",
+    "sha256_uncompressed": "e95f4edc1a401ac0cb96dcec37bb996eb15ee795d32900eaf32344406a9e9557",
+    "status": "imported",
+    "rows": 2209999
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-03.csv.zip",
+    "member": "SOLUSD_2025-03.csv",
+    "sha256_uncompressed": "ac2ce1466403fb5a571fd64c24bb8c13d2bbb2db1bcfe6818fad64cac9ffd0c9",
+    "status": "imported",
+    "rows": 2765986
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-04.csv.zip",
+    "member": "SOLUSD_2025-04.csv",
+    "sha256_uncompressed": "fbc0748288e11c68a91284bc2837005280517d32da2388f3486f9b5896ab1c2a",
+    "status": "imported",
+    "rows": 3847150
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-05.csv.zip",
+    "member": "SOLUSD_2025-05.csv",
+    "sha256_uncompressed": "ac88dcd42ca6da4eca4b2085ce2bf0ee6041980c9e7b74a1762a91d790278df9",
+    "status": "imported",
+    "rows": 3065967
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-06.csv.zip",
+    "member": "SOLUSD_2025-06.csv",
+    "sha256_uncompressed": "228bceaace4f607bddd9248bf1691b2367f8147f74828dac812e73fff7f95285",
+    "status": "imported",
+    "rows": 2400344
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-07.csv.zip",
+    "member": "SOLUSD_2025-07.csv",
+    "sha256_uncompressed": "05b4c975900ba8d64fd8dc506cefcaa060d9fb259dd23e29870dd85ae46928cf",
+    "status": "imported",
+    "rows": 3947883
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-08.csv.zip",
+    "member": "SOLUSD_2025-08.csv",
+    "sha256_uncompressed": "55b8a815cba1b9f637145c9cea8291a67bcca1267869a2a64c696b3fae2d4167",
+    "status": "imported",
+    "rows": 5168344
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-09.csv.zip",
+    "member": "SOLUSD_2025-09.csv",
+    "sha256_uncompressed": "18bed7193aca7d4e9d90ec90935f36f57286e402850735d9cecaa090c363133e",
+    "status": "imported",
+    "rows": 3072940
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-10.csv.zip",
+    "member": "SOLUSD_2025-10.csv",
+    "sha256_uncompressed": "0acc4a56e1a79757adbf52dd01405c331a52defe1dfcb0963b44e4a0dd967277",
+    "status": "imported",
+    "rows": 3035307
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-11.csv.zip",
+    "member": "SOLUSD_2025-11.csv",
+    "sha256_uncompressed": "2f6bcbc8182fb31f1494034342da051c083e3a913c7d27451b9b045f0c1d5c40",
+    "status": "imported",
+    "rows": 2204450
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2025\\futures-trades-monthly-SOLUSD-2025-12.csv.zip",
+    "member": "SOLUSD_2025-12.csv",
+    "sha256_uncompressed": "343cdb25540430050fdf75031deda2031072bfdc512d99668e7847c63a41b2b4",
+    "status": "imported",
+    "rows": 1879094
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-01.csv.zip",
+    "member": "SOLUSD_2026-01.csv",
+    "sha256_uncompressed": "3b3219185cdce8143546b81ece1a6ba70ff664213914aa3e3af9b35a9a1cdc02",
+    "status": "imported",
+    "rows": 1698312
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-02.csv.zip",
+    "member": "SOLUSD_2026-02.csv",
+    "sha256_uncompressed": "f0a8cb2fec51bd32291d85b3242228004c468d4bbc38a3bcaa64ac3c1ae6bc1f",
+    "status": "imported",
+    "rows": 1849834
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-03.csv.zip",
+    "member": "SOLUSD_2026-03.csv",
+    "sha256_uncompressed": "b49e94f10b9a22f43f3467bbb916ab969a314fa48ef0586af85f30302443559b",
+    "status": "imported",
+    "rows": 1524499
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-04.csv.zip",
+    "member": "SOLUSD_2026-04.csv",
+    "sha256_uncompressed": "7e2b300869c42b152755546c620456fa0ca9fdeab442a3a54aa2c365661fdfe4",
+    "status": "imported",
+    "rows": 1072822
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-05.csv.zip",
+    "member": "SOLUSD_2026-05.csv",
+    "sha256_uncompressed": "28fa032047b49e1c6dc46a09a8ed7db76af3263d9509e941b72b3d1fc23187f7",
+    "status": "imported",
+    "rows": 1018645
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-06.csv.zip",
+    "member": "SOLUSD_2026-06.csv",
+    "sha256_uncompressed": "89b74237aee4e5e698a926460c34d11722fdea879a0bbe62bbb74b7628c53cab",
+    "status": "imported",
+    "rows": 1461784
+  },
+  {
+    "file": "D:\\Personal\\OpenAlgo_Crypto\\historical_data\\solusd\\2026\\futures-trades-monthly-SOLUSD-2026-07.csv.zip",
+    "member": "SOLUSD_2026-07.csv",
+    "sha256_uncompressed": "c5500d086e6d909d0c6e4e6ef5adb0179cf46cb225af404c06db27df4ed70a94",
+    "status": "imported",
+    "rows": 920343
+  }
+]

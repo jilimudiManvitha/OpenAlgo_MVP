@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "data": "D:\\Personal\\OpenAlgo_Crypto\\historical_data",
+  "symbols": [
+    "BTCUSD",
+    "ETHUSD",
+    "SOLUSD",
+    "XAUTUSD"
+  ],
+  "settings": {
+    "memory": "1GB",
+    "capital": 100000.0,
+    "unit": 0.01,
+    "fee": 0.0005,
+    "slippage": 0.0005,
+    "benchmark_ticks": 0
+  },
+  "code_sha256": "f2cc330e01ef7cc27e873c662229be75b212841c94d15b986b5bb3b92d42c6ea"
+}
