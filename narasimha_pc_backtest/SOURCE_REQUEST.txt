@@ -1,0 +1,38 @@
+hey below i will dicsribe my strategy  write separe codes for each version, name strategies with combination used.
+write only codes for now later we will backtest/forward test them.
+i will give you long/buy trades strategy write it all same conditions for 1min time frames.
+for each code strategy write complete strategy doc .
+in that doc include
+1. strategy name
+2. strategy description
+3. entry conditions
+4. exit conditions
+5. stop loss
+6. target profit
+
+strategy:-
+when a 1min hekin ashi(HA) candle price cross or close above  the bollinger upper band and price above the VWAP the this candle is considered as a signal 
+candle .this signal candle should not be no lower wick[price should not come below the open(if wrong correct it)].if next candle cross the signal
+candle high and bollinger upper band ,price above the VWAP then place buy order,this is entry candle this candle also should not have lower wick.
+for signal and entry candle might be open price might be below the VWAP then no problem. but close or high should be above bollinger upper band
+and VWAP.for bollinger band.if signal and entry HA candles doesn't have upper wicks ignore but remaining criteria should pass price below VWAP or bollinger lower band.
+place order when entry  candle cross signal candle high no need to wait entry candle close
+
+run this strategy from 9:15 AM to 3:05PM(for f&o stocks) 3:20Pm for non-f&o stocks square off times.
+
+
+this is main logic fixed entry.
+
+entry is fixed .
+capital is 1 lakh per trade fixed.
+SL is below signal candle low -0.10 points.(default)
+Target price is 1:3(default)
+one trade only in one stock in a day
+example in sbi stock trade place at 10:00 if trade hit sl or tp that's 
+it for that day no trade for that day in this task again take take if 
+condition met next day.
+
+
+backtest this strategy on nifty50 stocks F:\New folder\openalo_indian_markets_mvp-main\openalo_indian_markets_mvp-main\nifty50_symbols_For_HistoricData.txt last 5 year data from sep 25th 2021 to 
+25th sep 2026 data. i have good system now write good code for faster execution use gpu also if needed.give me dynamic charts ouput.
+give me code and output at this folder "F:\New folder\openalo_indian_markets_mvp-main\openalo_indian_markets_mvp-main\narasimha_pc_backtest" 
