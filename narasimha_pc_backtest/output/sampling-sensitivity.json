@@ -1,0 +1,910 @@
+{
+  "entry_samples_per_leg": [
+    32,
+    128
+  ],
+  "comparisons": [
+    {
+      "symbol": "RELIANCE",
+      "path": "OLHC",
+      "original_trades": 1139,
+      "refined_trades": 1139,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "RELIANCE",
+      "path": "OHLC",
+      "original_trades": 1154,
+      "refined_trades": 1154,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "path": "OLHC",
+      "original_trades": 1141,
+      "refined_trades": 1141,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "path": "OHLC",
+      "original_trades": 1157,
+      "refined_trades": 1157,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HDFCBANK",
+      "path": "OLHC",
+      "original_trades": 1134,
+      "refined_trades": 1134,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HDFCBANK",
+      "path": "OHLC",
+      "original_trades": 1145,
+      "refined_trades": 1145,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ICICIBANK",
+      "path": "OLHC",
+      "original_trades": 1151,
+      "refined_trades": 1151,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ICICIBANK",
+      "path": "OHLC",
+      "original_trades": 1158,
+      "refined_trades": 1158,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "SBIN",
+      "path": "OLHC",
+      "original_trades": 1165,
+      "refined_trades": 1165,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SBIN",
+      "path": "OHLC",
+      "original_trades": 1172,
+      "refined_trades": 1172,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "TCS",
+      "path": "OLHC",
+      "original_trades": 1131,
+      "refined_trades": 1131,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TCS",
+      "path": "OHLC",
+      "original_trades": 1143,
+      "refined_trades": 1143,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "path": "OLHC",
+      "original_trades": 1137,
+      "refined_trades": 1137,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "path": "OHLC",
+      "original_trades": 1143,
+      "refined_trades": 1143,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "LT",
+      "path": "OLHC",
+      "original_trades": 1161,
+      "refined_trades": 1161,
+      "same_signals": true,
+      "same_fills": false,
+      "net_pnl_difference": 2.901450000004843
+    },
+    {
+      "symbol": "LT",
+      "path": "OHLC",
+      "original_trades": 1172,
+      "refined_trades": 1172,
+      "same_signals": true,
+      "same_fills": false,
+      "net_pnl_difference": 2.901450000004843
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "path": "OLHC",
+      "original_trades": 1146,
+      "refined_trades": 1146,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "path": "OHLC",
+      "original_trades": 1164,
+      "refined_trades": 1164,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "INFY",
+      "path": "OLHC",
+      "original_trades": 1129,
+      "refined_trades": 1129,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "INFY",
+      "path": "OHLC",
+      "original_trades": 1139,
+      "refined_trades": 1139,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "path": "OLHC",
+      "original_trades": 1160,
+      "refined_trades": 1160,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "path": "OHLC",
+      "original_trades": 1173,
+      "refined_trades": 1173,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "MARUTI",
+      "path": "OLHC",
+      "original_trades": 1143,
+      "refined_trades": 1143,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "MARUTI",
+      "path": "OHLC",
+      "original_trades": 1155,
+      "refined_trades": 1155,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TITAN",
+      "path": "OLHC",
+      "original_trades": 1152,
+      "refined_trades": 1152,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TITAN",
+      "path": "OHLC",
+      "original_trades": 1161,
+      "refined_trades": 1161,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "M&M",
+      "path": "OLHC",
+      "original_trades": 1150,
+      "refined_trades": 1150,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "M&M",
+      "path": "OHLC",
+      "original_trades": 1161,
+      "refined_trades": 1161,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -2.9103830456733704e-11
+    },
+    {
+      "symbol": "ADANIENT",
+      "path": "OLHC",
+      "original_trades": 1149,
+      "refined_trades": 1149,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -5.820766091346741e-11
+    },
+    {
+      "symbol": "ADANIENT",
+      "path": "OHLC",
+      "original_trades": 1158,
+      "refined_trades": 1158,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "path": "OLHC",
+      "original_trades": 1161,
+      "refined_trades": 1161,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -2.9103830456733704e-11
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "path": "OHLC",
+      "original_trades": 1167,
+      "refined_trades": 1167,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "path": "OLHC",
+      "original_trades": 1149,
+      "refined_trades": 1149,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "path": "OHLC",
+      "original_trades": 1160,
+      "refined_trades": 1160,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "AXISBANK",
+      "path": "OLHC",
+      "original_trades": 1153,
+      "refined_trades": 1153,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "AXISBANK",
+      "path": "OHLC",
+      "original_trades": 1167,
+      "refined_trades": 1167,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HCLTECH",
+      "path": "OLHC",
+      "original_trades": 1153,
+      "refined_trades": 1153,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HCLTECH",
+      "path": "OHLC",
+      "original_trades": 1162,
+      "refined_trades": 1162,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ITC",
+      "path": "OLHC",
+      "original_trades": 1144,
+      "refined_trades": 1144,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ITC",
+      "path": "OHLC",
+      "original_trades": 1159,
+      "refined_trades": 1159,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "path": "OLHC",
+      "original_trades": 1146,
+      "refined_trades": 1146,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "path": "OHLC",
+      "original_trades": 1149,
+      "refined_trades": 1149,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "NTPC",
+      "path": "OLHC",
+      "original_trades": 1142,
+      "refined_trades": 1142,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "NTPC",
+      "path": "OHLC",
+      "original_trades": 1156,
+      "refined_trades": 1156,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJAJ-AUTO",
+      "path": "OLHC",
+      "original_trades": 1155,
+      "refined_trades": 1155,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJAJ-AUTO",
+      "path": "OHLC",
+      "original_trades": 1173,
+      "refined_trades": 1173,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "path": "OLHC",
+      "original_trades": 1146,
+      "refined_trades": 1146,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "path": "OHLC",
+      "original_trades": 1156,
+      "refined_trades": 1156,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -5.820766091346741e-11
+    },
+    {
+      "symbol": "JSWSTEEL",
+      "path": "OLHC",
+      "original_trades": 1164,
+      "refined_trades": 1164,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "JSWSTEEL",
+      "path": "OHLC",
+      "original_trades": 1171,
+      "refined_trades": 1171,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ETERNAL",
+      "path": "OLHC",
+      "original_trades": 1065,
+      "refined_trades": 1065,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ETERNAL",
+      "path": "OHLC",
+      "original_trades": 1079,
+      "refined_trades": 1079,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -2.9103830456733704e-11
+    },
+    {
+      "symbol": "ONGC",
+      "path": "OLHC",
+      "original_trades": 1112,
+      "refined_trades": 1112,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "ONGC",
+      "path": "OHLC",
+      "original_trades": 1131,
+      "refined_trades": 1131,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -2.9103830456733704e-11
+    },
+    {
+      "symbol": "NESTLEIND",
+      "path": "OLHC",
+      "original_trades": 1145,
+      "refined_trades": 1145,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "NESTLEIND",
+      "path": "OHLC",
+      "original_trades": 1157,
+      "refined_trades": 1157,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BEL",
+      "path": "OLHC",
+      "original_trades": 1132,
+      "refined_trades": 1132,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "BEL",
+      "path": "OHLC",
+      "original_trades": 1147,
+      "refined_trades": 1147,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "path": "OLHC",
+      "original_trades": 1155,
+      "refined_trades": 1155,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "path": "OHLC",
+      "original_trades": 1162,
+      "refined_trades": 1162,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "path": "OLHC",
+      "original_trades": 1146,
+      "refined_trades": 1146,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "path": "OHLC",
+      "original_trades": 1152,
+      "refined_trades": 1152,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "COALINDIA",
+      "path": "OLHC",
+      "original_trades": 1136,
+      "refined_trades": 1136,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "COALINDIA",
+      "path": "OHLC",
+      "original_trades": 1149,
+      "refined_trades": 1149,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "POWERGRID",
+      "path": "OLHC",
+      "original_trades": 1137,
+      "refined_trades": 1137,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "POWERGRID",
+      "path": "OHLC",
+      "original_trades": 1148,
+      "refined_trades": 1148,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HINDALCO",
+      "path": "OLHC",
+      "original_trades": 1151,
+      "refined_trades": 1151,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HINDALCO",
+      "path": "OHLC",
+      "original_trades": 1156,
+      "refined_trades": 1156,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TATASTEEL",
+      "path": "OLHC",
+      "original_trades": 1129,
+      "refined_trades": 1129,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TATASTEEL",
+      "path": "OHLC",
+      "original_trades": 1136,
+      "refined_trades": 1136,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "GRASIM",
+      "path": "OLHC",
+      "original_trades": 1172,
+      "refined_trades": 1172,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    },
+    {
+      "symbol": "GRASIM",
+      "path": "OHLC",
+      "original_trades": 1182,
+      "refined_trades": 1182,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "EICHERMOT",
+      "path": "OLHC",
+      "original_trades": 1141,
+      "refined_trades": 1141,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "EICHERMOT",
+      "path": "OHLC",
+      "original_trades": 1152,
+      "refined_trades": 1152,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -2.9103830456733704e-11
+    },
+    {
+      "symbol": "INDIGO",
+      "path": "OLHC",
+      "original_trades": 1127,
+      "refined_trades": 1127,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "INDIGO",
+      "path": "OHLC",
+      "original_trades": 1143,
+      "refined_trades": 1143,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SBILIFE",
+      "path": "OLHC",
+      "original_trades": 1163,
+      "refined_trades": 1163,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "SBILIFE",
+      "path": "OHLC",
+      "original_trades": 1168,
+      "refined_trades": 1168,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "WIPRO",
+      "path": "OLHC",
+      "original_trades": 1128,
+      "refined_trades": 1128,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "WIPRO",
+      "path": "OHLC",
+      "original_trades": 1136,
+      "refined_trades": 1136,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "JIOFIN",
+      "path": "OLHC",
+      "original_trades": 661,
+      "refined_trades": 661,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "JIOFIN",
+      "path": "OHLC",
+      "original_trades": 672,
+      "refined_trades": 672,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TECHM",
+      "path": "OLHC",
+      "original_trades": 1135,
+      "refined_trades": 1135,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TECHM",
+      "path": "OHLC",
+      "original_trades": 1145,
+      "refined_trades": 1145,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TRENT",
+      "path": "OLHC",
+      "original_trades": 1144,
+      "refined_trades": 1144,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TRENT",
+      "path": "OHLC",
+      "original_trades": 1155,
+      "refined_trades": 1155,
+      "same_signals": true,
+      "same_fills": false,
+      "net_pnl_difference": 3.3016500000085216
+    },
+    {
+      "symbol": "APOLLOHOSP",
+      "path": "OLHC",
+      "original_trades": 1134,
+      "refined_trades": 1134,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "APOLLOHOSP",
+      "path": "OHLC",
+      "original_trades": 1144,
+      "refined_trades": 1144,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TMPV",
+      "path": "OLHC",
+      "original_trades": 1130,
+      "refined_trades": 1130,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TMPV",
+      "path": "OHLC",
+      "original_trades": 1142,
+      "refined_trades": 1142,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "CIPLA",
+      "path": "OLHC",
+      "original_trades": 1160,
+      "refined_trades": 1160,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "CIPLA",
+      "path": "OHLC",
+      "original_trades": 1170,
+      "refined_trades": 1170,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HDFCLIFE",
+      "path": "OLHC",
+      "original_trades": 1154,
+      "refined_trades": 1154,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "HDFCLIFE",
+      "path": "OHLC",
+      "original_trades": 1161,
+      "refined_trades": 1161,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TATACONSUM",
+      "path": "OLHC",
+      "original_trades": 1154,
+      "refined_trades": 1154,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "TATACONSUM",
+      "path": "OHLC",
+      "original_trades": 1168,
+      "refined_trades": 1168,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": -5.820766091346741e-11
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "path": "OLHC",
+      "original_trades": 1121,
+      "refined_trades": 1121,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "path": "OHLC",
+      "original_trades": 1135,
+      "refined_trades": 1135,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "DRREDDY",
+      "path": "OLHC",
+      "original_trades": 1168,
+      "refined_trades": 1168,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 0.0
+    },
+    {
+      "symbol": "DRREDDY",
+      "path": "OHLC",
+      "original_trades": 1174,
+      "refined_trades": 1174,
+      "same_signals": true,
+      "same_fills": true,
+      "net_pnl_difference": 2.9103830456733704e-11
+    }
+  ],
+  "changed_symbol_paths": 3,
+  "note": "Sampling sensitivity check, not proof of exact tick reconstruction."
+}

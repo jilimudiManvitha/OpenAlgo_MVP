@@ -52,6 +52,9 @@ def validate_options(data):
         "min_price",
         "max_price",
         "limit",
+        "shocker_sort",
+        "sort_order",
+        "positive_only",
     }
     unknown = set(data) - allowed
     if unknown:
@@ -89,6 +92,16 @@ def validate_options(data):
             raise ScannerError("Each symbol must be a nonempty string of at most 50 characters.")
         symbols = sorted({symbol.strip().upper() for symbol in symbols})
     result["symbols"] = symbols
+    result["shocker_sort"] = data.get("shocker_sort", "rvol")
+    result["sort_order"] = data.get("sort_order", "desc")
+    if result["shocker_sort"] not in {"rvol", "change_percent", "volume"}:
+        raise ScannerError("Invalid volume shocker sort field.")
+    if result["sort_order"] not in {"asc", "desc"}:
+        raise ScannerError("Sort order must be asc or desc.")
+    positive = data.get("positive_only", False)
+    if positive not in (True, False, "true", "false"):
+        raise ScannerError("positive_only must be true or false.")
+    result["positive_only"] = positive in (True, "true")
     return result
 
 
@@ -170,8 +183,19 @@ def rank_rows(rows, options):
         )
     ]
     shockers = sorted(
-        (row for row in filtered if row["rvol"] is not None and row["rvol"] > options["min_rvol"]),
-        key=lambda row: (-row["rvol"], -row["change_percent"], row["symbol"]),
+        (
+            row
+            for row in filtered
+            if row["rvol"] is not None
+            and row["rvol"] > options["min_rvol"]
+            and (not options.get("positive_only") or row["change_percent"] > 0)
+        ),
+        key=lambda row: (
+            (1 if options.get("sort_order") == "asc" else -1)
+            * (row[options.get("shocker_sort", "rvol")] or 0),
+            -row["change_percent"],
+            row["symbol"],
+        ),
     )
     gainers = sorted(
         (row for row in filtered if row["change_percent"] > 0),
@@ -374,6 +398,11 @@ class ScannerManager:
         try:
             session_date = date.fromisoformat(job["session_date"])
             histories = {}
+            if self._cache is None:
+                self._cache = self.cache_factory()
+            if hasattr(self._cache, "get_many"):
+                histories = self._cache.get_many(job["session_date"])
+            warm = all(i["broker_symbol"] in histories for i in universe)
             # Publish price movers immediately and avoid warming thousands of
             # baselines on holidays / before the first trade of the day.
             rows, issues = self._fetch_quotes(job, provider, universe, histories)
@@ -391,7 +420,9 @@ class ScannerManager:
                 self._check_stop(job)
                 symbol = instrument["broker_symbol"]
                 try:
-                    history = self._cache.get(symbol, job["session_date"])
+                    history = histories.get(symbol)
+                    if history is None:
+                        history = self._cache.get(symbol, job["session_date"])
                     if history is None:
                         history = normalize_history(
                             self._call_broker(job, provider.history, instrument, session_date),
@@ -418,7 +449,7 @@ class ScannerManager:
                     live_rows, _ = self._fetch_quotes(job, provider, universe, histories)
                     self._update(job, rows=live_rows)
                     refreshed_at = time.monotonic()
-            if eligible:
+            if eligible and not warm:
                 # Refresh after slow cold history loading. Keep the first
                 # snapshot visible, with its own timestamps, until replaced.
                 self._update(job, phase="refreshing_quotes", quotes_processed=0)

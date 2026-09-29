@@ -1,0 +1,1 @@
+signal_ts,entry_ts,exit_ts,entry,exit,quantity,stop,target,gross_pnl,fees,net_pnl,reason_code,entry_reference,exit_reference,slippage_cost,signal_index,entry_index,exit_index,symbol,path,signal_time,entry_time,exit_time,date,reason,notional,raw_reference_pnl,entry_final_has_lower_wick

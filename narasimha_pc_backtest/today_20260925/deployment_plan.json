@@ -1,0 +1,11 @@
+{
+  "file": "narasimha_scanner_paper.py",
+  "name": "Narasimha HA1m Sep25 scanner basket PAPER",
+  "host": "http://127.0.0.1:5000",
+  "mode": "sandbox_only",
+  "start": "09:00",
+  "stop": "15:25",
+  "days": ["mon", "tue", "wed", "thu", "fri"],
+  "exchange": "NSE",
+  "status": "PREPARED_NOT_UPLOADED"
+}

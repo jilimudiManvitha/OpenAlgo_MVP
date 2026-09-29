@@ -1,0 +1,10 @@
+{
+  "status": "PASSED",
+  "checks": [
+    "both scenario totals",
+    "trade candle chart",
+    "raw toggle",
+    "mobile width"
+  ],
+  "errors": []
+}

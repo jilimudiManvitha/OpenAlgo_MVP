@@ -1,0 +1,1263 @@
+{
+  "status": "COMPLETE_AVAILABLE_DATA",
+  "config": {
+    "strategy": "BUY_HA1m_BB20x2_VWAP_NoLowerWick_SLsignalLowMinus0.10_TP3R_OnePerDay",
+    "source": "F:\\New folder\\openalo_indian_markets_mvp-main\\openalo_indian_markets_mvp-main\\db\\historify.duckdb",
+    "start": "2021-09-25",
+    "end": "2026-09-25",
+    "symbols": [
+      "RELIANCE",
+      "BHARTIARTL",
+      "HDFCBANK",
+      "ICICIBANK",
+      "SBIN",
+      "TCS",
+      "BAJFINANCE",
+      "LT",
+      "HINDUNILVR",
+      "INFY",
+      "SUNPHARMA",
+      "MARUTI",
+      "TITAN",
+      "M&M",
+      "ADANIENT",
+      "ADANIPORTS",
+      "KOTAKBANK",
+      "AXISBANK",
+      "HCLTECH",
+      "ITC",
+      "ULTRACEMCO",
+      "NTPC",
+      "BAJAJ-AUTO",
+      "BAJAJFINSV",
+      "JSWSTEEL",
+      "ETERNAL",
+      "ONGC",
+      "NESTLEIND",
+      "BEL",
+      "SHRIRAMFIN",
+      "ASIANPAINT",
+      "COALINDIA",
+      "POWERGRID",
+      "HINDALCO",
+      "TATASTEEL",
+      "GRASIM",
+      "EICHERMOT",
+      "INDIGO",
+      "SBILIFE",
+      "WIPRO",
+      "JIOFIN",
+      "TECHM",
+      "TRENT",
+      "APOLLOHOSP",
+      "TMPV",
+      "CIPLA",
+      "HDFCLIFE",
+      "TATACONSUM",
+      "MAXHEALTH",
+      "DRREDDY"
+    ],
+    "capital": 100000,
+    "rr": 3,
+    "stop_offset": 0.1,
+    "fee_bps": 5,
+    "slippage_bps": 5,
+    "steps": 32,
+    "workers": 4,
+    "asof_timestamp": 1790321615,
+    "metadata": {
+      "RELIANCE": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BHARTIARTL": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HDFCBANK": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ICICIBANK": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SBIN": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TCS": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BAJFINANCE": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HINDUNILVR": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "INFY": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SUNPHARMA": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MARUTI": {
+        "tick": 1.0,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TITAN": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "M&M": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIENT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIPORTS": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KOTAKBANK": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "AXISBANK": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HCLTECH": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ITC": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ULTRACEMCO": {
+        "tick": 1.0,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "NTPC": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BAJAJ-AUTO": {
+        "tick": 1.0,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BAJAJFINSV": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "JSWSTEEL": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ETERNAL": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ONGC": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "NESTLEIND": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BEL": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SHRIRAMFIN": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ASIANPAINT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "COALINDIA": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "POWERGRID": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HINDALCO": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TATASTEEL": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "GRASIM": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "EICHERMOT": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "INDIGO": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SBILIFE": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "WIPRO": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "JIOFIN": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TECHM": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TRENT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "APOLLOHOSP": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TMPV": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "CIPLA": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HDFCLIFE": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TATACONSUM": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MAXHEALTH": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DRREDDY": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      }
+    }
+  },
+  "code_sha256": {
+    "engine.py": "b729173b1a795cb0481e95612fac7c502235a7f22b664b968d77722b3e893a4a",
+    "run.py": "f3c0831320214d70eb7df672570ebbabb740bc55699bd9c91e3cb996761c2f16",
+    "serve.py": "e1e56efb413a8975434c8ab18672ae4d257b4da7e2fd8269253db283cbf98618",
+    "test_engine.py": "1c09c0d329a6335c58a5d930bfabcbecd6e99f5f7aa8afe8300abe90c2dba0a4"
+  },
+  "source_sha256": "57fc75044f3c39f560d7b5a3ea68f9de3e357a859f7c3f56edc79a1464460542",
+  "seconds": 23.623858199998722,
+  "audits": [
+    {
+      "symbol": "BHARTIARTL",
+      "source_rows": 463080,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462829,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:40:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "038b384532abcab3fd912a8876a33a820fca1963cfd78855ab66358aab40c346",
+      "trades": {
+        "OLHC": 1141,
+        "OHLC": 1157
+      },
+      "seconds": 1.0648481999996875
+    },
+    {
+      "symbol": "ICICIBANK",
+      "source_rows": 463073,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462820,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:39:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "4fcb6baf1611d3c23e075946b350c88adea3861dceb264099d985816d44d3f0e",
+      "trades": {
+        "OLHC": 1151,
+        "OHLC": 1158
+      },
+      "seconds": 1.1231692999990628
+    },
+    {
+      "symbol": "HDFCBANK",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 8,
+      "regular_completed_rows": 462816,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:39:00+05:30",
+      "eligible_sessions": 1222,
+      "excluded_sessions": 15,
+      "input_sha256": "ea876352544e146b17a0b543250e28398a2a87e3ad4ffbdda732d33c23e65293",
+      "trades": {
+        "OLHC": 1134,
+        "OHLC": 1145
+      },
+      "seconds": 1.2147681999995257
+    },
+    {
+      "symbol": "RELIANCE",
+      "source_rows": 463046,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462792,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:40:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "3b47b6df9cf79745a317fe9c1401d75c51a7fcf8b1e1a6a0f94c8f28fd39de0d",
+      "trades": {
+        "OLHC": 1139,
+        "OHLC": 1154
+      },
+      "seconds": 1.2227839999995922
+    },
+    {
+      "symbol": "SBIN",
+      "source_rows": 463073,
+      "rejected_invalid_rows": 1,
+      "regular_completed_rows": 462823,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:39:00+05:30",
+      "eligible_sessions": 1229,
+      "excluded_sessions": 8,
+      "input_sha256": "fbdec210e7e340d9c2f90ca248b072df715cc1030c6ddbf27814142422c2344c",
+      "trades": {
+        "OLHC": 1165,
+        "OHLC": 1172
+      },
+      "seconds": 1.0508972000006906
+    },
+    {
+      "symbol": "TCS",
+      "source_rows": 463071,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462820,
+      "outside_session_rows": 247,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:39:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "a846e01f21c6e12e0338198813d73d2a721f30267170c3add3f5564b935fa32a",
+      "trades": {
+        "OLHC": 1131,
+        "OHLC": 1143
+      },
+      "seconds": 1.1696238000004087
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "source_rows": 463078,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462827,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:38:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "0eb3fefa6e412470bba087515b1545b2726385bd34c10d2c741b50ec480b40da",
+      "trades": {
+        "OLHC": 1137,
+        "OHLC": 1143
+      },
+      "seconds": 1.3170869999994466
+    },
+    {
+      "symbol": "LT",
+      "source_rows": 463078,
+      "rejected_invalid_rows": 3,
+      "regular_completed_rows": 462827,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:38:00+05:30",
+      "eligible_sessions": 1227,
+      "excluded_sessions": 10,
+      "input_sha256": "e49bbfbc81bad56f463bab94874129c6e8f024d79a445e126ff06d8795757e2f",
+      "trades": {
+        "OLHC": 1161,
+        "OHLC": 1172
+      },
+      "seconds": 1.3691259999995964
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "source_rows": 463056,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462806,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:38:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "8268b9787c805dafbf84862695968998d3b4c87ba8630546ab884b021f2c8c50",
+      "trades": {
+        "OLHC": 1146,
+        "OHLC": 1164
+      },
+      "seconds": 1.1713501999984146
+    },
+    {
+      "symbol": "INFY",
+      "source_rows": 463073,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462818,
+      "outside_session_rows": 251,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:37:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "10b76a5df7bdffd2dcb81769d001131015b1afba3a41dfaa6fa1219cf743e976",
+      "trades": {
+        "OLHC": 1129,
+        "OHLC": 1139
+      },
+      "seconds": 1.1999551999997493
+    },
+    {
+      "symbol": "MARUTI",
+      "source_rows": 463076,
+      "rejected_invalid_rows": 9,
+      "regular_completed_rows": 462820,
+      "outside_session_rows": 247,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:37:00+05:30",
+      "eligible_sessions": 1221,
+      "excluded_sessions": 16,
+      "input_sha256": "798f824fd3701dd3acd50c36e292abcc4083a1cb42c7d8e13783ed2edfd3bae1",
+      "trades": {
+        "OLHC": 1143,
+        "OHLC": 1155
+      },
+      "seconds": 1.1811456000014005
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "source_rows": 463070,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462818,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:37:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "e57dbe3fc2564fceb0f3518077fcc68099517288d0a307ad1268a837acf6bdaf",
+      "trades": {
+        "OLHC": 1160,
+        "OHLC": 1173
+      },
+      "seconds": 1.2648938999991515
+    },
+    {
+      "symbol": "TITAN",
+      "source_rows": 463071,
+      "rejected_invalid_rows": 7,
+      "regular_completed_rows": 462815,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:37:00+05:30",
+      "eligible_sessions": 1223,
+      "excluded_sessions": 14,
+      "input_sha256": "f0d0895d1cbb0c8a9941d0ef0152e08fd216fec99070299037f21fc5ce0c11ac",
+      "trades": {
+        "OLHC": 1152,
+        "OHLC": 1161
+      },
+      "seconds": 1.2042745999988256
+    },
+    {
+      "symbol": "M&M",
+      "source_rows": 463077,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 462828,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:36:00+05:30",
+      "eligible_sessions": 1230,
+      "excluded_sessions": 7,
+      "input_sha256": "0bf7000503f3824db513e4d704a4fd4488f92025a8d4061261d100105cba7c08",
+      "trades": {
+        "OLHC": 1150,
+        "OHLC": 1161
+      },
+      "seconds": 1.2706263000000035
+    },
+    {
+      "symbol": "ADANIENT",
+      "source_rows": 463075,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 462827,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:36:00+05:30",
+      "eligible_sessions": 1230,
+      "excluded_sessions": 7,
+      "input_sha256": "69d1cde9e2170e363fc79b6f9f58b6ead6a604671b79a13c3ed898ed4048f519",
+      "trades": {
+        "OLHC": 1149,
+        "OHLC": 1158
+      },
+      "seconds": 1.2864270000009128
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "source_rows": 463076,
+      "rejected_invalid_rows": 5,
+      "regular_completed_rows": 462822,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:36:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "3d3934e3229bca77dcd073d73a0aab7bae13b3b246e397671a1e48b52b46becb",
+      "trades": {
+        "OLHC": 1161,
+        "OHLC": 1167
+      },
+      "seconds": 1.3575279999986378
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "source_rows": 463076,
+      "rejected_invalid_rows": 3,
+      "regular_completed_rows": 462825,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:36:00+05:30",
+      "eligible_sessions": 1227,
+      "excluded_sessions": 10,
+      "input_sha256": "20c8a980d0e8ca3ae5e66f45a60ec8800c69bf20cc6b86f2ef6f495973a33bb8",
+      "trades": {
+        "OLHC": 1149,
+        "OHLC": 1160
+      },
+      "seconds": 1.1513185999992857
+    },
+    {
+      "symbol": "AXISBANK",
+      "source_rows": 463075,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462824,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:35:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "fba19f81cc46c8f9326090069640c45c83514a2f22516305fafb36fc371679d8",
+      "trades": {
+        "OLHC": 1153,
+        "OHLC": 1167
+      },
+      "seconds": 1.1949241000002075
+    },
+    {
+      "symbol": "HCLTECH",
+      "source_rows": 463070,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462818,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:35:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "c780b708b6a2404317287925130f5ca97da4a93c1703bbd808561599c47021ff",
+      "trades": {
+        "OLHC": 1153,
+        "OHLC": 1162
+      },
+      "seconds": 1.2488594000005833
+    },
+    {
+      "symbol": "ITC",
+      "source_rows": 463046,
+      "rejected_invalid_rows": 3,
+      "regular_completed_rows": 462793,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:35:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "5df39d8fccde9aa8710be78625863e7949539085f242a729ed0915efb16ece40",
+      "trades": {
+        "OLHC": 1144,
+        "OHLC": 1159
+      },
+      "seconds": 1.3815919000007852
+    },
+    {
+      "symbol": "ULTRACEMCO",
+      "source_rows": 463066,
+      "rejected_invalid_rows": 5,
+      "regular_completed_rows": 462814,
+      "outside_session_rows": 247,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:34:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "e57033a5bac6995eafa9117152bbaff7d7d18726aa5f1afbe9ae0a9e0c00ef18",
+      "trades": {
+        "OLHC": 1146,
+        "OHLC": 1149
+      },
+      "seconds": 1.2368074000005436
+    },
+    {
+      "symbol": "NTPC",
+      "source_rows": 463076,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462822,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:34:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "2d150ed8514b0883c5c244cdaea912bb407f4c4f6b14b6ab776c9d992d950fa1",
+      "trades": {
+        "OLHC": 1142,
+        "OHLC": 1156
+      },
+      "seconds": 1.2479788999989978
+    },
+    {
+      "symbol": "BAJAJ-AUTO",
+      "source_rows": 463073,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462823,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:34:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "b97acc4702d2bd2330a0836d25aef730515dd0b4e11a6e0be4f584ba6b5b83ad",
+      "trades": {
+        "OLHC": 1155,
+        "OHLC": 1173
+      },
+      "seconds": 1.2721097000012378
+    },
+    {
+      "symbol": "BAJAJFINSV",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 7,
+      "regular_completed_rows": 462818,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:34:00+05:30",
+      "eligible_sessions": 1223,
+      "excluded_sessions": 14,
+      "input_sha256": "6ce50ad11efbddcde1fccc691ec02e4ae94d1a05f13269f51e5482f3b9ac84d6",
+      "trades": {
+        "OLHC": 1146,
+        "OHLC": 1156
+      },
+      "seconds": 1.3189614999992045
+    },
+    {
+      "symbol": "JSWSTEEL",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 8,
+      "regular_completed_rows": 462817,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:33:00+05:30",
+      "eligible_sessions": 1222,
+      "excluded_sessions": 15,
+      "input_sha256": "1c0bde19f51e71aff7589567881ee5fb08adf6b7751c008b88ca10d6c2edea6d",
+      "trades": {
+        "OLHC": 1164,
+        "OHLC": 1171
+      },
+      "seconds": 1.3466530999994575
+    },
+    {
+      "symbol": "ETERNAL",
+      "source_rows": 463069,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462816,
+      "outside_session_rows": 251,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:33:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "3916417fd64d173c6ee304c5fa832cae15f0256b77ba402e0878145601bf353c",
+      "trades": {
+        "OLHC": 1065,
+        "OHLC": 1079
+      },
+      "seconds": 1.3851394999983313
+    },
+    {
+      "symbol": "ONGC",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 1,
+      "regular_completed_rows": 462824,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:33:00+05:30",
+      "eligible_sessions": 1229,
+      "excluded_sessions": 8,
+      "input_sha256": "6486f59db37919f751a9f021c3012e20a39a1345148ae116a9ea193aeb42b628",
+      "trades": {
+        "OLHC": 1112,
+        "OHLC": 1131
+      },
+      "seconds": 1.3577114999989135
+    },
+    {
+      "symbol": "NESTLEIND",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462819,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:33:00+05:30",
+      "eligible_sessions": 1224,
+      "excluded_sessions": 13,
+      "input_sha256": "707e451d766df10fcd44d0c2a725f1bdd716cf590167bd9a4618c8dbe7a35c52",
+      "trades": {
+        "OLHC": 1145,
+        "OHLC": 1157
+      },
+      "seconds": 1.3271108999997523
+    },
+    {
+      "symbol": "BEL",
+      "source_rows": 463074,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462821,
+      "outside_session_rows": 251,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:32:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "b3ca7791c9e12e3effa9d15affcbb652808bc337a5c1a435359889262b84a346",
+      "trades": {
+        "OLHC": 1132,
+        "OHLC": 1147
+      },
+      "seconds": 1.2584401000003709
+    },
+    {
+      "symbol": "SHRIRAMFIN",
+      "source_rows": 463065,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462813,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:32:00+05:30",
+      "eligible_sessions": 1227,
+      "excluded_sessions": 10,
+      "input_sha256": "313c9ba6e6d47957c9b33c42afd5818929d5d799a822b2b8c73745d2320a80a6",
+      "trades": {
+        "OLHC": 1155,
+        "OHLC": 1162
+      },
+      "seconds": 1.3121553000000858
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "source_rows": 463073,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462819,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:32:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "16013d7aee42a39c667fa3dc75ce24f2799a10ddd26a82d252bbbed32408c7ca",
+      "trades": {
+        "OLHC": 1146,
+        "OHLC": 1152
+      },
+      "seconds": 1.313728799999808
+    },
+    {
+      "symbol": "COALINDIA",
+      "source_rows": 463072,
+      "rejected_invalid_rows": 1,
+      "regular_completed_rows": 462822,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:32:00+05:30",
+      "eligible_sessions": 1229,
+      "excluded_sessions": 8,
+      "input_sha256": "b1f50090969151d2000c0d4ae962a235a7763697724270f80e1fa84606372caa",
+      "trades": {
+        "OLHC": 1136,
+        "OHLC": 1149
+      },
+      "seconds": 1.2363236999990477
+    },
+    {
+      "symbol": "POWERGRID",
+      "source_rows": 463077,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462821,
+      "outside_session_rows": 254,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:31:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "f208ae416948ebb091e7c9931470e155dcfbe0d89135790ae39a3e810be8751f",
+      "trades": {
+        "OLHC": 1137,
+        "OHLC": 1148
+      },
+      "seconds": 1.1683167000010144
+    },
+    {
+      "symbol": "HINDALCO",
+      "source_rows": 463064,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462812,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:31:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "371cc642ebbd9a171bfdfaf31bc0b3d9b0aaf8ad7052a63b68da2ef9061de0e7",
+      "trades": {
+        "OLHC": 1151,
+        "OHLC": 1156
+      },
+      "seconds": 1.2428472000010515
+    },
+    {
+      "symbol": "TATASTEEL",
+      "source_rows": 463067,
+      "rejected_invalid_rows": 1,
+      "regular_completed_rows": 462815,
+      "outside_session_rows": 251,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:31:00+05:30",
+      "eligible_sessions": 1229,
+      "excluded_sessions": 8,
+      "input_sha256": "3a3f14eac372f5ef5435a29faf4af7aa7df6536e604ca1f6ce33d4cdfe8d9874",
+      "trades": {
+        "OLHC": 1129,
+        "OHLC": 1136
+      },
+      "seconds": 1.122687600000063
+    },
+    {
+      "symbol": "GRASIM",
+      "source_rows": 463062,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462809,
+      "outside_session_rows": 247,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:30:00+05:30",
+      "eligible_sessions": 1224,
+      "excluded_sessions": 13,
+      "input_sha256": "1516ae4766fbec84233c63907d9170f829a2587c128ca6585bfac430fccdc48b",
+      "trades": {
+        "OLHC": 1172,
+        "OHLC": 1182
+      },
+      "seconds": 1.2025073999993765
+    },
+    {
+      "symbol": "EICHERMOT",
+      "source_rows": 463063,
+      "rejected_invalid_rows": 5,
+      "regular_completed_rows": 462810,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:30:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "6a2f98dda048e818ec8cf64d299979f3d72af4c39639eabad8ad67b04acc29c6",
+      "trades": {
+        "OLHC": 1141,
+        "OHLC": 1152
+      },
+      "seconds": 1.187888500000554
+    },
+    {
+      "symbol": "INDIGO",
+      "source_rows": 463064,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462809,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:30:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "7dd1c3dd68da3b4ece32070bacc917325a8c74f3c585285351651aa6c8934f03",
+      "trades": {
+        "OLHC": 1127,
+        "OHLC": 1143
+      },
+      "seconds": 1.0880059000010078
+    },
+    {
+      "symbol": "SBILIFE",
+      "source_rows": 463063,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462809,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:30:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "b417b89d9182066fa5d2ae1028a33ced8649ddb82580e4237f1467c4daa08909",
+      "trades": {
+        "OLHC": 1163,
+        "OHLC": 1168
+      },
+      "seconds": 1.1415457999992213
+    },
+    {
+      "symbol": "JIOFIN",
+      "source_rows": 287053,
+      "rejected_invalid_rows": 3,
+      "regular_completed_rows": 286923,
+      "outside_session_rows": 127,
+      "incomplete_minute_rows": 0,
+      "first": "2023-08-21T09:55:00+05:30",
+      "last": "2026-09-25T12:29:00+05:30",
+      "eligible_sessions": 760,
+      "excluded_sessions": 8,
+      "input_sha256": "b913c2ea4aa4d3c6f56dd36c71b2607a68d33d64e8b9e85fc0e16d0624d2645d",
+      "trades": {
+        "OLHC": 661,
+        "OHLC": 672
+      },
+      "seconds": 0.8283780999990995
+    },
+    {
+      "symbol": "WIPRO",
+      "source_rows": 463064,
+      "rejected_invalid_rows": 3,
+      "regular_completed_rows": 462811,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:29:00+05:30",
+      "eligible_sessions": 1227,
+      "excluded_sessions": 10,
+      "input_sha256": "e51ac868e53258e96b19d808e97db5892bb8bffaaaf5cae268061fcfd4e3aece",
+      "trades": {
+        "OLHC": 1128,
+        "OHLC": 1136
+      },
+      "seconds": 1.258364299999812
+    },
+    {
+      "symbol": "TECHM",
+      "source_rows": 463064,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462812,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:29:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "e0925e7a468ce8e5b890a420f9030543d6d0b577844c3787d15997d618170916",
+      "trades": {
+        "OLHC": 1135,
+        "OHLC": 1145
+      },
+      "seconds": 1.205897099998765
+    },
+    {
+      "symbol": "TRENT",
+      "source_rows": 463062,
+      "rejected_invalid_rows": 5,
+      "regular_completed_rows": 462809,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:29:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "4ece73cb6d6402bfc7e0efb9aff146d2853f911c972c1dc39fac108ad03ca86a",
+      "trades": {
+        "OLHC": 1144,
+        "OHLC": 1155
+      },
+      "seconds": 1.2799318000015774
+    },
+    {
+      "symbol": "APOLLOHOSP",
+      "source_rows": 463068,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462813,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:28:00+05:30",
+      "eligible_sessions": 1224,
+      "excluded_sessions": 13,
+      "input_sha256": "d2f76ac80206a2995b28aa5b0b4bea25fbd2899aeba52b34a7dac03c86288c40",
+      "trades": {
+        "OLHC": 1134,
+        "OHLC": 1144
+      },
+      "seconds": 1.285426300000836
+    },
+    {
+      "symbol": "TMPV",
+      "source_rows": 463038,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462784,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:28:00+05:30",
+      "eligible_sessions": 1225,
+      "excluded_sessions": 12,
+      "input_sha256": "87db9aa23ae3f81734ffb611652084d050e7e91ce1481b678cbc340f0657ebf5",
+      "trades": {
+        "OLHC": 1130,
+        "OHLC": 1142
+      },
+      "seconds": 1.3074691999991046
+    },
+    {
+      "symbol": "CIPLA",
+      "source_rows": 463069,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462813,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:28:00+05:30",
+      "eligible_sessions": 1224,
+      "excluded_sessions": 13,
+      "input_sha256": "a62cdfae41c2e2fb0b7c9427003ed4be56835c9f802756aa1d8b39f458a753e1",
+      "trades": {
+        "OLHC": 1160,
+        "OHLC": 1170
+      },
+      "seconds": 1.2539961000002222
+    },
+    {
+      "symbol": "HDFCLIFE",
+      "source_rows": 463061,
+      "rejected_invalid_rows": 2,
+      "regular_completed_rows": 462811,
+      "outside_session_rows": 248,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:28:00+05:30",
+      "eligible_sessions": 1228,
+      "excluded_sessions": 9,
+      "input_sha256": "089edb3da0bc9ed8098d565fc8e2f9193db32a894ff11c58a23fce7e0c51cbdc",
+      "trades": {
+        "OLHC": 1154,
+        "OHLC": 1161
+      },
+      "seconds": 1.2609135000002425
+    },
+    {
+      "symbol": "TATACONSUM",
+      "source_rows": 463062,
+      "rejected_invalid_rows": 4,
+      "regular_completed_rows": 462808,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:27:00+05:30",
+      "eligible_sessions": 1226,
+      "excluded_sessions": 11,
+      "input_sha256": "6a741afbe2041b88e8c181fe55182a809279b4056fb92bf3ecb1d9bd5965c468",
+      "trades": {
+        "OLHC": 1154,
+        "OHLC": 1168
+      },
+      "seconds": 1.2885605999999825
+    },
+    {
+      "symbol": "MAXHEALTH",
+      "source_rows": 463046,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462790,
+      "outside_session_rows": 250,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:27:00+05:30",
+      "eligible_sessions": 1212,
+      "excluded_sessions": 25,
+      "input_sha256": "b5e4a2ad0bdfad1e59c4ed59cdef7daf82108e3be007c88fe31a878f009667cd",
+      "trades": {
+        "OLHC": 1121,
+        "OHLC": 1135
+      },
+      "seconds": 1.2058448999996472
+    },
+    {
+      "symbol": "DRREDDY",
+      "source_rows": 463061,
+      "rejected_invalid_rows": 6,
+      "regular_completed_rows": 462806,
+      "outside_session_rows": 249,
+      "incomplete_minute_rows": 0,
+      "first": "2021-09-27T09:15:00+05:30",
+      "last": "2026-09-25T12:27:00+05:30",
+      "eligible_sessions": 1224,
+      "excluded_sessions": 13,
+      "input_sha256": "46f86075cd13a3a9bb453b8fda814b7b781463cc2547abd27714f9461d655f8f",
+      "trades": {
+        "OLHC": 1168,
+        "OHLC": 1174
+      },
+      "seconds": 1.0396468999988429
+    }
+  ],
+  "summary": [
+    {
+      "path": "OLHC",
+      "trades": 56701,
+      "gross_pnl": -5124372.21000001,
+      "fees": 5613940.403625,
+      "net_pnl": -10738312.613625012,
+      "slippage_cost": 5761179.937594391,
+      "win_rate": 24.6274316149627,
+      "profit_factor": 0.5225909929035355,
+      "daily_close_max_drawdown": 10738312.61362501,
+      "peak_simultaneous_notional": 4359274.450000001,
+      "peak_simultaneous_positions": 44,
+      "best_trade": 10234.435049999996,
+      "worst_trade": -8440.007500000003
+    },
+    {
+      "path": "OHLC",
+      "trades": 57239,
+      "gross_pnl": -5620915.390000011,
+      "fees": 5666965.824695,
+      "net_pnl": -11287881.21469501,
+      "slippage_cost": 5831470.224527378,
+      "win_rate": 23.87008857597093,
+      "profit_factor": 0.5068212277471524,
+      "daily_close_max_drawdown": 11287881.21469501,
+      "peak_simultaneous_notional": 4359282.349999998,
+      "peak_simultaneous_positions": 44,
+      "best_trade": 10234.435049999996,
+      "worst_trade": -8440.007500000003
+    }
+  ]
+}

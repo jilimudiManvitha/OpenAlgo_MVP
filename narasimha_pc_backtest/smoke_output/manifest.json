@@ -1,0 +1,109 @@
+{
+  "status": "COMPLETE_AVAILABLE_DATA",
+  "config": {
+    "strategy": "BUY_HA1m_BB20x2_VWAP_NoLowerWick_SLsignalLowMinus0.10_TP3R_OnePerDay",
+    "source": "F:\\New folder\\openalo_indian_markets_mvp-main\\openalo_indian_markets_mvp-main\\db\\historify.duckdb",
+    "start": "2026-09-01",
+    "end": "2026-09-25",
+    "symbols": [
+      "SBIN",
+      "JIOFIN"
+    ],
+    "capital": 100000,
+    "rr": 3,
+    "stop_offset": 0.1,
+    "fee_bps": 5,
+    "slippage_bps": 5,
+    "steps": 32,
+    "workers": 2,
+    "asof_timestamp": 1790321521,
+    "metadata": {
+      "SBIN": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "JIOFIN": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      }
+    }
+  },
+  "code_sha256": {
+    "engine.py": "5123380e89c1d0b84ae3c312edcbc991ed5defe417c7f6093120882403e04c7f",
+    "run.py": "1be53fa6aaf6e4aca47a5676e387b5a351938e40732c7645fa9210c763a48113",
+    "serve.py": "6df75b8b192516ebb6637bf68d73c006c59dd894be6d2977df4a1ae62c9df83d",
+    "test_engine.py": "cc0b89453eeb90c8113535b9c7fb59e42dada64853821f56d910e628bc1647fd"
+  },
+  "source_sha256": "57fc75044f3c39f560d7b5a3ea68f9de3e357a859f7c3f56edc79a1464460542",
+  "seconds": 5.403795700000046,
+  "audits": [
+    {
+      "symbol": "JIOFIN",
+      "source_rows": 14452,
+      "regular_completed_rows": 14445,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-03T09:15:00+05:30",
+      "last": "2026-09-25T12:29:00+05:30",
+      "eligible_sessions": 17,
+      "excluded_sessions": 1,
+      "input_sha256": "e94a076a63be260f4c726585e6696a67406d8b41a6484ef63793586bd6580f9f",
+      "trades": {
+        "OLHC": 16,
+        "OHLC": 17
+      },
+      "seconds": 3.1467616999998427
+    },
+    {
+      "symbol": "SBIN",
+      "source_rows": 14462,
+      "regular_completed_rows": 14455,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-03T09:15:00+05:30",
+      "last": "2026-09-25T12:39:00+05:30",
+      "eligible_sessions": 17,
+      "excluded_sessions": 1,
+      "input_sha256": "cc836b1422174e624eb77f8e832fd8ebc7c49d6b1aad04a0e7d8cf274ec9d7e9",
+      "trades": {
+        "OLHC": 13,
+        "OHLC": 14
+      },
+      "seconds": 3.1478866999987076
+    }
+  ],
+  "summary": [
+    {
+      "path": "OLHC",
+      "trades": 29,
+      "gross_pnl": -4453.9400000000005,
+      "fees": 2890.89163,
+      "net_pnl": -7344.8316300000015,
+      "slippage_cost": 2905.0668860337814,
+      "win_rate": 20.689655172413794,
+      "profit_factor": 0.29526786822488366,
+      "daily_close_max_drawdown": 7760.1106899999895,
+      "peak_simultaneous_notional": 199868.40000000005,
+      "peak_simultaneous_positions": 2,
+      "best_trade": 933.8531800000015,
+      "worst_trade": -991.3295999999956
+    },
+    {
+      "path": "OHLC",
+      "trades": 31,
+      "gross_pnl": -4606.350000000003,
+      "fees": 3090.474315,
+      "net_pnl": -7696.824315000003,
+      "slippage_cost": 3111.795544614098,
+      "win_rate": 22.58064516129032,
+      "profit_factor": 0.2861706674318836,
+      "daily_close_max_drawdown": 7790.889184999992,
+      "peak_simultaneous_notional": 199868.40000000005,
+      "peak_simultaneous_positions": 2,
+      "best_trade": 933.8531800000015,
+      "worst_trade": -991.3295999999956
+    }
+  ]
+}

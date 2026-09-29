@@ -265,18 +265,14 @@ class FyersAdapter:
                         continue
                     pair = brsymbol_to_openalgo.get(brsym)
                     if not pair:
-                        self.logger.warning(
-                            f"brsymbol {brsym} did not match any input symbol"
-                        )
+                        self.logger.warning(f"brsymbol {brsym} did not match any input symbol")
                         continue
                     exch, sym = pair
                     full_symbol = f"{exch}:{sym}"
                     self.symbol_to_hsm[full_symbol] = hsm_token
                     self.hsm_to_symbol[hsm_token] = full_symbol
                     mapped_count += 1
-                    self.logger.debug(
-                        f"Mapped {full_symbol} <-> {hsm_token} (brsymbol: {brsym})"
-                    )
+                    self.logger.debug(f"Mapped {full_symbol} <-> {hsm_token} (brsymbol: {brsym})")
 
                 # Sanity check: every input symbol should have ended up mapped.
                 unmapped_subs = [
@@ -539,9 +535,18 @@ class FyersAdapter:
             if symbol_key in self.last_data:
                 last_ltp = self.last_data[symbol_key].get("ltp", 0)
                 last_time = self.last_data[symbol_key].get("timestamp", 0)
-                if current_ltp == last_ltp and abs(now - last_time) < 0.1:
+                last_volume = self.last_data[symbol_key].get("volume")
+                if (
+                    current_ltp == last_ltp
+                    and mapped_data.get("volume") == last_volume
+                    and abs(now - last_time) < 0.1
+                ):
                     return
-            self.last_data[symbol_key] = {"ltp": current_ltp, "timestamp": now}
+            self.last_data[symbol_key] = {
+                "ltp": current_ltp,
+                "volume": mapped_data.get("volume"),
+                "timestamp": now,
+            }
 
             for cb, openalgo_data_type in dispatches:
                 # Re-map per side. The Quote map already happened above; only

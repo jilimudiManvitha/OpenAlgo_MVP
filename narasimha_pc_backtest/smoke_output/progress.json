@@ -1,0 +1,36 @@
+[
+  {
+    "symbol": "JIOFIN",
+    "source_rows": 14452,
+    "regular_completed_rows": 14445,
+    "outside_session_rows": 7,
+    "incomplete_minute_rows": 0,
+    "first": "2026-08-03T09:15:00+05:30",
+    "last": "2026-09-25T12:29:00+05:30",
+    "eligible_sessions": 17,
+    "excluded_sessions": 1,
+    "input_sha256": "e94a076a63be260f4c726585e6696a67406d8b41a6484ef63793586bd6580f9f",
+    "trades": {
+      "OLHC": 16,
+      "OHLC": 17
+    },
+    "seconds": 3.1467616999998427
+  },
+  {
+    "symbol": "SBIN",
+    "source_rows": 14462,
+    "regular_completed_rows": 14455,
+    "outside_session_rows": 7,
+    "incomplete_minute_rows": 0,
+    "first": "2026-08-03T09:15:00+05:30",
+    "last": "2026-09-25T12:39:00+05:30",
+    "eligible_sessions": 17,
+    "excluded_sessions": 1,
+    "input_sha256": "cc836b1422174e624eb77f8e832fd8ebc7c49d6b1aad04a0e7d8cf274ec9d7e9",
+    "trades": {
+      "OLHC": 13,
+      "OHLC": 14
+    },
+    "seconds": 3.1478866999987076
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "status": "PASSED",
+  "checks": [
+    "both paths",
+    "symbol/date filters",
+    "all period groups",
+    "four summary charts",
+    "HA/raw trade candles",
+    "375-minute session",
+    "pagination",
+    "invalid API symbol",
+    "mobile layout"
+  ],
+  "pageErrors": [],
+  "firstHA": 1031.0500003198
+}

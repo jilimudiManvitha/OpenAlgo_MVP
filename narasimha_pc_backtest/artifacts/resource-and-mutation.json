@@ -1,0 +1,22 @@
+{
+  "daily_guard_mutation": "PASS: 1 correct trade becomes 2 with guard disabled",
+  "duckdb_success_exception_cycles": 121,
+  "resource_samples": [
+    {
+      "cycles": 20,
+      "handles": 600,
+      "rss_bytes": 185536512
+    },
+    {
+      "cycles": 70,
+      "handles": 600,
+      "rss_bytes": 189366272
+    },
+    {
+      "cycles": 120,
+      "handles": 600,
+      "rss_bytes": 189362176
+    }
+  ],
+  "memory_scope": "One symbol per worker, four workers; all handles and executor context-managed. RSS is measured, not a universal leak-free guarantee."
+}

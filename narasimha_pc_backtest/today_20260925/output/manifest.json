@@ -1,0 +1,2139 @@
+{
+  "status": "COMPLETE_AVAILABLE_DATA",
+  "config": {
+    "strategy": "BUY_HA1m_BB20x2_VWAP_NoLowerWick_SLsignalLowMinus0.10_TP3R_OnePerDay",
+    "source": "F:\\mass\\openalo_indian_markets_mvp-main\\openalo_indian_markets_mvp-main\\narasimha_pc_backtest\\today_20260925\\candles.duckdb",
+    "start": "2026-09-25",
+    "end": "2026-09-25",
+    "symbols": [
+      "AAATECH",
+      "ABMKNO",
+      "ADSL",
+      "AETHER",
+      "AHCL",
+      "ANTELOPUS",
+      "ARTEMISMED",
+      "AVADHSUGAR",
+      "BANARBEADS",
+      "BANKA",
+      "BHAGERIA",
+      "BLUECLOUDS",
+      "BPLPHARMA",
+      "BTML",
+      "COMFINTE",
+      "CUBEXTUB",
+      "DANGEE",
+      "DAVANGERE",
+      "DBOL",
+      "DCMSRIND",
+      "DEEPA",
+      "DWARKESH",
+      "FCSSOFT",
+      "HERANBA",
+      "HEROMOTORS",
+      "HINDCON",
+      "INDIANCARD",
+      "KAPSTON",
+      "KMSUGAR",
+      "LANDSMILL",
+      "LICNFNHGP",
+      "LLOYDSENGG",
+      "LORDSCHLO",
+      "MAGADSUGAR",
+      "MAWANASUG",
+      "MEDICO",
+      "MOMETAL",
+      "MONIFTY100",
+      "MSCIADD",
+      "MUKANDLTD",
+      "MUKESHB",
+      "NELCAST",
+      "PACIFICI",
+      "PARIN",
+      "PLASTIBLEN",
+      "PRIMO",
+      "PROTEAN",
+      "PVTBANK",
+      "QUADFUTURE",
+      "RAJSREESUG",
+      "REPRO",
+      "RETAIL",
+      "RKEC",
+      "ROLEXRINGS",
+      "RTSPOWR",
+      "RUSTOMJEE",
+      "SANGAMIND",
+      "SBC",
+      "SDBL",
+      "SEJALLTD",
+      "SENSEXAXIS",
+      "SHANTIGOLD",
+      "SHOPERSTOP",
+      "SSDL",
+      "STARTECK",
+      "SVLL",
+      "TCI",
+      "TECILCHEM",
+      "TGVSL",
+      "TIPSFILMS",
+      "TNPETRO",
+      "TREJHARA",
+      "TRIGYN",
+      "TURTLEMINT",
+      "UGARSUGAR",
+      "UTTAMSUGAR",
+      "VEDAVAAG",
+      "WEALTH",
+      "WHIRLPOOL",
+      "XELPMOC"
+    ],
+    "capital": 100000,
+    "rr": 3,
+    "stop_offset": 0.1,
+    "fee_bps": 5,
+    "slippage_bps": 5,
+    "steps": 32,
+    "workers": 1,
+    "asof_timestamp": 1790330048,
+    "metadata": {
+      "AAATECH": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ABMKNO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADSL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "AETHER": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "AHCL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ANTELOPUS": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ARTEMISMED": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "AVADHSUGAR": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BANARBEADS": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BANKA": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BHAGERIA": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BLUECLOUDS": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BPLPHARMA": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BTML": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "COMFINTE": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "CUBEXTUB": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DANGEE": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DAVANGERE": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DBOL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DCMSRIND": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DEEPA": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DWARKESH": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "FCSSOFT": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HERANBA": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HEROMOTORS": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HINDCON": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "INDIANCARD": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KAPSTON": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KMSUGAR": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LANDSMILL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LICNFNHGP": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LLOYDSENGG": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LORDSCHLO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MAGADSUGAR": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MAWANASUG": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MEDICO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MOMETAL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MONIFTY100": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MSCIADD": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MUKANDLTD": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MUKESHB": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "NELCAST": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PACIFICI": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PARIN": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PLASTIBLEN": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PRIMO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PROTEAN": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PVTBANK": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "QUADFUTURE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RAJSREESUG": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "REPRO": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RETAIL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RKEC": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ROLEXRINGS": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RTSPOWR": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RUSTOMJEE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SANGAMIND": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SBC": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SDBL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SEJALLTD": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SENSEXAXIS": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SHANTIGOLD": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SHOPERSTOP": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SSDL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "STARTECK": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SVLL": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TCI": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TECILCHEM": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TGVSL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TIPSFILMS": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TNPETRO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TREJHARA": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TRIGYN": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TURTLEMINT": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "UGARSUGAR": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "UTTAMSUGAR": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "VEDAVAAG": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "WEALTH": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "WHIRLPOOL": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "XELPMOC": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      }
+    },
+    "selection": {
+      "selected_at": "2026-09-25T15:19:11.164693+05:30",
+      "snapshot_updated_at": "2026-09-25T15:19:10.163830+05:30",
+      "selection_bias": "Retrospective fixed intraday snapshot; NOT historical real-time scanner membership",
+      "limit_per_group": 50
+    }
+  },
+  "source_sha256": "de8c1934a1c7750636d4460cdf21665035c29a8aaba3a4f1c35b85d2f711b172",
+  "code_sha256": {
+    "engine.py": "b729173b1a795cb0481e95612fac7c502235a7f22b664b968d77722b3e893a4a",
+    "run.py": "f3c0831320214d70eb7df672570ebbabb740bc55699bd9c91e3cb996761c2f16",
+    "replay_today.py": "f6db66936b795b4118e2b3b7b9da235ef3d2444391b30eba5d3948fa2d00d7dd"
+  },
+  "selection_sha256": "ece88e0a9f2810d001e758d69e32e96976583b93578149335fe6138f53c830cf",
+  "fetched_at": {
+    "AAATECH": "2026-09-25T15:21:13.737187+05:30",
+    "ABMKNO": "2026-09-25T15:21:14.426041+05:30",
+    "ADSL": "2026-09-25T15:21:15.092165+05:30",
+    "AETHER": "2026-09-25T15:21:15.765805+05:30",
+    "AHCL": "2026-09-25T15:21:16.482379+05:30",
+    "ANTELOPUS": "2026-09-25T15:21:17.164359+05:30",
+    "ARTEMISMED": "2026-09-25T15:21:17.895212+05:30",
+    "AVADHSUGAR": "2026-09-25T15:21:18.563209+05:30",
+    "BANARBEADS": "2026-09-25T15:21:19.247724+05:30",
+    "BANKA": "2026-09-25T15:21:19.926329+05:30",
+    "BHAGERIA": "2026-09-25T15:21:20.597220+05:30",
+    "BLUECLOUDS": "2026-09-25T15:21:21.266417+05:30",
+    "BPLPHARMA": "2026-09-25T15:21:21.979712+05:30",
+    "BTML": "2026-09-25T15:21:22.642312+05:30",
+    "COMFINTE": "2026-09-25T15:21:23.300818+05:30",
+    "CUBEXTUB": "2026-09-25T15:21:23.996346+05:30",
+    "DANGEE": "2026-09-25T15:21:24.700946+05:30",
+    "DAVANGERE": "2026-09-25T15:21:25.371578+05:30",
+    "DBOL": "2026-09-25T15:21:26.047928+05:30",
+    "DCMSRIND": "2026-09-25T15:21:26.715043+05:30",
+    "DEEPA": "2026-09-25T15:21:27.385223+05:30",
+    "DWARKESH": "2026-09-25T15:21:28.048861+05:30",
+    "FCSSOFT": "2026-09-25T15:21:28.708872+05:30",
+    "HERANBA": "2026-09-25T15:21:29.378210+05:30",
+    "HEROMOTORS": "2026-09-25T15:21:30.039596+05:30",
+    "HINDCON": "2026-09-25T15:21:30.704528+05:30",
+    "INDIANCARD": "2026-09-25T15:21:31.397563+05:30",
+    "KAPSTON": "2026-09-25T15:21:32.063010+05:30",
+    "KMSUGAR": "2026-09-25T15:21:32.833153+05:30",
+    "LANDSMILL": "2026-09-25T15:21:33.486854+05:30",
+    "LICNFNHGP": "2026-09-25T15:21:34.145544+05:30",
+    "LLOYDSENGG": "2026-09-25T15:21:34.819785+05:30",
+    "LORDSCHLO": "2026-09-25T15:21:35.492355+05:30",
+    "MAGADSUGAR": "2026-09-25T15:21:36.166140+05:30",
+    "MAWANASUG": "2026-09-25T15:21:36.939879+05:30",
+    "MEDICO": "2026-09-25T15:21:37.617752+05:30",
+    "MOMETAL": "2026-09-25T15:21:38.293337+05:30",
+    "MONIFTY100": "2026-09-25T15:21:38.970739+05:30",
+    "MSCIADD": "2026-09-25T15:21:39.636334+05:30",
+    "MUKANDLTD": "2026-09-25T15:21:40.297660+05:30",
+    "MUKESHB": "2026-09-25T15:21:40.963015+05:30",
+    "NELCAST": "2026-09-25T15:21:41.628126+05:30",
+    "PACIFICI": "2026-09-25T15:21:42.288562+05:30",
+    "PARIN": "2026-09-25T15:21:43.006078+05:30",
+    "PLASTIBLEN": "2026-09-25T15:21:43.665963+05:30",
+    "PRIMO": "2026-09-25T15:21:44.331878+05:30",
+    "PROTEAN": "2026-09-25T15:21:45.006546+05:30",
+    "PVTBANK": "2026-09-25T15:21:45.672122+05:30",
+    "QUADFUTURE": "2026-09-25T15:21:46.347848+05:30",
+    "RAJSREESUG": "2026-09-25T15:21:47.013713+05:30",
+    "REPRO": "2026-09-25T15:21:47.672489+05:30",
+    "RETAIL": "2026-09-25T15:21:48.331204+05:30",
+    "RKEC": "2026-09-25T15:21:48.996339+05:30",
+    "ROLEXRINGS": "2026-09-25T15:21:49.667634+05:30",
+    "RTSPOWR": "2026-09-25T15:21:50.332438+05:30",
+    "RUSTOMJEE": "2026-09-25T15:21:50.999587+05:30",
+    "SANGAMIND": "2026-09-25T15:21:51.665035+05:30",
+    "SBC": "2026-09-25T15:21:52.331931+05:30",
+    "SDBL": "2026-09-25T15:21:53.000649+05:30",
+    "SEJALLTD": "2026-09-25T15:21:53.664621+05:30",
+    "SENSEXAXIS": "2026-09-25T15:21:54.346272+05:30",
+    "SHANTIGOLD": "2026-09-25T15:21:55.019644+05:30",
+    "SHOPERSTOP": "2026-09-25T15:21:55.686072+05:30",
+    "SSDL": "2026-09-25T15:21:56.352923+05:30",
+    "STARTECK": "2026-09-25T15:21:57.125146+05:30",
+    "SVLL": "2026-09-25T15:21:57.785323+05:30",
+    "TCI": "2026-09-25T15:21:58.458023+05:30",
+    "TECILCHEM": "2026-09-25T15:21:59.115427+05:30",
+    "TGVSL": "2026-09-25T15:21:59.987032+05:30",
+    "TIPSFILMS": "2026-09-25T15:22:00.658883+05:30",
+    "TNPETRO": "2026-09-25T15:22:01.332166+05:30",
+    "TREJHARA": "2026-09-25T15:22:01.995939+05:30",
+    "TRIGYN": "2026-09-25T15:22:02.656317+05:30",
+    "TURTLEMINT": "2026-09-25T15:22:03.338164+05:30",
+    "UGARSUGAR": "2026-09-25T15:22:04.029091+05:30",
+    "UTTAMSUGAR": "2026-09-25T15:22:04.716125+05:30",
+    "VEDAVAAG": "2026-09-25T15:22:05.396527+05:30",
+    "WEALTH": "2026-09-25T15:22:06.089058+05:30",
+    "WHIRLPOOL": "2026-09-25T15:22:06.762309+05:30",
+    "XELPMOC": "2026-09-25T15:22:07.471511+05:30"
+  },
+  "audits": [
+    {
+      "symbol": "AAATECH",
+      "source_rows": 8165,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8165,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:38:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "be45142f18a3991972e0facdfb6e03ac6ef28f81f61217e4d507f951a4a7fae9",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.3171656000013172
+    },
+    {
+      "symbol": "ABMKNO",
+      "source_rows": 6942,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 6942,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T10:14:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "6177a3ee551db67c40216733c9561625a23b09112cd69120ab91629734a3da31",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.011727400000381749
+    },
+    {
+      "symbol": "ADSL",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "70f3569d7c4adb0555bf9a26e2bd11b08399ed7166d526691841176c85122782",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012926800001878291
+    },
+    {
+      "symbol": "AETHER",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "b649711f6763549ad546abfb7be6e1ba4d6af8604184ed6dafb38167c11dcfa0",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013994799999636598
+    },
+    {
+      "symbol": "AHCL",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "0684d4c1b58d6bd2266805bbcc55148af7712a2ffd5b1ae0bd6c3e4b07580a20",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013197599997511134
+    },
+    {
+      "symbol": "ANTELOPUS",
+      "source_rows": 8254,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 12,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "220f0a34ef97a8e6f470aa7f0d5dcd5d81cc212eb4ab3ea518d022542addc1c7",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01233940000020084
+    },
+    {
+      "symbol": "ARTEMISMED",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "2b242b805d3a2a351d024d3da1fb0d8b409836de5ec36e161ce22feb30e0169d",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012696900001174072
+    },
+    {
+      "symbol": "AVADHSUGAR",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "1bf9813917381ecb130eaec93eb7520300483d6758203f95bf5e34f8745c6346",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012376900001981994
+    },
+    {
+      "symbol": "BANARBEADS",
+      "source_rows": 7922,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7915,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "edee5dba163bfcd49ef2c99ee91a5d153c748f98f958237ee9f4bfc228cadca1",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012412800002493896
+    },
+    {
+      "symbol": "BANKA",
+      "source_rows": 7488,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7481,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "26ac92830197ded3c46a251ef3da82e32c036c5b89ba22ff4e95065865ebac27",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013086500002827961
+    },
+    {
+      "symbol": "BHAGERIA",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "86e4eaaf70c1e39bdcc90b7ee52921c2f4ce6ba5d8f8565d4175a6fba4ac2292",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013538800001697382
+    },
+    {
+      "symbol": "BLUECLOUDS",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "a50862a7a2cdda1a825e7788f58371a8ea686e96c50cdce7acb3f7b5b2142409",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014173600000503939
+    },
+    {
+      "symbol": "BPLPHARMA",
+      "source_rows": 8056,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8049,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "62e0dd052091c07c3343d94cd630f5b4c0869f64dc620fa9489b9fc65a6640c0",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013684199999261182
+    },
+    {
+      "symbol": "BTML",
+      "source_rows": 8216,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8209,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "d37e7481ab2ce09c3b1c3f058e8feeae7d7c451c3b73c95e9b6b5b6e856ebb72",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013814999998430721
+    },
+    {
+      "symbol": "COMFINTE",
+      "source_rows": 8245,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8238,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "7f89c27c22a041f0c727021a8e87c02211e02af54be8b257417b742373cce7c2",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01289819999874453
+    },
+    {
+      "symbol": "CUBEXTUB",
+      "source_rows": 8239,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8232,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "f44661447219b7f48dcc167a49e827381a84b3730a9581696d14e56438c2c58b",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013555000001360895
+    },
+    {
+      "symbol": "DANGEE",
+      "source_rows": 8177,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8170,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c0f0338434dac4fb97e5098a3eeb48250424335bd26acc27d6fcb2a06c438c69",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.01227389999985462
+    },
+    {
+      "symbol": "DAVANGERE",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "b0959b014ad432fd48f884b6c0fe265a12f0955f03491b53e2a2c14190a866c2",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013052099999185884
+    },
+    {
+      "symbol": "DBOL",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c167fc36a448150d14a9bb5cb51a1e8ed4f3d4515b905ebe416abb9b2d3a0862",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014824599998974008
+    },
+    {
+      "symbol": "DCMSRIND",
+      "source_rows": 8243,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8236,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "d0fc2c9ef3bb0a8d91ee88a5547a2e4a192af3ddeffb66578ea1c42f82fec6f5",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012837300000683172
+    },
+    {
+      "symbol": "DEEPA",
+      "source_rows": 4850,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 4843,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-09-08T09:39:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "069f755a1fafc68ea4133415bafde7b9112cb8bedae0f3508f3f58b8cab3b207",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01158460000078776
+    },
+    {
+      "symbol": "DWARKESH",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "391c73138f39000969aa5751b653e3a9eb468fa512856db0793e689b7d0549a3",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01511229999960051
+    },
+    {
+      "symbol": "FCSSOFT",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "cd2a4e4a0ce2e65bff48ace4b2961a272fb978cd9fdc2e4b83713539013bcab3",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.015853599998081336
+    },
+    {
+      "symbol": "HERANBA",
+      "source_rows": 8224,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8217,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "2ddbdcdad96c1442c637bef6ec7cc31691a002d4315ed41f507a1d1480f5fea4",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.015039099998830352
+    },
+    {
+      "symbol": "HEROMOTORS",
+      "source_rows": 1092,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 1092,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-09-23T09:40:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "66fa8684620bcf947918b337f91b170412bd92aedcf4cda82097480c13a1ad5c",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.011176199997862568
+    },
+    {
+      "symbol": "HINDCON",
+      "source_rows": 8233,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8226,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "6c68d37e04ad95cfc52edc4f8abb39a3812c28dc0fab0ca6f0fd18cdefb0085c",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013334400002349867
+    },
+    {
+      "symbol": "INDIANCARD",
+      "source_rows": 7801,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7801,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "935f4b4d4cba27e29bd760994a30e65b407dd0e5ac6e8410b04a350ad85c5642",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.01188449999972363
+    },
+    {
+      "symbol": "KAPSTON",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "79fc2bd5438b6b59b8cff4d85ce1b77fb3a7c1e16c0ce977a8be73866bd88adf",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013375300000916468
+    },
+    {
+      "symbol": "KMSUGAR",
+      "source_rows": 8246,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8239,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "a4d1943712ae9f9a9d5325e478cd30a6b8dfcca931cfbc11988d88a16f9aaf9f",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013564500000939006
+    },
+    {
+      "symbol": "LANDSMILL",
+      "source_rows": 8247,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8240,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "ff7091c929840fc8f22b847b52c7c6b83111c3336348d05d573f93c33c87214a",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01358289999916451
+    },
+    {
+      "symbol": "LICNFNHGP",
+      "source_rows": 7874,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7874,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "868ad1522edaff19420d79bb3900dbd73545c2de1bd161ea10a47a7233ff55ae",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013286800000059884
+    },
+    {
+      "symbol": "LLOYDSENGG",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "8a61ca493ffc802db6ed1863f8479b7acb117b94abb71bfc0c51ebf50c8d6067",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014386800001375377
+    },
+    {
+      "symbol": "LORDSCHLO",
+      "source_rows": 8172,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8165,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:18:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "e2b8dcc9b5e24b1aea3f75a2859a9eec2d4a95ad4849f06b1decf213c20d49a3",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012596100001246668
+    },
+    {
+      "symbol": "MAGADSUGAR",
+      "source_rows": 8248,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8241,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "f21d3c825b967f850c1e480e482b0e2a2675b5866d845218a6cfd48d9f7a1e49",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014399100000446197
+    },
+    {
+      "symbol": "MAWANASUG",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "cbea3c4e5a9da16521135316cfed3ba6892adf567d624c4d03606f81b9902d35",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014745699998456985
+    },
+    {
+      "symbol": "MEDICO",
+      "source_rows": 8238,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8231,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:18:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "ea792a8ef48cbee225ac79ceb0bc0c3ff40cebcb8d099a5535de38ff1a217958",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013417900001513772
+    },
+    {
+      "symbol": "MOMETAL",
+      "source_rows": 8123,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8123,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:18:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c2111caee4a28837fe9a83be6dd787da03d987b781a9aced8f9899a634780098",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013989099999889731
+    },
+    {
+      "symbol": "MONIFTY100",
+      "source_rows": 8146,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8146,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:30:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "3315f786fd56809017a086a2ee52c4894ebcc8487e83b42ef964884864939f80",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013260199997603195
+    },
+    {
+      "symbol": "MSCIADD",
+      "source_rows": 7335,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7335,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "3ced00437e63c3ed7ea236388c16f726c55086d05f32f51fd08631b27b2c124f",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012775999999576015
+    },
+    {
+      "symbol": "MUKANDLTD",
+      "source_rows": 8241,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8234,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "98de35c5ca56c5951a887139a1271217d84ab6ca03cd7c35626dd0d9925e00e4",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014005700002599042
+    },
+    {
+      "symbol": "MUKESHB",
+      "source_rows": 3567,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 3567,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T10:44:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "d9e844c142426fa1f7e8962af1d5fcd44a094fc8cab89ecc4860440bf4fcf332",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.011807999999291496
+    },
+    {
+      "symbol": "NELCAST",
+      "source_rows": 8246,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8239,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "25f0589867dc7a75c1f1ad4a1c1262c1760ef509c8db16c08f4f66f612b3d22e",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013881200000469107
+    },
+    {
+      "symbol": "PACIFICI",
+      "source_rows": 6676,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 6669,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:39:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "1fb906e00bc2563328aa6d957bebeb9b89ea96b48548910a23267b51394deb2c",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012684099998296006
+    },
+    {
+      "symbol": "PARIN",
+      "source_rows": 7418,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7418,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T11:49:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "866b8afe3294f8b0de72493d17c701b3dd76b5f68aa1b4ac6c5a9ac8f34518a3",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01388539999970817
+    },
+    {
+      "symbol": "PLASTIBLEN",
+      "source_rows": 8206,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8206,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c1e71ce37e1cbd473f36d06caccdf48a7ef10842e0cf11fdef393bb7e4777809",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013829300001816591
+    },
+    {
+      "symbol": "PRIMO",
+      "source_rows": 8209,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8209,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "3b918acf9bb29f218010c1d0564e2b715c99b5cb355ad37ff0bd7d57dd87772c",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013383800000156043
+    },
+    {
+      "symbol": "PROTEAN",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "f447e080026b50720ec3f3031ff45703e4762bd26bef5d97a5fd04729e099590",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013553500000853091
+    },
+    {
+      "symbol": "PVTBANK",
+      "source_rows": 7812,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7812,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:21:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "b6a1c0e951c81e28d1429e6c292e4ad6e5511bde62bcb35e709d58ae1cea39be",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014961500000936212
+    },
+    {
+      "symbol": "QUADFUTURE",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "475ab9c660de81936e0f83a26c63d5bbcc321d272f3d81183a8b794e511cb3b0",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014420600000448758
+    },
+    {
+      "symbol": "RAJSREESUG",
+      "source_rows": 8223,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8216,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "285f344554d63ea4580104103c7f00fbd0bc39e88d17b999b6768d831bfa492f",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.01294400000188034
+    },
+    {
+      "symbol": "REPRO",
+      "source_rows": 8130,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8130,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:20:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c1a313a1e367005e762360af18e48d7a1853f09f56732c3343474fc81f948498",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013359799999307143
+    },
+    {
+      "symbol": "RETAIL",
+      "source_rows": 7984,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7977,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T10:27:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "21b369d2a03d0b110221f870e0b94102617665e6c577ee7dca5c8c0a8357bdfa",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013758799999777693
+    },
+    {
+      "symbol": "RKEC",
+      "source_rows": 8191,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8184,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:23:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "94483d1c75552de8b06bb67e1a99598fe9a64686446e8dfc5ecbb10914250702",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013575299999502022
+    },
+    {
+      "symbol": "ROLEXRINGS",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "fc7525d935054c0138cbcd3e9250206d3530cb822ac4c0cba8153a6eb52d2d40",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013761499998508953
+    },
+    {
+      "symbol": "RTSPOWR",
+      "source_rows": 7653,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7653,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "e430718a16f3071935a62564908f2bb1e20c5fdfb566f5e652944b1b30a3ebde",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012510599997767713
+    },
+    {
+      "symbol": "RUSTOMJEE",
+      "source_rows": 8239,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8232,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "d6cf939e1906c254ffc3e00df4a3efb9f524aa9dce9fbe138a00edeb28e1afa9",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012998800000787014
+    },
+    {
+      "symbol": "SANGAMIND",
+      "source_rows": 8241,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8234,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "4a747fdcede0a2a947ea9ed7626375cf95dcc5b74203c1bc621d5df6c2ba7e27",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01424829999814392
+    },
+    {
+      "symbol": "SBC",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "55d27dfe9d4c12458a47918ec99a0708b30da0133dfb39a03e81e0e76c70742d",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013571399998909328
+    },
+    {
+      "symbol": "SDBL",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "50ae10aa61bfa87403f2f9b7074a6b172d55754fb8b0b8ab404293b017c62a61",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01378119999935734
+    },
+    {
+      "symbol": "SEJALLTD",
+      "source_rows": 8189,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8182,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:25:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "51af12a34ab63c91e80c0c89befd647018a0b1328d89ca1ae960113d69fc6690",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012782400001015048
+    },
+    {
+      "symbol": "SENSEXAXIS",
+      "source_rows": 8200,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8200,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "0659eb9392aaec2f06ba1685e0439e1b43142842d9b89934d60a0651ded8babc",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013367999999900348
+    },
+    {
+      "symbol": "SHANTIGOLD",
+      "source_rows": 8249,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8242,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "18c9a02ebb49d28c1565654c0535d021fed387f58dadf96c1aba84371a0b2e97",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013845399997080676
+    },
+    {
+      "symbol": "SHOPERSTOP",
+      "source_rows": 8236,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8236,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "4e08912cefe98904338a362846a04a35d18cee318fcbc70d53e0247d492ffd64",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014022699997440213
+    },
+    {
+      "symbol": "SSDL",
+      "source_rows": 8212,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8205,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "54111e3c37f7346d236794b112a0408fc8039575ff9f4fad419abed216cbf0ce",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01320819999818923
+    },
+    {
+      "symbol": "STARTECK",
+      "source_rows": 7282,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7282,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "26c6ecaf98aeb79526bbd6a072a261a614b5a8ad1b1c11f529fac2d8665d7bf9",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.01243130000148085
+    },
+    {
+      "symbol": "SVLL",
+      "source_rows": 7364,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7364,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T10:14:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "fe2be0b7418473fa1f2495177c5ee1dda6819aa8d88ec7ab19483c5d4ec70a8d",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013686400001461152
+    },
+    {
+      "symbol": "TCI",
+      "source_rows": 8248,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8241,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:21:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "c28bc4e6fc46693279681ea71e1a5bdc9bc78f18aa0654faf3fde80f3b091b1f",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.014605199998186436
+    },
+    {
+      "symbol": "TECILCHEM",
+      "source_rows": 7947,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7940,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "fe589f1ec3ae4fdd022cbad2ef090bce5279f2a4949e927bc2a9db9358dfaa5c",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.012935899998410605
+    },
+    {
+      "symbol": "TGVSL",
+      "source_rows": 8243,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8236,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "3de0121aa2f51079d523e403ddbd698e1862c90a55ef78d030a709445814a571",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013924700000643497
+    },
+    {
+      "symbol": "TIPSFILMS",
+      "source_rows": 8128,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8128,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "995cf5d357646d57ae96428c2ed45bc5343cac71dbe0c96b875bc4d326a66ec7",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013033299997914582
+    },
+    {
+      "symbol": "TNPETRO",
+      "source_rows": 8250,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8243,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "74a7ad8c435686225f6f034b1dbb768c4940d9ed570514c62635e5e45071e12c",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013532400000258349
+    },
+    {
+      "symbol": "TREJHARA",
+      "source_rows": 8194,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8187,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "597bb02c7cf44124febaff1a239e126658c637851cced9bda7281953a848622a",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013174700001400197
+    },
+    {
+      "symbol": "TRIGYN",
+      "source_rows": 8204,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8197,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:19:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "4e7b2e7b7a54dd45bf81f205f552ab299adfe3a3b11f152d0eb20a69ea5e4e63",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013078800002404023
+    },
+    {
+      "symbol": "TURTLEMINT",
+      "source_rows": 8250,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8243,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "eca0b93a03f110eb789719bdf191c221400137507fbaeb3d59af2b08957d1254",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.013281100000313018
+    },
+    {
+      "symbol": "UGARSUGAR",
+      "source_rows": 8250,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8243,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "200c5af1ebd297f4eb6d045eaea3e0a2cae0bbc49b9f8e4e2e0b4bb531a4e7bc",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.01327790000141249
+    },
+    {
+      "symbol": "UTTAMSUGAR",
+      "source_rows": 8250,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8243,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "008a66446075ab8b034781fd35b05690dee741fcaa0ded42a40fcddf597a0a31",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012773399997968227
+    },
+    {
+      "symbol": "VEDAVAAG",
+      "source_rows": 8198,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8191,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:28:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "19e9aa21034e7ddfddfb86297d7600ebd4e983a7ecb6d5021a4877c1243f02e3",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.013402099997620098
+    },
+    {
+      "symbol": "WEALTH",
+      "source_rows": 7944,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 7944,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 0,
+      "excluded_sessions": 1,
+      "input_sha256": "964c0559c4e29e8b4eb1f4674a3540ca1bf73e3be8c604a25b34851e08a245f7",
+      "trades": {
+        "OLHC": 0,
+        "OHLC": 0
+      },
+      "seconds": 0.01285690000077011
+    },
+    {
+      "symbol": "WHIRLPOOL",
+      "source_rows": 8250,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8243,
+      "outside_session_rows": 7,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:15:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "ba46a72564891ea81fccf8813cbdf04efb3aaa7582a5b3526a58c7a920940ea9",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012647899999137735
+    },
+    {
+      "symbol": "XELPMOC",
+      "source_rows": 8197,
+      "rejected_invalid_rows": 0,
+      "regular_completed_rows": 8197,
+      "outside_session_rows": 0,
+      "incomplete_minute_rows": 0,
+      "first": "2026-08-26T09:16:00+05:30",
+      "last": "2026-09-25T15:22:00+05:30",
+      "eligible_sessions": 1,
+      "excluded_sessions": 0,
+      "input_sha256": "92677e36246d942f437bde7431cc32324813e080f054e329511851e4cb076430",
+      "trades": {
+        "OLHC": 1,
+        "OHLC": 1
+      },
+      "seconds": 0.012395699999615317
+    }
+  ],
+  "summary": [
+    {
+      "path": "OLHC",
+      "trades": 53,
+      "gross_pnl": 151543.0,
+      "fees": 5368.061420000001,
+      "net_pnl": 146174.93858,
+      "slippage_cost": 10240.117779516739,
+      "win_rate": 71.69811320754717,
+      "profit_factor": 5.446244385169665,
+      "daily_close_max_drawdown": -0.0,
+      "peak_simultaneous_notional": 2496614.35,
+      "peak_simultaneous_positions": 25,
+      "best_trade": 12410.999000000003,
+      "worst_trade": -11330.213759999991
+    },
+    {
+      "path": "OHLC",
+      "trades": 53,
+      "gross_pnl": 151543.0,
+      "fees": 5368.061420000001,
+      "net_pnl": 146174.93858,
+      "slippage_cost": 10240.117779484346,
+      "win_rate": 71.69811320754717,
+      "profit_factor": 5.446244385169665,
+      "daily_close_max_drawdown": -0.0,
+      "peak_simultaneous_notional": 2496614.35,
+      "peak_simultaneous_positions": 25,
+      "best_trade": 12410.999000000003,
+      "worst_trade": -11330.213759999991
+    }
+  ],
+  "groups": [
+    {
+      "group": "volume_shockers",
+      "path": "OLHC",
+      "selected": 50,
+      "eligible": 32,
+      "trades": 29,
+      "wins": 20,
+      "gross_pnl": 78027.22999999998,
+      "fees": 2933.9054749999996,
+      "net_pnl": 75093.32452500002
+    },
+    {
+      "group": "volume_shockers",
+      "path": "OHLC",
+      "selected": 50,
+      "eligible": 32,
+      "trades": 29,
+      "wins": 20,
+      "gross_pnl": 78027.22999999998,
+      "fees": 2933.9054749999996,
+      "net_pnl": 75093.324525
+    },
+    {
+      "group": "top_gainers",
+      "path": "OLHC",
+      "selected": 50,
+      "eligible": 45,
+      "trades": 42,
+      "wins": 32,
+      "gross_pnl": 150115.26,
+      "fees": 4269.64922,
+      "net_pnl": 145845.61078
+    },
+    {
+      "group": "top_gainers",
+      "path": "OHLC",
+      "selected": 50,
+      "eligible": 45,
+      "trades": 42,
+      "wins": 32,
+      "gross_pnl": 150115.26,
+      "fees": 4269.64922,
+      "net_pnl": 145845.61078
+    },
+    {
+      "group": "deduplicated_union",
+      "path": "OLHC",
+      "selected": 80,
+      "eligible": 59,
+      "trades": 53,
+      "wins": 38,
+      "gross_pnl": 151543.0,
+      "fees": 5368.061420000001,
+      "net_pnl": 146174.93858
+    },
+    {
+      "group": "deduplicated_union",
+      "path": "OHLC",
+      "selected": 80,
+      "eligible": 59,
+      "trades": 53,
+      "wins": 38,
+      "gross_pnl": 151543.0,
+      "fees": 5368.061420000001,
+      "net_pnl": 146174.93858
+    }
+  ],
+  "seconds": 2.2020632999992813
+}

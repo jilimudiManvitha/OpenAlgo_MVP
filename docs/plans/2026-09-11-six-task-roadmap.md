@@ -1,8 +1,209 @@
 # Six-task implementation plan and agent handoff
 
+## Latest checkpoint — 2026-09-28: positive scanner basket, live paper strategy and app reports
+
+The user's new request explicitly authorizes scanner performance/sorting changes,
+the named strategy, its local paper schedule, and reports within the main app.
+They confirmed **Rs 100,000 per trade**, not a portfolio cap. Original Crypto,
+old backtest engines/results and the other frozen tasks remain untouched.
+
+- Strategy: `strategies/Top_Gain_Volumes_Live_1L_stategy.py`, with English rules
+  in the source docstring. Runtime: `strategies/top_gain_volumes/runtime.py`.
+  The dynamic union is top 50 positive gainers plus top 50 positive RVOL>1
+  shockers, using five completed sessions as volume baseline. Membership is
+  rechecked at entry against fresh Quote ticks. Immediate forming-minute
+  signal-high breakout retains HA/no-lower-wick, BB20x2, VWAP, signal-low-0.10,
+  3R target and one trade/symbol/day. Newly selected stocks need complete warmup.
+- Paper fills are a **dedicated simulated ledger**, not OpenAlgo Sandbox orders
+  or live broker orders. Market fills include 5 bps adverse slippage and fees
+  are an explicitly illustrative 5 bps/fill. No actual brokerage/tax claim.
+  Reconnect/gap/overflow guards suppress entries; missing exit quotes leave
+  positions marked unresolved. Broker Quote observations are not guaranteed
+  exchange tick-by-tick data. Current-minute history bridges dynamic warmup;
+  missing history is skipped/retried, never synthesized.
+- Schedule is actually saved in `strategies/strategy_configs.json` for the
+  existing FYERS account: NSE weekdays **09:15–15:10 IST**, exchange-calendar
+  aware. Uses the existing scheduler; app and authenticated broker/proxy must
+  be running. No forward session or orders were run today. Market-hours
+  operation and observed end-to-end latency still need the next session.
+  September 29 final verification found the user had changed the stop to 15:10.
+  They explicitly confirmed **keep 15:10 and square off all stocks at 15:05**.
+  Runtime, installer, English rules and UI now match. The saved September 28
+  historical replay retains its original 15:05 F&O / 15:20 other-stock cutoffs;
+  it is not relabeled as a backtest of the revised uniform cutoff.
+- `uv run app.py` serves **/strategy-reports**, linked in navigation, Scanner
+  and Python Strategies. Account-owned report APIs share the scanner blueprint.
+  Report DB: `db/scanner_strategy_reports.db`. UI provides scenario-separated
+  metrics, every trade's raw/HA chart, and **only a trades CSV download**.
+  There is no new `show_report.ps1`, report server or user launcher. Historical
+  artifacts in other folders are preserved. Internal resumable input cache is
+  `db/scanner_backtest_cache/2026-09-28`; replay intermediates are temporary.
+- Today's completed 15:25:12 IST scanner snapshot: 2,675/2,680 valid quotes,
+  50 positive shockers + 50 positive gainers = **75 unique NSE EQ instruments**
+  (master EQ classification includes some ETFs). All 75 processed; **60** have
+  complete minutes through cutoff; **15** excluded. Two OHLC-path scenarios:
+  OLHC 54 trades, 34 winners, gross Rs 79,013.63, fees Rs 5,426.936685,
+  **net Rs 73,586.693315**, peak notional Rs 3,293,019.73. OHLC 54 trades,
+  34 winners, gross Rs 79,125.59, fees Rs 5,427.029985,
+  **net Rs 73,698.560015**, peak notional Rs 3,293,152.79. Do not add scenarios.
+  Afternoon selection creates look-ahead selection bias for morning replay;
+  this is not a causal dynamic-scanner historical backtest. Drawdown is based
+  on realized exits, not intratrade equity. Source/history hashes and independent
+  verification of all 108 scenario trades are stored in the report record.
+- Scanner: bulk baseline read replaces per-symbol cache connections; warm
+  scans avoid the duplicate quote pass. Backend tick merge runs every 0.5s,
+  UI polls at 1s visible/10s hidden without blanking displayed rows. Stream cap
+  defaults to 5,000 (actual acceptance/capacity still broker-dependent). New
+  day-change/volume/RVOL ASC/DESC sorts apply before the top-50 limit, plus a
+  positive-day-change filter. FYERS dedup and scanner merge now retain changed
+  volume at unchanged price within the same timestamp second.
+- Verification: independent saved-ledger verification **108/108**, original
+  engine **16 tests**, scanner/report/runtime **97 tests** (including a VWAP
+  guard mutation, account isolation, atomic run claim, unchanged-price volume
+  ticks, sizing/exits and 150 report-DB resource cycles). Chrome checks with
+  mocked auth/API and real saved report data cover desktop/mobile charts,
+  scenario switching, CSV link, sorting and 1s refresh; screenshots inspected.
+  Frontend production bundle rebuilt; changed-file lint checked. UI tests do
+  not establish an authenticated live broker session or market-hours behavior.
+
+Usage details: [strategy and reports](../../strategies/top_gain_volumes/README.md).
+The older September 25 pending-upload checkpoint below is historical; it is
+not the new dynamic strategy or the new schedule.
+
 Updated: 2026-09-15, Asia/Kolkata. Status: Task 2 integrated and locally verified. The September 11 comparison of 404 versions and separate ETH experiment are complete. The four-selected-version full DuckDB run remains stopped and incomplete. The user authorized a separate January-June 2026 Nifty 50 run; see the current checkpoint. Other Task 1 work and Tasks 3-6 remain frozen.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
+
+## Current checkpoint — 2026-09-25: today's scanner basket and paper deployment
+
+The user requested the same `narasimha_pc_backtest` strategy on today's volume
+shockers/top gainers, explicitly **today's session only**, followed by upload and
+scheduling in **paper mode at http://127.0.0.1:5000**. This authorizes the isolated
+new folder and paper deployment; the original engine, old results, main source DB,
+application and Crypto code remain unchanged. Other frozen tasks stay frozen.
+
+Work is in [today's package](../../narasimha_pc_backtest/today_20260925/README.md).
+The completed local scanner snapshot was frozen at 15:19:11 IST: 50 shockers,
+50 gainers, 80 unique NSE EQ instruments (including EQ-classified ETFs). Original
+snapshot coverage: 2,660/2,668 quotes. A first selection made during baseline
+loading is retained as superseded, not used in the result.
+
+Fresh FYERS history was downloaded to this isolated folder with 30 calendar days
+of warmup and refreshed after the non-F&O square-off. September 25 only replay:
+59 eligible instruments; 21 excluded for incomplete minutes. Both modeled paths
+produce 53 trades / 38 winners, gross after slippage Rs 151,543.00, fees
+Rs 5,368.06, **net Rs 146,174.94**, 71.70% win rate. Peak simultaneous entry
+notional Rs 2,496,614.35 across 25 positions. Volume-shocker net Rs 75,093.32;
+gainer net Rs 145,845.61; group overlap means these must not be added.
+This afternoon-selected morning replay has selection bias and is not a causal
+dynamic-scanner backtest. One-day daily-close drawdown does not measure intraday DD.
+
+Verification: all 106 saved path trades pass the independent verifier, all 16
+original engine tests pass, and seven paper tests pass including a VWAP-guard
+mutation and target-fill/cancel race. Actual Chrome chart/mobile checks pass;
+screenshots inspected. Initial verifier failure was missing pre-session warmup in
+the exported candles; `verify_today.py` supplies it and proves all current-day
+indicators match. No fills or strategy calculations were changed. Report is
+served separately at **http://127.0.0.1:8783** (check before starting a duplicate).
+
+Paper package prepared: `narasimha_scanner_paper.py` imports the isolated runtime.
+It uses only local sandbox order services, a fixed 80-instrument basket, observed
+quote candles, durable state, one entry/day, target LIMIT and reconciled software
+stop/clock exits. Proposed NSE schedule: weekdays **09:00–15:25 IST**, with the
+exchange calendar, starting on the next eligible session. Warmup must finish
+before 09:15; late starts and feed gaps suppress entries. Paper quantity has a
+small fill buffer; sandbox fills/costs differ from the backtest assumptions.
+Review the README's runtime limitations before interpreting forward results.
+
+**Upload/schedule still pending at this checkpoint.** OpenAlgo stopped during
+work; the user restarted it. The stored API key verifies locally, but there is no
+active FYERS auth session, causing the history API's generic 403 "Invalid openalgo
+apikey" response. Do not regenerate the valid key. A real Chrome window opened
+by `deploy_browser.cjs` is waiting for the user's normal OpenAlgo/FYERS login.
+Never fabricate a session or bypass auth/CSRF. `deployment_plan.json` describes
+the concrete intended upload; `READY_TO_UPLOAD.json` has NOT been created.
+After user login: run `check_connection.py` (read-only history/WS probe), then
+copy the plan to the readiness file for the waiting uploader, verify the resulting
+`deployment.json` and the authenticated `/python/api/strategies` schedule, and
+update this checkpoint. If the browser was closed, rerun `deploy_browser.cjs`.
+No live or paper orders have been submitted. No global Analyzer setting changed.
+Actual market-hours forward execution remains unverified.
+
+## Launcher rerun — 2026-09-25, 14:15 IST
+
+The user explicitly requested running `narasimha_pc_backtest/run_backtest.ps1`.
+Completed all 50 symbols with unchanged default settings in 24.30 seconds,
+exit code 0, saving to `narasimha_pc_backtest/output_rerun_20260925_141503/`
+to preserve existing results. PowerShell initially blocked script execution;
+the approved retry used a process-only execution-policy bypass.
+The saved manifest is `COMPLETE_AVAILABLE_DATA`, the HTML report exists,
+and the complete `trades.csv` SHA-256 matches the prior completed run.
+OLHC net is -Rs 10,738,312.61 (56,701 trades); OHLC net is
+-Rs 11,287,881.21 (57,239 trades). No strategy code was changed.
+The earlier report server was not restarted or redirected to this output.
+
+## Latest checkpoint — 2026-09-25: new Nifty 50 HA buy strategy completed
+
+The user supplied `strategy_buy_doc_.txt` and explicitly requested use of the
+local five-year one-minute DuckDB, HA conversion, backtest and dynamic charts
+in `narasimha_pc_backtest/`. They confirmed the ambiguous entry wording means
+both HA candles have no lower wick, upper wicks are optional, and breakout is
+above the upper Bollinger Band and VWAP. The final paragraph requesting the
+backtest now supersedes the file's initial code-only sentence. This authorizes
+only the new isolated strategy, not resumption of the old stopped experiments
+or other frozen tasks. Original application/strategy/Crypto code is preserved.
+
+**Completed available-data run:** [code, results and commands](../../narasimha_pc_backtest/README.md),
+[complete strategy rules](../../narasimha_pc_backtest/STRATEGY.md),
+[interactive report](../../narasimha_pc_backtest/output/index.html).
+The new PC source is `db/historify.duckdb` in this F: workspace, not the old
+D: paths. This extracted working folder has no `.git`; no commit/push occurred.
+
+All 50 exact symbols in `nifty50_symbols_For_HistoricData.txt` were processed:
+22,977,386 source rows, 22,964,861 valid regular-session rows converted to HA
+in separate compressed Parquet files. Requested September 25, 2021–September
+25, 2026; eligible trading sessions actually span September 27, 2021–September
+24, 2026. Today's source stops around 12:27–12:40 IST, so all September 25
+sessions are excluded. JIOFIN starts August 21, 2023 at 09:55. Coverage records
+60,830 eligible stock-days, 363 incomplete stock-days, 188 days excluded due
+to 192 invalid regular-session OHLC rows, and 469 absent symbol-days against
+the union of source dates. Out-of-session rows: 12,333. Invalid rows are saved
+without repair; source SHA-256 is unchanged before/after and during verification.
+
+Fixed buy-only HA1m/BB20x2/raw-session-VWAP rule, ₹100,000 per trade, one trade
+per stock/day, signal HA low −₹0.10 stop and 3R target. Both OLHC and OHLC
+modeled price paths use causal forming-candle prices; final volume is uniformly
+distributed as an explicit approximation. Entry does not use the future final
+wick state. Current-master ticks/F&O classification, 5 bps market slippage and
+5 bps flat fee per fill are research assumptions, not historical broker facts.
+All 50 are currently classified as F&O (15:05 square-off). Historical index/FO
+membership, adjustment policies, funded-account limits and intraday drawdown
+are not reconstructed. See the exact limitations in the strategy document.
+
+Results under those costs: OLHC 56,701 trades, gross after slippage
+−₹5,124,372.21, fees ₹5,613,940.40, net **−₹10,738,312.61**, win rate 24.63%.
+OHLC 57,239 trades, gross −₹5,620,915.39, fees ₹5,666,965.82, net
+**−₹11,287,881.21**, win rate 23.87%. Both paths lose; never add their P&L.
+Fixed allocations continue after losses, so this is not a funded cash account.
+Execution/conversion/report time was 23.62 seconds using four Numba CPU
+workers; no GPU needed. Output is about 1.40 GB.
+
+Verification: independent saved-ledger checks on all 113,940 trades pass;
+synthetic/integration tests, named scenario parity and actual Chrome browser
+checks are saved in the module artifacts. Browser charts/filters/HA/raw toggle/
+mobile view pass with zero page errors and screenshots inspected. 128 versus
+32 entry samples/leg produce identical trade selections, with small near-tick
+P&L differences (+₹2.90 OLHC / +₹6.20 OHLC). Daily-limit mutation is caught;
+121 success/exception DuckDB lifecycle cycles retain 600 handles after warmup.
+Execution-code hashes match the completed-run manifest; tests/docs added after
+that run have a separate final delivery/verification record.
+
+Local report server started at `http://127.0.0.1:8782`; verify it is running
+before starting a duplicate. Restart with
+`& .\narasimha_pc_backtest\show_report.ps1`. It reads generated artifacts only.
+`output/` is final; `smoke_output/` and `rejected_initial_run/` are preserved
+diagnostic runs, not final results. Reruns require a new empty output folder.
+No automatic source download or future September 25 completion is scheduled.
 
 ## New request checkpoint - 2026-09-17: selected-symbol Bollinger alerts
 

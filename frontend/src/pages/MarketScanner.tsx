@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 import { webClient } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
@@ -118,6 +119,9 @@ export default function MarketScanner() {
   const [minPrice, setMinPrice] = useState('0')
   const [maxPrice, setMaxPrice] = useState('1000000000')
   const [minVolume, setMinVolume] = useState('0')
+  const [shockerSort, setShockerSort] = useState('rvol')
+  const [sortOrder, setSortOrder] = useState('desc')
+  const [positiveOnly, setPositiveOnly] = useState(false)
   const [loadedFor, setLoadedFor] = useState('')
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null)
   const [error, setError] = useState('')
@@ -164,6 +168,9 @@ export default function MarketScanner() {
           min_price: Number(minPrice) || 0,
           max_price: Number(maxPrice),
           min_volume: Number(minVolume) || 0,
+          shocker_sort: shockerSort,
+          sort_order: sortOrder,
+          positive_only: positiveOnly,
         }
         const response = await webClient.get('/market-scanner/api/live', {
           params,
@@ -177,7 +184,7 @@ export default function MarketScanner() {
       } catch (e) {
         if (!stopped) setError(e instanceof Error ? e.message : 'Scanner connection interrupted')
       } finally {
-        if (!stopped) timer = setTimeout(poll, 5000)
+        if (!stopped) timer = setTimeout(poll, document.hidden ? 10000 : 1000)
       }
     }
     void poll()
@@ -186,7 +193,18 @@ export default function MarketScanner() {
       clearTimeout(timer)
       controller.abort()
     }
-  }, [category, minRvol, minPrice, maxPrice, minVolume, revision, preferenceKey])
+  }, [
+    category,
+    minRvol,
+    minPrice,
+    maxPrice,
+    minVolume,
+    shockerSort,
+    sortOrder,
+    positiveOnly,
+    revision,
+    preferenceKey,
+  ])
   useEffect(() => {
     const id = setInterval(() => setClock(Date.now()), 5000)
     return () => clearInterval(id)
@@ -225,6 +243,9 @@ export default function MarketScanner() {
         <div>
           <h1 className="text-2xl font-semibold">Market Scanner</h1>
           <p className="text-muted-foreground">NSE stocks · Today’s price and volume changes</p>
+          <Link to="/strategy-reports" className="text-sm underline">
+            Strategy reports and paper schedule
+          </Link>
         </div>
         <Button
           disabled={busy || !snapshot}
@@ -373,6 +394,40 @@ export default function MarketScanner() {
         ))}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+        {tab === 'volume_shockers' && (
+          <div className="flex flex-wrap items-center gap-3">
+            <label>
+              Sort by{' '}
+              <select
+                aria-label="Volume shocker sort"
+                className="rounded border bg-background p-2"
+                value={shockerSort}
+                onChange={(e) => setShockerSort(e.target.value)}
+              >
+                <option value="change_percent">Day change %</option>
+                <option value="volume">Volume</option>
+                <option value="rvol">Relative volume</option>
+              </select>
+            </label>
+            <select
+              aria-label="Sort direction"
+              className="rounded border bg-background p-2"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+            <label>
+              <input
+                type="checkbox"
+                checked={positiveOnly}
+                onChange={(e) => setPositiveOnly(e.target.checked)}
+              />{' '}
+              Positive day change only
+            </label>
+          </div>
+        )}
         <p>
           Showing {rows.length} of the top 50 · {snapshot?.filtered_quotes ?? 0} eligible quotes in
           category

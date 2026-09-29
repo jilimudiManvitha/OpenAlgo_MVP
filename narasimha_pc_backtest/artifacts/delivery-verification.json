@@ -1,0 +1,46 @@
+{
+  "recorded_at": "2026-09-25T13:16:11.715399",
+  "status": "COMPLETE_AVAILABLE_DATA",
+  "tests": {
+    "passed": 16,
+    "command": "python -m pytest narasimha_pc_backtest/test_engine.py --confcutdir=narasimha_pc_backtest -o addopts= -p no:cacheprovider -q"
+  },
+  "lint": "ruff check: all checks passed",
+  "all_saved_trades_checked": 113940,
+  "browser_evidence": "artifacts/browser-verification.json",
+  "resource_evidence": "artifacts/resource-and-mutation.json",
+  "sampling_evidence": "output/sampling-sensitivity.json",
+  "execution_code_matches_run": {
+    "engine.py": true,
+    "run.py": true,
+    "serve.py": true
+  },
+  "versions": {
+    "duckdb": "1.5.5",
+    "numpy": "2.4.4",
+    "numba": "0.67.0",
+    "pandas": "2.3.3",
+    "plotly": "6.8.0",
+    "pytest": "9.1.1",
+    "psutil": "7.2.2"
+  },
+  "delivery_sha256": {
+    "buy_ha1m_bb20x2_vwap_sl010_tp3r_ohlc.py": "b39775ff192330f4a65f0ab49b75f83e7afdd380c0b7096ac3812366cfcb06d6",
+    "buy_ha1m_bb20x2_vwap_sl010_tp3r_olhc.py": "cea6b49e8dc463e520ffa90118a978a8af305581a745414324e55d1ff2333358",
+    "check_guard_and_resources.py": "64e1ecbd1b83cc5c259280176ed678c01be6df432d05ad2cc7fcfc7c82539f5a",
+    "check_sensitivity.py": "a8fa0f64b09b057bed00c11a44b674c11d69f14359382a3dcdbe96bb413798f2",
+    "dashboard.html": "f37b13df3559829bd641cc9c03b7003a14d5a3ecf2424054934538a839e5494d",
+    "engine.py": "b729173b1a795cb0481e95612fac7c502235a7f22b664b968d77722b3e893a4a",
+    "README.md": "b41daf0940b9aae8e2009039d9dfd623ee72829506706352dcc55697884310d5",
+    "requirements.txt": "131f96e5f7cd2c30ea1892daa869b051342b1e62e7a52b559c3ef43ae1eb598d",
+    "run.py": "f3c0831320214d70eb7df672570ebbabb740bc55699bd9c91e3cb996761c2f16",
+    "run_backtest.ps1": "e45a4b818b43b946d4623b6b1d807a756552959f4472bfbb65b5105994b11770",
+    "serve.py": "e1e56efb413a8975434c8ab18672ae4d257b4da7e2fd8269253db283cbf98618",
+    "show_report.ps1": "9caf35e6e28c318f155a82744f3c4bb17d85a71a778059af8ac984acc7626c47",
+    "SOURCE_REQUEST.txt": "d2dc74095e1634b17c0a2cab0065f821070c4de5d01ab544ed3fc2081b3d0ab2",
+    "STRATEGY.md": "ee5308530235f9023e6d6e710bd9493949a9897577db63448fc1f66f2d9a8d86",
+    "test_engine.py": "fe9df7ba69aae7caf3abb32e70ecec850acb33b195fbf24494f8dce86c36e75c",
+    "verify_browser.cjs": "f96402c10e52e037fee3ef03206548018ffd54c5f06604b3abde5e5f563ce042",
+    "verify_results.py": "0f62cb50cae6188860aaf95a8815be06bd3bbd2fcd603a49453d7622001a1616"
+  }
+}

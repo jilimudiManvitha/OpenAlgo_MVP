@@ -11,6 +11,9 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+September 28: [Dynamic positive-gainer/volume-shocker paper strategy and app reports](../strategies/top_gain_volumes/README.md)
+— named ₹1 lakh-per-trade strategy, stored NSE schedule, today's replay and faster scanner sorting/refresh.
+
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
 mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. The separately authorized all-stock DuckDB runner and dashboard are implemented and verified with synthetic tests; historical execution has been launched and remains incomplete. Other Task 1 work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.
@@ -27,6 +30,8 @@ mobile parity and sandbox investment portfolios. Task 2 is integrated at `/marke
 | Strategy module & risk engine (multi-leg options, signal mode, RMS) | [prompt/strategy_rms_documentation.md](prompt/strategy_rms_documentation.md) · [api/strategy-services/](api/strategy-services/) · [prd/strategy-module-rms.md](prd/strategy-module-rms.md) · [bdd/strategy_module_rms.feature](bdd/strategy_module_rms.feature) |
 | Technical indicators (`ta` library) | [<prompt/indicators/openalgo indicators - introduction.md>](<prompt/indicators/openalgo indicators - introduction.md>) |
 | September 12 HA/BB/VWAP buy/sell strategy definitions, variants and code-only contract | [Strategy package](../strategies/ha_bb_vwap_v1/README.md) |
+| September 25 fixed HA1m buy / BB / VWAP / 3R strategy: completed five-year available Nifty 50 DuckDB replay, HA candles and charts | [New-PC results and commands](../narasimha_pc_backtest/README.md) · [Exact strategy rules](../narasimha_pc_backtest/STRATEGY.md) |
+| September 25 only: volume shockers/top gainers replay and local paper deployment status | [Scanner basket results and paper package](../narasimha_pc_backtest/today_20260925/README.md) |
 | September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions, reports and every trade chart | [Backtest report](../backtesting/ha_bb_vwap_v1_20260911/results/index.html) · [Method and reproduction](../backtesting/ha_bb_vwap_v1_20260911/README.md) |
 | All-stock DuckDB HA/BB/VWAP backtest, run/resume commands and interactive historical dashboard | [Runner and dashboard guide](../backtesting/ha_bb_vwap_allstocks/README.md) |
 | Four selected September 11 leaders on full DuckDB history; stopped by user September 15, incomplete | [Selection, run and resume guide](../backtesting/ha_bb_vwap_allstocks/SELECTED_FOUR.md) |

@@ -30,7 +30,10 @@ def merge_quote(row, message, now):
             or traded > now
         ):
             return row
-        if received <= datetime.fromisoformat(row["quote_fetched_at"]):
+        previous_stamp = datetime.fromisoformat(row["quote_fetched_at"])
+        if received < previous_stamp:
+            return row
+        if received == previous_stamp and price == row["ltp"] and volume == row.get("volume"):
             return row
         # An old tick cannot rewind cumulative volume within a session.
         if row.get("volume") is not None and volume < row["volume"]:
@@ -68,7 +71,7 @@ class ScannerFeed:
         self.thread = None
         self.subscribed = 0
         self.status = "polling_fallback"
-        self.limit = max(1, min(5000, int(os.environ.get("SCANNER_STREAM_LIMIT", "500"))))
+        self.limit = max(1, min(5000, int(os.environ.get("SCANNER_STREAM_LIMIT", "5000"))))
 
     def start(self):
         self.thread = Thread(target=self._run, daemon=True, name="scanner-shared-feed")

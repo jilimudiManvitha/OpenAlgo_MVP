@@ -39,6 +39,7 @@ export interface NavItem {
 // Main navigation items shown in desktop navbar
 export const navItems: NavItem[] = [
   { href: '/market-scanner', label: 'Scanner', icon: TrendingUp },
+  { href: '/strategy-reports', label: 'Reports', icon: FileBarChart },
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/orderbook', label: 'Orderbook', icon: ClipboardList },
   { href: '/tradebook', label: 'Tradebook', icon: FileText },

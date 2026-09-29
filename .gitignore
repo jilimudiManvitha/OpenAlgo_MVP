@@ -109,6 +109,8 @@ nul
 
 # Personal backtests and reports are included in this private migration repository.
 !backtesting/**/*.csv
+!Stock_Symbols/*.csv
+!narasimha_pc_backtest/**/*.csv
 
 # Personal workspace: your own indicators, research, backtests and notes.
 # Only the readme is tracked -- everything else is yours and stays local.

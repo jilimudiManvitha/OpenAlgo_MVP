@@ -10,6 +10,14 @@ from database.engine_factory import create_db_engine
 
 
 class BaselineCache:
+    def get_many(self, session_date):
+        """Load a session's bounded equity universe with one short connection."""
+        with self.engine.connect() as connection:
+            rows = connection.execute(
+                select(self.table).where(self.table.c.session_date == session_date)
+            )
+            return {row.symbol: json.loads(row.candles) for row in rows}
+
     def __init__(self, database_url=None):
         if database_url is None:
             path = Path(__file__).resolve().parents[1] / "db" / "market_scanner.db"

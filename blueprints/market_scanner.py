@@ -2,7 +2,7 @@
 
 from functools import wraps
 
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, Response, jsonify, request, session
 
 from services.market_scanner_provider import ScannerError, get_fyers_token, load_universe
 from services.market_scanner_service import scanner_manager
@@ -123,7 +123,16 @@ def live_results():
         categories = live.store.categories(import_categories(Path("stock_symbols_CSVs")))
     filters = request.args.to_dict()
     category = filters.pop("category", "all")
-    if set(filters) - {"min_rvol", "min_price", "max_price", "min_volume", "limit"}:
+    if set(filters) - {
+        "min_rvol",
+        "min_price",
+        "max_price",
+        "min_volume",
+        "limit",
+        "shocker_sort",
+        "sort_order",
+        "positive_only",
+    }:
         raise ScannerError("Unknown live scanner filter.")
     options = validate_options({**json.loads(record["options"]), **filters})
     result = view_snapshot(
@@ -169,3 +178,57 @@ def refresh_categories():
 
     coordinator().store.categories(import_categories("stock_symbols_CSVs"))
     return jsonify(status="success")
+
+
+def report_endpoint(function):
+    @wraps(function)
+    def wrapped(*args, **kwargs):
+        if not session.get("user") or not is_session_valid():
+            return jsonify(status="error", message="Log in to view strategy reports."), 401
+        return function(*args, **kwargs)
+
+    return wrapped
+
+
+@market_scanner_bp.get("/reports")
+@report_endpoint
+def strategy_reports():
+    from services.scanner_strategy_reports import ReportStore
+
+    store = ReportStore()
+    try:
+        return jsonify(status="success", data=store.list(session["user"]))
+    finally:
+        store.close()
+
+
+@market_scanner_bp.get("/reports/<report_id>")
+@report_endpoint
+def strategy_report(report_id):
+    from services.scanner_strategy_reports import ReportStore, trades_csv
+
+    store = ReportStore()
+    try:
+        report = store.get(session["user"], report_id)
+        if report is None:
+            return jsonify(status="error", message="Report not found."), 404
+        if request.args.get("download") == "csv":
+            return Response(
+                trades_csv(report),
+                mimetype="text/csv",
+                headers={"Content-Disposition": 'attachment; filename="trades.csv"'},
+            )
+        return jsonify(status="success", data=report)
+    finally:
+        store.close()
+
+
+@market_scanner_bp.post("/paper-schedule")
+@live_endpoint
+def schedule_paper_strategy():
+    from strategies.top_gain_volumes.schedule import install
+
+    if session["broker"] != "fyers":
+        raise ScannerError("This paper strategy currently requires FYERS.")
+    strategy_id = install(session["user"])
+    return jsonify(status="success", data={"strategy_id": strategy_id})

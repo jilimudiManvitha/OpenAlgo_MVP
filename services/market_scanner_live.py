@@ -230,7 +230,7 @@ def view_snapshot(snapshot, options, categories, category="all", now=None):
         market_open=market_open(now),
         server_time=now.isoformat(),
         transport=result.get("transport", "batched_polling"),
-        refresh_seconds=60,
+        refresh_seconds=1,
         membership=categories.get(category),
     )
     # Membership symbols are internal; provenance remains visible.
@@ -256,6 +256,7 @@ class PublishingManager(ScannerManager):
         self.last_publish = 0
         self.last_auth_check = 0
         self.feed = None
+        self.prior_snapshot = None
         self.observation_lock = Lock()
 
     def _check_stop(self, job):
@@ -283,12 +284,18 @@ class PublishingManager(ScannerManager):
                     row["sparkline_basis"] = "since connected"
         super()._update(job, **values)
         if self.store.owns(self.owner) and (
-            time.monotonic() - self.last_publish >= 2 or values.get("state")
+            time.monotonic() - self.last_publish >= 0.5 or values.get("state")
         ):
             self.last_publish = time.monotonic()
             with self.lock:
                 result = self._snapshot(job)
                 result["rows"] = list(job["rows"])
+            if (
+                not result["rows"]
+                and self.prior_snapshot
+                and self.prior_snapshot.get("session_date") == job["session_date"]
+            ):
+                result["rows"] = self.prior_snapshot.get("rows", [])
             if self.feed:
                 result.update(transport=self.feed.status, streaming_symbols=self.feed.subscribed)
             self.store.publish(self.account, result, owner=self.owner)
@@ -402,6 +409,7 @@ class LiveCoordinator:
                 )
                 manager.broker = account["broker"]
                 manager.feed = feed
+                manager.prior_snapshot = old
                 self.managers[key] = manager
                 manager.start(account["user"], json.loads(account["options"]))
             except ScannerError as exc:
@@ -416,7 +424,7 @@ class LiveCoordinator:
                 self.tick()
             except Exception:
                 get_logger(__name__).exception("Live scanner coordinator failed")
-            self.stop_event.wait(5)
+            self.stop_event.wait(0.5)
 
     def _cancel_all(self):
         for feed in self.feeds.values():

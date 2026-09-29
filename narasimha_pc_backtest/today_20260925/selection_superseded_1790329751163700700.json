@@ -1,0 +1,2151 @@
+{
+  "date": "2026-09-25",
+  "selected_at": "2026-09-25T15:17:23.794706+05:30",
+  "snapshot_updated_at": "2026-09-25T15:17:20.198745+05:30",
+  "snapshot_state": "cancelled",
+  "valid_quotes": 2660,
+  "universe": 2668,
+  "limit_per_group": 50,
+  "baseline_days": 5,
+  "rvol_threshold_exclusive": 1,
+  "selection_bias": "Retrospective fixed intraday snapshot; NOT historical real-time scanner membership",
+  "volume_shockers": [],
+  "top_gainers": [
+    {
+      "symbol": "RTSPOWR",
+      "exchange": "NSE",
+      "name": "R T S POWER CORPN. LTD.",
+      "ltp": 104.59,
+      "previous_close": 87.16,
+      "change": 17.430000000000007,
+      "change_percent": 19.99770536943553,
+      "volume": 14013.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.136013+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          104.59
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BPLPHARMA",
+      "exchange": "NSE",
+      "name": "BHARAT PARENTERALS LTD.",
+      "ltp": 1898.0,
+      "previous_close": 1581.7,
+      "change": 316.29999999999995,
+      "change_percent": 19.997471075425178,
+      "volume": 35041.0,
+      "last_trade_at": "2026-09-25T15:13:30+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:09+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:07:34+05:30",
+          1898.0
+        ],
+        [
+          "2026-09-25T15:12:52+05:30",
+          1898.0
+        ],
+        [
+          "2026-09-25T15:13:30+05:30",
+          1898.0
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "ADSL",
+      "exchange": "NSE",
+      "name": "ALLIED DIGITAL SERV. LTD",
+      "ltp": 115.52,
+      "previous_close": 96.27,
+      "change": 19.25,
+      "change_percent": 19.995845019216784,
+      "volume": 2235225.0,
+      "last_trade_at": "2026-09-25T15:17:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:20+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:28+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:11:38+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:12:00+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:13:00+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:13:10+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:13:37+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:13:42+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:14:00+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:15:00+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:16:00+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:16:42+05:30",
+          115.52
+        ],
+        [
+          "2026-09-25T15:17:00+05:30",
+          115.52
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "HEROMOTORS",
+      "exchange": "NSE",
+      "name": "HERO MOTORS LIMITED",
+      "ltp": 141.69,
+      "previous_close": 118.08,
+      "change": 23.61,
+      "change_percent": 19.994918699186993,
+      "volume": 102570193.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:46.086111+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          141.69
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "XELPMOC",
+      "exchange": "NSE",
+      "name": "XELPMOC DESIGN & TECH LTD",
+      "ltp": 89.5,
+      "previous_close": 74.59,
+      "change": 14.909999999999997,
+      "change_percent": 19.989274701702637,
+      "volume": 129346.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.643004+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          89.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "RETAIL",
+      "exchange": "NSE",
+      "name": "JHS SVENDGAARD RETAIL V L",
+      "ltp": 20.06,
+      "previous_close": 16.72,
+      "change": 3.34,
+      "change_percent": 19.976076555023926,
+      "volume": 111508.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.002390+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          20.06
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "LANDSMILL",
+      "exchange": "NSE",
+      "name": "LANDSMILL GREEN LIMITED",
+      "ltp": 0.62,
+      "previous_close": 0.52,
+      "change": 0.09999999999999998,
+      "change_percent": 19.230769230769226,
+      "volume": 6933250.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:46.971410+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          0.62
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "COMFINTE",
+      "exchange": "NSE",
+      "name": "COMFORT INTECH LTD.",
+      "ltp": 6.61,
+      "previous_close": 5.69,
+      "change": 0.9199999999999999,
+      "change_percent": 16.168717047451665,
+      "volume": 974088.0,
+      "last_trade_at": "2026-09-25T15:16:57+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:18+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "quote_source": "shared_websocket",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:17+05:30",
+          6.52
+        ],
+        [
+          "2026-09-25T15:12:05+05:30",
+          6.51
+        ],
+        [
+          "2026-09-25T15:12:08+05:30",
+          6.51
+        ],
+        [
+          "2026-09-25T15:12:28+05:30",
+          6.53
+        ],
+        [
+          "2026-09-25T15:12:32+05:30",
+          6.53
+        ],
+        [
+          "2026-09-25T15:13:33+05:30",
+          6.57
+        ],
+        [
+          "2026-09-25T15:14:05+05:30",
+          6.59
+        ],
+        [
+          "2026-09-25T15:14:26+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:15:01+05:30",
+          6.59
+        ],
+        [
+          "2026-09-25T15:15:42+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:15:44+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:15:51+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:16:26+05:30",
+          6.6
+        ],
+        [
+          "2026-09-25T15:16:29+05:30",
+          6.55
+        ],
+        [
+          "2026-09-25T15:16:34+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:16:40+05:30",
+          6.58
+        ],
+        [
+          "2026-09-25T15:16:57+05:30",
+          6.6
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SHANTIGOLD",
+      "exchange": "NSE",
+      "name": "SHANTI GOLD INTERNATION L",
+      "ltp": 328.18,
+      "previous_close": 283.62,
+      "change": 44.56,
+      "change_percent": 15.711162823496228,
+      "volume": 34023384.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.378812+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          325.61
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "UGARSUGAR",
+      "exchange": "NSE",
+      "name": "THE UGAR SUGAR WORKS LTD",
+      "ltp": 64.5,
+      "previous_close": 55.77,
+      "change": 8.729999999999997,
+      "change_percent": 15.653577192038723,
+      "volume": 13230545.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.274291+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          64.31
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TGVSL",
+      "exchange": "NSE",
+      "name": "T G V SRAAC LTD.",
+      "ltp": 124.98,
+      "previous_close": 109.31,
+      "change": 15.670000000000002,
+      "change_percent": 14.335376452291648,
+      "volume": 9928503.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.142823+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          124.8
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "PRIMO",
+      "exchange": "NSE",
+      "name": "PRIMO CHEMICALS LIMITED",
+      "ltp": 25.4,
+      "previous_close": 22.29,
+      "change": 3.1099999999999994,
+      "change_percent": 13.952445042620006,
+      "volume": 1199043.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:48.388976+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          24.99
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "UTTAMSUGAR",
+      "exchange": "NSE",
+      "name": "UTTAM SUGAR MILLS LTD.",
+      "ltp": 292.55,
+      "previous_close": 260.0,
+      "change": 32.55000000000001,
+      "change_percent": 12.519230769230774,
+      "volume": 2671264.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.405263+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          292.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KMSUGAR",
+      "exchange": "NSE",
+      "name": "K M SUGAR MILLS LTD",
+      "ltp": 32.63,
+      "previous_close": 29.06,
+      "change": 3.570000000000004,
+      "change_percent": 12.284927735719215,
+      "volume": 1130984.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:46.852968+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          32.25
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ANTELOPUS",
+      "exchange": "NSE",
+      "name": "ANTELOPUS SELAN ENRGY LTD",
+      "ltp": 1257.3,
+      "previous_close": 1130.95,
+      "change": 126.34999999999991,
+      "change_percent": 11.172023520049512,
+      "volume": 7422666.0,
+      "last_trade_at": "2026-09-25T15:17:20+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:19+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:36+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:37+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:41+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:47+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:51+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:52+05:30",
+          1253.0
+        ],
+        [
+          "2026-09-25T15:11:57+05:30",
+          1251.4
+        ],
+        [
+          "2026-09-25T15:12:03+05:30",
+          1250.65
+        ],
+        [
+          "2026-09-25T15:12:08+05:30",
+          1249.35
+        ],
+        [
+          "2026-09-25T15:12:18+05:30",
+          1250.75
+        ],
+        [
+          "2026-09-25T15:12:24+05:30",
+          1251.0
+        ],
+        [
+          "2026-09-25T15:12:29+05:30",
+          1250.8
+        ],
+        [
+          "2026-09-25T15:12:34+05:30",
+          1250.05
+        ],
+        [
+          "2026-09-25T15:12:39+05:30",
+          1249.0
+        ],
+        [
+          "2026-09-25T15:12:44+05:30",
+          1248.2
+        ],
+        [
+          "2026-09-25T15:12:49+05:30",
+          1248.95
+        ],
+        [
+          "2026-09-25T15:12:53+05:30",
+          1248.45
+        ],
+        [
+          "2026-09-25T15:13:00+05:30",
+          1248.55
+        ],
+        [
+          "2026-09-25T15:13:05+05:30",
+          1248.7
+        ],
+        [
+          "2026-09-25T15:13:07+05:30",
+          1249.15
+        ],
+        [
+          "2026-09-25T15:13:15+05:30",
+          1248.35
+        ],
+        [
+          "2026-09-25T15:13:17+05:30",
+          1248.15
+        ],
+        [
+          "2026-09-25T15:13:21+05:30",
+          1248.0
+        ],
+        [
+          "2026-09-25T15:13:26+05:30",
+          1249.15
+        ],
+        [
+          "2026-09-25T15:13:27+05:30",
+          1248.95
+        ],
+        [
+          "2026-09-25T15:13:36+05:30",
+          1249.35
+        ],
+        [
+          "2026-09-25T15:13:41+05:30",
+          1251.15
+        ],
+        [
+          "2026-09-25T15:13:44+05:30",
+          1251.1
+        ],
+        [
+          "2026-09-25T15:13:51+05:30",
+          1250.95
+        ],
+        [
+          "2026-09-25T15:13:56+05:30",
+          1250.2
+        ],
+        [
+          "2026-09-25T15:14:01+05:30",
+          1250.35
+        ],
+        [
+          "2026-09-25T15:14:06+05:30",
+          1252.0
+        ],
+        [
+          "2026-09-25T15:14:11+05:30",
+          1250.8
+        ],
+        [
+          "2026-09-25T15:14:17+05:30",
+          1251.9
+        ],
+        [
+          "2026-09-25T15:14:21+05:30",
+          1251.25
+        ],
+        [
+          "2026-09-25T15:14:29+05:30",
+          1252.0
+        ],
+        [
+          "2026-09-25T15:14:32+05:30",
+          1252.1
+        ],
+        [
+          "2026-09-25T15:14:37+05:30",
+          1252.95
+        ],
+        [
+          "2026-09-25T15:14:43+05:30",
+          1252.35
+        ],
+        [
+          "2026-09-25T15:14:44+05:30",
+          1252.35
+        ],
+        [
+          "2026-09-25T15:14:52+05:30",
+          1252.05
+        ],
+        [
+          "2026-09-25T15:14:59+05:30",
+          1252.85
+        ],
+        [
+          "2026-09-25T15:15:03+05:30",
+          1252.0
+        ],
+        [
+          "2026-09-25T15:15:08+05:30",
+          1252.0
+        ],
+        [
+          "2026-09-25T15:15:14+05:30",
+          1251.5
+        ],
+        [
+          "2026-09-25T15:15:20+05:30",
+          1252.15
+        ],
+        [
+          "2026-09-25T15:15:23+05:30",
+          1251.0
+        ],
+        [
+          "2026-09-25T15:15:35+05:30",
+          1248.75
+        ],
+        [
+          "2026-09-25T15:15:40+05:30",
+          1250.05
+        ],
+        [
+          "2026-09-25T15:15:45+05:30",
+          1250.1
+        ],
+        [
+          "2026-09-25T15:15:50+05:30",
+          1250.0
+        ],
+        [
+          "2026-09-25T15:15:58+05:30",
+          1250.0
+        ],
+        [
+          "2026-09-25T15:16:01+05:30",
+          1250.2
+        ],
+        [
+          "2026-09-25T15:16:06+05:30",
+          1250.0
+        ],
+        [
+          "2026-09-25T15:16:11+05:30",
+          1250.0
+        ],
+        [
+          "2026-09-25T15:16:13+05:30",
+          1250.0
+        ],
+        [
+          "2026-09-25T15:16:17+05:30",
+          1250.1
+        ],
+        [
+          "2026-09-25T15:16:22+05:30",
+          1251.35
+        ],
+        [
+          "2026-09-25T15:16:27+05:30",
+          1251.25
+        ],
+        [
+          "2026-09-25T15:16:33+05:30",
+          1254.8
+        ],
+        [
+          "2026-09-25T15:16:37+05:30",
+          1256.7
+        ],
+        [
+          "2026-09-25T15:16:43+05:30",
+          1257.0
+        ],
+        [
+          "2026-09-25T15:16:58+05:30",
+          1256.0
+        ],
+        [
+          "2026-09-25T15:17:04+05:30",
+          1257.8
+        ],
+        [
+          "2026-09-25T15:17:09+05:30",
+          1263.0
+        ],
+        [
+          "2026-09-25T15:17:14+05:30",
+          1261.1
+        ],
+        [
+          "2026-09-25T15:17:20+05:30",
+          1257.3
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "MAWANASUG",
+      "exchange": "NSE",
+      "name": "MAWANA SUGARS LIMITED",
+      "ltp": 145.22,
+      "previous_close": 130.7,
+      "change": 14.52000000000001,
+      "change_percent": 11.109410864575372,
+      "volume": 2111201.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:47.358942+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          145.48
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BLUECLOUDS",
+      "exchange": "NSE",
+      "name": "BLUE CLOUD SOFTECH SOLU L",
+      "ltp": 22.25,
+      "previous_close": 20.06,
+      "change": 2.1900000000000013,
+      "change_percent": 10.917248255234302,
+      "volume": 67642569.0,
+      "last_trade_at": "2026-09-25T15:17:18+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:19+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "quote_source": "shared_websocket",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:34+05:30",
+          22.0
+        ],
+        [
+          "2026-09-25T15:11:42+05:30",
+          22.0
+        ],
+        [
+          "2026-09-25T15:11:58+05:30",
+          22.04
+        ],
+        [
+          "2026-09-25T15:12:02+05:30",
+          22.04
+        ],
+        [
+          "2026-09-25T15:12:08+05:30",
+          22.04
+        ],
+        [
+          "2026-09-25T15:12:13+05:30",
+          22.05
+        ],
+        [
+          "2026-09-25T15:12:16+05:30",
+          22.05
+        ],
+        [
+          "2026-09-25T15:12:22+05:30",
+          22.06
+        ],
+        [
+          "2026-09-25T15:12:28+05:30",
+          22.03
+        ],
+        [
+          "2026-09-25T15:12:33+05:30",
+          22.15
+        ],
+        [
+          "2026-09-25T15:12:38+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:12:44+05:30",
+          22.19
+        ],
+        [
+          "2026-09-25T15:12:49+05:30",
+          22.13
+        ],
+        [
+          "2026-09-25T15:12:54+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:13:00+05:30",
+          22.13
+        ],
+        [
+          "2026-09-25T15:13:04+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:13:09+05:30",
+          22.2
+        ],
+        [
+          "2026-09-25T15:13:15+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:13:17+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:13:21+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:13:25+05:30",
+          22.22
+        ],
+        [
+          "2026-09-25T15:13:29+05:30",
+          22.17
+        ],
+        [
+          "2026-09-25T15:13:33+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:13:41+05:30",
+          22.19
+        ],
+        [
+          "2026-09-25T15:13:46+05:30",
+          22.16
+        ],
+        [
+          "2026-09-25T15:13:48+05:30",
+          22.17
+        ],
+        [
+          "2026-09-25T15:13:56+05:30",
+          22.17
+        ],
+        [
+          "2026-09-25T15:14:01+05:30",
+          22.19
+        ],
+        [
+          "2026-09-25T15:14:07+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:14:10+05:30",
+          22.18
+        ],
+        [
+          "2026-09-25T15:14:16+05:30",
+          22.19
+        ],
+        [
+          "2026-09-25T15:14:21+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:14:29+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:14:37+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:14:41+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:14:45+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:14:48+05:30",
+          22.27
+        ],
+        [
+          "2026-09-25T15:14:52+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:14:57+05:30",
+          22.21
+        ],
+        [
+          "2026-09-25T15:15:03+05:30",
+          22.24
+        ],
+        [
+          "2026-09-25T15:15:08+05:30",
+          22.22
+        ],
+        [
+          "2026-09-25T15:15:14+05:30",
+          22.22
+        ],
+        [
+          "2026-09-25T15:15:19+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:15:24+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:15:29+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:15:35+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:15:41+05:30",
+          22.22
+        ],
+        [
+          "2026-09-25T15:15:46+05:30",
+          22.22
+        ],
+        [
+          "2026-09-25T15:15:49+05:30",
+          22.23
+        ],
+        [
+          "2026-09-25T15:15:55+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:16:00+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:16:06+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:16:10+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:16:14+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:16:16+05:30",
+          22.26
+        ],
+        [
+          "2026-09-25T15:16:22+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:16:27+05:30",
+          22.27
+        ],
+        [
+          "2026-09-25T15:16:33+05:30",
+          22.26
+        ],
+        [
+          "2026-09-25T15:16:36+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:16:42+05:30",
+          22.27
+        ],
+        [
+          "2026-09-25T15:16:46+05:30",
+          22.26
+        ],
+        [
+          "2026-09-25T15:16:58+05:30",
+          22.27
+        ],
+        [
+          "2026-09-25T15:17:01+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:17:09+05:30",
+          22.28
+        ],
+        [
+          "2026-09-25T15:17:13+05:30",
+          22.25
+        ],
+        [
+          "2026-09-25T15:17:18+05:30",
+          22.25
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "AAATECH",
+      "exchange": "NSE",
+      "name": "AAA TECHNOLOGIES LIMITED",
+      "ltp": 101.5,
+      "previous_close": 91.84,
+      "change": 9.659999999999997,
+      "change_percent": 10.518292682926834,
+      "volume": 714578.0,
+      "last_trade_at": "2026-09-25T15:16:38+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:10+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:00+05:30",
+          101.05
+        ],
+        [
+          "2026-09-25T15:11:24+05:30",
+          101.0
+        ],
+        [
+          "2026-09-25T15:11:39+05:30",
+          101.0
+        ],
+        [
+          "2026-09-25T15:11:45+05:30",
+          101.0
+        ],
+        [
+          "2026-09-25T15:13:30+05:30",
+          101.17
+        ],
+        [
+          "2026-09-25T15:15:40+05:30",
+          101.21
+        ],
+        [
+          "2026-09-25T15:16:09+05:30",
+          101.5
+        ],
+        [
+          "2026-09-25T15:16:38+05:30",
+          101.5
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "SSDL",
+      "exchange": "NSE",
+      "name": "SARASWATI SAREE DEPOT LTD",
+      "ltp": 73.23,
+      "previous_close": 66.3,
+      "change": 6.930000000000007,
+      "change_percent": 10.452488687782816,
+      "volume": 383164.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.755800+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          72.78
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "LORDSCHLO",
+      "exchange": "NSE",
+      "name": "LORDS CHLORO ALKALI LTD",
+      "ltp": 148.15,
+      "previous_close": 134.5,
+      "change": 13.650000000000006,
+      "change_percent": 10.14869888475837,
+      "volume": 291127.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:47.099027+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          146.83
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "VEDAVAAG",
+      "exchange": "NSE",
+      "name": "VEDAVAAG SYSTEMS LTD.",
+      "ltp": 23.47,
+      "previous_close": 21.31,
+      "change": 2.16,
+      "change_percent": 10.136086344439232,
+      "volume": 247747.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.405263+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          23.48
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SDBL",
+      "exchange": "NSE",
+      "name": "SOM DIST & BREW LTD",
+      "ltp": 74.05,
+      "previous_close": 67.24,
+      "change": 6.810000000000002,
+      "change_percent": 10.127900059488404,
+      "volume": 21900184.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.378812+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          74.84
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SBC",
+      "exchange": "NSE",
+      "name": "SBC EXPORTS LIMITED",
+      "ltp": 52.83,
+      "previous_close": 48.01,
+      "change": 4.82,
+      "change_percent": 10.039575088523225,
+      "volume": 22368103.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.266752+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          53.11
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DWARKESH",
+      "exchange": "NSE",
+      "name": "DWARIKESH SUGAR IND LTD",
+      "ltp": 44.82,
+      "previous_close": 40.74,
+      "change": 4.079999999999998,
+      "change_percent": 10.014727540500731,
+      "volume": 8689776.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:45.190304+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          44.77
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "CUBEXTUB",
+      "exchange": "NSE",
+      "name": "CUBEX TUBINGS LTD",
+      "ltp": 152.24,
+      "previous_close": 138.4,
+      "change": 13.840000000000003,
+      "change_percent": 10.000000000000002,
+      "volume": 2568292.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:44.950411+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          152.24
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "AVADHSUGAR",
+      "exchange": "NSE",
+      "name": "AVADH SUG & ENERGY LTD",
+      "ltp": 796.5,
+      "previous_close": 724.1,
+      "change": 72.39999999999998,
+      "change_percent": 9.99861897527965,
+      "volume": 464539.0,
+      "last_trade_at": "2026-09-25T15:16:54+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:01+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:23+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:11:28+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:11:52+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:12:12+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:13:32+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:14:04+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:14:55+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:15:16+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:15:24+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:16:30+05:30",
+          796.5
+        ],
+        [
+          "2026-09-25T15:16:54+05:30",
+          796.5
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "AHCL",
+      "exchange": "NSE",
+      "name": "ANLON HEALTHCARE LIMITED",
+      "ltp": 31.51,
+      "previous_close": 28.65,
+      "change": 2.860000000000003,
+      "change_percent": 9.982547993019208,
+      "volume": 79880826.0,
+      "last_trade_at": "2026-09-25T15:16:57+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:18+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "quote_source": "shared_websocket",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:12+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:11:29+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:11:48+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:12:05+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:12:13+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:12:19+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:12:22+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:12:58+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:13:49+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:09+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:22+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:26+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:34+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:49+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:14:52+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:15:07+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:15:18+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:15:37+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:15:49+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:16:14+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:16:16+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:16:30+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:16:36+05:30",
+          31.51
+        ],
+        [
+          "2026-09-25T15:16:57+05:30",
+          31.51
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "PVTBANK",
+      "exchange": "NSE",
+      "name": "KOTAK NIFTY PRIVATE BANK ETF",
+      "ltp": 29.65,
+      "previous_close": 26.96,
+      "change": 2.6899999999999977,
+      "change_percent": 9.977744807121653,
+      "volume": 1797.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:48.609001+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          27.06
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SHOPERSTOP",
+      "exchange": "NSE",
+      "name": "SHOPPERS STOP LIMITED",
+      "ltp": 423.0,
+      "previous_close": 385.05,
+      "change": 37.94999999999999,
+      "change_percent": 9.8558628749513,
+      "volume": 3431900.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.506648+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          423.25
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BHAGERIA",
+      "exchange": "NSE",
+      "name": "BHAGERIA INDUSTRIES LTD",
+      "ltp": 395.0,
+      "previous_close": 359.65,
+      "change": 35.35000000000002,
+      "change_percent": 9.829000417072153,
+      "volume": 911499.0,
+      "last_trade_at": "2026-09-25T15:17:13+05:30",
+      "quote_fetched_at": "2026-09-25T15:17:17+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "quote_source": "shared_websocket",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:26+05:30",
+          393.0
+        ],
+        [
+          "2026-09-25T15:11:34+05:30",
+          392.95
+        ],
+        [
+          "2026-09-25T15:12:01+05:30",
+          392.8
+        ],
+        [
+          "2026-09-25T15:12:02+05:30",
+          392.8
+        ],
+        [
+          "2026-09-25T15:12:12+05:30",
+          392.8
+        ],
+        [
+          "2026-09-25T15:12:40+05:30",
+          392.8
+        ],
+        [
+          "2026-09-25T15:13:18+05:30",
+          392.95
+        ],
+        [
+          "2026-09-25T15:13:24+05:30",
+          392.85
+        ],
+        [
+          "2026-09-25T15:13:27+05:30",
+          392.85
+        ],
+        [
+          "2026-09-25T15:13:59+05:30",
+          394.3
+        ],
+        [
+          "2026-09-25T15:14:04+05:30",
+          394.0
+        ],
+        [
+          "2026-09-25T15:14:10+05:30",
+          393.1
+        ],
+        [
+          "2026-09-25T15:14:15+05:30",
+          393.1
+        ],
+        [
+          "2026-09-25T15:14:35+05:30",
+          394.5
+        ],
+        [
+          "2026-09-25T15:14:40+05:30",
+          395.6
+        ],
+        [
+          "2026-09-25T15:14:46+05:30",
+          395.55
+        ],
+        [
+          "2026-09-25T15:14:49+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:15:03+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:15:04+05:30",
+          395.4
+        ],
+        [
+          "2026-09-25T15:15:07+05:30",
+          395.4
+        ],
+        [
+          "2026-09-25T15:15:12+05:30",
+          395.4
+        ],
+        [
+          "2026-09-25T15:15:20+05:30",
+          395.4
+        ],
+        [
+          "2026-09-25T15:15:42+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:15:58+05:30",
+          395.0
+        ],
+        [
+          "2026-09-25T15:16:03+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:16:10+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:16:21+05:30",
+          395.5
+        ],
+        [
+          "2026-09-25T15:16:32+05:30",
+          395.0
+        ],
+        [
+          "2026-09-25T15:16:36+05:30",
+          395.0
+        ],
+        [
+          "2026-09-25T15:17:10+05:30",
+          395.0
+        ],
+        [
+          "2026-09-25T15:17:13+05:30",
+          395.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "FCSSOFT",
+      "exchange": "NSE",
+      "name": "FCS SOFTWARE SOLN. LTD.",
+      "ltp": 1.46,
+      "previous_close": 1.33,
+      "change": 0.1299999999999999,
+      "change_percent": 9.774436090225555,
+      "volume": 3490768.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:45.433572+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          1.46
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DANGEE",
+      "exchange": "NSE",
+      "name": "DANGEE DUMS LIMITED",
+      "ltp": 3.26,
+      "previous_close": 2.97,
+      "change": 0.2899999999999996,
+      "change_percent": 9.76430976430975,
+      "volume": 909287.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:44.950411+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          3.26
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MAGADSUGAR",
+      "exchange": "NSE",
+      "name": "MAGADH SUGAR & ENERGY LTD",
+      "ltp": 551.5,
+      "previous_close": 503.0,
+      "change": 48.5,
+      "change_percent": 9.642147117296222,
+      "volume": 267922.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:47.227235+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          551.6
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DEEPA",
+      "exchange": "NSE",
+      "name": "DEEPA JEWELLERS LIMITED",
+      "ltp": 212.89,
+      "previous_close": 194.18,
+      "change": 18.70999999999998,
+      "change_percent": 9.635389844474188,
+      "volume": 18132117.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:45.063584+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          214.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DAVANGERE",
+      "exchange": "NSE",
+      "name": "DAVANGERE SUGAR COMPANY L",
+      "ltp": 2.4,
+      "previous_close": 2.19,
+      "change": 0.20999999999999996,
+      "change_percent": 9.589041095890408,
+      "volume": 28628270.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:44.950411+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          2.4
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HERANBA",
+      "exchange": "NSE",
+      "name": "HERANBA INDUSTRIES LTD",
+      "ltp": 188.36,
+      "previous_close": 172.27,
+      "change": 16.090000000000003,
+      "change_percent": 9.339989551285774,
+      "volume": 3269653.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:46.086111+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          187.03
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HINDCON",
+      "exchange": "NSE",
+      "name": "HINDCON CHEMICALS LIMITED",
+      "ltp": 27.44,
+      "previous_close": 25.12,
+      "change": 2.3200000000000003,
+      "change_percent": 9.235668789808917,
+      "volume": 161644.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:46.086111+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          27.62
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "STARTECK",
+      "exchange": "NSE",
+      "name": "STARTECK FINANCE LIMITED",
+      "ltp": 262.5,
+      "previous_close": 240.4,
+      "change": 22.099999999999994,
+      "change_percent": 9.193011647254574,
+      "volume": 211.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.755800+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          262.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "QUADFUTURE",
+      "exchange": "NSE",
+      "name": "QUADRANT FUTURE TEK LTD",
+      "ltp": 544.35,
+      "previous_close": 500.4,
+      "change": 43.950000000000045,
+      "change_percent": 8.782973621103126,
+      "volume": 1849130.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:48.609001+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          548.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "LLOYDSENGG",
+      "exchange": "NSE",
+      "name": "LLOYDS ENGG WORK LIMITED",
+      "ltp": 98.6,
+      "previous_close": 90.91,
+      "change": 7.689999999999998,
+      "change_percent": 8.45891541084589,
+      "volume": 57773229.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:47.099027+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          98.36
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TIPSFILMS",
+      "exchange": "NSE",
+      "name": "TIPS FILMS LIMITED",
+      "ltp": 337.45,
+      "previous_close": 311.5,
+      "change": 25.94999999999999,
+      "change_percent": 8.330658105939001,
+      "volume": 21134.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.142823+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          339.95
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DBOL",
+      "exchange": "NSE",
+      "name": "DHAMPUR BIO ORGANICS LTD",
+      "ltp": 122.59,
+      "previous_close": 113.2,
+      "change": 9.39,
+      "change_percent": 8.29505300353357,
+      "volume": 318710.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:44.950411+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          121.95
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TNTELE",
+      "exchange": "NSE",
+      "name": "TAMILNADU TELECOMMUNICATI",
+      "ltp": 10.08,
+      "previous_close": 9.31,
+      "change": 0.7699999999999996,
+      "change_percent": 8.270676691729319,
+      "volume": 88198.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.142823+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          9.99
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "FCL",
+      "exchange": "NSE",
+      "name": "FINEOTEX CHEMICAL LIMITED",
+      "ltp": 60.66,
+      "previous_close": 56.07,
+      "change": 4.589999999999996,
+      "change_percent": 8.186195826645259,
+      "volume": 45068453.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:45.433572+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          60.37
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TREJHARA",
+      "exchange": "NSE",
+      "name": "TREJHARA SOLUTIONS LTD",
+      "ltp": 146.0,
+      "previous_close": 135.31,
+      "change": 10.689999999999998,
+      "change_percent": 7.900376912275514,
+      "volume": 43829.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.274291+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          143.98
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ROLEXRINGS",
+      "exchange": "NSE",
+      "name": "ROLEX RINGS LIMITED",
+      "ltp": 195.72,
+      "previous_close": 181.41,
+      "change": 14.310000000000002,
+      "change_percent": 7.888209029270714,
+      "volume": 6557082.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:49.002390+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          194.84
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "WHIRLPOOL",
+      "exchange": "NSE",
+      "name": "WHIRLPOOL OF INDIA LTD",
+      "ltp": 920.75,
+      "previous_close": 853.45,
+      "change": 67.29999999999995,
+      "change_percent": 7.885640635069419,
+      "volume": 27398405.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.643004+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          921.45
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BANARBEADS",
+      "exchange": "NSE",
+      "name": "BANARAS BEADS LTD",
+      "ltp": 124.92,
+      "previous_close": 115.86,
+      "change": 9.060000000000002,
+      "change_percent": 7.819782496116012,
+      "volume": 35606.0,
+      "last_trade_at": "2026-09-25T15:08:44+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:52+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:08:44+05:30",
+          124.92
+        ]
+      ],
+      "sparkline_basis": "since connected",
+      "quote_source": "shared_websocket"
+    },
+    {
+      "symbol": "BEDMUTHA",
+      "exchange": "NSE",
+      "name": "BEDMUTHA INDUST LTD",
+      "ltp": 111.0,
+      "previous_close": 103.05,
+      "change": 7.950000000000003,
+      "change_percent": 7.714701601164487,
+      "volume": 17491.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:44.424884+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T15:11:01+05:30",
+          111.98
+        ],
+        [
+          "2026-09-25T15:13:47+05:30",
+          111.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TERAI",
+      "exchange": "NSE",
+      "name": "TERAI TEA CO. LTD.",
+      "ltp": 120.0,
+      "previous_close": 111.55,
+      "change": 8.450000000000003,
+      "change_percent": 7.575078440161365,
+      "volume": 314.0,
+      "last_trade_at": "2026-09-25T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-25T15:16:50.142823+05:30",
+      "average_volume": null,
+      "rvol": null,
+      "baseline_dates": [],
+      "baseline_status": "history_unavailable",
+      "sparkline": [
+        [
+          "2026-09-25T05:30:00+05:30",
+          120.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    }
+  ],
+  "symbols": [
+    "AAATECH",
+    "ADSL",
+    "AHCL",
+    "ANTELOPUS",
+    "AVADHSUGAR",
+    "BANARBEADS",
+    "BEDMUTHA",
+    "BHAGERIA",
+    "BLUECLOUDS",
+    "BPLPHARMA",
+    "COMFINTE",
+    "CUBEXTUB",
+    "DANGEE",
+    "DAVANGERE",
+    "DBOL",
+    "DEEPA",
+    "DWARKESH",
+    "FCL",
+    "FCSSOFT",
+    "HERANBA",
+    "HEROMOTORS",
+    "HINDCON",
+    "KMSUGAR",
+    "LANDSMILL",
+    "LLOYDSENGG",
+    "LORDSCHLO",
+    "MAGADSUGAR",
+    "MAWANASUG",
+    "PRIMO",
+    "PVTBANK",
+    "QUADFUTURE",
+    "RETAIL",
+    "ROLEXRINGS",
+    "RTSPOWR",
+    "SBC",
+    "SDBL",
+    "SHANTIGOLD",
+    "SHOPERSTOP",
+    "SSDL",
+    "STARTECK",
+    "TERAI",
+    "TGVSL",
+    "TIPSFILMS",
+    "TNTELE",
+    "TREJHARA",
+    "UGARSUGAR",
+    "UTTAMSUGAR",
+    "VEDAVAAG",
+    "WHIRLPOOL",
+    "XELPMOC"
+  ]
+}

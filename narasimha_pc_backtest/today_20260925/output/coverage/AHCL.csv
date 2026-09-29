@@ -1,0 +1,2 @@
+date,rows,missing_to_cutoff,missing_regular_minutes,eligible,zero_volume_minutes,invalid_source_rows,symbol
+2026-09-25,367,0,8,True,1,0,AHCL

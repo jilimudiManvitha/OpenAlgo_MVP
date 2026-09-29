@@ -1,0 +1,27 @@
+{
+  "status": "PASSED",
+  "checks": [
+    "selected-row gain/RVOL calculations",
+    "five baseline dates precede session",
+    "50+50 selections,80 unique",
+    "today-only ledger",
+    "path fill equality",
+    "original strategy engine and runner unchanged",
+    "isolated source SHA unchanged",
+    "independent ledger verification",
+    "browser report verification"
+  ],
+  "selection_limit": "Global ranks derive from the saved scanner snapshot; the complete universe was not independently archived at selection time",
+  "paper_status": "Prepared; authenticated upload and session execution require separate verification",
+  "files_sha256": {
+    "audit_delivery.py": "5e934572d662aeafdaaf1d66d75a62327c8d172449234a7662f364c5648dee72",
+    "check_connection.py": "555880c7fbde5f03334e8cf625927b151e5cb138ac81a5094ea38e51d5808cd9",
+    "collect.py": "ec2a9f4bf2fb325ad76ce711ebcbcec9c4cdc026ee1855bcafb389c97de18965",
+    "finish_report.py": "8010c8fbe45366b49e0a6d319869daac5350ebed5f9c35e059dd9dcbfb5896ca",
+    "narasimha_scanner_paper.py": "75ff91825f255b35ad61722ec95bfe5573f461fc835cb4e5e1b1deeaf19696d0",
+    "paper_runtime.py": "f811d17feea261d35a3fd9defc2cef445a8302d12cd959484e8413b61c7f2ac9",
+    "replay_today.py": "f58b7ef3091376b839dc89a0718d40099237526ed3567beaec3c0abac0894d5c",
+    "test_paper.py": "4a4dde7f1d29ba1dff2d9f5a31813fc9ff0a75cd1f19f01b2b820743b605dca8",
+    "verify_today.py": "4d34e5dfcc88a2f7c1cf18bcf4d0a8716b6542a23eb1459cd5ee53fde9fb2e68"
+  }
+}
