@@ -16,6 +16,10 @@ instead of starting from scratch. It is updated at the end of every task.
 preserved for historical/LFS access. See the current six-task roadmap checkpoint
 for merge and push status, and `docs/installation-guidelines/macos-local-fork.md`
 for Mac clone/restore instructions. Earlier sole-remote instructions are historical.
+The merge through upstream `fe6aa9783` and complete portable snapshot
+`7fa72c7ea` were successfully pushed to the new destination's `main`;
+all 228 unique LFS objects are present remotely. Use `portable-backup/latest/`
+with the separately transferred `mac-restore-20260929-latest.key` for restore.
 
 2026-09-11 restart correction: the user added `upstream` and merged its `main`
 into local `main` (`36f8c2742`). `origin` remains the requested private repository

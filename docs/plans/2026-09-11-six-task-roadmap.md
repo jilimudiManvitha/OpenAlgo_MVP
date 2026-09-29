@@ -20,7 +20,14 @@ files in seven AES-GCM parts, all decrypt/hash verified. It includes both
 September 25 and September 29 research candle databases. Its separate key is
 `.migration-private/mac-restore-20260929-latest.key`; the earlier snapshot/key
 remain valid for the earlier point in time. Use the latest snapshot for migration.
-Remote push confirmation is still pending; the older 403 below is historical.
+**Push completed:** `7fa72c7ea` was pushed to `main` at
+`https://github.com/jilimudiManvitha/OpenAlgo_MVP.git`. Git authenticated as
+`jilimudiManvitha` with write access. Git LFS uploaded all 228 unique objects;
+an authenticated destination batch check confirmed zero missing objects and
+zero errors. Git accepted the complete branch (two existing 50+ MB ordinary
+Git files produced advisory warnings only). The working tree was clean. This
+completion note is saved in a final follow-up documentation commit. The older
+403 below is historical and resolved. The original origin remote is preserved.
 
 The user authorized merging latest `marketcalls/openalgo`, preserving local code
 when upstream overlaps, and pushing the complete portable project to
