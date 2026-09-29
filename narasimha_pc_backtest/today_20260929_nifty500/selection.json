@@ -1,0 +1,3006 @@
+{
+  "day": "2026-09-29",
+  "source": "Narasimha's completed local FYERS scanner snapshot",
+  "universe_file": "Stock_Symbols/ind_nifty500list.csv",
+  "universe_size": 500,
+  "snapshot_updated_at": "2026-09-29T16:35:20.841312+05:30",
+  "snapshot_valid_quotes": 2671,
+  "snapshot_total": 2678,
+  "nifty_rows_in_snapshot": 497,
+  "nifty_missing_from_snapshot": [
+    "HEG",
+    "HFCL",
+    "JBCHEPHARM"
+  ],
+  "limit_per_group": 50,
+  "baseline_days": 5,
+  "rvol_threshold_exclusive": 1,
+  "positive_only": true,
+  "selection_bias": "Retrospective fixed end-of-day snapshot restricted to the Nifty 500 list. NOT historical real-time scanner membership.",
+  "volume_shockers": [
+    {
+      "symbol": "EIHOTEL",
+      "exchange": "NSE",
+      "name": "EIH LIMITED",
+      "ltp": 301.85,
+      "previous_close": 295.1,
+      "change": 6.75,
+      "change_percent": 2.2873602168756353,
+      "volume": 2110585.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.983406+05:30",
+      "average_volume": 112729.0,
+      "rvol": 18.72264457238155,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          301.85
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KIRLOSENG",
+      "exchange": "NSE",
+      "name": "KIRLOSKAR OIL ENG LTD",
+      "ltp": 2402.0,
+      "previous_close": 2141.2,
+      "change": 260.8000000000002,
+      "change_percent": 12.180085933121623,
+      "volume": 5298949.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.367065+05:30",
+      "average_volume": 293221.0,
+      "rvol": 18.07151943414694,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2402.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "INDHOTEL",
+      "exchange": "NSE",
+      "name": "THE INDIAN HOTELS CO. LTD",
+      "ltp": 714.35,
+      "previous_close": 711.0,
+      "change": 3.3500000000000227,
+      "change_percent": 0.4711673699015503,
+      "volume": 26142773.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.442785+05:30",
+      "average_volume": 1594233.6,
+      "rvol": 16.398332716108854,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          714.35
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KAJARIACER",
+      "exchange": "NSE",
+      "name": "KAJARIA CERAMICS LTD",
+      "ltp": 1190.5,
+      "previous_close": 1189.5,
+      "change": 1.0,
+      "change_percent": 0.08406893652795291,
+      "volume": 2954458.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.235006+05:30",
+      "average_volume": 187375.2,
+      "rvol": 15.767604250722613,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1190.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HONAUT",
+      "exchange": "NSE",
+      "name": "HONEYWELL AUTOMATION IND",
+      "ltp": 33980.0,
+      "previous_close": 33855.0,
+      "change": 125.0,
+      "change_percent": 0.36922168069709055,
+      "volume": 27480.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.278637+05:30",
+      "average_volume": 2317.2,
+      "rvol": 11.859140341791818,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          33980.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "APOLLOTYRE",
+      "exchange": "NSE",
+      "name": "APOLLO TYRES LTD",
+      "ltp": 406.75,
+      "previous_close": 389.6,
+      "change": 17.149999999999977,
+      "change_percent": 4.401950718685826,
+      "volume": 5125753.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.807871+05:30",
+      "average_volume": 511236.4,
+      "rvol": 10.026189449734018,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          406.75
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "EMCURE",
+      "exchange": "NSE",
+      "name": "EMCURE PHARMACEUTICALS L",
+      "ltp": 1959.1,
+      "previous_close": 1927.8,
+      "change": 31.299999999999955,
+      "change_percent": 1.6236124079261312,
+      "volume": 330808.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.105907+05:30",
+      "average_volume": 39686.8,
+      "rvol": 8.335466704294626,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1959.1
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BSE",
+      "exchange": "NSE",
+      "name": "BSE LIMITED",
+      "ltp": 3200.0,
+      "previous_close": 3097.5,
+      "change": 102.5,
+      "change_percent": 3.3091202582728005,
+      "volume": 30101047.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:09.989691+05:30",
+      "average_volume": 4011088.2,
+      "rvol": 7.5044590143891625,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3200.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ABBOTINDIA",
+      "exchange": "NSE",
+      "name": "ABBOTT INDIA LIMITED",
+      "ltp": 27270.0,
+      "previous_close": 26740.0,
+      "change": 530.0,
+      "change_percent": 1.9820493642483172,
+      "volume": 20582.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 4251.0,
+      "rvol": 4.841684309574218,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          27270.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SAREGAMA",
+      "exchange": "NSE",
+      "name": "SAREGAMA INDIA LIMITED",
+      "ltp": 493.45,
+      "previous_close": 489.6,
+      "change": 3.849999999999966,
+      "change_percent": 0.7863562091503198,
+      "volume": 1317275.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:18.379462+05:30",
+      "average_volume": 276434.2,
+      "rvol": 4.765238888675858,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          493.45
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "POWERINDIA",
+      "exchange": "NSE",
+      "name": "HITACHI ENERGY INDIA LTD",
+      "ltp": 30735.0,
+      "previous_close": 30260.0,
+      "change": 475.0,
+      "change_percent": 1.5697290152015861,
+      "volume": 387016.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.585625+05:30",
+      "average_volume": 83419.6,
+      "rvol": 4.6393893041923,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          30735.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GLAND",
+      "exchange": "NSE",
+      "name": "GLAND PHARMA LIMITED",
+      "ltp": 2989.7,
+      "previous_close": 2896.0,
+      "change": 93.69999999999982,
+      "change_percent": 3.2354972375690543,
+      "volume": 876878.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.564388+05:30",
+      "average_volume": 191895.8,
+      "rvol": 4.569552851078554,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2989.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MANKIND",
+      "exchange": "NSE",
+      "name": "MANKIND PHARMA LIMITED",
+      "ltp": 2545.0,
+      "previous_close": 2435.6,
+      "change": 109.40000000000009,
+      "change_percent": 4.49170635572344,
+      "volume": 1973968.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.942119+05:30",
+      "average_volume": 437907.8,
+      "rvol": 4.507725142141793,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2545.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIENT",
+      "exchange": "NSE",
+      "name": "ADANI ENTERPRISES LIMITED",
+      "ltp": 2972.9,
+      "previous_close": 2831.1,
+      "change": 141.80000000000018,
+      "change_percent": 5.008653880117276,
+      "volume": 4062231.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 912334.6,
+      "rvol": 4.4525670735276295,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2972.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ICICIAMC",
+      "exchange": "NSE",
+      "name": "ICICI PRUDENTIAL AMC LTD",
+      "ltp": 3233.0,
+      "previous_close": 3214.5,
+      "change": 18.5,
+      "change_percent": 0.5755171877430394,
+      "volume": 769671.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.278637+05:30",
+      "average_volume": 203930.6,
+      "rvol": 3.7741810204059614,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3233.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "exchange": "NSE",
+      "name": "ADANI PORT & SEZ LTD",
+      "ltp": 1822.0,
+      "previous_close": 1743.7,
+      "change": 78.29999999999995,
+      "change_percent": 4.490451339106495,
+      "volume": 4214197.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.348206+05:30",
+      "average_volume": 1161008.0,
+      "rvol": 3.629774299574163,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1822.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SBIN",
+      "exchange": "NSE",
+      "name": "STATE BANK OF INDIA",
+      "ltp": 964.7,
+      "previous_close": 962.0,
+      "change": 2.7000000000000455,
+      "change_percent": 0.2806652806652854,
+      "volume": 26781498.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:18.815598+05:30",
+      "average_volume": 7595779.6,
+      "rvol": 3.525839270007255,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          964.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ACUTAAS",
+      "exchange": "NSE",
+      "name": "ACUTAAS CHEMICALS LIMITED",
+      "ltp": 3304.1,
+      "previous_close": 3214.4,
+      "change": 89.69999999999982,
+      "change_percent": 2.790567446490786,
+      "volume": 999485.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 321814.2,
+      "rvol": 3.1057827777643126,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3304.1
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TECHNOE",
+      "exchange": "NSE",
+      "name": "TECHNO ELEC & ENG CO. LTD",
+      "ltp": 1010.15,
+      "previous_close": 981.85,
+      "change": 28.299999999999955,
+      "change_percent": 2.882313999083358,
+      "volume": 271404.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.752971+05:30",
+      "average_volume": 90335.2,
+      "rvol": 3.0044102409691904,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1010.15
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KALYANKJIL",
+      "exchange": "NSE",
+      "name": "KALYAN JEWELLERS IND LTD",
+      "ltp": 568.85,
+      "previous_close": 564.0,
+      "change": 4.850000000000023,
+      "change_percent": 0.8599290780141884,
+      "volume": 9165283.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.235006+05:30",
+      "average_volume": 3060699.8,
+      "rvol": 2.9945057009511356,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          568.85
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "IDEA",
+      "exchange": "NSE",
+      "name": "VODAFONE IDEA LIMITED",
+      "ltp": 13.56,
+      "previous_close": 13.47,
+      "change": 0.08999999999999986,
+      "change_percent": 0.6681514476614688,
+      "volume": 1150179404.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.278637+05:30",
+      "average_volume": 394762212.4,
+      "rvol": 2.9136005622406427,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          13.56
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "exchange": "NSE",
+      "name": "SUN PHARMACEUTICAL IND L",
+      "ltp": 1865.0,
+      "previous_close": 1838.0,
+      "change": 27.0,
+      "change_percent": 1.4689880304679,
+      "volume": 3083083.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.281129+05:30",
+      "average_volume": 1067719.8,
+      "rvol": 2.887539408747501,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1865.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "exchange": "NSE",
+      "name": "KOTAK MAHINDRA BANK LTD",
+      "ltp": 406.0,
+      "previous_close": 401.55,
+      "change": 4.449999999999989,
+      "change_percent": 1.1082057029012546,
+      "volume": 32613940.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.367065+05:30",
+      "average_volume": 11692281.4,
+      "rvol": 2.7893564039606504,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          406.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "COCHINSHIP",
+      "exchange": "NSE",
+      "name": "COCHIN SHIPYARD LIMITED",
+      "ltp": 1359.3,
+      "previous_close": 1329.0,
+      "change": 30.299999999999955,
+      "change_percent": 2.279909706546272,
+      "volume": 1450465.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.342949+05:30",
+      "average_volume": 532589.6,
+      "rvol": 2.723419683748988,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1359.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "IRFC",
+      "exchange": "NSE",
+      "name": "INDIAN RAILWAY FIN CORP L",
+      "ltp": 80.26,
+      "previous_close": 78.55,
+      "change": 1.710000000000008,
+      "change_percent": 2.176957352005102,
+      "volume": 15747317.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.631528+05:30",
+      "average_volume": 5881409.2,
+      "rvol": 2.6774734531309266,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          80.26
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KPITTECH",
+      "exchange": "NSE",
+      "name": "KPIT TECHNOLOGIES LIMITED",
+      "ltp": 519.7,
+      "previous_close": 509.0,
+      "change": 10.700000000000045,
+      "change_percent": 2.1021611001964726,
+      "volume": 3351279.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.367065+05:30",
+      "average_volume": 1288206.8,
+      "rvol": 2.6015069940633753,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          519.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DRREDDY",
+      "exchange": "NSE",
+      "name": "DR. REDDY S LABORATORIES",
+      "ltp": 1251.9,
+      "previous_close": 1221.0,
+      "change": 30.90000000000009,
+      "change_percent": 2.530712530712538,
+      "volume": 5347128.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.983406+05:30",
+      "average_volume": 2082625.4,
+      "rvol": 2.5674938949654607,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1251.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ASTRAL",
+      "exchange": "NSE",
+      "name": "ASTRAL LIMITED",
+      "ltp": 1375.0,
+      "previous_close": 1370.5,
+      "change": 4.5,
+      "change_percent": 0.3283473184968989,
+      "volume": 933913.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:09.209979+05:30",
+      "average_volume": 364472.6,
+      "rvol": 2.5623681999689416,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1375.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DOMS",
+      "exchange": "NSE",
+      "name": "DOMS INDUSTRIES LIMITED",
+      "ltp": 2052.4,
+      "previous_close": 2046.5,
+      "change": 5.900000000000091,
+      "change_percent": 0.28829709259712144,
+      "volume": 56107.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.983406+05:30",
+      "average_volume": 21909.6,
+      "rvol": 2.5608409099207656,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2052.4
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ONESOURCE",
+      "exchange": "NSE",
+      "name": "ONESOURCE SPECL PHARMA L",
+      "ltp": 1583.3,
+      "previous_close": 1565.8,
+      "change": 17.5,
+      "change_percent": 1.1176395452803678,
+      "volume": 463289.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.177044+05:30",
+      "average_volume": 181659.2,
+      "rvol": 2.550319499370249,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1583.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TATACONSUM",
+      "exchange": "NSE",
+      "name": "TATA CONSUMER PRODUCT LTD",
+      "ltp": 967.7,
+      "previous_close": 960.0,
+      "change": 7.7000000000000455,
+      "change_percent": 0.8020833333333381,
+      "volume": 2410899.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.427105+05:30",
+      "average_volume": 946118.0,
+      "rvol": 2.5482011757518617,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          967.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "JSWSTEEL",
+      "exchange": "NSE",
+      "name": "JSW STEEL LIMITED",
+      "ltp": 1272.4,
+      "previous_close": 1264.1,
+      "change": 8.300000000000182,
+      "change_percent": 0.6565936239221725,
+      "volume": 2499215.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.235006+05:30",
+      "average_volume": 1063222.0,
+      "rvol": 2.350605047675838,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1272.4
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GRANULES",
+      "exchange": "NSE",
+      "name": "GRANULES INDIA LIMITED",
+      "ltp": 866.75,
+      "previous_close": 851.4,
+      "change": 15.350000000000023,
+      "change_percent": 1.80291284942448,
+      "volume": 1132457.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.874741+05:30",
+      "average_volume": 483680.2,
+      "rvol": 2.341334212150921,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          866.75
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ALKEM",
+      "exchange": "NSE",
+      "name": "ALKEM LABORATORIES LTD.",
+      "ltp": 5250.0,
+      "previous_close": 5175.0,
+      "change": 75.0,
+      "change_percent": 1.4492753623188406,
+      "volume": 244410.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.739647+05:30",
+      "average_volume": 106169.4,
+      "rvol": 2.3020757393373232,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          5250.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TORNTPHARM",
+      "exchange": "NSE",
+      "name": "TORRENT PHARMACEUTICALS L",
+      "ltp": 4894.0,
+      "previous_close": 4869.0,
+      "change": 25.0,
+      "change_percent": 0.5134524543027316,
+      "volume": 725626.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.826524+05:30",
+      "average_volume": 319822.8,
+      "rvol": 2.268837618831428,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          4894.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "COHANCE",
+      "exchange": "NSE",
+      "name": "COHANCE LIFESCIENCES LTD",
+      "ltp": 457.9,
+      "previous_close": 453.3,
+      "change": 4.599999999999966,
+      "change_percent": 1.0147804985660636,
+      "volume": 1477420.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.342949+05:30",
+      "average_volume": 657696.4,
+      "rvol": 2.2463556133194587,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          457.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "INDUSTOWER",
+      "exchange": "NSE",
+      "name": "INDUS TOWERS LIMITED",
+      "ltp": 367.55,
+      "previous_close": 360.0,
+      "change": 7.550000000000011,
+      "change_percent": 2.0972222222222254,
+      "volume": 8836110.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.442785+05:30",
+      "average_volume": 4118617.8,
+      "rvol": 2.1454066458897936,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          367.55
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MRPL",
+      "exchange": "NSE",
+      "name": "MRPL",
+      "ltp": 171.65,
+      "previous_close": 169.8,
+      "change": 1.8499999999999943,
+      "change_percent": 1.0895170789163688,
+      "volume": 15901075.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:14.627272+05:30",
+      "average_volume": 7518820.0,
+      "rvol": 2.114836503600299,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          171.65
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TATAELXSI",
+      "exchange": "NSE",
+      "name": "TATA ELXSI LIMITED",
+      "ltp": 3211.7,
+      "previous_close": 3191.0,
+      "change": 20.699999999999818,
+      "change_percent": 0.6486994672516395,
+      "volume": 522063.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.427105+05:30",
+      "average_volume": 248719.6,
+      "rvol": 2.0990022499232066,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3211.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "CHENNPETRO",
+      "exchange": "NSE",
+      "name": "CHENNAI PETROLEUM CORP LT",
+      "ltp": 1436.9,
+      "previous_close": 1408.1,
+      "change": 28.800000000000182,
+      "change_percent": 2.045309282011234,
+      "volume": 2928658.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.342949+05:30",
+      "average_volume": 1398586.6,
+      "rvol": 2.0940126267476034,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1436.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BANKINDIA",
+      "exchange": "NSE",
+      "name": "BANK OF INDIA",
+      "ltp": 130.11,
+      "previous_close": 129.99,
+      "change": 0.12000000000000455,
+      "change_percent": 0.09231479344565316,
+      "volume": 9187360.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:09.676532+05:30",
+      "average_volume": 4471814.4,
+      "rvol": 2.0545038720748336,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          130.11
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MANAPPURAM",
+      "exchange": "NSE",
+      "name": "MANAPPURAM FINANCE LTD",
+      "ltp": 316.45,
+      "previous_close": 313.0,
+      "change": 3.4499999999999886,
+      "change_percent": 1.102236421725236,
+      "volume": 9763639.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.942119+05:30",
+      "average_volume": 4774572.4,
+      "rvol": 2.0449242742659006,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          316.45
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ASAHIINDIA",
+      "exchange": "NSE",
+      "name": "ASAHI INDIA GLASS LIMITED",
+      "ltp": 957.95,
+      "previous_close": 933.55,
+      "change": 24.40000000000009,
+      "change_percent": 2.6136789673825818,
+      "volume": 286875.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.807871+05:30",
+      "average_volume": 141277.8,
+      "rvol": 2.0305738056509943,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          957.95
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GESHIP",
+      "exchange": "NSE",
+      "name": "THE GE SHPG.LTD",
+      "ltp": 1537.8,
+      "previous_close": 1533.4,
+      "change": 4.399999999999864,
+      "change_percent": 0.28694404591103845,
+      "volume": 2264928.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.564388+05:30",
+      "average_volume": 1121982.6,
+      "rvol": 2.0186837122073014,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1537.8
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TRENT",
+      "exchange": "NSE",
+      "name": "TRENT LTD",
+      "ltp": 2635.0,
+      "previous_close": 2626.0,
+      "change": 9.0,
+      "change_percent": 0.3427265803503427,
+      "volume": 1548590.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.826524+05:30",
+      "average_volume": 770517.8,
+      "rvol": 2.0098043160067163,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2635.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GLENMARK",
+      "exchange": "NSE",
+      "name": "GLENMARK PHARMACEUTICALS",
+      "ltp": 2441.5,
+      "previous_close": 2325.7,
+      "change": 115.80000000000018,
+      "change_percent": 4.979146063550767,
+      "volume": 1277155.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.698674+05:30",
+      "average_volume": 644774.2,
+      "rvol": 1.9807786974106596,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2441.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "WELCORP",
+      "exchange": "NSE",
+      "name": "WELSPUN CORP LIMITED",
+      "ltp": 2842.0,
+      "previous_close": 2739.7,
+      "change": 102.30000000000018,
+      "change_percent": 3.733985472861999,
+      "volume": 3094471.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:20.489252+05:30",
+      "average_volume": 1658551.4,
+      "rvol": 1.8657673196019129,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2842.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIPOWER",
+      "exchange": "NSE",
+      "name": "ADANI POWER LTD",
+      "ltp": 196.3,
+      "previous_close": 196.14,
+      "change": 0.160000000000025,
+      "change_percent": 0.08157438564292088,
+      "volume": 33801685.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.348206+05:30",
+      "average_volume": 18167788.2,
+      "rvol": 1.8605283498406262,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          196.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "PTCIL",
+      "exchange": "NSE",
+      "name": "PTC INDUSTRIES LIMITED",
+      "ltp": 22535.0,
+      "previous_close": 21685.0,
+      "change": 850.0,
+      "change_percent": 3.919760202905234,
+      "volume": 19622.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.708692+05:30",
+      "average_volume": 10611.8,
+      "rvol": 1.8490736727039712,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          22535.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIENSOL",
+      "exchange": "NSE",
+      "name": "ADANI ENERGY SOLUTION LTD",
+      "ltp": 1305.8,
+      "previous_close": 1287.9,
+      "change": 17.899999999999864,
+      "change_percent": 1.3898594611382764,
+      "volume": 2592098.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 1465617.6,
+      "rvol": 1.7686045800760033,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1305.8
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    }
+  ],
+  "top_gainers": [
+    {
+      "symbol": "KIRLOSENG",
+      "exchange": "NSE",
+      "name": "KIRLOSKAR OIL ENG LTD",
+      "ltp": 2402.0,
+      "previous_close": 2141.2,
+      "change": 260.8000000000002,
+      "change_percent": 12.180085933121623,
+      "volume": 5298949.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.367065+05:30",
+      "average_volume": 293221.0,
+      "rvol": 18.07151943414694,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2402.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SUNTV",
+      "exchange": "NSE",
+      "name": "SUN TV NETWORK LIMITED",
+      "ltp": 553.25,
+      "previous_close": 519.9,
+      "change": 33.35000000000002,
+      "change_percent": 6.414695133679558,
+      "volume": 3444850.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.281129+05:30",
+      "average_volume": 2122561.2,
+      "rvol": 1.6229685155839086,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          553.25
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIENT",
+      "exchange": "NSE",
+      "name": "ADANI ENTERPRISES LIMITED",
+      "ltp": 2972.9,
+      "previous_close": 2831.1,
+      "change": 141.80000000000018,
+      "change_percent": 5.008653880117276,
+      "volume": 4062231.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 912334.6,
+      "rvol": 4.4525670735276295,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2972.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GLENMARK",
+      "exchange": "NSE",
+      "name": "GLENMARK PHARMACEUTICALS",
+      "ltp": 2441.5,
+      "previous_close": 2325.7,
+      "change": 115.80000000000018,
+      "change_percent": 4.979146063550767,
+      "volume": 1277155.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.698674+05:30",
+      "average_volume": 644774.2,
+      "rvol": 1.9807786974106596,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2441.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MANKIND",
+      "exchange": "NSE",
+      "name": "MANKIND PHARMA LIMITED",
+      "ltp": 2545.0,
+      "previous_close": 2435.6,
+      "change": 109.40000000000009,
+      "change_percent": 4.49170635572344,
+      "volume": 1973968.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.942119+05:30",
+      "average_volume": 437907.8,
+      "rvol": 4.507725142141793,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2545.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "exchange": "NSE",
+      "name": "ADANI PORT & SEZ LTD",
+      "ltp": 1822.0,
+      "previous_close": 1743.7,
+      "change": 78.29999999999995,
+      "change_percent": 4.490451339106495,
+      "volume": 4214197.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.348206+05:30",
+      "average_volume": 1161008.0,
+      "rvol": 3.629774299574163,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1822.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "APOLLOTYRE",
+      "exchange": "NSE",
+      "name": "APOLLO TYRES LTD",
+      "ltp": 406.75,
+      "previous_close": 389.6,
+      "change": 17.149999999999977,
+      "change_percent": 4.401950718685826,
+      "volume": 5125753.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.807871+05:30",
+      "average_volume": 511236.4,
+      "rvol": 10.026189449734018,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          406.75
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "PTCIL",
+      "exchange": "NSE",
+      "name": "PTC INDUSTRIES LIMITED",
+      "ltp": 22535.0,
+      "previous_close": 21685.0,
+      "change": 850.0,
+      "change_percent": 3.919760202905234,
+      "volume": 19622.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.708692+05:30",
+      "average_volume": 10611.8,
+      "rvol": 1.8490736727039712,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          22535.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "WELCORP",
+      "exchange": "NSE",
+      "name": "WELSPUN CORP LIMITED",
+      "ltp": 2842.0,
+      "previous_close": 2739.7,
+      "change": 102.30000000000018,
+      "change_percent": 3.733985472861999,
+      "volume": 3094471.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:20.489252+05:30",
+      "average_volume": 1658551.4,
+      "rvol": 1.8657673196019129,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2842.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "LLOYDSME",
+      "exchange": "NSE",
+      "name": "LLOYDS METALS N ENERGY L",
+      "ltp": 1902.2,
+      "previous_close": 1836.3,
+      "change": 65.90000000000009,
+      "change_percent": 3.5887382236018133,
+      "volume": 459165.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.627946+05:30",
+      "average_volume": 424807.6,
+      "rvol": 1.0808775549213339,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1902.2
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "VMM",
+      "exchange": "NSE",
+      "name": "VISHAL MEGA MART LIMITED",
+      "ltp": 104.3,
+      "previous_close": 100.81,
+      "change": 3.489999999999995,
+      "change_percent": 3.4619581390734995,
+      "volume": 15659999.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:20.376700+05:30",
+      "average_volume": 13777623.0,
+      "rvol": 1.136625599350483,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          104.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BSE",
+      "exchange": "NSE",
+      "name": "BSE LIMITED",
+      "ltp": 3200.0,
+      "previous_close": 3097.5,
+      "change": 102.5,
+      "change_percent": 3.3091202582728005,
+      "volume": 30101047.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:09.989691+05:30",
+      "average_volume": 4011088.2,
+      "rvol": 7.5044590143891625,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3200.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GLAND",
+      "exchange": "NSE",
+      "name": "GLAND PHARMA LIMITED",
+      "ltp": 2989.7,
+      "previous_close": 2896.0,
+      "change": 93.69999999999982,
+      "change_percent": 3.2354972375690543,
+      "volume": 876878.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.564388+05:30",
+      "average_volume": 191895.8,
+      "rvol": 4.569552851078554,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2989.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "APARINDS",
+      "exchange": "NSE",
+      "name": "APAR INDUSTRIES LTD.",
+      "ltp": 17803.0,
+      "previous_close": 17263.0,
+      "change": 540.0,
+      "change_percent": 3.1280773909517468,
+      "volume": 199491.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.807871+05:30",
+      "average_volume": 125916.4,
+      "rvol": 1.584313083919172,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          17803.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "LENSKART",
+      "exchange": "NSE",
+      "name": "LENSKART SOLUTIONS LTD",
+      "ltp": 674.6,
+      "previous_close": 655.2,
+      "change": 19.399999999999977,
+      "change_percent": 2.9609279609279575,
+      "volume": 6208921.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.508065+05:30",
+      "average_volume": 4304422.8,
+      "rvol": 1.4424514710776088,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          674.6
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "MEESHO",
+      "exchange": "NSE",
+      "name": "MEESHO LIMITED",
+      "ltp": 223.21,
+      "previous_close": 216.83,
+      "change": 6.3799999999999955,
+      "change_percent": 2.9423972697504936,
+      "volume": 31046538.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:14.351601+05:30",
+      "average_volume": 39689203.6,
+      "rvol": 0.7822413952392836,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          223.21
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "PAYTM",
+      "exchange": "NSE",
+      "name": "ONE 97 COMMUNICATIONS LTD",
+      "ltp": 1683.0,
+      "previous_close": 1635.8,
+      "change": 47.200000000000045,
+      "change_percent": 2.8854383176427465,
+      "volume": 3925804.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.507975+05:30",
+      "average_volume": 3269880.4,
+      "rvol": 1.2005955936492356,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1683.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HBLENGINE",
+      "exchange": "NSE",
+      "name": "HBL ENGINEERING LTD",
+      "ltp": 808.3,
+      "previous_close": 785.65,
+      "change": 22.649999999999977,
+      "change_percent": 2.8829631515305767,
+      "volume": 2224069.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.962091+05:30",
+      "average_volume": 2825936.4,
+      "rvol": 0.7870201891309373,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          808.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TECHNOE",
+      "exchange": "NSE",
+      "name": "TECHNO ELEC & ENG CO. LTD",
+      "ltp": 1010.15,
+      "previous_close": 981.85,
+      "change": 28.299999999999955,
+      "change_percent": 2.882313999083358,
+      "volume": 271404.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.752971+05:30",
+      "average_volume": 90335.2,
+      "rvol": 3.0044102409691904,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1010.15
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ACUTAAS",
+      "exchange": "NSE",
+      "name": "ACUTAAS CHEMICALS LIMITED",
+      "ltp": 3304.1,
+      "previous_close": 3214.4,
+      "change": 89.69999999999982,
+      "change_percent": 2.790567446490786,
+      "volume": 999485.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 321814.2,
+      "rvol": 3.1057827777643126,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3304.1
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ASAHIINDIA",
+      "exchange": "NSE",
+      "name": "ASAHI INDIA GLASS LIMITED",
+      "ltp": 957.95,
+      "previous_close": 933.55,
+      "change": 24.40000000000009,
+      "change_percent": 2.6136789673825818,
+      "volume": 286875.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.807871+05:30",
+      "average_volume": 141277.8,
+      "rvol": 2.0305738056509943,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          957.95
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "RRKABEL",
+      "exchange": "NSE",
+      "name": "R R KABEL LIMITED",
+      "ltp": 2523.2,
+      "previous_close": 2459.8,
+      "change": 63.399999999999636,
+      "change_percent": 2.57744532075777,
+      "volume": 240700.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:17.065996+05:30",
+      "average_volume": 257942.4,
+      "rvol": 0.9331540685052166,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2523.2
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DRREDDY",
+      "exchange": "NSE",
+      "name": "DR. REDDY S LABORATORIES",
+      "ltp": 1251.9,
+      "previous_close": 1221.0,
+      "change": 30.90000000000009,
+      "change_percent": 2.530712530712538,
+      "volume": 5347128.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.983406+05:30",
+      "average_volume": 2082625.4,
+      "rvol": 2.5674938949654607,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1251.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "CPPLUS",
+      "exchange": "NSE",
+      "name": "ADITYA INFOTECH LIMITED",
+      "ltp": 3817.6,
+      "previous_close": 3723.4,
+      "change": 94.19999999999982,
+      "change_percent": 2.529945748509422,
+      "volume": 224859.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.408660+05:30",
+      "average_volume": 254575.2,
+      "rvol": 0.8832714262819001,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          3817.6
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TEGA",
+      "exchange": "NSE",
+      "name": "TEGA INDUSTRIES LIMITED",
+      "ltp": 2060.6,
+      "previous_close": 2011.5,
+      "change": 49.09999999999991,
+      "change_percent": 2.440964454387269,
+      "volume": 342283.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.752971+05:30",
+      "average_volume": 575835.0,
+      "rvol": 0.5944115935988608,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2060.6
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "DELHIVERY",
+      "exchange": "NSE",
+      "name": "DELHIVERY LIMITED",
+      "ltp": 417.4,
+      "previous_close": 407.5,
+      "change": 9.899999999999977,
+      "change_percent": 2.4294478527607306,
+      "volume": 5622866.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.821773+05:30",
+      "average_volume": 3476686.6,
+      "rvol": 1.617305971726068,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          417.4
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HYUNDAI",
+      "exchange": "NSE",
+      "name": "HYUNDAI MOTOR INDIA LTD",
+      "ltp": 2100.0,
+      "previous_close": 2050.7,
+      "change": 49.30000000000018,
+      "change_percent": 2.4040571512166666,
+      "volume": 763311.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.278637+05:30",
+      "average_volume": 659279.2,
+      "rvol": 1.1577962720498387,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          2100.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "BANDHANBNK",
+      "exchange": "NSE",
+      "name": "BANDHAN BANK LIMITED",
+      "ltp": 185.31,
+      "previous_close": 181.0,
+      "change": 4.310000000000002,
+      "change_percent": 2.381215469613261,
+      "volume": 9533177.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:09.676532+05:30",
+      "average_volume": 20504575.2,
+      "rvol": 0.46492926125092315,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          185.31
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "EIHOTEL",
+      "exchange": "NSE",
+      "name": "EIH LIMITED",
+      "ltp": 301.85,
+      "previous_close": 295.1,
+      "change": 6.75,
+      "change_percent": 2.2873602168756353,
+      "volume": 2110585.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.983406+05:30",
+      "average_volume": 112729.0,
+      "rvol": 18.72264457238155,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          301.85
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "COCHINSHIP",
+      "exchange": "NSE",
+      "name": "COCHIN SHIPYARD LIMITED",
+      "ltp": 1359.3,
+      "previous_close": 1329.0,
+      "change": 30.299999999999955,
+      "change_percent": 2.279909706546272,
+      "volume": 1450465.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.342949+05:30",
+      "average_volume": 532589.6,
+      "rvol": 2.723419683748988,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1359.3
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ANTHEM",
+      "exchange": "NSE",
+      "name": "ANTHEM BIOSCIENCES LTD",
+      "ltp": 869.75,
+      "previous_close": 851.1,
+      "change": 18.649999999999977,
+      "change_percent": 2.1912818705205,
+      "volume": 689600.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.739647+05:30",
+      "average_volume": 446733.6,
+      "rvol": 1.5436492800183377,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          869.75
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "IRFC",
+      "exchange": "NSE",
+      "name": "INDIAN RAILWAY FIN CORP L",
+      "ltp": 80.26,
+      "previous_close": 78.55,
+      "change": 1.710000000000008,
+      "change_percent": 2.176957352005102,
+      "volume": 15747317.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.631528+05:30",
+      "average_volume": 5881409.2,
+      "rvol": 2.6774734531309266,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          80.26
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "KPITTECH",
+      "exchange": "NSE",
+      "name": "KPIT TECHNOLOGIES LIMITED",
+      "ltp": 519.7,
+      "previous_close": 509.0,
+      "change": 10.700000000000045,
+      "change_percent": 2.1021611001964726,
+      "volume": 3351279.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.367065+05:30",
+      "average_volume": 1288206.8,
+      "rvol": 2.6015069940633753,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          519.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "INDUSTOWER",
+      "exchange": "NSE",
+      "name": "INDUS TOWERS LIMITED",
+      "ltp": 367.55,
+      "previous_close": 360.0,
+      "change": 7.550000000000011,
+      "change_percent": 2.0972222222222254,
+      "volume": 8836110.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.442785+05:30",
+      "average_volume": 4118617.8,
+      "rvol": 2.1454066458897936,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          367.55
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "JAINREC",
+      "exchange": "NSE",
+      "name": "JAIN RESOURCE RECYCLING L",
+      "ltp": 287.65,
+      "previous_close": 281.75,
+      "change": 5.899999999999977,
+      "change_percent": 2.0940550133096636,
+      "volume": 1712900.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:13.013603+05:30",
+      "average_volume": 4586186.8,
+      "rvol": 0.37349111030540666,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          287.65
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "CHENNPETRO",
+      "exchange": "NSE",
+      "name": "CHENNAI PETROLEUM CORP LT",
+      "ltp": 1436.9,
+      "previous_close": 1408.1,
+      "change": 28.800000000000182,
+      "change_percent": 2.045309282011234,
+      "volume": 2928658.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:10.342949+05:30",
+      "average_volume": 1398586.6,
+      "rvol": 2.0940126267476034,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1436.9
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ADANIGREEN",
+      "exchange": "NSE",
+      "name": "ADANI GREEN ENERGY LTD",
+      "ltp": 1260.0,
+      "previous_close": 1235.0,
+      "change": 25.0,
+      "change_percent": 2.0242914979757085,
+      "volume": 1615165.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 1249648.6,
+      "rvol": 1.2924953462917494,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1260.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "ABBOTINDIA",
+      "exchange": "NSE",
+      "name": "ABBOTT INDIA LIMITED",
+      "ltp": 27270.0,
+      "previous_close": 26740.0,
+      "change": 530.0,
+      "change_percent": 1.9820493642483172,
+      "volume": 20582.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:08.215706+05:30",
+      "average_volume": 4251.0,
+      "rvol": 4.841684309574218,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          27270.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "HINDPETRO",
+      "exchange": "NSE",
+      "name": "HINDUSTAN PETROLEUM CORP",
+      "ltp": 349.2,
+      "previous_close": 342.45,
+      "change": 6.75,
+      "change_percent": 1.971090670170828,
+      "volume": 4074720.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.103670+05:30",
+      "average_volume": 3981553.2,
+      "rvol": 1.023399611990617,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          349.2
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "FINCABLES",
+      "exchange": "NSE",
+      "name": "FINOLEX CABLES LTD",
+      "ltp": 1435.5,
+      "previous_close": 1408.1,
+      "change": 27.40000000000009,
+      "change_percent": 1.9458845252467931,
+      "volume": 769597.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.229564+05:30",
+      "average_volume": 797829.4,
+      "rvol": 0.9646134875450817,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1435.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "TBOTEK",
+      "exchange": "NSE",
+      "name": "TBO TEK LIMITED",
+      "ltp": 1684.7,
+      "previous_close": 1654.8,
+      "change": 29.90000000000009,
+      "change_percent": 1.8068648779308731,
+      "volume": 113052.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.427105+05:30",
+      "average_volume": 205264.8,
+      "rvol": 0.5507617477521719,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1684.7
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "GRANULES",
+      "exchange": "NSE",
+      "name": "GRANULES INDIA LIMITED",
+      "ltp": 866.75,
+      "previous_close": 851.4,
+      "change": 15.350000000000023,
+      "change_percent": 1.80291284942448,
+      "volume": 1132457.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.874741+05:30",
+      "average_volume": 483680.2,
+      "rvol": 2.341334212150921,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          866.75
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "NATCOPHARM",
+      "exchange": "NSE",
+      "name": "NATCO PHARMA LTD.",
+      "ltp": 843.1,
+      "previous_close": 828.55,
+      "change": 14.550000000000068,
+      "change_percent": 1.7560798986180761,
+      "volume": 636356.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:14.955036+05:30",
+      "average_volume": 533310.2,
+      "rvol": 1.1932192558852242,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          843.1
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "RHIM",
+      "exchange": "NSE",
+      "name": "RHI MAGNESITA INDIA LTD",
+      "ltp": 393.2,
+      "previous_close": 386.6,
+      "change": 6.599999999999966,
+      "change_percent": 1.7071908949818846,
+      "volume": 714917.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.846812+05:30",
+      "average_volume": 3601076.8,
+      "rvol": 0.19852867342346045,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          393.2
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "RKFORGE",
+      "exchange": "NSE",
+      "name": "RAMKRISHNA FORGINGS LTD",
+      "ltp": 714.65,
+      "previous_close": 703.1,
+      "change": 11.549999999999955,
+      "change_percent": 1.642725074669315,
+      "volume": 843189.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.846812+05:30",
+      "average_volume": 498088.4,
+      "rvol": 1.6928501045195992,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          714.65
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "EMCURE",
+      "exchange": "NSE",
+      "name": "EMCURE PHARMACEUTICALS L",
+      "ltp": 1959.1,
+      "previous_close": 1927.8,
+      "change": 31.299999999999955,
+      "change_percent": 1.6236124079261312,
+      "volume": 330808.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:11.105907+05:30",
+      "average_volume": 39686.8,
+      "rvol": 8.335466704294626,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1959.1
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "POWERINDIA",
+      "exchange": "NSE",
+      "name": "HITACHI ENERGY INDIA LTD",
+      "ltp": 30735.0,
+      "previous_close": 30260.0,
+      "change": 475.0,
+      "change_percent": 1.5697290152015861,
+      "volume": 387016.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:16.585625+05:30",
+      "average_volume": 83419.6,
+      "rvol": 4.6393893041923,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          30735.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "IIFL",
+      "exchange": "NSE",
+      "name": "IIFL FINANCE LIMITED",
+      "ltp": 607.5,
+      "previous_close": 598.15,
+      "change": 9.350000000000023,
+      "change_percent": 1.5631530552537027,
+      "volume": 2559619.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:12.442785+05:30",
+      "average_volume": 1664744.6,
+      "rvol": 1.5375445578859364,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          607.5
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "URBANCO",
+      "exchange": "NSE",
+      "name": "URBAN COMPANY LIMITED",
+      "ltp": 163.71,
+      "previous_close": 161.21,
+      "change": 2.5,
+      "change_percent": 1.5507722845977296,
+      "volume": 3747128.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.978825+05:30",
+      "average_volume": 4551956.8,
+      "rvol": 0.8231905891549762,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          163.71
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "exchange": "NSE",
+      "name": "SUN PHARMACEUTICAL IND L",
+      "ltp": 1865.0,
+      "previous_close": 1838.0,
+      "change": 27.0,
+      "change_percent": 1.4689880304679,
+      "volume": 3083083.0,
+      "last_trade_at": "2026-09-29T05:30:00+05:30",
+      "quote_fetched_at": "2026-09-29T16:35:19.281129+05:30",
+      "average_volume": 1067719.8,
+      "rvol": 2.887539408747501,
+      "baseline_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-28"
+      ],
+      "baseline_status": "ready",
+      "sparkline": [
+        [
+          "2026-09-29T05:30:00+05:30",
+          1865.0
+        ]
+      ],
+      "sparkline_basis": "since connected"
+    }
+  ],
+  "matching_counts": {
+    "volume_shockers": 102,
+    "top_gainers": 137,
+    "top_losers": 358
+  },
+  "symbols": [
+    "ABBOTINDIA",
+    "ACUTAAS",
+    "ADANIENSOL",
+    "ADANIENT",
+    "ADANIGREEN",
+    "ADANIPORTS",
+    "ADANIPOWER",
+    "ALKEM",
+    "ANTHEM",
+    "APARINDS",
+    "APOLLOTYRE",
+    "ASAHIINDIA",
+    "ASTRAL",
+    "BANDHANBNK",
+    "BANKINDIA",
+    "BSE",
+    "CHENNPETRO",
+    "COCHINSHIP",
+    "COHANCE",
+    "CPPLUS",
+    "DELHIVERY",
+    "DOMS",
+    "DRREDDY",
+    "EIHOTEL",
+    "EMCURE",
+    "FINCABLES",
+    "GESHIP",
+    "GLAND",
+    "GLENMARK",
+    "GRANULES",
+    "HBLENGINE",
+    "HINDPETRO",
+    "HONAUT",
+    "HYUNDAI",
+    "ICICIAMC",
+    "IDEA",
+    "IIFL",
+    "INDHOTEL",
+    "INDUSTOWER",
+    "IRFC",
+    "JAINREC",
+    "JSWSTEEL",
+    "KAJARIACER",
+    "KALYANKJIL",
+    "KIRLOSENG",
+    "KOTAKBANK",
+    "KPITTECH",
+    "LENSKART",
+    "LLOYDSME",
+    "MANAPPURAM",
+    "MANKIND",
+    "MEESHO",
+    "MRPL",
+    "NATCOPHARM",
+    "ONESOURCE",
+    "PAYTM",
+    "POWERINDIA",
+    "PTCIL",
+    "RHIM",
+    "RKFORGE",
+    "RRKABEL",
+    "SAREGAMA",
+    "SBIN",
+    "SUNPHARMA",
+    "SUNTV",
+    "TATACONSUM",
+    "TATAELXSI",
+    "TBOTEK",
+    "TECHNOE",
+    "TEGA",
+    "TORNTPHARM",
+    "TRENT",
+    "URBANCO",
+    "VMM",
+    "WELCORP"
+  ]
+}

@@ -4,7 +4,9 @@ Run: uv run python -m strategies.top_gain_volumes.backtest
 Internal downloads are resumable; all generated research intermediates are temporary.
 """
 
+import csv
 import json
+import os
 import sqlite3
 import sys
 import tempfile
@@ -51,15 +53,31 @@ def main():
     if snapshot.get("session_date") != day or snapshot.get("state") != "completed":
         raise RuntimeError("A completed scanner snapshot from today is required")
     cache = ROOT / "db" / "scanner_backtest_cache" / day
+    universe_csv = os.environ.get("OPENALGO_BACKTEST_UNIVERSE_CSV", "").strip()
+    if universe_csv:
+        cache = ROOT / "db" / "scanner_backtest_cache" / f"{day}-{Path(universe_csv).stem}"
     cache.mkdir(parents=True, exist_ok=True)
     selection_path = cache / "selection.json"
     if selection_path.exists():
         selected = json.loads(selection_path.read_text())
     else:
-        ranked = rank_rows(snapshot["rows"], validate_options({"limit": 50, "positive_only": True}))
+        rows = snapshot["rows"]
+        restriction = None
+        if universe_csv:
+            with open(ROOT / universe_csv, newline="", encoding="utf-8-sig") as fh:
+                allowed = {r["Symbol"].strip() for r in csv.DictReader(fh) if (r.get("Symbol") or "").strip()}
+            restriction = {
+                "universe_file": universe_csv,
+                "universe_size": len(allowed),
+                "rows_matched": sum(1 for r in rows if r["symbol"] in allowed),
+                "absent_from_snapshot": sorted(allowed - {r["symbol"] for r in rows}),
+            }
+            rows = [r for r in rows if r["symbol"] in allowed]
+        ranked = rank_rows(rows, validate_options({"limit": 50, "positive_only": True}))
         selected = {
             "day": day,
             "snapshot_time": snapshot["updated_at"],
+            "universe_restriction": restriction,
             "symbols": sorted(
                 {r["symbol"] for g in ("volume_shockers", "top_gainers") for r in ranked[g]}
             ),

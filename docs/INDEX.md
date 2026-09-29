@@ -47,6 +47,10 @@ mobile parity and sandbox investment portfolios. Task 2 is integrated at `/marke
 
 ## Install, deploy & operate
 
+September 29 target repository and Mac setup:
+[OpenAlgo_MVP clone, encrypted restore and macOS commands](installation-guidelines/macos-local-fork.md).
+This supersedes the old sole-remote destination in the historical migration guide.
+
 For this private installation's new-laptop move and sole Git remote, start with [migration.md](../migration.md).
 
 | Topic | Entry point |

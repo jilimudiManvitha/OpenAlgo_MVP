@@ -11,6 +11,12 @@ instead of starting from scratch. It is updated at the end of every task.
 
 ## Repository map
 
+2026-09-29 synchronization: the newly requested push destination is
+`https://github.com/jilimudiManvitha/OpenAlgo_MVP.git`. The old origin below is
+preserved for historical/LFS access. See the current six-task roadmap checkpoint
+for merge and push status, and `docs/installation-guidelines/macos-local-fork.md`
+for Mac clone/restore instructions. Earlier sole-remote instructions are historical.
+
 2026-09-11 restart correction: the user added `upstream` and merged its `main`
 into local `main` (`36f8c2742`). `origin` remains the requested private repository
 below. Preserve both current remotes; the earlier sole-remote instruction is

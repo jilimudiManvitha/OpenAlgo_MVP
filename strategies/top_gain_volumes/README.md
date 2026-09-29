@@ -53,6 +53,14 @@ are temporary. For developer reproduction, `uv run python -m
 strategies.top_gain_volumes.backtest` replays today's frozen selection/cache
 and independently checks the ledger before updating the report.
 
+Set `OPENALGO_BACKTEST_UNIVERSE_CSV` to a repository-relative CSV with a
+`Symbol` column to restrict the selection to that list before ranking (for
+example `Stock_Symbols/ind_nifty500list.csv`). Ranking, tie-breaks and the
+50-per-group limits are unchanged, and the restriction plus any symbols absent
+from the snapshot are recorded in the frozen selection. Downloads are then cached
+under `db/scanner_backtest_cache/<date>-<csv stem>/` so an unrestricted run and
+a restricted run never share a cache or overwrite each other's report.
+
 Scanner visible refresh is 1s, with a 0.5s server merge interval; those are
 configured intervals, not measured feed-to-screen latency. Warm scans bulk-load
 cached baselines, cold/new-day baseline requests remain rate limited. Streaming

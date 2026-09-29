@@ -2,3 +2,4 @@ backtesting/crypto_four_portable/results*/*/candles_1m.csv filter=lfs diff=lfs m
 narasimha_pc_backtest/**/*.parquet filter=lfs diff=lfs merge=lfs -text
 narasimha_pc_backtest/**/report-data.js filter=lfs diff=lfs merge=lfs -text
 portable-backup/*.enc filter=lfs diff=lfs merge=lfs -text
+portable-backup/**/*.enc filter=lfs diff=lfs merge=lfs -text

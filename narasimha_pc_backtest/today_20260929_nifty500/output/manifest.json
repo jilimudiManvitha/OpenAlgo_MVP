@@ -1,0 +1,482 @@
+{
+  "status": "COMPLETE_AVAILABLE_DATA",
+  "config": {
+    "source": "D:\\Personal\\OpenAlgo_Windows\\narasimha_pc_backtest\\today_20260929_nifty500\\candles.duckdb",
+    "start": "2026-09-29",
+    "end": "2026-09-29",
+    "symbols": [
+      "ABBOTINDIA",
+      "ACUTAAS",
+      "ADANIENSOL",
+      "ADANIENT",
+      "ADANIGREEN",
+      "ADANIPORTS",
+      "ADANIPOWER",
+      "ALKEM",
+      "ANTHEM",
+      "APARINDS",
+      "APOLLOTYRE",
+      "ASAHIINDIA",
+      "ASTRAL",
+      "BANDHANBNK",
+      "BANKINDIA",
+      "BSE",
+      "CHENNPETRO",
+      "COCHINSHIP",
+      "COHANCE",
+      "CPPLUS",
+      "DELHIVERY",
+      "DOMS",
+      "DRREDDY",
+      "EIHOTEL",
+      "EMCURE",
+      "FINCABLES",
+      "GESHIP",
+      "GLAND",
+      "GLENMARK",
+      "GRANULES",
+      "HBLENGINE",
+      "HINDPETRO",
+      "HONAUT",
+      "HYUNDAI",
+      "ICICIAMC",
+      "IDEA",
+      "IIFL",
+      "INDHOTEL",
+      "INDUSTOWER",
+      "IRFC",
+      "JAINREC",
+      "JSWSTEEL",
+      "KAJARIACER",
+      "KALYANKJIL",
+      "KIRLOSENG",
+      "KOTAKBANK",
+      "KPITTECH",
+      "LENSKART",
+      "LLOYDSME",
+      "MANAPPURAM",
+      "MANKIND",
+      "MEESHO",
+      "MRPL",
+      "NATCOPHARM",
+      "ONESOURCE",
+      "PAYTM",
+      "POWERINDIA",
+      "PTCIL",
+      "RHIM",
+      "RKFORGE",
+      "RRKABEL",
+      "SAREGAMA",
+      "SBIN",
+      "SUNPHARMA",
+      "SUNTV",
+      "TATACONSUM",
+      "TATAELXSI",
+      "TBOTEK",
+      "TECHNOE",
+      "TEGA",
+      "TORNTPHARM",
+      "TRENT",
+      "URBANCO",
+      "VMM",
+      "WELCORP"
+    ],
+    "capital": 100000,
+    "rr": 3,
+    "stop_offset": 0.1,
+    "fee_bps": 5,
+    "slippage_bps": 5,
+    "steps": 32,
+    "asof_timestamp": 1790680516,
+    "metadata": {
+      "ABBOTINDIA": {
+        "tick": 5.0,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ACUTAAS": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIENSOL": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIENT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIGREEN": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIPORTS": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ADANIPOWER": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ALKEM": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ANTHEM": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "APARINDS": {
+        "tick": 1.0,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "APOLLOTYRE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ASAHIINDIA": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ASTRAL": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BANDHANBNK": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BANKINDIA": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "BSE": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "CHENNPETRO": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "COCHINSHIP": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "COHANCE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "CPPLUS": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DELHIVERY": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DOMS": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "DRREDDY": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "EIHOTEL": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "EMCURE": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "FINCABLES": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "GESHIP": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "GLAND": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "GLENMARK": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "GRANULES": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HBLENGINE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HINDPETRO": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HONAUT": {
+        "tick": 5.0,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "HYUNDAI": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ICICIAMC": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "IDEA": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "IIFL": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "INDHOTEL": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "INDUSTOWER": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "IRFC": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "JAINREC": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "JSWSTEEL": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KAJARIACER": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KALYANKJIL": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KIRLOSENG": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KOTAKBANK": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "KPITTECH": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LENSKART": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "LLOYDSME": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MANAPPURAM": {
+        "tick": 0.05,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MANKIND": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MEESHO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "MRPL": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "NATCOPHARM": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "ONESOURCE": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PAYTM": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "POWERINDIA": {
+        "tick": 5.0,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "PTCIL": {
+        "tick": 5.0,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RHIM": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RKFORGE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "RRKABEL": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SAREGAMA": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SBIN": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SUNPHARMA": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "SUNTV": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TATACONSUM": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TATAELXSI": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TBOTEK": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TECHNOE": {
+        "tick": 0.05,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TEGA": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TORNTPHARM": {
+        "tick": 0.5,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "TRENT": {
+        "tick": 0.1,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "URBANCO": {
+        "tick": 0.01,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "VMM": {
+        "tick": 0.01,
+        "is_fo": true,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      },
+      "WELCORP": {
+        "tick": 0.1,
+        "is_fo": false,
+        "provenance": "current local symtoken snapshot; not historical membership"
+      }
+    }
+  },
+  "source_sha256": "c2da93397869df6526d9b0c89f47bb6185f8f83fbba3779b5587b256f1e52632",
+  "summary": [
+    {
+      "path": "OLHC",
+      "trades": 75,
+      "net_pnl": -1654.868105
+    },
+    {
+      "path": "OHLC",
+      "trades": 75,
+      "net_pnl": -3670.041630000002
+    }
+  ]
+}

@@ -1,5 +1,54 @@
 # Six-task implementation plan and agent handoff
 
+## Repository synchronization checkpoint — 2026-09-29
+
+**Resumed September 29:** The interrupted merge is committed as `4a91191d5`.
+A fresh fetch found one additional upstream commit, `fe6aa97831f69d302242b0d3679388207402aa2e`,
+merged as `53245154e`. All 136 originally overlapping paths retain the saved
+local versions; the second merge had no overlapping customized paths and no
+conflicts. Existing local source edits and September 29 research outputs are
+included in the portable snapshot commit that follows these merges.
+
+Validation: 122 focused scanner, strategy, FYERS and migration tests pass;
+frontend TypeScript checking and a production build into a private temporary
+folder pass. The served `frontend/dist` was preserved. The tracked-file audit
+found no case collisions or plaintext matches for local environment secrets;
+local Git LFS integrity passed. No Mac or live broker execution was performed.
+
+The refreshed snapshot is `portable-backup/latest/`: 13 settings/database
+files in seven AES-GCM parts, all decrypt/hash verified. It includes both
+September 25 and September 29 research candle databases. Its separate key is
+`.migration-private/mac-restore-20260929-latest.key`; the earlier snapshot/key
+remain valid for the earlier point in time. Use the latest snapshot for migration.
+Remote push confirmation is still pending; the older 403 below is historical.
+
+The user authorized merging latest `marketcalls/openalgo`, preserving local code
+when upstream overlaps, and pushing the complete portable project to
+`https://github.com/jilimudiManvitha/OpenAlgo_MVP.git`. This is repository
+maintenance; it does not resume frozen strategy tasks or place orders.
+
+Local work, symbol CSVs, backtest ledgers, reports, the complete frontend build
+and an encrypted installation snapshot are saved in commit `95e37d7e4` before
+merging upstream `f72ad84408c0330e833c1b346bba4c46231edc19` (131 new commits).
+The merge preserves every file changed on both sides, including the entire
+local frontend build; 401 other upstream paths are accepted. The local startup,
+Python lock, scheduler/shutdown customizations and navigation therefore take
+precedence. Some new upstream features needing these skipped integrations,
+including OpenScript runner registration/dependency, remain unavailable.
+
+`portable-backup/` contains seven AES-GCM encrypted LFS parts and an encrypted
+manifest covering 12 local settings/database files; decrypt/hash verification
+passed for all 12. The recovery key is ONLY in
+`.migration-private/mac-restore-20260929.key`; transfer it separately to the Mac.
+See [Mac setup](../installation-guidelines/macos-local-fork.md).
+
+**Earlier push blocker:** GitHub returned HTTP 403 because Git is
+authenticated as `Narasimha722`, which lacks write permission to the requested
+destination. The destination was verified public and empty. The user has been
+asked to grant collaborator write access or authenticate an authorized account.
+Preserve the existing origin remote; do not force-push or upload to another repo.
+Final validation and LFS transfer results will be recorded below.
+
 ## Latest checkpoint — 2026-09-28: positive scanner basket, live paper strategy and app reports
 
 The user's new request explicitly authorizes scanner performance/sorting changes,
