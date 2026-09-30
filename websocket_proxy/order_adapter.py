@@ -180,6 +180,7 @@ class BaseOrderUpdateAdapter(ABC):
     def _run_forever(self) -> None:
         attempt = 0
         while not self._shutting_down:
+            self._opened_this_attempt = False
             try:
                 self._connect_once()
             except Exception as e:
@@ -203,6 +204,8 @@ class BaseOrderUpdateAdapter(ABC):
                     "next broker login."
                 )
                 break
+            if self._opened_this_attempt:
+                attempt = 0
             delay = _RECONNECT_BACKOFFS[min(attempt, len(_RECONNECT_BACKOFFS) - 1)]
             attempt += 1
             self.logger.info(
@@ -226,6 +229,7 @@ class BaseOrderUpdateAdapter(ABC):
             self._handle_message(message)
 
         def on_open(ws):
+            self._opened_this_attempt = True
             self.logger.info(
                 f"Order-update WS connected: {self.broker_name}/{self.user_id}"
             )
@@ -278,7 +282,11 @@ class BaseOrderUpdateAdapter(ABC):
             # The socket is dead once run_forever returns — clear the handle so
             # `connected` reads False between reconnect attempts and the old
             # heartbeat thread (generation-guarded on this object) exits.
-            self._ws = None
+            try:
+                if self._ws is not None:
+                    self._ws.close()
+            finally:
+                self._ws = None
 
     def _start_heartbeat_thread(self, interval: int) -> None:
         # Generation guard: bind this thread to the ws it was started for, so

@@ -39,7 +39,12 @@ def eligible_symbols(rows, now, allowed=None):
 class TickCandles:
     """Completed historical seed followed by causal forming candles."""
 
-    def __init__(self, raw, now, strict_vwap=False):
+    def __init__(self, raw, now, strict_vwap=False, timeframe_minutes=1):
+        from strategies.top_gain_volumes.history import aggregate_minutes
+
+        if timeframe_minutes not in (1, 5):
+            raise ValueError("Supported candle timeframes are 1 and 5 minutes")
+        self.interval = timeframe_minutes * 60
         self.strict_vwap = strict_vwap
         self.middle = None
         self.last_completed = None
@@ -54,12 +59,19 @@ class TickCandles:
         self.invalid = False
         self.complete = False
         day = datetime.fromtimestamp(now, IST).date()
-        boundary = int(now // 60) * 60
+        boundary = int(now // self.interval) * self.interval
+        # Validate source minutes before aggregation: a missing minute must not
+        # silently become an apparently complete 5-minute bar.
+        opening = int(datetime.combine(day, datetime.min.time(), IST).timestamp()) + 555 * 60
+        expected_minutes = set(range(opening, int(now // 60) * 60, 60))
+        actual_minutes = {int(r[0]) for r in raw if opening <= r[0] < int(now // 60) * 60}
+        if actual_minutes != expected_minutes:
+            raise ValueError("Today's warmup minutes are incomplete")
+        raw = aggregate_minutes(raw, timeframe_minutes, now)
         completed = [r for r in raw if r[0] < boundary]
         partial = [r for r in raw if r[0] == boundary]
         current = [r for r in completed if datetime.fromtimestamp(r[0], IST).date() == day]
-        opening = int(datetime.combine(day, datetime.min.time(), IST).timestamp()) + 555 * 60
-        expected = set(range(opening, int(now // 60) * 60, 60))
+        expected = set(range(opening, boundary, self.interval))
         if {int(r[0]) for r in current} != expected:
             raise ValueError("Today's warmup minutes are incomplete")
         for row in completed:
@@ -120,7 +132,7 @@ class TickCandles:
     def tick(self, stamp, price, cumulative):
         if stamp < self.seeded_at:
             return False
-        minute = int(stamp // 60) * 60
+        minute = int(stamp // self.interval) * self.interval
         if self.previous_volume is not None and cumulative < self.previous_volume:
             self.invalid = True
             return False
@@ -136,7 +148,7 @@ class TickCandles:
             if self.bar is not None:
                 prior = self.bar[0]
                 self._finish(self.bar)
-                if not self.complete or prior + 60 != minute:
+                if not self.complete or prior + self.interval != minute:
                     self.signal = None
             # Need the start of a complete observed minute for a valid signal.
             self.complete = stamp - minute <= 2
@@ -158,7 +170,7 @@ class TickCandles:
         if (
             self.invalid
             or self.signal is None
-            or self.signal[0] + 60 != minute
+            or self.signal[0] + self.interval != minute
             or len(self.closes) < 19
         ):
             return False
@@ -198,6 +210,7 @@ def enter(symbol, stamp, price, candle, tick, capital=10000):
         "symbol": symbol,
         "path": "PAPER",
         "signal_ts": candle.signal[0],
+        "timeframe_minutes": getattr(candle, "interval", 60) // 60,
         "entry_ts": stamp,
         "exit_ts": None,
         "entry": fill,
@@ -274,6 +287,57 @@ def shutdown_runtime(client, receive, executor, store, persist, cleanup_http):
         persist()  # Durable snapshot before any potentially slow worker join.
 
 
+def maintain_positions(sink, traded, report, quotes, now, stopping=False):
+    """Reconcile even without ticks; clock square-off cannot depend on a new tick."""
+    cutoff = (
+        stopping
+        or datetime.fromtimestamp(now, IST).hour * 60 + datetime.fromtimestamp(now, IST).minute
+        >= SQUARE_OFF_MINUTE
+    )
+    for symbol, trade in list(traded.items()):
+        if trade["exit_ts"] is not None:
+            continue
+        state = sink.reconcile(trade, now, cancel_entry=cutoff)
+        if state == "rejected":
+            report["trades"].remove(trade)
+            report.setdefault("rejected_entries", []).append(trade)
+            del traded[symbol]
+        elif state == "open" and cutoff:
+            quote = quotes.get(symbol)
+            if quote and 0 <= now - quote[0] <= 15:
+                sink.exit(trade, now, quote[1], "SQUARE_OFF")
+
+
+def entries_blocked(traded):
+    return any(
+        t.get(field + "_state") in ("pending", "uncertain", "dispatch_intent")
+        for t in traded.values()
+        if t["exit_ts"] is None
+        for field in ("entry_order", "exit_order")
+    )
+
+
+def restore_quote_feed(client, symbols, subscribed_socket):
+    """Restore subscriptions after the local proxy replaces a client socket."""
+    if not client.connected:
+        if client.thread and client.thread.is_alive():
+            return None  # Its own bounded reconnect loop is still in progress.
+        client.disconnect()  # Close before starting another event-loop thread.
+        if not client.connect():
+            return None
+    if not client.authenticated:
+        return None
+    if client.ws is subscribed_socket:
+        return subscribed_socket
+    for offset in range(0, len(symbols), 50):
+        reply = client.subscribe(
+            [{"symbol": s, "exchange": "NSE"} for s in symbols[offset : offset + 50]], "Quote"
+        )
+        if reply.get("status") != "success":
+            return None
+    return client.ws
+
+
 def main(profile_id="nifty500_fixed"):
     from dotenv import load_dotenv
 
@@ -317,6 +381,7 @@ def main(profile_id="nifty500_fixed"):
         "kind": "Sandbox · " + profile["name"],
         "strategy_id": profile_id,
         "capital_per_trade": 10000,
+        "timeframe_minutes": profile["timeframe_minutes"],
         "calculation_backend": BACKEND,
         "status": "starting",
         "paths": ["PAPER"],
@@ -334,7 +399,6 @@ def main(profile_id="nifty500_fixed"):
     instruments = [universe[s] for s in sorted(allowed) if s in universe]
     report["unavailable_symbols"] = sorted(allowed - set(universe))
     subscribed = {r["symbol"] for r in instruments}
-    provider = None
     try:
         ticks = {
             r[0]: float(r[1])
@@ -367,7 +431,10 @@ def main(profile_id="nifty500_fixed"):
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
     rows, trackers, pending, traded = {}, {}, {}, {}
-    last_snapshot = last_rank = last_save = 0
+    last_snapshot = last_rank = last_save = last_reconcile = last_feed = 0
+    subscribed_socket = None
+    quotes = {}
+    last_quote_at = 0
     attempted = {}
     eligible = set()
     used_signals = {}
@@ -375,10 +442,14 @@ def main(profile_id="nifty500_fixed"):
     from strategies.top_gain_volumes.sandbox_execution import SandboxExecution
 
     sink = SandboxExecution(owner, profile_id, lambda: store.save(owner, report))
-    executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="paper-warmup")
+    executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="paper-warmup")
 
     def warmup(symbol):
-        raw = fetch_intraday_history(provider, universe[symbol]["broker_symbol"], day)
+        # A refreshed broker login must take effect without restarting a run.
+        provider = FyersScannerProvider(get_fyers_token(owner))
+        raw = fetch_intraday_history(
+            provider, universe[symbol]["broker_symbol"], day, shared=True, owner=owner
+        )
         fetched_at = time.time()
         boundary = int(fetched_at // 60) * 60
         raw = [r for r in raw if r[0] <= boundary and 555 <= (r[0] + 19800) % 86400 // 60 < 930]
@@ -393,29 +464,19 @@ def main(profile_id="nifty500_fixed"):
             raise ValueError("Invalid warmup")
         if any(a[0] >= b[0] for a, b in zip(raw, raw[1:], strict=False)):
             raise ValueError("Unordered warmup")
-        return TickCandles(raw, fetched_at, strict_vwap=profile["trailing"])
+        return TickCandles(
+            raw,
+            fetched_at,
+            strict_vwap=profile["trailing"],
+            timeframe_minutes=profile["timeframe_minutes"],
+        )
 
     claimed = False
     try:
         claimed = store.claim(owner, report)
         if not claimed:
             raise RuntimeError("A paper run already owns this session")
-        provider = FyersScannerProvider(get_fyers_token(owner))
         client.register_callback("market_data", receive)
-        if not client.connect():
-            raise RuntimeError("Quote feed unavailable")
-        for offset in range(0, len(instruments), 50):
-            reply = client.subscribe(
-                [
-                    {"symbol": r["symbol"], "exchange": "NSE"}
-                    for r in instruments[offset : offset + 50]
-                ],
-                "Quote",
-            )
-            if reply.get("status") != "success":
-                raise RuntimeError(
-                    "Broker rejected universe subscription; inspect streaming limits"
-                )
         report["status"] = "running"
         while not stopped[0] and datetime.now(IST).strftime("%H:%M:%S") < "15:00:03":
             if stop_deadline[0] is not None and time.monotonic() >= stop_deadline[0]:
@@ -423,6 +484,16 @@ def main(profile_id="nifty500_fixed"):
             if client._dispatch_dropped:
                 overflow[0] = True
             clock = time.monotonic()
+            if clock - last_feed >= 5 and stop_deadline[0] is None:
+                last_feed = clock
+                subscribed_socket = restore_quote_feed(
+                    client, sorted(subscribed), subscribed_socket
+                )
+            if clock - last_reconcile >= 1:
+                last_reconcile = clock
+                maintain_positions(
+                    sink, traded, report, quotes, time.time(), stop_deadline[0] is not None
+                )
             if clock - last_snapshot >= 2:
                 last_snapshot = clock
                 if profile["universe"] == "watchlist":
@@ -432,9 +503,8 @@ def main(profile_id="nifty500_fixed"):
                         reply = client.subscribe(
                             [{"symbol": s, "exchange": "NSE"} for s in sorted(additions)], "Quote"
                         )
-                        if reply.get("status") != "success":
-                            raise RuntimeError("Weekday watchlist subscription rejected")
-                        subscribed.update(additions)
+                        if reply.get("status") == "success":
+                            subscribed.update(additions)
                 with closing(
                     sqlite3.connect("file:db/market_scanner_live.db?mode=ro", uri=True, timeout=2)
                 ) as conn:
@@ -456,14 +526,18 @@ def main(profile_id="nifty500_fixed"):
                 if future.done():
                     try:
                         trackers[symbol] = future.result()
+                        report.setdefault("warmup_skipped", {}).pop(symbol, None)
                     except Exception as exc:
                         from services.market_scanner_provider import ScannerError
 
                         if isinstance(exc, ScannerError) and exc.status_code in (401, 403):
-                            raise RuntimeError("Broker login expired during warmup") from None
-                        report.setdefault("warmup_skipped", {})[symbol] = (
-                            "Incomplete or unavailable history; retrying after one minute"
-                        )
+                            report.setdefault("warmup_skipped", {})[symbol] = (
+                                "Broker login required; retrying after one minute"
+                            )
+                        else:
+                            report.setdefault("warmup_skipped", {})[symbol] = (
+                                "Incomplete or unavailable history; retrying after one minute"
+                            )
                     del pending[symbol]
             if clock - last_rank >= 0.25:
                 last_rank = clock
@@ -473,18 +547,19 @@ def main(profile_id="nifty500_fixed"):
                     else allowed.intersection(universe)
                 )
                 for symbol in list(trackers):
-                    if (symbol not in eligible or trackers[symbol].invalid) and (
-                        symbol not in traded or traded[symbol]["exit_ts"] is not None
+                    if trackers[symbol].invalid or (
+                        symbol not in eligible
+                        and (symbol not in traded or traded[symbol]["exit_ts"] is not None)
                     ):
                         if symbol in traded:
                             report["candles"][symbol] = list(trackers[symbol].chart)
                         del trackers[symbol]
-                for symbol in sorted(eligible):
+                active = {s for s, t in traded.items() if t["exit_ts"] is None}
+                for symbol in sorted(eligible | active, key=lambda s: (s not in active, s)):
                     if (
                         symbol not in trackers
                         and symbol not in pending
-                        and (symbol not in traded or traded[symbol]["exit_ts"] is not None)
-                        and len(pending) < 100
+                        and len(pending) < 8
                         and clock - attempted.get(symbol, -60) >= 60
                     ):
                         attempted[symbol] = clock
@@ -516,6 +591,8 @@ def main(profile_id="nifty500_fixed"):
                 except (KeyError, ValueError, TypeError, OverflowError):
                     valid = False
                 if valid and symbol in subscribed and symbol in ticks:
+                    last_quote_at = time.time()
+                    quotes[symbol] = (min(stamp, traded_at), q)
                     if symbol not in rows and profile["universe"] == "watchlist":
                         rows[symbol] = {"symbol": symbol, "previous_close": price}
                     if symbol not in rows:
@@ -540,6 +617,10 @@ def main(profile_id="nifty500_fixed"):
                     )
                     if symbol in traded and traded[symbol]["exit_ts"] is None:
                         trade = traded[symbol]
+                        if trade.get("entry_order_state") != "complete" or trade.get(
+                            "exit_order_state"
+                        ) in ("pending", "uncertain", "dispatch_intent"):
+                            continue
                         decision = dict(trade)
                         should_exit = exit_trade(
                             decision,
@@ -567,9 +648,16 @@ def main(profile_id="nifty500_fixed"):
                         and candle.signal[0] != used_signals.get(symbol)
                         and minute < cutoff
                         and not overflow[0]
+                        and stop_deadline[0] is None
+                        and not entries_blocked(traded)
                         and client.connected
                         and client.authenticated
+                        and subscribed_socket is client.ws
                     ):
+                        from sandbox.execution_engine import quote_looks_stale
+
+                        if quote_looks_stale(q):
+                            continue  # Do not consume the signal; await a coherent quote.
                         trade = enter(symbol, stamp, price, candle, ticks[symbol])
                         if trade:
                             used_signals[symbol] = candle.signal[0]
@@ -583,6 +671,19 @@ def main(profile_id="nifty500_fixed"):
                     latencies.append((time.perf_counter_ns() - decision_start) / 1000)
             if overflow[0]:
                 report["status"] = "feed overflow — entries disabled"
+            else:
+                report["status"] = (
+                    "awaiting order reconciliation — entries paused"
+                    if entries_blocked(traded)
+                    else "running"
+                )
+                if (
+                    subscribed_socket is None
+                    or not client.connected
+                    or not client.authenticated
+                    or (subscribed and time.time() - last_quote_at > 15)
+                ):
+                    report["status"] = "waiting for quote feed — entries paused"
             if clock - last_save >= 5:
                 last_save = clock
                 report["candles"].update(

@@ -1,4 +1,4 @@
-"""Install four Sandbox strategies through the existing NSE-aware scheduler."""
+"""Install eight Sandbox strategies through the existing NSE-aware scheduler."""
 
 import hashlib
 import json
@@ -26,6 +26,7 @@ def configurations(owner):
             "user_id": owner,
             "is_running": False,
             "is_scheduled": True,
+            "manually_stopped": False,
             "schedule_start": "09:15",
             "schedule_stop": "15:00",
             "schedule_days": ["mon", "tue", "wed", "thu", "fri"],
@@ -50,6 +51,8 @@ def install(owner):
             **config,
             "created_at": existing.get("created_at", scheduler.get_ist_time().isoformat()),
         }
+        for field in ("is_error", "error_message", "error_time", "paused_reason", "paused_message"):
+            scheduler.STRATEGY_CONFIGS[strategy_id].pop(field, None)
         if scheduler.SCHEDULER is not None:
             scheduler.schedule_strategy(strategy_id, "09:15", "15:00", config["schedule_days"])
     scheduler.save_configs()
@@ -58,7 +61,7 @@ def install(owner):
         any(saved.get(sid, {}).get(k) != value for k, value in config.items())
         for sid, config in desired.items()
     ):
-        raise RuntimeError("Four-strategy schedule persistence could not be verified")
+        raise RuntimeError("Eight-strategy schedule persistence could not be verified")
     return list(desired)
 
 
@@ -72,7 +75,9 @@ def main():
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--install", action="store_true", required=True)
-    parser.add_argument("--backtest-day", required=True)
+    parser.add_argument(
+        "--backtest-day", help="Optional: require verified replays for all eight profiles"
+    )
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     with closing(sqlite3.connect("file:db/market_scanner_live.db?mode=ro", uri=True)) as conn:
@@ -82,14 +87,8 @@ def main():
     if len(owners) != 1:
         raise RuntimeError("Exactly one FYERS account is required for the local installer")
     owner = owners[0][0]
-    with closing(sqlite3.connect("file:db/scanner_strategy_reports.db?mode=ro", uri=True)) as conn:
-        for profile in PROFILES:
-            found = conn.execute(
-                "SELECT payload FROM reports WHERE owner=? AND id=?",
-                (owner, f"backtest-{args.backtest_day}-{profile}"),
-            ).fetchone()
-            if not found or not json.loads(found[0]).get("verification", {}).get("passed"):
-                raise RuntimeError("Run and verify all four backtests before installing schedules")
+    if args.backtest_day:
+        verify_backtests(owner, args.backtest_day)
     from blueprints import python_strategy as scheduler
 
     try:
@@ -109,10 +108,24 @@ def main():
                 )
             )
         print(
-            "Saved four schedules. An already-running app must reload/restart to read this configuration."
+            "Saved eight schedules. An already-running app must reload/restart to read this configuration."
         )
     finally:
         scheduler.shutdown_scheduler()
+
+
+def verify_backtests(owner, day):
+    import sqlite3
+    from contextlib import closing
+
+    with closing(sqlite3.connect("file:db/scanner_strategy_reports.db?mode=ro", uri=True)) as conn:
+        for profile in PROFILES:
+            found = conn.execute(
+                "SELECT payload FROM reports WHERE owner=? AND id=?",
+                (owner, f"backtest-{day}-{profile}"),
+            ).fetchone()
+            if not found or not json.loads(found[0]).get("verification", {}).get("passed"):
+                raise RuntimeError("Run and verify all eight backtests before using --backtest-day")
 
 
 if __name__ == "__main__":

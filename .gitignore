@@ -149,6 +149,7 @@ workspace/**/.sample.env
 .ruff_cache/
 .migration-private/
 *.duckdb.lock
+db/four-sandbox-*.lock
 backtesting/.test_polars_export_20260909/
 
 # Bundled skill documentation uses a directory named build (not build output).

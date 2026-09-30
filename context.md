@@ -1,5 +1,11 @@
 # OpenAlgo fork - AI agent context
 
+Latest process state, September 30 22:25 IST: OpenAlgo restarted at the user's
+request with `caffeinate -i uv run --no-sync app.py`, session 91797, app PID 99074.
+Eight schedules restored; FYERS order-update WebSocket connected. Web App
+http://127.0.0.1:5000/ verified HTTP 200; ws://127.0.0.1:8765 verified HTTP 101.
+Keep this instance alive; do not launch a duplicate. Prior process notes are historical.
+
 Current six-task request (2026-09-11): see
 [`docs/plans/2026-09-11-six-task-roadmap.md`](docs/plans/2026-09-11-six-task-roadmap.md)
 for the canonical plan, pending decisions, task checklist and restart instructions.
@@ -8,6 +14,21 @@ Its task numbers are separate from the historical task sections below.
 
 This file lets a new AI agent pick up where the previous session stopped
 instead of starting from scratch. It is updated at the end of every task.
+
+September 30 evening: user authorized four new 5m HA Sandbox profiles plus fixes
+to the four original 1m runs. **Eight schedules are now restored in the running
+app**, next start October 1 09:15 IST, stop 15:00. User will populate Thu before
+09:15. See the latest canonical roadmap checkpoint for incident diagnosis,
+136-test verification and the active server PID/session. Historical notes below
+do not override that checkpoint.
+
+September 30 follow-up: today's backtests completed for all eight profiles,
+both modeled paths. [Results and artifacts](backtesting/eight_scheduled_20260930/README.md).
+76/76 scanner and 16/18 Wed coverage (two BE-series exclusions), all ledgers
+verified, 61 focused tests passed. Exact-session history queries resolved FYERS
+duplicate/conflicting full-day responses; scheduled warmup uses the same fix.
+No schedule changes or server restart during backtesting. The latest canonical
+checkpoint records limitations; simulated results are not today's forward fills.
 
 ## Repository map
 

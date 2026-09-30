@@ -1,4 +1,4 @@
-"""Replay all four variants on today's saved inputs, before installing schedules.
+"""Replay the eight scheduled variants on dated inputs without placing orders.
 
 Two explicitly modeled OHLC paths; no future candles or final-candle wick tests
 are used at entry. An afternoon-selected scanner basket remains selection-biased.
@@ -18,12 +18,14 @@ from strategies.top_gain_volumes.profiles import PROFILES, ROOT, nifty500_symbol
 from strategies.top_gain_volumes.runtime import IST, TickCandles, enter, exit_trade
 
 
-def replay(symbol, raw, day, tick, trailing=False, path="OLHC", steps=8):
+def replay(symbol, raw, day, tick, trailing=False, path="OLHC", steps=8, timeframe_minutes=1):
     start = datetime.fromisoformat(day).replace(hour=9, minute=15, tzinfo=IST).timestamp()
     cutoff = start + (900 - 555) * 60
     prior = [r for r in raw if r[0] < start and 555 <= (r[0] + 19800) % 86400 // 60 < 930]
     current = [r for r in raw if start <= r[0] <= cutoff]
-    if len(prior) < 20:
+    from strategies.top_gain_volumes.history import aggregate_minutes
+
+    if len(aggregate_minutes(prior, timeframe_minutes, start)) < 20:
         return [], [], {"symbol": symbol, "eligible": False, "reason": "insufficient_warmup"}
     expected = list(range(int(start), int(cutoff) + 1, 60))
     if [int(r[0]) for r in current] != expected:
@@ -42,7 +44,7 @@ def replay(symbol, raw, day, tick, trailing=False, path="OLHC", steps=8):
         for r in prior + current
     ):
         return [], [], {"symbol": symbol, "eligible": False, "reason": "invalid_ohlcv"}
-    candle = TickCandles(prior, start, strict_vwap=trailing)
+    candle = TickCandles(prior, start, strict_vwap=trailing, timeframe_minutes=timeframe_minutes)
     trades, position, used_signal = [], None, None
     cumulative = 0.0
     for row in current:
@@ -83,7 +85,10 @@ def verify_ledger(trades):
         key = (trade["path"], trade["symbol"])
         assert trade["entry"] * trade["quantity"] <= 10000 + 1e-6
         assert trade["quantity"] > 0 and int(trade["quantity"]) == trade["quantity"]
-        assert trade["signal_ts"] + 60 <= trade["entry_ts"] < trade["signal_ts"] + 120
+        interval = trade.get("timeframe_minutes", 1) * 60
+        assert (
+            trade["signal_ts"] + interval <= trade["entry_ts"] < trade["signal_ts"] + 2 * interval
+        )
         assert trade["entry_ts"] >= last_exit.get(key, 0)
         assert (key, trade["signal_ts"]) not in seen
         seen.add((key, trade["signal_ts"]))
@@ -108,6 +113,7 @@ def main():
 
     load_dotenv(ROOT / ".env")
     from database.symbol import SymToken, db_session
+    from services.market_scanner_provider import load_universe
     from services.market_scanner_service import rank_rows, validate_options
     from services.scanner_strategy_reports import ReportStore
 
@@ -123,6 +129,7 @@ def main():
     )
     args = parser.parse_args()
     day = args.day
+    universe = {r["symbol"]: r for r in load_universe()}
     with closing(sqlite3.connect("file:db/market_scanner_live.db?mode=ro", uri=True)) as c:
         rows = c.execute(
             "SELECT user,snapshot FROM scanner_live_accounts WHERE broker='fyers'"
@@ -154,6 +161,20 @@ def main():
         ROOT / "db/scanner_backtest_cache" / (day + suffix)
         for suffix in ("-four-strategies", "-ind_nifty500list", "-nifty500", "")
     ]
+    caches[0].mkdir(parents=True, exist_ok=True)
+    (caches[0] / "selection.json").write_text(
+        json.dumps(
+            {
+                "day": day,
+                "snapshot_time": snapshot.get("updated_at"),
+                "scanner_symbols": scanner_symbols,
+                "watchlist_symbols": watch,
+                "watchlist_day": datetime.fromisoformat(day).strftime("%a"),
+                "selection_bias": "Final snapshot/current watchlist applied retrospectively",
+            },
+            indent=2,
+        )
+    )
     if not 1 <= args.steps <= 128:
         parser.error("--steps must be between 1 and 128")
     if args.fetch_missing or args.retry_invalid:
@@ -186,8 +207,8 @@ def main():
                 opening = int(datetime.fromisoformat(day).replace(tzinfo=IST).timestamp())
                 raw = []
                 for first, last in (
-                    (opening - 30 * 86400, opening - 1),
-                    (opening, opening + 86400 - 1),
+                    (opening - 7 * 86400, opening - 1),
+                    (opening + 555 * 60, opening + 930 * 60 - 1),
                 ):
                     fetched = (
                         provider._request(
@@ -257,6 +278,7 @@ def main():
                 "candles": {},
                 "coverage": [],
                 "capital_per_trade": 10000,
+                "timeframe_minutes": profile["timeframe_minutes"],
                 "selection": {
                     "symbols": selected,
                     "snapshot_time": snapshot.get("updated_at"),
@@ -273,6 +295,15 @@ def main():
                 "No total portfolio capital cap; scenario results must not be added.",
             }
             for i, symbol in enumerate(selected):
+                if symbol not in universe:
+                    report["coverage"].append(
+                        {
+                            "symbol": symbol,
+                            "eligible": False,
+                            "reason": "outside_scheduled_EQ_universe",
+                        }
+                    )
+                    continue
                 source = next(
                     (p / (symbol + ".json") for p in caches if (p / (symbol + ".json")).is_file()),
                     None,
@@ -290,7 +321,14 @@ def main():
                 report["input_hashes"][symbol] = hashlib.sha256(source.read_bytes()).hexdigest()
                 for path in report["paths"]:
                     trades, chart, coverage = replay(
-                        symbol, raw, day, ticks[symbol], profile["trailing"], path, args.steps
+                        symbol,
+                        raw,
+                        day,
+                        ticks[symbol],
+                        profile["trailing"],
+                        path,
+                        args.steps,
+                        timeframe_minutes=profile["timeframe_minutes"],
                     )
                     report["trades"].extend(trades)
                     if path == "OLHC":

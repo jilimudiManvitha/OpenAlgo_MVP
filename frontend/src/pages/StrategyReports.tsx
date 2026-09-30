@@ -260,7 +260,7 @@ export default function StrategyReports() {
     try {
       await webClient.post('/market-scanner/api/paper-schedule', {})
       setMessage(
-        'Four Sandbox strategies scheduled: Monday–Friday, 09:15–15:00 IST; ₹10,000 per trade. Keep the app running and FYERS logged in. NSE calendar applies. Fresh quotes are required to square off.'
+        'Eight Sandbox strategies scheduled (four 1m + four 5m HA): Monday–Friday, 09:15–15:00 IST; ₹10,000 per trade. Keep the app running and FYERS logged in. NSE calendar applies. Fresh quotes are required to square off.'
       )
       setError('')
     } catch {
@@ -293,7 +293,7 @@ export default function StrategyReports() {
         <div>
           <h1 className="text-2xl font-semibold">Strategy Reports</h1>
           <p className="text-muted-foreground">
-            Four strategies · ₹10,000 per trade · OpenAlgo Sandbox forward testing
+            Eight strategies · 1m / 5m HA · ₹10,000 per trade · OpenAlgo Sandbox
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -304,7 +304,7 @@ export default function StrategyReports() {
             <Link to="/python">Schedules</Link>
           </Button>
           <Button disabled={busy} onClick={() => void schedule()}>
-            Schedule all four
+            Schedule all eight
           </Button>
         </div>
       </div>

@@ -957,6 +957,13 @@ class FyersHSMWebSocket:
 
             except Exception as e:
                 self.logger.error(f"HSM WebSocket run error: {e}")
+            finally:
+                # A failed run must release its socket before the next attempt.
+                if self.ws is not None:
+                    try:
+                        self.ws.close()
+                    except Exception:
+                        pass
 
             # Connection ended - check if we should reconnect
             self.connected = False
@@ -1016,25 +1023,24 @@ class FyersHSMWebSocket:
         Handle reconnection with exponential backoff
 
         Returns:
-            True if should continue trying, False if max attempts reached
+            True if should continue trying, False when stopped by the owner.
         """
-        if self.reconnect_attempts >= self.MAX_RECONNECT_ATTEMPTS:
-            self.logger.error(f"Max reconnection attempts ({self.MAX_RECONNECT_ATTEMPTS}) reached")
-            self.running = False
+        if not self.running or not self.reconnect_enabled:
             return False
 
         self.reconnect_attempts += 1
         delay = min(
-            self.BASE_RECONNECT_DELAY * (2 ** (self.reconnect_attempts - 1)),
+            self.BASE_RECONNECT_DELAY * (2 ** min(self.reconnect_attempts - 1, 10)),
             self.MAX_RECONNECT_DELAY
         )
 
         self.logger.info(
-            f"HSM reconnecting in {delay}s (attempt {self.reconnect_attempts}/{self.MAX_RECONNECT_ATTEMPTS})"
+            f"HSM reconnecting in {delay}s (attempt {self.reconnect_attempts})"
         )
-        time.sleep(delay)
-
-        return True
+        deadline = time.monotonic() + delay
+        while self.running and self.reconnect_enabled and time.monotonic() < deadline:
+            time.sleep(min(0.2, max(0, deadline - time.monotonic())))
+        return self.running and self.reconnect_enabled
 
     def _start_health_check(self):
         """Start health check thread to detect silent stalls"""

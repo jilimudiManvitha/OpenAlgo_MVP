@@ -1,5 +1,107 @@
 # Six-task implementation plan and agent handoff
 
+## Current process state — September 30, 22:25 IST: running at user request
+
+User requested launching OpenAlgo again. Started `caffeinate -i uv run --no-sync
+app.py` in terminal session **91797**, app PID **99074**. Startup restored eight
+scheduled strategies and connected the FYERS order-update WebSocket. Verified
+Web App `http://127.0.0.1:5000/` returns HTTP 200 and WebSocket
+`ws://127.0.0.1:8765` completes HTTP 101 upgrade. Keep this instance alive;
+do not launch a duplicate. Existing schedules and Thu-watchlist commitment
+remain unchanged. Earlier stopped/running statements below are historical.
+
+## Previous process state — September 30, 22:20 IST: stopped by user
+
+User explicitly requested stopping OpenAlgo. Sent terminal Ctrl+C to session
+90875 at 22:20:32 IST; schedulers and checkpoint writer logged shutdown and
+the terminal exited (130). Verified no matching app.py/uv/caffeinate process
+remains. PID 88539 is no longer running. Eight saved schedules are retained,
+but cannot execute until OpenAlgo is started again. Do not restart without
+user instruction. Earlier running-server statements below are historical.
+
+## Active checkpoint — 2026-09-30: all eight backtests complete
+
+User requested today's backtest of all eight scheduled strategies. Completed
+both OLHC/OHLC scenarios for all eight, using current 0.03% stops and 1m/5m HA.
+Full results, assumptions, CSVs and reproduction:
+[September 30 backtest](../../backtesting/eight_scheduled_20260930/README.md).
+All eight reports are also saved in the report DB with `backtest-2026-09-30-`
+IDs. Today's interrupted Sandbox forward reports remain unchanged.
+
+Net OLHC/OHLC: Nifty500 fixed 1m ₹8,013.60/₹6,599.20; weekday fixed 1m
+−₹815.42/−₹838.37; Nifty500 trailing 1m ₹1,232.77/₹434.20; weekday trailing 1m
+−₹1,180.47/−₹1,279.52; Nifty500 fixed 5m ₹3,785.33/₹3,472.24; weekday fixed 5m
+−₹358.05/−₹313.36; Nifty500 trailing 5m ₹2,081.62/₹1,862.88; weekday trailing 5m
+₹85.53/₹81.91. Includes modeled 5bps slippage/side and 5bps fees/fill.
+Alternative minute paths and retrospective final scanner/watchlist selection
+are material assumptions, not observed tick performance or future guarantees.
+
+Coverage: 76/76 scanner, 16/18 Wednesday watchlist; GANESHBE and STLTECH are
+BE-series excluded by the existing EQ-only live universe. All 90 eligible
+histories valid. Initial FYERS full-day downloads had duplicate/conflicting
+timestamps and were rejected/preserved. Exact 09:15–15:29:59 epoch requests
+resolved the data issue without fabricating values. Applied the same range
+correction to scheduled `history.py` with regression coverage; new strategy
+processes will load it tomorrow. Replay now requires 20 aggregated warmup bars
+and explicitly reports outside-EQ exclusions/timeframes/selection manifest.
+
+Verification: 61 focused strategy tests pass; scoped Ruff and exporter checks
+pass. Exporter validates eight ledgers, source hashes, recomputed metrics,
+coverage and 15:00 closes. Offline Plotly HTML rendered in Chrome. NIFTY benchmark
+gross −0.1224% is included with raw source. No schedule changes, server restart,
+or production orders during backtesting. Keep app session 90875 alive; the eight
+schedules and user's Thu-watchlist commitment below remain applicable. Frozen
+tasks/Crypto and unrelated local changes are preserved; no commit/push requested.
+
+## Active checkpoint — 2026-09-30 evening: eight Sandbox schedules
+
+User explicitly authorized fixing today's forward failures and adding four
+5-minute Heikin-Ashi counterparts to the existing four scheduled strategies.
+Same universes, ₹10,000 per entry, 0.03% below HA signal-low stop, fixed/trailing
+3R rules, NSE weekdays 09:15–15:00. Sandbox only. Thursday watchlist is empty;
+user confirmed they will populate `Thu` before 09:15 October 1. Do not copy other
+watchlists without a new instruction. Frozen tasks and original Crypto remain
+protected. Preserve existing wrapper executable-bit changes and staged task.txt.
+
+September 30 logs and report DB confirmed all four originals stopped at
+09:16–09:24 on deferred Sandbox fills. Orders subsequently completed; at the
+read-only evening check there were zero nonzero Sandbox positions and zero
+pending orders. Reports remain interrupted and are preserved. FYERS 429 errors,
+DNS/heartbeat outages and HSM retry exhaustion also occurred during market hours.
+
+Implemented: pending entry/exit reconciliation by saved order ID; coherent-quote
+precheck preserving Sandbox stale guard; uncertain orders pause fresh entries
+without abandoning other positions; clock-based cutoff handling with fresh
+quotes; invalid open-position candle warmups recover after feed gaps; shared
+bounded/paced history cache across eight processes; actual 5m OHLCV aggregation
+before HA/BB/VWAP; local feed resubscription; HSM continued capped retries;
+order-update retry delay reset/old socket cleanup. Four new `_5m.py` wrappers
+and Reports UI updated. Installer now saves eight schedules; historical replay
+verification is an optional `--backtest-day` gate, never fabricated for 5m.
+
+Verification so far: 136 focused tests passed, including real isolated Sandbox
+fills with delayed status and 120 repeated history-cache descriptor checks.
+The delayed-fill regression fails against the exact original `_place_locked`
+implementation, reproducing today's RuntimeError. Frontend type check/build
+passed. Scoped Ruff passes; HSM retains four pre-existing Ruff findings verified
+against HEAD. No live broker orders were sent. Full-session/market-hours recovery
+is still an operational check, not proven by after-hours tests.
+
+Deployment complete at **19:55:49 IST September 30**: startup logged
+`Restored 8 scheduled strategies`; FYERS order-update WS connected and subscribe
+was sent. Installer verified 16 cron jobs, all next starts **October 1 09:15 IST**
+and stops **15:00 IST**. Independent readback verified exactly eight enabled
+configs, four 1m + four 5m, correct paths/owner/exchange/days, and no manual-stop
+flags. `/strategy-reports` returned HTTP 200. Old PID 7536 was stopped after
+confirming zero active strategies/pending Sandbox orders/nonzero positions.
+The app is now running as PID **88539**, under `caffeinate -i uv run --no-sync
+app.py`, tool terminal session **90875**. Keep that server alive; do not launch
+a duplicate. The user's former IDE server terminal is stopped. FYERS must be
+logged in for the new trading day before 09:15; the user will populate Thu.
+Preserved all September 30 failure logs/reports. No production orders submitted.
+Guide: [eight-strategy runtime](../../strategies/top_gain_volumes/README.md).
+No commit or push requested.
+
 ## Active checkpoint — 2026-09-30: four 10K Sandbox strategies
 
 **Latest amendment, 07:38 IST:** User requested all four stops change from

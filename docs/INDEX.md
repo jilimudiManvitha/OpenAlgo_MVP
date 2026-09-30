@@ -14,9 +14,12 @@ need → drill into the specific file. Don't load everything at once.
 September 29: [Stock symbols and category database](../Stock_Symbols/README.md)
 — supplied index/sector lists, industry groups, SQL queries and repeatable import.
 
-September 30: [Four Nifty500/weekday-watchlist Sandbox strategies and app reports](../strategies/top_gain_volumes/README.md)
-— ₹10,000 per trade, fixed/trailing 3R variants, active NSE schedules, September 29
+September 30: [Eight Nifty500/weekday-watchlist Sandbox strategies and app reports](../strategies/top_gain_volumes/README.md)
+— ₹10,000 per trade, four 1m + four 5m HA fixed/trailing 3R variants, active NSE schedules, September 29
 replays, display-only Chg% controls and measured Go/Rust acceleration.
+
+September 30: [Completed backtest of all eight scheduled strategies](../backtesting/eight_scheduled_20260930/README.md)
+— 1m/5m results, modeled path assumptions, coverage, interactive report and trade CSVs.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,

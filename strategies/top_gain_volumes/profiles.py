@@ -1,4 +1,4 @@
-"""Four explicitly named 1-minute, Rs 10,000 paper strategy variants."""
+"""Eight explicitly named 1/5-minute, Rs 10,000 Sandbox strategy variants."""
 
 from pathlib import Path
 
@@ -30,6 +30,20 @@ PROFILES = {
         "file": "Weekday_Watchlist_Trail_3R_10K.py",
     },
 }
+
+for _id, _profile in list(PROFILES.items()):
+    _profile["timeframe_minutes"] = 1
+    PROFILES[_id + "_5m"] = {
+        **_profile,
+        "name": _profile["name"] + " · 5m HA",
+        "timeframe_minutes": 5,
+        "file": {
+            "nifty500_fixed": "Nifty500_Scanner_Fixed_3R_10K_5m.py",
+            "nifty500_trailing": "Nifty500_Scanner_Trail_3R_10K_5m.py",
+            "weekday_fixed": "Weekday_Watchlist_Fixed_3R_10K_5m.py",
+            "weekday_trailing": "Weekday_Watchlist_Trail_3R_10K_5m.py",
+        }[_id],
+    }
 
 
 def nifty500_symbols():

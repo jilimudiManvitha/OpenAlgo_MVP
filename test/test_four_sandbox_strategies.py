@@ -144,10 +144,10 @@ def test_strict_forming_entry_requires_entire_ha_candle_above_vwap():
     assert not strict.tick(start + 61, 113, 120)
 
 
-def test_four_distinct_schedules_are_10k_nse_weekdays():
+def test_eight_distinct_schedules_are_10k_nse_weekdays():
     configs = configurations("fixture")
-    assert len(configs) == 4
-    assert len({r["file_path"] for r in configs.values()}) == 4
+    assert len(configs) == 8
+    assert len({r["file_path"] for r in configs.values()}) == 8
     for r in configs.values():
         assert r["schedule_start"] == "09:15" and r["schedule_stop"] == "15:00"
         assert r["schedule_days"] == ["mon", "tue", "wed", "thu", "fri"]
@@ -178,8 +178,7 @@ def test_sandbox_rejection_and_uncertain_dispatch_are_not_blindly_retried(monkey
     assert sink.place(trade, "BUY", {"ltp": 100}) is False
     assert trade["entry_order_state"] == "rejected"
     sink.manager.place_order.return_value = (False, {"mode": "analyze"}, 500)
-    with pytest.raises(RuntimeError, match="Uncertain"):
-        sink.place(trade, "BUY", {"ltp": 100})
+    assert sink.place(trade, "BUY", {"ltp": 100}) is None
     assert trade["entry_order_state"] == "uncertain"
     assert sink.manager.place_order.call_count == 2
 
@@ -217,8 +216,9 @@ def test_history_ranges_discard_broker_boundary_overlap_without_choosing_conflic
     assert provider._request.call_count == 2
 
 
+@pytest.mark.parametrize("delayed_status", [False, True])
 def test_actual_sandbox_round_trip_records_confirmed_fills_without_live_router(
-    monkeypatch, tmp_path
+    monkeypatch, tmp_path, delayed_status
 ):
     """Real OrderManager/ExecutionEngine, isolated test DB, synthetic current quotes."""
     import uuid
@@ -277,6 +277,17 @@ def test_actual_sandbox_round_trip_records_confirmed_fills_without_live_router(
     owner = "four_fixture_" + uuid.uuid4().hex[:10]
     sink = SandboxExecution(owner, "weekday_fixed", Mock())
     sink.lock_path = tmp_path / "dispatch.lock"
+    original_status = sink.manager.get_order_status
+    if delayed_status:
+        calls = [0]
+
+        def delayed(orderid):
+            calls[0] += 1
+            if calls[0] == 1:
+                return True, {"data": {"order_status": "open", "filled_quantity": 0}}, 200
+            return original_status(orderid)
+
+        monkeypatch.setattr(sink.manager, "get_order_status", delayed)
     trade = {
         "symbol": "FOURTEST",
         "quantity": 99,
@@ -287,6 +298,9 @@ def test_actual_sandbox_round_trip_records_confirmed_fills_without_live_router(
     }
     try:
         assert sink.enter(trade, {"ltp": 100, "bid": 99, "ask": 101}, 0.05)
+        if delayed_status:
+            assert trade["entry_order_state"] == "pending"
+            assert sink.reconcile(trade, 1790657100) == "open"
         assert trade["entry"] == 101 and trade["quantity"] == 99
         assert trade["entry"] * trade["quantity"] <= 10000
         assert trade["entry_order_state"] == "complete"
