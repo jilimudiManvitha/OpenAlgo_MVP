@@ -1,5 +1,25 @@
 # Six-task implementation plan and agent handoff
 
+## Documentation checkpoint — 2026-09-30: four-strategy chart guide
+
+The user requested one Markdown explanation of the four named strategy files,
+with separate dynamic charts for signals, entries, stops, targets and trailing.
+Created [the complete chart guide](../../strategies/FOUR_STRATEGIES_CHART_GUIDE.md)
+and its linked [offline interactive charts](../../strategies/four-strategies-charts.html).
+The guide follows the current 0.03% stop and ₹10,000 profiles, including the
+legacy `1L` wrapper, strict trailing-profile VWAP checks, confirmed Sandbox fill
+sizing and first-observed-price BB-middle exits after 3R.
+
+Charts use explicitly illustrative prices/indicator levels, not market data or
+a new backtest. Four separate panels provide five scenarios, VWAP filter examples,
+playback and an observation slider/table. Source-function comparison matched all
+20 illustrated exit paths / 140 observations; 28 browser scenario/filter checks,
+playback, desktop/mobile inspection and local Markdown link checks passed.
+No strategy code, execution settings, reports, database or app state was changed;
+no orders, app restart, commit or push was performed. Preserve the pre-existing
+local edit in `broker/fyers/streaming/fyers_hsm_websocket.py`. Frozen tasks remain
+frozen. The earlier operational checkpoint below remains the restart reference.
+
 ## Active checkpoint — 2026-09-30: four 10K Sandbox strategies
 
 **Latest amendment, 07:38 IST:** User requested all four stops change from

@@ -6,6 +6,12 @@ for the canonical plan, pending decisions, task checklist and restart instructio
 Planning is complete; this session did not implement features or run backtests.
 Its task numbers are separate from the historical task sections below.
 
+2026-09-30 documentation: [Four-strategy chart guide](strategies/FOUR_STRATEGIES_CHART_GUIDE.md)
+explains the four current ₹10,000 Sandbox profiles with separate flow diagrams
+and linked offline interactive examples. Prices are illustrative, not new
+backtest results. Source rules and app state were unchanged; see the canonical
+roadmap's documentation checkpoint for verification and the prior operational state.
+
 This file lets a new AI agent pick up where the previous session stopped
 instead of starting from scratch. It is updated at the end of every task.
 
