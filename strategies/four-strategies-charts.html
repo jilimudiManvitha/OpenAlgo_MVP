@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Four strategies — interactive rule charts</title>
+<style>
+:root {color-scheme:light; --ink:#172e41; --muted:#4f6575; --paper:#f2f5f7; --card:#fff; --border:#d3dde5; --price:#1768b3; --middle:#8645bb; --upper:#b66311; --vwap:#137d77; --stop:#bb3444; --target:#217b47}
+* {box-sizing:border-box} body {margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+main {max-width:1200px;margin:auto;padding:32px 22px 70px} h1 {font-size:clamp(27px,4vw,40px);line-height:1.2;margin:10px 0 15px} h2 {font-size:25px;line-height:1.3;margin:0 0 8px} h3 {font-size:18px;margin:0 0 10px} p {margin:9px 0 16px} a {color:#175b94;text-underline-offset:3px} .eyebrow {font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header {max-width:920px;margin-bottom:25px}.notice {background:#e7eef4;border-left:4px solid var(--price);padding:14px 18px;border-radius:4px}.muted {color:var(--muted)} nav {display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 32px} nav a {padding:9px 14px;background:var(--card);border:1px solid var(--border);border-radius:30px;text-decoration:none}
+section {background:var(--card);border:1px solid var(--border);border-radius:14px;padding:25px;margin:0 0 30px;scroll-margin-top:14px} .meta {font-size:14px;color:var(--muted);overflow-wrap:anywhere}.rule {margin:12px 0 20px;max-width:1000px}.layout {display:grid;grid-template-columns:1fr 1fr;gap:18px}.setup {padding:16px;background:#f6f8fa;border-radius:9px} .setup svg {display:block;width:100%;height:160px}.setup p {font-size:14px;margin-bottom:0}
+.controls {display:flex;align-items:end;gap:14px;flex-wrap:wrap;margin:22px 0 18px} label {display:grid;gap:5px;font-size:14px;font-weight:600} select,button,input {font:inherit} select,button {border:1px solid #aab9c5;border-radius:7px;padding:9px 11px;color:var(--ink);background:var(--card)} select {max-width:100%;font-weight:400} button {cursor:pointer} button.play {background:var(--ink);color:#fff;border-color:var(--ink)} button:hover {filter:brightness(.93)} button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible {outline:3px solid #1f72bc;outline-offset:3px}
+.readout {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.metric {padding:12px 14px;background:#f2f5f7;border-radius:8px;font-variant-numeric:tabular-nums}.metric small {display:block;color:var(--muted)} .metric strong {font-size:20px;font-weight:600}.legend {display:flex;gap:9px 18px;flex-wrap:wrap;font-size:13px}.legend span {display:inline-flex;align-items:center;gap:6px}.swatch {width:23px;height:0;border-top:3px solid}.swatch.dash {border-top-style:dashed}.chart-wrap {overflow:auto;margin-top:8px}.chart {display:block;width:100%;min-width:650px;height:auto}.slider {display:flex;align-items:center;gap:14px}.slider label {flex:1}input[type=range] {width:100%;accent-color:var(--price);cursor:pointer}output {min-width:105px;font-variant-numeric:tabular-nums;font-size:14px}.event {min-height:80px;margin:12px 0 18px;padding:15px 17px;background:#eaf1f7;border-radius:8px}.event strong {display:block;margin-bottom:3px}.event p {margin:0;font-size:15px}
+details {margin-top:14px} summary {cursor:pointer;font-weight:600} .table-wrap {overflow:auto}table {width:100%;border-collapse:collapse;font-size:14px;margin-top:12px;font-variant-numeric:tabular-nums} th,td {text-align:left;padding:9px;border-bottom:1px solid var(--border);white-space:nowrap}th {color:var(--muted);font-weight:600} .foot {font-size:14px;color:var(--muted)} .empty {padding:16px;color:var(--muted)}
+.chart {min-width:900px}.setup svg text {font-size:17px}
+@media(max-width:700px){main{padding:22px 12px}section{padding:17px}.layout{grid-template-columns:1fr}.readout{grid-template-columns:1fr 1fr}.controls{display:grid;grid-template-columns:1fr}.controls label{min-width:0}h2{font-size:22px}.slider{align-items:end}.setup svg{height:150px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+@media print{body{background:white}section{break-inside:avoid}.controls,.slider,nav{display:none}.chart{min-width:0}main{max-width:none;padding:0}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">Current source rules · 30 September 2026</div>
+<h1>One signal. Two universes.<br>Two ways to exit.</h1>
+<p>Explore each of the four strategies separately. Step through observed prices to see the entry, original stop, 3R trigger and Bollinger-middle exit.</p>
+<div class="notice"><strong>Illustrative examples, not live data.</strong> Prices, HA examples and band/VWAP levels are supplied teaching values, not indicators computed from a complete market history. Assumed fills equal observed LTP. No network connection, broker data or order submission is used.</div>
+<p><a href="FOUR_STRATEGIES_CHART_GUIDE.md">Read the complete Markdown guide and source references</a></p>
+</header>
+<nav aria-label="Strategy charts">
+<a href="#nifty500_trailing">A · Scanner trailing</a><a href="#nifty500_fixed">B · Scanner fixed</a><a href="#weekday_fixed">C · Watchlist fixed</a><a href="#weekday_trailing">D · Watchlist trailing</a>
+</nav>
+<div id="panels"></div>
+<noscript><p class="notice">JavaScript is needed for the interactive charts. The linked Markdown guide contains the complete explanations and static flow diagrams.</p></noscript>
+<p class="foot">All four currently use ₹10,000 per entry. Stop = signal HA low × 0.9997, rounded down to tick. This viewer is an explanation of rules, not a backtesting engine. See the Markdown guide for data guards, order-fill differences, universe selection and source links.</p>
+</main>
+<script>
+'use strict';
+const profiles = [
+ {id:'nifty500_trailing',letter:'A',name:'Nifty500 Scanner · trail after 3R',file:'Nifty500_Scanner_Trail_3R_10K.py',trailing:true,universe:'Within Nifty500: top 50 positive gainers ∪ top 50 positive RVOL > 1 shockers; deduplicated and rechecked at entry.'},
+ {id:'nifty500_fixed',letter:'B',name:'Top Gain Volumes · fixed 3R',file:'Top_Gain_Volumes_Live_1L_stategy.py',trailing:false,universe:'The same dynamic Nifty500 gainers/shockers union. The legacy “1L” filename currently uses ₹10,000 per entry.'},
+ {id:'weekday_fixed',letter:'C',name:'Weekday Watchlist · fixed 3R',file:'Weekday_Watchlist_Fixed_3R_10K.py',trailing:false,universe:'Today’s exact Mon / Tue / Wed / Thu / Fri list, NSE symbols only. No scanner-ranking, RVOL or positive-change gate.'},
+ {id:'weekday_trailing',letter:'D',name:'Weekday Watchlist · trail after 3R',file:'Weekday_Watchlist_Trail_3R_10K.py',trailing:true,universe:'Today’s exact weekday NSE watchlist. Empty list means no candidates; removed stocks with open trades remain managed.'}
+];
+const scenarios = {
+ trend:{name:'Rise, reach 3R, then retrace',p:[100.20,100.40,101.10,101.85,102.35,103.20,102.75,102.40,102.10],m:[99.85,99.95,100.05,100.35,100.90,101.80,102.20,102.50,102.35]},
+ stop:{name:'Stop hit before 3R',p:[100.20,100.40,100.80,100.55,100.10,99.75,99.60,100.10,100.35],m:[99.85,99.95,100.05,100.10,100.05,100.00,99.95,99.90,99.95]},
+ before:{name:'Below middle before 3R — hold',p:[100.20,100.40,100.65,100.20,100.80,101.60,102.35,102.70,102.00],m:[99.85,99.95,100.10,100.25,100.30,100.70,101.10,101.75,102.10]},
+ giveback:{name:'Armed trail gives back part of 3R',p:[100.20,100.40,101.10,101.90,102.35,102.60,102.15,101.70,101.50],m:[99.85,99.95,100.10,100.35,100.80,101.15,101.55,101.85,101.80]},
+ cutoff:{name:'No stop/3R hit — exit at 15:00',p:[100.20,100.40,100.65,100.90,101.10,101.20,101.35,101.20,101.10],m:[99.85,99.95,100.05,100.15,100.30,100.45,100.60,100.75,100.90]}
+};
+const times=['10:00:59','10:01:05','10:01:20','10:01:40','10:02:00','10:02:20','10:02:40','10:03:00','10:03:20'];
+const cutoffTimes=['14:55:59','14:56:05','14:56:40','14:57:20','14:58:00','14:58:40','14:59:10','14:59:50','15:00:00'];
+const entry=100.40,tick=.05,stop=Math.floor(99.8*.9997/tick+1e-9)*tick,target=Math.ceil((entry+3*(entry-stop))/tick-1e-9)*tick,qty=Math.floor(10000/entry);
+const cash=n=>'₹'+n.toFixed(2);
+const ns='http://www.w3.org/2000/svg';
+function svgEl(tag,attrs={},content){const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(content!==undefined)e.textContent=content;return e;}
+// Use the same tick representation for illustrative quotes and trigger levels.
+function values(key,gate){const s=scenarios[key];return s.p.map((p,i)=>({p:Math.round(p/tick)*tick,m:s.m[i],u:i===0?100.10:i===1?100.32:s.m[i]+.95,v:gate==='entry'&&i>0?100.10+i*.015:gate==='signal'?99.90+i*.02:99.50+i*.06,t:(key==='cutoff'?cutoffTimes:times)[i]}));}
+function decisions(profile,rows,gate,key){
+ let opened=false,closed=false,armed=false,exitIndex=null,armIndex=null,exitReason=null;
+ const blocked=profile.trailing&&gate!=='pass';
+ return rows.map((r,i)=>{
+  let event='',detail='';
+  if(i===0){event=blocked&&gate==='signal'?'Signal rejected by strict VWAP filter':'Completed signal';detail=blocked&&gate==='signal'?'HA low 99.80 is below VWAP 99.90. A trailing profile cannot use this candle.':'Green HA, no lower wick, high 100.30 above upper BB 100.10 and signal VWAP. The entry window is the following minute.';}
+  else if(blocked){event=gate==='entry'?'Entry blocked by strict VWAP filter':'No eligible signal';detail=gate==='entry'?'At the entry checkpoint, forming HA low 100.00 is below VWAP 100.12 even though LTP 100.40 is above it. Assume no later qualifying entry in this example.':'No trade from the rejected signal. This example does not introduce a replacement signal.';}
+  else if(i===1){opened=true;event='BUY · 99 shares';detail='All entry checks are assumed satisfied on this quote during the immediately following minute. Assumed fill 100.40; original stop 99.75; 3R level 102.35.';}
+  else if(closed){event='Trade already closed';detail='Later market observations do not change the completed trade. A new entry would require a fresh qualifying signal.';}
+  else if(opened){
+   if(profile.trailing&&!armed&&r.p>=target){armed=true;armIndex=i;event='3R reached · trailing armed';detail='Keep all 99 shares. Original stop remains 99.75; begin checking observed LTP against the forming BB middle.';}
+   const reason=r.p<=stop?'STOP':!profile.trailing&&r.p>=target?'TARGET':profile.trailing&&armed&&r.p<r.m?'BB_MIDDLE':key==='cutoff'&&i===rows.length-1?'SQUARE_OFF':null;
+   if(reason){closed=true;exitIndex=i;exitReason=reason;event='SELL · '+reason;detail=reason==='BB_MIDDLE'?`${cash(r.p)} is below forming middle ${cash(r.m)} after activation. Sell the full position.`:reason==='STOP'?'Observed LTP is at or below the original 99.75 stop. Sell the full position.':reason==='TARGET'?'Fixed 3R reached. Sell the full position; there is no trailing stage.':'First illustrated fresh quote at 15:00: sell the full position.';}
+   else if(!event){event=armed?'Hold · trailing active':'Hold · '+(profile.trailing?'trailing inactive':'fixed stop/target');detail=profile.trailing&&!armed&&r.p<r.m?'Price is below the middle, but 3R has never been reached. This alone does not trigger an exit.':armed?'LTP remains at or above the forming middle. Original stop remains 99.75.':'Neither the original stop nor the 3R trigger has been reached.';}
+  }
+  return {...r,event,detail,opened,closed,armed,armIndex,exitIndex,exitReason,blocked,pnl:opened?((closed?rows[exitIndex].p:r.p)-entry)*qty:null};
+ });
+}
+function candleDiagram(profile,gate){
+ const v=gate==='signal'?99.90:99.50;const lo=99.35,hi=100.50,y=p=>140-(p-lo)/(hi-lo)*115;
+ const svg=svgEl('svg',{viewBox:'0 0 450 160',role:'img','aria-label':`Illustrative signal HA open 99.80, high 100.30, low 99.80, close 100.20; VWAP ${v.toFixed(2)}`});
+ const line=(p,color,label)=>{svg.append(svgEl('line',{x1:12,x2:275,y1:y(p),y2:y(p),stroke:color,'stroke-width':1.5,'stroke-dasharray':'5 4'}));svg.append(svgEl('text',{x:283,y:y(p)+4,fill:'var(--ink)','font-size':13},label));};
+ line(100.1,'var(--upper)','Upper 100.10');line(v,'var(--vwap)','VWAP '+v.toFixed(2));
+ svg.append(svgEl('line',{x1:120,x2:120,y1:y(100.3),y2:y(99.8),stroke:'var(--target)','stroke-width':2}));svg.append(svgEl('rect',{x:100,y:y(100.2),width:40,height:y(99.8)-y(100.2),fill:'var(--target)',rx:2}));
+ svg.append(svgEl('text',{x:12,y:15,fill:'var(--ink)','font-size':13},'H 100.30 · C 100.20 · O = L 99.80'));
+ svg.append(svgEl('text',{x:12,y:157,fill:'var(--ink)','font-size':13},profile.trailing?'Strict: HA low must be above VWAP':'Fixed: signal HA high must be above VWAP'));
+ return svg;
+}
+function drawChart(svg,states,step,profile){
+ svg.replaceChildren(svgEl('title',{},profile.name+' — illustrative price observations'),svgEl('desc',{},'Horizontal axis: selected Quote observations in time order; vertical axis: price in rupees. Only observations revealed by the slider are drawn. The observation table supplies exact values.'));
+ const W=1000,H=355,L=65,R=95,T=28,B=50;
+ const min=Math.floor((Math.min(stop,...states.map(r=>Math.min(r.p,r.m,r.v)))-.20)*2)/2;
+ const max=Math.ceil((Math.max(target,...states.map(r=>Math.max(r.p,r.u)))+.2)*2)/2;
+ const x=i=>L+i*(W-L-R)/(states.length-1),y=p=>T+(max-p)*(H-T-B)/(max-min);
+ const text=(px,py,s,attrs={})=>svg.append(svgEl('text',{x:px,y:py,fill:'var(--ink)','font-size':13,...attrs},s));
+ for(let p=min;p<=max+.01;p+=.5){svg.append(svgEl('line',{x1:L,x2:W-R,y1:y(p),y2:y(p),stroke:'var(--border)','stroke-width':1}));text(L-10,y(p)+4,p.toFixed(2),{'text-anchor':'end'});}
+ text(12,15,'₹');
+ for(let i=0;i<states.length;i+=2)text(x(i),H-25,states[i].t,{'text-anchor':'middle'});
+ text((L+W-R)/2,H-4,'Selected observed quotes · IST · not candle-close waits',{'text-anchor':'middle',fill:'var(--muted)'});
+ const path=(key,color,width=2)=>{const points=states.slice(0,step+1).map((r,i)=>`${x(i)},${y(r[key])}`).join(' ');svg.append(svgEl('polyline',{points,fill:'none',stroke:color,'stroke-width':width,'stroke-linejoin':'round'}));};
+ path('u','var(--upper)',1.6);path('m','var(--middle)',2.5);path('v','var(--vwap)',1.6);path('p','var(--price)',3);
+ if(states[step].opened){for(const [p,color,label] of [[stop,'var(--stop)','Stop 99.75'],[target,'var(--target)',profile.trailing?'Arm 102.35':'3R 102.35']]){svg.append(svgEl('line',{x1:x(1),x2:W-R,y1:y(p),y2:y(p),stroke:color,'stroke-width':1.5,'stroke-dasharray':'6 4'}));text(W-R+7,y(p)+4,label,{'font-size':12});}}
+ states.slice(0,step+1).forEach((r,i)=>svg.append(svgEl('circle',{cx:x(i),cy:y(r.p),r:i===step?5:3,fill:'var(--price)'})));
+ const marker=(i,label,below=false)=>{const r=states[i],py=y(r.p);svg.append(svgEl('line',{x1:x(i),x2:x(i),y1:py+(below?7:-7),y2:py+(below?27:-27),stroke:'var(--ink)'}));text(x(i),py+(below?42:-32),label,{'text-anchor':'middle','font-weight':600});};
+ if(states[step].opened)marker(1,'BUY',true);
+ const current=states[step];if(current.armIndex!==null)marker(current.armIndex,'ARM');if(current.exitIndex!==null)marker(current.exitIndex,current.exitReason==='BB_MIDDLE'?'BB EXIT':current.exitReason==='TARGET'?'3R EXIT':current.exitReason==='STOP'?'STOP EXIT':'15:00 EXIT',true);
+ if(current.blocked)text((L+W-R)/2,T+20,'No trade: strict VWAP condition fails',{'text-anchor':'middle','font-weight':600});
+}
+function makePanel(profile){
+ const section=document.createElement('section');section.id=profile.id;section.setAttribute('aria-labelledby',profile.id+'-title');
+ section.innerHTML=`<div class="eyebrow">Strategy ${profile.letter} · ₹10,000 per entry · Sandbox</div><h2 id="${profile.id}-title">${profile.name}</h2><div class="meta">${profile.file}</div><p class="rule">${profile.universe}</p>
+ <div class="layout"><div class="setup"><h3>Completed signal candle</h3><div class="candle"></div><p>Green body; no lower wick. Signal high above upper BB and VWAP.${profile.trailing?' Additionally, the entire signal HA candle must be above VWAP.':''}</p></div><div class="setup"><h3>Entry during the following minute</h3><p>First qualifying observed LTP: <strong>100.40</strong> &gt; signal high <strong>100.30</strong>, forming upper <strong>100.32</strong> and forming VWAP. Do not wait for the candle to close.</p><p>Illustrative forming HA: O/L <strong>100.00</strong>, H <strong>100.40</strong>, C <strong>100.375</strong>; green, no lower wick.${profile.trailing?' Its HA low must also exceed forming VWAP.':''}</p><p><strong>Original stop 99.75 · risk 0.65/share · 3R 102.35 · 99 shares.</strong></p></div></div>
+ <div class="controls"><label for="${profile.id}-scenario">Price scenario<select id="${profile.id}-scenario" class="scenario">${Object.entries(scenarios).map(([key,s])=>`<option value="${key}">${s.name}</option>`).join('')}</select></label><label for="${profile.id}-gate">VWAP example<select id="${profile.id}-gate" class="gate"><option value="pass">Both HA candles fully above VWAP</option><option value="signal">Signal HA low below VWAP</option><option value="entry">Forming HA low below VWAP at entry</option></select></label><button class="play" type="button">Play observations</button><button class="restart" type="button">Restart</button></div>
+ <div class="readout"><div class="metric"><small>Observed LTP</small><strong class="ltp"></strong></div><div class="metric"><small>Original stop</small><strong class="sl"></strong></div><div class="metric"><small>${profile.trailing?'Trailing state':'Exit plan'}</small><strong class="phase"></strong></div><div class="metric"><small class="pnl-label">Illustrative gross P&amp;L</small><strong class="pnl"></strong></div></div>
+ <div class="legend"><span><i class="swatch" style="border-color:var(--price)"></i>LTP</span><span><i class="swatch" style="border-color:var(--upper)"></i>Forming BB upper</span><span><i class="swatch" style="border-color:var(--middle)"></i>Forming BB middle</span><span><i class="swatch" style="border-color:var(--vwap)"></i>VWAP</span><span><i class="swatch dash" style="border-color:var(--stop)"></i>Original stop</span><span><i class="swatch dash" style="border-color:var(--target)"></i>${profile.trailing?'3R activation':'3R target'}</span></div>
+ <div class="chart-wrap" tabindex="0" role="region" aria-label="Scrollable price chart"><svg class="chart" viewBox="0 0 1000 355" role="img"></svg></div><p class="foot">On a narrow screen, scroll the chart sideways to see every observation. Exact values are also in the table below.</p><div class="slider"><label for="${profile.id}-step">Reveal observations<input id="${profile.id}-step" class="step" type="range" min="0" max="8" value="0"></label><output for="${profile.id}-step" class="time"></output></div><div class="event" aria-live="polite"><strong></strong><p></p></div>
+ <p class="foot">${profile.trailing?'At 3R: no sale, no partial exit and no movement of the original stop. After activation, observed LTP below the forming middle triggers a full exit. The middle is not a one-way ratchet.':'At 3R: full exit. The BB middle never causes an exit in this fixed profile.'} Illustrative fills exclude costs. The chart shows selected observations; later data after exit is not part of that completed trade.</p><details><summary>Observation values and decisions</summary><div class="table-wrap"><table><thead><tr><th>IST</th><th>LTP</th><th>BB upper</th><th>BB middle</th><th>VWAP</th><th>Decision</th></tr></thead><tbody></tbody></table></div></details>`;
+ document.getElementById('panels').append(section);
+ const q=s=>section.querySelector(s);let timer=null;
+ function stopPlay(){if(timer!==null)clearInterval(timer);timer=null;q('.play').textContent='Play observations';}
+ function render(){const key=q('.scenario').value,gate=q('.gate').value,states=decisions(profile,values(key,gate),gate,key),step=Number(q('.step').value),s=states[step];q('.candle').replaceChildren(candleDiagram(profile,gate));drawChart(q('.chart'),states,step,profile);q('.ltp').textContent=cash(s.p);q('.sl').textContent=s.opened?cash(stop):'Pending';q('.phase').textContent=s.blocked?'No trade':s.closed?'Closed':profile.trailing?s.armed?'Armed':'Inactive':'Fixed 3R';q('.pnl').textContent=s.pnl===null?'—':cash(s.pnl);q('.pnl-label').textContent=s.closed?'Realized gross (assumed fill)':s.opened?'Unrealized gross at LTP':'Illustrative gross P&L';q('.time').textContent=s.t+' IST';q('.event strong').textContent=s.event;q('.event p').textContent=s.detail;q('.step').setAttribute('aria-valuetext',`${s.t} IST: ${s.event}`);q('tbody').replaceChildren(...states.slice(0,step+1).map(r=>{const tr=document.createElement('tr');for(const value of [r.t,cash(r.p),cash(r.u),cash(r.m),cash(r.v),r.event]){const td=document.createElement('td');td.textContent=value;tr.append(td);}return tr;}));}
+ q('.step').addEventListener('input',()=>{stopPlay();render();});
+ for(const selector of ['.scenario','.gate'])q(selector).addEventListener('change',()=>{stopPlay();q('.step').value=0;render();});
+ q('.restart').addEventListener('click',()=>{stopPlay();q('.step').value=0;render();});
+ q('.play').addEventListener('click',()=>{if(timer!==null){stopPlay();return;}if(Number(q('.step').value)===8){q('.step').value=0;render();}q('.play').textContent='Pause';timer=setInterval(()=>{q('.step').value=Number(q('.step').value)+1;render();if(Number(q('.step').value)===8)stopPlay();},1100);});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPlay();});render();
+}
+profiles.forEach(makePanel);
+</script>
+</body>
+</html>

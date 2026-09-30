@@ -1,5 +1,10 @@
 # OpenAlgo fork - AI agent context
 
+September 30 source synchronization: user authorized pushing all pending changes
+to origin/main (jilimudiManvitha/OpenAlgo_MVP). Local snapshot `9b3033c5e` merged
+with remote `a6013c291`, preserving chart documentation and both HSM fixes.
+See the canonical roadmap synchronization checkpoint for validation and scope.
+
 Latest process state, September 30 22:25 IST: OpenAlgo restarted at the user's
 request with `caffeinate -i uv run --no-sync app.py`, session 91797, app PID 99074.
 Eight schedules restored; FYERS order-update WebSocket connected. Web App
@@ -11,6 +16,12 @@ Current six-task request (2026-09-11): see
 for the canonical plan, pending decisions, task checklist and restart instructions.
 Planning is complete; this session did not implement features or run backtests.
 Its task numbers are separate from the historical task sections below.
+
+2026-09-30 documentation: [Four-strategy chart guide](strategies/FOUR_STRATEGIES_CHART_GUIDE.md)
+explains the four current ₹10,000 Sandbox profiles with separate flow diagrams
+and linked offline interactive examples. Prices are illustrative, not new
+backtest results. Source rules and app state were unchanged; see the canonical
+roadmap's documentation checkpoint for verification and the prior operational state.
 
 This file lets a new AI agent pick up where the previous session stopped
 instead of starting from scratch. It is updated at the end of every task.

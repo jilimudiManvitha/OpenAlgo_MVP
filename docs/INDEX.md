@@ -21,6 +21,10 @@ replays, display-only Chg% controls and measured Go/Rust acceleration.
 September 30: [Completed backtest of all eight scheduled strategies](../backtesting/eight_scheduled_20260930/README.md)
 — 1m/5m results, modeled path assumptions, coverage, interactive report and trade CSVs.
 
+September 30: [Four-strategy chart guide](../strategies/FOUR_STRATEGIES_CHART_GUIDE.md)
+— separate signal/entry/exit diagrams, sizing examples and offline interactive
+charts explaining fixed 3R versus BB-middle trailing, using illustrative prices.
+
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
 mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. The separately authorized all-stock DuckDB runner and dashboard are implemented and verified with synthetic tests; historical execution has been launched and remains incomplete. Other Task 1 work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.

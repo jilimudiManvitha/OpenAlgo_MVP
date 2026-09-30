@@ -1,5 +1,23 @@
 # Six-task implementation plan and agent handoff
 
+## Repository synchronization — September 30 evening
+
+User authorized committing and pushing all pending changes to
+`https://github.com/jilimudiManvitha/OpenAlgo_MVP` (`origin`, branch `main`).
+Local snapshot `9b3033c5e` includes eight-strategy changes, September 30 reports,
+source histories, frontend bundles, tests and notes. Merged remote `a6013c291`,
+preserving its chart guide and deferred HSM token validation alongside local
+reconnection fixes. Documentation conflicts retained both checkpoints.
+Temporary strategy lock files are ignored; credentials, operational databases
+and compressed frontend caches remain excluded. Existing encrypted backup was
+not refreshed by this source push. Validation: 61 focused tests, frontend type
+check, 16 report scenarios and 27 post-merge strategy/FYERS tests passed.
+Checked 543 candidate files for local .env credential values and common GitHub
+token/private-key markers, with no matches; this is a scoped check, not an audit.
+The running app was not restarted for the merge; the remote HSM initialization
+change loads on the next restart. Push completion is verified against remote main
+in the session response.
+
 ## Current process state — September 30, 22:25 IST: running at user request
 
 User requested launching OpenAlgo again. Started `caffeinate -i uv run --no-sync
@@ -101,6 +119,26 @@ logged in for the new trading day before 09:15; the user will populate Thu.
 Preserved all September 30 failure logs/reports. No production orders submitted.
 Guide: [eight-strategy runtime](../../strategies/top_gain_volumes/README.md).
 No commit or push requested.
+
+## Documentation checkpoint — 2026-09-30: four-strategy chart guide
+
+The user requested one Markdown explanation of the four named strategy files,
+with separate dynamic charts for signals, entries, stops, targets and trailing.
+Created [the complete chart guide](../../strategies/FOUR_STRATEGIES_CHART_GUIDE.md)
+and its linked [offline interactive charts](../../strategies/four-strategies-charts.html).
+The guide follows the current 0.03% stop and ₹10,000 profiles, including the
+legacy `1L` wrapper, strict trailing-profile VWAP checks, confirmed Sandbox fill
+sizing and first-observed-price BB-middle exits after 3R.
+
+Charts use explicitly illustrative prices/indicator levels, not market data or
+a new backtest. Four separate panels provide five scenarios, VWAP filter examples,
+playback and an observation slider/table. Source-function comparison matched all
+20 illustrated exit paths / 140 observations; 28 browser scenario/filter checks,
+playback, desktop/mobile inspection and local Markdown link checks passed.
+No strategy code, execution settings, reports, database or app state was changed;
+no orders, app restart, commit or push was performed. Preserve the pre-existing
+local edit in `broker/fyers/streaming/fyers_hsm_websocket.py`. Frozen tasks remain
+frozen. The earlier operational checkpoint below remains the restart reference.
 
 ## Active checkpoint — 2026-09-30: four 10K Sandbox strategies
 
