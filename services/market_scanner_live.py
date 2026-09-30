@@ -5,7 +5,6 @@ by every web worker/tab. No broker credentials are persisted here.
 """
 
 import atexit
-import csv
 import hashlib
 import json
 import os
@@ -20,45 +19,8 @@ from sqlalchemy import text
 from database.engine_factory import create_db_engine
 from services.market_scanner_provider import ScannerError, provider_for, universe_for
 from services.market_scanner_service import ScannerManager, now_ist, rank_rows, validate_options
+from services.stock_categories import INDEXES, import_categories, load_catalog, save_catalog
 from utils.real_threading import Event, Lock, Thread
-
-INDEXES = {
-    "nifty50": "Nifty 50",
-    "nifty100": "Nifty 100",
-    "niftynext50": "Nifty Next 50",
-    "niftymidcap50": "Nifty Midcap 50",
-    "niftymidcap100": "Nifty Midcap 100",
-    "niftymidcap150": "Midcap · Nifty Midcap 150",
-    "niftysmallcap100": "Nifty Smallcap 100",
-    "niftysmallcap250": "Smallcap · Nifty Smallcap 250",
-    "nifty200": "Nifty 200",
-    "nifty500": "Nifty 500",
-}
-
-
-def import_categories(root):
-    result = {}
-    for key, label in INDEXES.items():
-        path = Path(root) / f"ind_{key}list.csv"
-        if not path.exists():
-            continue
-        with path.open(encoding="utf-8-sig", newline="") as handle:
-            symbols = sorted(
-                {
-                    r["Symbol"].strip().upper()
-                    for r in csv.DictReader(handle)
-                    if r.get("Symbol", "").strip() and r.get("Series", "EQ") == "EQ"
-                }
-            )
-        result[key] = {
-            "label": label,
-            "symbols": symbols,
-            "source": path.name,
-            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-            "imported_at": now_ist().isoformat(),
-            "effective_date": None,
-        }
-    return result
 
 
 class LiveStore:
@@ -191,6 +153,11 @@ class LiveStore:
                 text("SELECT payload FROM scanner_live_categories WHERE id=1")
             ).scalar()
         return json.loads(payload) if payload else {}
+
+    def import_catalog(self, root=None):
+        catalog = load_catalog(root)
+        save_catalog(self.engine, catalog)
+        return catalog["categories"]
 
 
 def view_snapshot(snapshot, options, categories, category="all", now=None):

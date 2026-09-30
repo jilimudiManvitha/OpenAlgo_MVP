@@ -110,9 +110,8 @@ def attach_live_scanner():
 @live_endpoint
 def live_results():
     import json
-    from pathlib import Path
 
-    from services.market_scanner_live import coordinator, import_categories, view_snapshot
+    from services.market_scanner_live import coordinator, view_snapshot
     from services.market_scanner_service import validate_options
 
     live = coordinator()
@@ -120,7 +119,7 @@ def live_results():
     record = next(r for r in live.store.accounts() if r["account"] == account)
     categories = live.store.categories()
     if not categories:
-        categories = live.store.categories(import_categories(Path("stock_symbols_CSVs")))
+        categories = live.store.import_catalog()
     filters = request.args.to_dict()
     category = filters.pop("category", "all")
     if set(filters) - {
@@ -147,6 +146,7 @@ def live_results():
         categories=[
             dict(id=k, **{n: v for n, v in item.items() if n != "symbols"})
             for k, item in categories.items()
+            if item.get("kind") != "reference"
         ],
         timestamp_support="native"
         if record["broker"] in {"fyers", "zerodha"}
@@ -174,9 +174,9 @@ def live_control():
 @market_scanner_bp.post("/categories/refresh")
 @live_endpoint
 def refresh_categories():
-    from services.market_scanner_live import coordinator, import_categories
+    from services.market_scanner_live import coordinator
 
-    coordinator().store.categories(import_categories("stock_symbols_CSVs"))
+    coordinator().store.import_catalog()
     return jsonify(status="success")
 
 
@@ -230,5 +230,5 @@ def schedule_paper_strategy():
 
     if session["broker"] != "fyers":
         raise ScannerError("This paper strategy currently requires FYERS.")
-    strategy_id = install(session["user"])
-    return jsonify(status="success", data={"strategy_id": strategy_id})
+    strategy_ids = install(session["user"])
+    return jsonify(status="success", data={"strategy_ids": strategy_ids})

@@ -241,6 +241,9 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
   const { isMarketOpen } = useMarketStatus()
 
   const [display, setDisplay] = useState<Display>(readDisplay)
+  const [changeSort, setChangeSort] = useState<'manual' | 'asc' | 'desc'>('manual')
+  const [minChange, setMinChange] = useState('')
+  const [maxChange, setMaxChange] = useState('')
   useEffect(() => {
     localStorage.setItem(DISPLAY_KEY, JSON.stringify(display))
   }, [display])
@@ -428,6 +431,32 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
     }
     return next
   }, [priced, multiQuotes, resolvedCloses])
+
+  const visibleItems = useMemo(() => {
+    const minimum = minChange.trim() === '' ? null : Number(minChange)
+    const maximum = maxChange.trim() === '' ? null : Number(maxChange)
+    const selected = items.filter((item) => {
+      const value = quotes[`${item.exchange}:${item.symbol}`]?.changePercent
+      if (minimum == null && maximum == null) return true
+      return (
+        value != null &&
+        Number.isFinite(value) &&
+        (minimum == null || value >= minimum) &&
+        (maximum == null || value <= maximum)
+      )
+    })
+    if (changeSort !== 'manual') {
+      selected.sort((a, b) => {
+        const left = quotes[`${a.exchange}:${a.symbol}`]?.changePercent
+        const right = quotes[`${b.exchange}:${b.symbol}`]?.changePercent
+        if (left == null || !Number.isFinite(left)) return right == null ? 0 : 1
+        if (right == null || !Number.isFinite(right)) return -1
+        return (changeSort === 'asc' ? left - right : right - left) || a.position - b.position
+      })
+    }
+    return selected
+  }, [items, quotes, minChange, maxChange, changeSort])
+  const manualOrder = changeSort === 'manual' && !minChange && !maxChange
 
   // One request per instrument per trading day, and only for the ones that
   // need it, so a broker whose quote already carries a real previous close
@@ -826,6 +855,52 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
         <span />
       </div>
 
+      <div className="flex flex-wrap items-center gap-1 border-b px-2 py-1.5 text-[11px]">
+        <select
+          aria-label="Sort watchlist by Chg%"
+          value={changeSort}
+          onChange={(event) => setChangeSort(event.target.value as 'manual' | 'asc' | 'desc')}
+          className="min-w-0 rounded border bg-background p-1"
+        >
+          <option value="manual">Manual order</option>
+          <option value="asc">Chg% ascending</option>
+          <option value="desc">Chg% descending</option>
+        </select>
+        <input
+          aria-label="Minimum Chg%"
+          type="number"
+          step="any"
+          placeholder="Min %"
+          value={minChange}
+          onChange={(event) => setMinChange(event.target.value)}
+          className="w-16 rounded border bg-background p-1"
+        />
+        <input
+          aria-label="Maximum Chg%"
+          type="number"
+          step="any"
+          placeholder="Max %"
+          value={maxChange}
+          onChange={(event) => setMaxChange(event.target.value)}
+          className="w-16 rounded border bg-background p-1"
+        />
+        <span>
+          {visibleItems.length}/{items.length}
+        </span>
+        {(minChange || maxChange || changeSort !== 'manual') && (
+          <button
+            type="button"
+            className="underline"
+            onClick={() => {
+              setMinChange('')
+              setMaxChange('')
+              setChangeSort('manual')
+            }}
+          >
+            Reset
+          </button>
+        )}
+      </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
         {loading ? (
           <p className="p-3 text-[12px] text-muted-foreground">Loading...</p>
@@ -850,8 +925,12 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
               Add an instrument
             </Button>
           </div>
+        ) : visibleItems.length === 0 ? (
+          <p className="p-3 text-[12px] text-muted-foreground">
+            No stocks match the Chg% range. Saved watchlist and strategy selection are unchanged.
+          </p>
         ) : (
-          items.map((item, index) => {
+          visibleItems.map((item, index) => {
             const key = `${item.exchange}:${item.symbol}`
             const quote = quotes[key]
             // Three states, not two: no previous close means no direction.
@@ -865,8 +944,12 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
             return (
               <div
                 key={item.id}
-                draggable
+                draggable={manualOrder}
                 onDragStart={(e) => {
+                  if (!manualOrder) {
+                    e.preventDefault()
+                    return
+                  }
                   // Firefox refuses to begin a drag unless dataTransfer carries
                   // something, so this is what makes reordering work there.
                   e.dataTransfer.effectAllowed = 'move'
@@ -874,12 +957,15 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
                   setDragId(item.id)
                 }}
                 onDragOver={(e) => {
+                  if (!manualOrder) return
                   e.preventDefault()
                   e.dataTransfer.dropEffect = 'move'
                   setOverId(item.id)
                 }}
                 onDragLeave={() => setOverId((id) => (id === item.id ? null : id))}
-                onDrop={() => void dropOn(item.id)}
+                onDrop={() => {
+                  if (manualOrder) void dropOn(item.id)
+                }}
                 onDragEnd={() => {
                   setDragId(null)
                   setOverId(null)

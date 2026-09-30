@@ -91,6 +91,48 @@ describe('WatchlistPanel', () => {
     previousClose.mockResolvedValue(null)
   })
 
+  it('sorts Chg% numerically in both directions without changing saved membership or order', async () => {
+    liveData = {
+      items: [
+        { symbol: 'RELIANCE', exchange: 'NSE', ltp: 110 },
+        { symbol: 'BANKNIFTY', exchange: 'NSE_INDEX', ltp: 98 },
+      ],
+      quotes: new Map([
+        ['NSE:RELIANCE', { ltp: 110, prev_close: 100 }],
+        ['NSE_INDEX:BANKNIFTY', { ltp: 98, prev_close: 100 }],
+      ]),
+    }
+    renderPanel()
+    await screen.findByText('+10.00%')
+    const rows = () =>
+      screen.getAllByLabelText(/^Chart /).map((row) => row.getAttribute('aria-label'))
+    await userEvent.selectOptions(screen.getByLabelText('Sort watchlist by Chg%'), 'asc')
+    expect(rows()).toEqual(['Chart BANKNIFTY on NSE_INDEX', 'Chart RELIANCE on NSE'])
+    await userEvent.selectOptions(screen.getByLabelText('Sort watchlist by Chg%'), 'desc')
+    expect(rows()).toEqual(['Chart RELIANCE on NSE', 'Chart BANKNIFTY on NSE_INDEX'])
+    expect(api.reorderItems).not.toHaveBeenCalled()
+    expect(api.removeItem).not.toHaveBeenCalled()
+  })
+
+  it('filters the display by an inclusive Chg% range and resets without deleting stocks', async () => {
+    liveData = {
+      items: [{ symbol: 'RELIANCE', exchange: 'NSE', ltp: 110 }],
+      quotes: new Map([['NSE:RELIANCE', { ltp: 110, prev_close: 100 }]]),
+    }
+    renderPanel()
+    await screen.findByText('+10.00%')
+    await userEvent.type(screen.getByLabelText('Minimum Chg%'), '5')
+    expect(screen.getByLabelText('Chart RELIANCE on NSE')).toBeInTheDocument()
+    expect(screen.queryByLabelText('Chart BANKNIFTY on NSE_INDEX')).not.toBeInTheDocument()
+    await userEvent.type(screen.getByLabelText('Maximum Chg%'), '9')
+    expect(screen.getByText(/No stocks match the Chg% range/)).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }))
+    expect(screen.getAllByLabelText(/^Chart /)).toHaveLength(2)
+    expect(api.removeItem).not.toHaveBeenCalled()
+    expect(api.reorderItems).not.toHaveBeenCalled()
+    expect(api.clear).not.toHaveBeenCalled()
+  })
+
   it('renders a four-figure price without throwing', async () => {
     // The regression this exists for: minimumFractionDigits was 2 while
     // maximumFractionDigits dropped to 1 above a thousand, and Intl throws

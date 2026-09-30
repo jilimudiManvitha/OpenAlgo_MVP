@@ -30,7 +30,7 @@ def test_enters_on_cross_before_entry_minute_closes():
     assert candle.tick(start + 61, 113, 120)
     trade = enter("ABC", start + 61, 113, candle, 0.05)
     assert trade["entry_ts"] < start + 120
-    assert trade["quantity"] * trade["entry"] <= 100000
+    assert trade["quantity"] * trade["entry"] <= 10000
     assert trade["target"] >= trade["entry"] + 3 * (trade["entry"] - trade["stop"])
     assert not candle.tick(start + 62, 90, 130)  # Later wick cannot erase the earlier entry.
     assert trade["entry_ts"] == start + 61
@@ -104,14 +104,14 @@ def test_targets_stops_and_clock_close_whole_position():
             assert trade["exit"] >= trade["target"]
 
 
-def test_forward_cutoff_is_1505_for_every_stock():
+def test_forward_cutoff_is_1500_for_every_stock():
     from strategies.top_gain_volumes.runtime import SQUARE_OFF_MINUTE
     candle, start = seeded()
     candle.tick(start + 60, 111, 110)
     candle.tick(start + 61, 113, 120)
     trade = enter("NON_FO_STOCK", start + 61, 113, candle, 0.05)
-    assert SQUARE_OFF_MINUTE == 905
-    assert exit_trade(trade, start + (905 - 555) * 60, 114, 0.05, SQUARE_OFF_MINUTE)
+    assert SQUARE_OFF_MINUTE == 900
+    assert exit_trade(trade, start + (900 - 555) * 60, 114, 0.05, SQUARE_OFF_MINUTE)
     assert trade["reason"] == "SQUARE_OFF"
 
 

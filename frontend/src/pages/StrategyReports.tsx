@@ -28,6 +28,7 @@ type Candle = {
   ha_low: number
   ha_close: number
   bb_upper: number
+  bb_middle?: number
   vwap: number
 }
 type Item = { id: string; day: string; kind: string; status: string }
@@ -37,7 +38,7 @@ type Report = Item & {
   metrics: Record<string, Record<string, number | null>>
   trades: Trade[]
   candles: Record<string, Candle[]>
-  coverage: { eligible: boolean; symbol: string }[]
+  coverage: { eligible: boolean; symbol: string; reason?: string }[]
 }
 const money = (n: number | null | undefined) =>
   n == null ? '—' : `₹${n.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`
@@ -54,8 +55,11 @@ function TradeChart({ trade, candles }: { trade: Trade; candles: Candle[] }) {
         c.timestamp <= (trade.exit_ts ?? trade.entry_ts + 3600) + 10 * 60)
   )
   if (!data.length) return <p>No observed candles available yet.</p>
-  const low = Math.min(trade.stop, ...data.map((c) => (ha ? c.ha_low : c.low)))
-  const high = Math.max(trade.target, ...data.map((c) => (ha ? c.ha_high : c.high)))
+  const indicators = data
+    .flatMap((c) => [c.bb_upper, c.bb_middle, c.vwap])
+    .filter((n): n is number => typeof n === 'number' && Number.isFinite(n) && n > 0)
+  const low = Math.min(trade.stop, ...indicators, ...data.map((c) => (ha ? c.ha_low : c.low)))
+  const high = Math.max(trade.target, ...indicators, ...data.map((c) => (ha ? c.ha_high : c.high)))
   const range = Math.max(high - low, 0.01)
   const y = (n: number) => 310 - ((n - low) / range) * 275
   const x = (n: number) =>
@@ -123,6 +127,20 @@ function TradeChart({ trade, candles }: { trade: Trade; candles: Candle[] }) {
             </g>
           )
         })}
+        {(['bb_upper', 'bb_middle', 'vwap'] as const).map((field, index) => (
+          <polyline
+            key={field}
+            fill="none"
+            stroke={['#a855f7', '#f59e0b', '#06b6d4'][index]}
+            strokeWidth="1.5"
+            points={data
+              .filter((c) => Number.isFinite(c[field]) && (c[field] ?? 0) > 0)
+              .map((c) => `${x(c.timestamp)},${y(c[field] as number)}`)
+              .join(' ')}
+          >
+            <title>{field}</title>
+          </polyline>
+        ))}
         {(
           [
             ['Entry', trade.entry, '#3b82f6'],
@@ -159,6 +177,10 @@ function TradeChart({ trade, candles }: { trade: Trade; candles: Candle[] }) {
           {stamp(data[data.length - 1].timestamp)} IST
         </text>
       </svg>
+      <p className="text-xs text-muted-foreground">
+        Purple: BB upper · Amber: BB middle · Cyan: VWAP. In trailing variants, Target marks the 3R
+        arming level.
+      </p>
       <p className="text-sm">
         {trade.symbol} · {trade.quantity} shares · Entry {stamp(trade.entry_ts)} · Exit{' '}
         {stamp(trade.exit_ts)} · {trade.reason} · Net {money(trade.net_pnl)}
@@ -238,7 +260,7 @@ export default function StrategyReports() {
     try {
       await webClient.post('/market-scanner/api/paper-schedule', {})
       setMessage(
-        'Paper strategy scheduled: Monday–Friday, 09:15–15:10 IST; all stocks square off at 15:05. Keep the app running and FYERS logged in. NSE calendar applies.'
+        'Four Sandbox strategies scheduled: Monday–Friday, 09:15–15:00 IST; ₹10,000 per trade. Keep the app running and FYERS logged in. NSE calendar applies. Fresh quotes are required to square off.'
       )
       setError('')
     } catch {
@@ -266,20 +288,23 @@ export default function StrategyReports() {
     ['return_on_peak_capital', 'Net / peak capital %', false],
   ]
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Strategy Reports</h1>
           <p className="text-muted-foreground">
-            Top Gain Volumes · ₹1 lakh per trade · Paper forward testing
+            Four strategies · ₹10,000 per trade · OpenAlgo Sandbox forward testing
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="outline">
+            <Link to="/trading">Weekday watchlists</Link>
+          </Button>
           <Button asChild variant="outline">
             <Link to="/python">Schedules</Link>
           </Button>
           <Button disabled={busy} onClick={() => void schedule()}>
-            Schedule paper test
+            Schedule all four
           </Button>
         </div>
       </div>
@@ -294,7 +319,7 @@ export default function StrategyReports() {
           aria-label="Report session"
           value={selected}
           onChange={(e) => setSelected(e.target.value)}
-          className="rounded border bg-background p-2"
+          className="min-w-0 max-w-full rounded border bg-background p-2"
         >
           <option value="">Select a session</option>
           {items.map((i) => (
@@ -337,6 +362,20 @@ export default function StrategyReports() {
             {report.coverage?.length > 0 &&
               ` · ${report.coverage.filter((c) => c.eligible).length}/${report.coverage.length} eligible stock sessions`}
           </p>
+          {report.coverage?.some((c) => !c.eligible) && (
+            <details className="rounded border p-3 text-sm">
+              <summary>Excluded stocks and data issues</summary>
+              <ul className="mt-2 list-inside list-disc">
+                {report.coverage
+                  .filter((c) => !c.eligible)
+                  .map((c) => (
+                    <li key={c.symbol}>
+                      {c.symbol}: {c.reason?.replaceAll('_', ' ') ?? 'Unavailable data'}
+                    </li>
+                  ))}
+              </ul>
+            </details>
+          )}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {labels.map(([key, label, rupees]) => (
               <div key={key} className="rounded-lg border bg-card p-4">

@@ -37,6 +37,12 @@
       "skillPath": "device-ai/appfunctions/SKILL.md",
       "computedHash": "61e3920d9d86a820f6c87c4dfabb9562edaf4e248b6a0753fcd7f4f3673a208b"
     },
+    "backtest": {
+      "source": "marketcalls/vectorbt-backtesting-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/backtest/SKILL.md",
+      "computedHash": "13f76c5ab7968c459b1714aef058f69a4271d8067e580f7902f356c2db8f5ccf"
+    },
     "camerax": {
       "source": "android/skills",
       "sourceType": "github",
@@ -84,6 +90,12 @@
       "sourceType": "github",
       "skillPath": "skills/fyers-trading/SKILL.md",
       "computedHash": "2a2a1b8fc4f4e41b2c0af8c11bc14b00bd518f246ccfa1e6f8941092a4915378"
+    },
+    "indicator-expert": {
+      "source": "marketcalls/openalgo-indicator-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/indicator-expert/SKILL.md",
+      "computedHash": "0c485abc06b0423ba72612c98cba86e7de9d25f330bf6309723a9b421f53ce20"
     },
     "leanback-to-compose-tv-migration": {
       "source": "android/skills",

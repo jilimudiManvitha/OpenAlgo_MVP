@@ -425,6 +425,16 @@ def test_routes_auth_csrf_shared_results_and_controls(tmp_path, monkeypatch):
             result = client.get("/market-scanner/api/live").json["data"]
             assert result["enabled"] is False and result["broker"] == "zerodha"
             assert "user" not in result and "rows" not in result
+            assert {c["id"] for c in result["categories"]} >= {"nifty50", "nifty500", "niftybank"}
+            assert all(c.get("kind") != "reference" for c in result["categories"])
+            assert client.post("/market-scanner/api/categories/refresh", json={}).status_code == 400
+            assert (
+                client.post(
+                    "/market-scanner/api/categories/refresh", json={}, headers=headers
+                ).status_code
+                == 200
+            )
+            assert len(store.categories()["nifty50"]["symbols"]) == 50
             assert client.get("/market-scanner/api/live?category=missing").status_code == 400
     finally:
         store.engine.dispose()

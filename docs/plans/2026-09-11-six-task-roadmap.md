@@ -1,5 +1,121 @@
 # Six-task implementation plan and agent handoff
 
+## Active checkpoint — 2026-09-30: four 10K Sandbox strategies
+
+**Latest amendment, 07:38 IST:** User requested all four stops change from
+signal HA low minus ₹0.10 to **0.03% below signal HA low**. Shared entry now
+uses `floor((signal_low * 0.9997) / tick + 1e-9) * tick`; fixed 3R and trailing
+activation automatically use the updated risk. All four source docstrings,
+future replay verification/report notes and guide updated. Existing September 29
+reports are preserved **old-stop results**, not rerun or relabeled. Four new
+price/tick regression cases failed against the old formula then passed after
+the change; focused suite **118 passed**, scoped Ruff/diff checks passed.
+Saved schedules were checked against all four desired configurations and still
+point to these updated files: enabled NSE weekdays 09:15–15:00. No reinstall is
+needed because schedule/file paths are unchanged. At the user's request, the
+exact OpenAlgo PID 84279 (no child processes) was stopped via terminal Ctrl+C
+at 07:38:50; terminal session 14444 exited and PID absence was verified.
+Schedules remain saved/enabled but **OpenAlgo is intentionally stopped**.
+User will start it manually; do not restart automatically. Earlier active-app
+statements below describe the preceding checkpoint, not current process state.
+
+User explicitly authorized the four strategy profiles, Nifty500 scanner and
+weekday watchlist universes, 09:15–15:00 NSE weekday schedules, historical
+replays, reports, and Go/Rust performance work. Strict variants use HA OHLC
+above VWAP; 3R arms a first-observed-price-below-BB-middle exit while retaining
+the original stop. Execution is OpenAlgo Sandbox only. Watchlist Chg% sort and
+range filters are display-only. User approved the runtime cleanup fix.
+
+Four entry files/shared runtime, display-only Chg% controls, EOD reports, native
+acceleration and approved exception-safe runtime cleanup are implemented.
+Final focused scanner/category/strategy suite: **114 passed**. Watchlist UI:
+19 passed; frontend type check/build passed. Cleanup failure/mutant tests and
+real Sandbox fill/position checks use isolated test databases. 120 native
+worker/lock cycles pass the descriptor bound; Go race and Rust tests pass.
+Browser fixtures pass all four reports/eight scenarios and mobile layout, with
+three indicator lines and no page errors (mocked auth, not a live auth test).
+Five real FYERS daily-history results match Python exactly: Go 0.690s vs Python
+0.893s. Rust BB 1.901us vs old NumPy 12.615us. These are component benchmarks,
+not market-hours order-latency claims or a full-session memory soak.
+
+FYERS was reconnected. Exact non-overlapping epoch-range downloads and response
+clipping resolved watchlist history overlaps; no candle values were fabricated.
+User explicitly approved replacing only Tue's BSE:WIPRO with NSE:WIPRO: done,
+item ID 16 / position 15 preserved. September 29 replays now cover **16/16 Tue
+stocks** and **74/75 scanner stocks**; ANTHEM is excluded for invalid OHLCV.
+Saved OLHC/OHLC net: scanner fixed ₹2,350.93/₹1,945.60; scanner trailing
+₹1,391.14/₹575.31; weekday fixed −₹1,222.97/−₹1,430.71; weekday trailing
+−₹60.86/−₹324.81. All four ledger verifications pass. These are alternative
+modeled paths with illustrative costs and retrospective-selection bias, not
+observed ticks or September 30 performance. Older reports remain untouched.
+
+Four schedules installed/read back at 07:18 September 30: NSE weekdays
+09:15–15:00, enabled. First detached app restart failed Werkzeug's non-TTY guard;
+the subsequent interactive `.venv/bin/python app.py` launch succeeded. At
+**07:24:59 IST startup logged `Restored 4 scheduled strategies`** and FYERS
+order-update WS connected. `/strategy-reports` returned HTTP 200. The unrelated
+Strategy Module's separate zero-job startup line is not the Python scheduler.
+Current app runs in terminal session 14444; keep it and the Mac awake. Do not
+repeat the failed detached launch or disable debugger safety. CLI installation
+requires an app reload; Reports-page installation schedules in the live app.
+
+Implementation/backtest/install work is complete. Remaining operational checks:
+first market-hours forward execution, observed order latency and full-session
+EOD/resource behavior. No production orders were submitted during verification.
+Mon/Wed/Thu/Fri are empty; user must populate Wed for today's watchlist profiles.
+Unresolved fills/positions block same-day restart until reconciled; do not erase
+reports to bypass this guard. Shared account/symbol Sandbox positions mean users
+should avoid unrelated manual Sandbox trades in the same symbols.
+
+Full rules, four source links, metrics, caveats and commands:
+[four-strategy guide](../../strategies/top_gain_volumes/README.md).
+Preserve unrelated task.txt, skills-lock.json and agent skill folders. No commits
+or pushes authorized/performed. Earlier frozen tasks/Crypto remain untouched.
+
+## Latest checkpoint — 2026-09-29: stock categories saved locally
+
+The user authorized importing `Stock_Symbols` into the DB by index/sector and
+adding missing groups. This is scanner/category data work; frozen strategies
+and Crypto remain untouched. Original 41 CSV/TXT inputs are unchanged.
+
+Saved to `db/market_scanner_live.db`: **544 distinct ticker strings, 56 categories,
+7,134 memberships**. There are **46 scanner categories** and ten separate
+historical/download reference groups. Nifty 50/Next 50/500 contain 50/50/500
+members. Includes all supplied broad/sector lists, Cement, 20 Industry-column
+groups, plus derived LargeMidcap 250 and MidSmallcap 400. Six VIX price-history
+files are explicitly excluded from equity membership. Historical aliases and
+the stray `Done` marker cannot inflate official index groups.
+
+The scanner's old `stock_symbols_CSVs` path was missing and its category payload
+was `{}`. Bootstrap and authenticated refresh now use the actual `Stock_Symbols`
+path anchored to the repository. Existing UI consumes category options from DB;
+no frontend rebuild or broker/order operation was needed. Backend restart is
+needed to load changed refresh code in any already-running process.
+
+New normalized symbol/category/membership tables and an import audit coexist
+with the legacy scanner JSON projection; writes are atomic and preserve account
+settings/snapshots. Repeatable CLI: `scripts/import_stock_categories.py` with
+`--dry-run`, `--source`, `--database`, `--master-db`. Consistent pre-import backup:
+`db/backups/stock-categories-20260929-213925-658850.db`.
+
+All sector company names resolved; exact/explicit mappings are retained in the
+audit. No fuzzy symbol guesses. Source effective dates remain unknown. Official
+Nifty catalogues were checked, but constituent downloads failed/timed out even
+after network approval. Smallcap 50, Microcap 250, Total Market and other absent
+official lists remain unavailable; do not claim all current NSE indices imported.
+See [category documentation](../../Stock_Symbols/README.md) for scope and SQL.
+
+Verification: final focused importer/scanner suite **79 passed**, changed-file
+Ruff checks and `git diff --check` passed. Independent readback verified all
+11 index sets, all 56 JSON/relational membership sets and all 41 source hashes;
+SQLite integrity passed with zero foreign-key errors. Account and lease tables
+match the pre-import backup. All 200 name-only rows have recorded resolutions.
+A deliberate wrong Kotak Bank mapping failed the dataset test as expected.
+Authenticated refresh/CSRF behavior was exercised with Flask test fixtures;
+no authenticated live browser/broker session or app restart was performed.
+Preserve the pre-existing `skills-lock.json` edits and untracked agent skill
+folders. No commit/push was requested or performed.
+
 ## Repository synchronization checkpoint — 2026-09-29
 
 **Resumed September 29:** The interrupted merge is committed as `4a91191d5`.

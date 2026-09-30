@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-09-30T00:43:24.482628+05:30",
+  "math_backend": "rust",
+  "math_iterations": 50000,
+  "bands_us": 1.9007725000119535,
+  "old_numpy_us": 12.614886660012417,
+  "note": "Math-only microbenchmark, not observed feed-to-order latency. Network timings include startup/pacing and may vary.",
+  "go_download_seconds": 0.6903272499985178,
+  "python_download_seconds": 0.8933438329986529,
+  "download_symbols": 5,
+  "download_parity": true
+}

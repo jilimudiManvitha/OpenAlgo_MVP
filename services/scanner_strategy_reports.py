@@ -130,6 +130,13 @@ def trades_csv(report):
         "fees",
         "net_pnl",
         "reason",
+        "entry_order",
+        "exit_order",
+        "entry_order_state",
+        "exit_order_state",
+        "trail_armed_at",
+        "entry_order_latency_us",
+        "exit_order_latency_us",
     ]
     output = io.StringIO(newline="")
     writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore")

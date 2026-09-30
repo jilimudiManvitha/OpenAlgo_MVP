@@ -4,6 +4,7 @@ import copy
 import math
 import time
 import uuid
+from contextlib import closing
 from datetime import date, datetime
 from zoneinfo import ZoneInfo
 
@@ -416,6 +417,34 @@ class ScannerManager:
                 self._cache.prune(job["session_date"])
             failures = 0
             refreshed_at = time.monotonic()
+            # Concurrent network waits with an explicitly paced Go worker. The
+            # scanner owns just one child; ordinary adapters keep their old path.
+            from services.market_scanner_provider import FyersScannerProvider
+            from services.scanner_baseline_download import BINARY, download
+
+            missing = [i for i in eligible if i["broker_symbol"] not in histories]
+            if isinstance(provider, FyersScannerProvider) and BINARY.is_file() and missing:
+                # Supply the requested Nifty500 strategies' baselines first.
+                from strategies.top_gain_volumes.profiles import nifty500_symbols
+
+                try:
+                    priority = nifty500_symbols()
+                except (RuntimeError, OSError):
+                    priority = set()
+                missing.sort(key=lambda i: (i["symbol"] not in priority, i["symbol"]))
+                with closing(download(
+                    provider._token, missing, session_date, lambda: self._check_stop(job)
+                )) as downloads:
+                    for completed, (symbol, candles) in enumerate(downloads, 1):
+                        if candles is not None:
+                            history = normalize_history(candles, session_date)
+                            histories[symbol] = history
+                            self._cache.put(symbol, job["session_date"], history)
+                        self._update(job, baselines_processed=completed)
+                        if time.monotonic() - refreshed_at >= 15:
+                            live_rows, _ = self._fetch_quotes(job, provider, universe, histories)
+                            self._update(job, rows=live_rows)
+                            refreshed_at = time.monotonic()
             for index, instrument in enumerate(eligible):
                 self._check_stop(job)
                 symbol = instrument["broker_symbol"]

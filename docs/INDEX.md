@@ -11,8 +11,12 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
-September 28: [Dynamic positive-gainer/volume-shocker paper strategy and app reports](../strategies/top_gain_volumes/README.md)
-— named ₹1 lakh-per-trade strategy, stored NSE schedule, today's replay and faster scanner sorting/refresh.
+September 29: [Stock symbols and category database](../Stock_Symbols/README.md)
+— supplied index/sector lists, industry groups, SQL queries and repeatable import.
+
+September 30: [Four Nifty500/weekday-watchlist Sandbox strategies and app reports](../strategies/top_gain_volumes/README.md)
+— ₹10,000 per trade, fixed/trailing 3R variants, active NSE schedules, September 29
+replays, display-only Chg% controls and measured Go/Rust acceleration.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
