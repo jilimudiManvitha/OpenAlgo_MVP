@@ -101,7 +101,12 @@ Expand **Advanced OAuth settings** → **Registration method** → `Dynamic Clie
 
 The notice _"CIMD is unavailable…"_ is expected — OpenAlgo advertises DCR. DCR is the right pick.
 
-Default scopes ChatGPT requests are `read:market read:account`. Add `write:orders` only if you've turned `MCP_OAUTH_WRITE_SCOPE_ENABLED=True` on the server **and** you want this connector to place orders.
+Select `read:market read:account` for data and account reads. Request
+`write:watchlists` to create/rename/delete saved watchlists and add/remove/replace
+their instruments. This scope does not authorize trading. Add `write:orders`
+only if you've turned `MCP_OAUTH_WRITE_SCOPE_ENABLED=True` on the server and
+want this connector to place orders. Existing read-only grants must be
+reauthorized before watchlist writes are available.
 
 **Step 4 — Acknowledge and create**
 

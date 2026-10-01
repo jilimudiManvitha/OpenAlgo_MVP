@@ -75,6 +75,7 @@ The inventory below includes the expired F&O data capability. A resource with bo
 | POST | `/symbol` | [Symbol information](./symbol-services/symbol.md) |
 | POST | `/search` | [Symbol search](./symbol-services/search.md) |
 | POST | `/expiry` | [Expiry dates](./symbol-services/expiry.md) |
+| POST | `/watchlist` | [Saved watchlists and batch stock additions/removals](./symbol-services/watchlist.md) |
 | GET | `/instruments` | [Instrument master](./symbol-services/instruments.md) |
 
 ### Options Analytics

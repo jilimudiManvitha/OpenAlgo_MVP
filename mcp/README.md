@@ -6,8 +6,8 @@ This is a Model Context Protocol (MCP) server that provides trading and market d
 
 | Transport | Audience | Status |
 |---|---|---|
-| **stdio** (this guide) | Claude Desktop, Cursor, Windsurf — local processes spawning `mcp/mcpserver.py` | shipped, stable |
-| **HTTP / SSE with OAuth** | claude.ai, chatgpt.com, claude mobile — hosted clients reaching your install over HTTPS | available on the `remotemcp` branch — see [`install/Remote-MCP-readme.md`](../install/Remote-MCP-readme.md) |
+| **stdio** (this guide) | Codex, ChatGPT desktop, OpenCode, Claude Code/Desktop, Cursor, Windsurf | available locally |
+| **HTTP / SSE with OAuth** | Hosted clients reaching your install over HTTPS | opt-in; see [Remote MCP](../docs/userguide/remote-mcp.md) |
 
 Both transports share the same tool registry. Enabling the remote
 transport does not change anything about the local stdio setup
@@ -32,7 +32,75 @@ To get your OpenAlgo API key:
 
 ## MCP Client Configuration
 
-Add the following configuration to your MCP client, replacing the placeholder paths with your actual file paths. The server now takes the API key and host URL as command-line arguments for better security and flexibility.
+### Codex and ChatGPT desktop
+
+The local configuration is shared through `~/.codex/config.toml`, as documented
+in [OpenAI's MCP guide](https://learn.chatgpt.com/docs/extend/mcp?surface=cli).
+This repository supports a launcher that reads the application API key from a
+private file, keeping it out of the operating system's process arguments:
+
+```toml
+[mcp_servers.openalgo]
+command = "/absolute/path/to/OpenAlgo_Mac/.venv/bin/python3"
+args = ["/absolute/path/to/OpenAlgo_Mac/mcp/launch_local.py", "--api-key-file", "/private/path/openalgo-api-key", "--host", "http://127.0.0.1:5000"]
+```
+
+The key file contains only the OpenAlgo application API key and should have
+owner-only permissions (`chmod 600`). Keep it outside the repository. Never
+use a broker token here. Restart/reload the desktop MCP client or open a new
+session after configuration changes; an already-running conversation may keep
+its original tool list.
+
+For this Mac, `mcp/configure_local.py` previews an entry using the already
+configured OpenCode OpenAlgo connection; `--apply` installs it, copying the
+application key to `~/.config/openalgo/mcp-api-key` (0600) and preserving other
+Codex servers. It never edits the OpenCode configuration or prints the key.
+It refuses to overwrite an existing `openalgo` Codex entry or differing key.
+
+The default toolsets expose all **60 supported tools**, including 8 watchlist
+tools and 3 expired F&O tools. This is the supported MCP surface, not arbitrary
+access to every administrative route in OpenAlgo. To narrow it, use the
+existing `OPENALGO_MCP_TOOLSETS` or `OPENALGO_MCP_READ_ONLY` controls.
+
+ChatGPT web is separate: it needs a supported remote connection (HTTPS/OAuth
+or Secure MCP Tunnel). A browser-hosted client cannot directly launch a local
+Python process. This setup does not enable public Remote MCP.
+
+### OpenCode and Claude Code
+
+Existing OpenCode entries pointing to `mcp/mcpserver.py` remain compatible;
+restart the MCP connection to discover added tools. Claude Code can use the
+same private-file launcher in its MCP settings, for example:
+
+```json
+{
+  "mcpServers": {
+    "openalgo": {
+      "command": "/absolute/path/to/OpenAlgo_Mac/.venv/bin/python3",
+      "args": ["/absolute/path/to/OpenAlgo_Mac/mcp/launch_local.py", "--api-key-file", "/private/path/openalgo-api-key", "--host", "http://127.0.0.1:5000"]
+    }
+  }
+}
+```
+
+### Watchlist prompts
+
+- “Show my watchlists.”
+- “Add SBIN, TCS and INFY to Thu.”
+- “Remove TCS from Thu, keeping the other stocks.”
+- “Create Banks with SBIN, HDFCBANK and ICICIBANK.”
+- “Replace Friday with this pasted list: SBIN, NSE:INFY, BSE:RELIANCE.”
+
+These update the charting terminal's saved watchlists. Reload the chart page
+to see edits from another client. Adds validate all symbols and commit as one
+batch; duplicates are skipped. The MCP client should first resolve the target
+list name and distinguish add/remove from an explicitly requested replacement.
+See [tool reference](../docs/mcp-tool-reference.md) and [API contract](../docs/api/symbol-services/watchlist.md).
+
+### Legacy positional-argument setup
+
+The configurations below remain supported for existing clients. Prefer the
+private-file launcher for new connections so the key is not in process arguments.
 
 ### Windows
 

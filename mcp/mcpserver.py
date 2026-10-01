@@ -133,7 +133,7 @@ def _to_json(payload: Any) -> str:
 #     order" before asking the user to approve the call.
 #   * Toolset membership, so an operator can boot a narrower server
 #     (OPENALGO_MCP_TOOLSETS / OPENALGO_MCP_READ_ONLY) instead of
-#     exposing all 49 tools to every client.
+#     exposing all supported tools to every client.
 #   * Output risk, which selects the trust-boundary warning wrapped
 #     around the response.
 #
@@ -189,7 +189,7 @@ TRUST_ENVELOPE_ENABLED = _env_flag("OPENALGO_MCP_TRUST_ENVELOPE", "1")
 # rather than fatal — a typo must not silently disable order placement
 # without the operator noticing at boot, so it is recorded in
 # UNKNOWN_TOOLSETS for the HTTP transport to log.
-ALL_TOOLSETS = ("orders", "account", "marketdata", "research", "utility")
+ALL_TOOLSETS = ("orders", "account", "marketdata", "research", "utility", "watchlists")
 _requested_toolsets = {
     t.strip().lower()
     for t in os.environ.get("OPENALGO_MCP_TOOLSETS", "").split(",")
@@ -1217,6 +1217,155 @@ def get_historical_data(
         )
     except Exception as e:
         return _fail("getting historical data", e)
+
+
+# WATCHLIST TOOLS — same persistent lists as the charting terminal.
+
+
+def _watchlist_request(action: str, **payload) -> str:
+    write = action not in ("list", "get")
+    try:
+        response = client._post("watchlist", {"apikey": api_key, "action": action, **payload})
+        if write:
+            return _write_result(response, f"{action} watchlist", verify_with="get_watchlist")
+        return json.dumps(response, indent=2)
+    except Exception as exc:
+        return _fail(f"{action} watchlist", exc, write=write, verify_with="get_watchlist")
+
+
+@openalgo_tool('watchlists', title="List Watchlists", risk=RISK_EXTERNAL_TEXT, open_world=False)
+def list_watchlists() -> str:
+    """List saved charting watchlists with exact names, IDs and item counts.
+
+    Use this to resolve the user's target list before editing. Lists are scoped
+    to the OpenAlgo API-key owner. Does not need an active broker login.
+    """
+    return _watchlist_request("list")
+
+
+@openalgo_tool('watchlists', title="Get Watchlist", risk=RISK_EXTERNAL_TEXT, open_world=False)
+def get_watchlist(name: str) -> str:
+    """Read all symbols/exchanges in one saved watchlist by exact name."""
+    return _watchlist_request("get", name=name)
+
+
+@openalgo_tool('watchlists', title="Create Watchlist", write=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def create_watchlist(name: str, symbols: str = "", exchange: str = "NSE") -> str:
+    """Create a saved charting watchlist, optionally with a pasted stock list.
+
+    symbols: comma, semicolon, whitespace or newline separated OpenAlgo symbols,
+    e.g. 'SBIN, TCS, NSE:INFY, BSE:RELIANCE'. Bare symbols use exchange.
+    Maximum 250 entries, 50 watchlists. Unknown symbols reject the entire batch.
+    Existing names return a conflict; use add_watchlist_symbols to append.
+    """
+    return _watchlist_request("create", name=name, symbols=symbols, exchange=exchange)
+
+
+@openalgo_tool('watchlists', title="Add Watchlist Symbols", write=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def add_watchlist_symbols(name: str, symbols: str, exchange: str = "NSE", create_if_missing: bool = False) -> str:
+    """Add a pasted list of stocks to a named watchlist, preserving other stocks.
+
+    Accept 'SBIN, TCS\nNSE:INFY' (commas/spaces/newlines/semicolons); bare symbols
+    use exchange. Duplicates are skipped. Unknown instruments or exceeding 250
+    items reject the whole batch. Set create_if_missing only when the user wants
+    a new list if the named one does not exist. Does not place orders.
+    """
+    return _watchlist_request("add", name=name, symbols=symbols, exchange=exchange, create_if_missing=create_if_missing)
+
+
+@openalgo_tool('watchlists', title="Remove Watchlist Symbols", destructive=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def remove_watchlist_symbols(name: str, symbols: str, exchange: str = "NSE") -> str:
+    """Remove only the supplied symbols from a saved watchlist; preserve the rest.
+
+    Accept a comma/space/newline list with optional EXCHANGE: prefixes. Missing
+    entries are reported as not_present, not errors. Removed/expired instruments
+    can be removed even when absent from today's master. Does not sell positions.
+    """
+    return _watchlist_request("remove", name=name, symbols=symbols, exchange=exchange)
+
+
+@openalgo_tool('watchlists', title="Replace Watchlist Symbols", destructive=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def replace_watchlist_symbols(name: str, symbols: str, exchange: str = "NSE") -> str:
+    """Replace all watchlist contents with the supplied stock list, in that order.
+
+    Use only when the user asks to replace/clear the list; appending uses
+    add_watchlist_symbols. Empty symbols clears it. Invalid additions leave
+    everything unchanged. This can change inputs used by a watchlist strategy.
+    """
+    return _watchlist_request("replace", name=name, symbols=symbols, exchange=exchange)
+
+
+@openalgo_tool('watchlists', title="Rename Watchlist", write=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def rename_watchlist(name: str, new_name: str) -> str:
+    """Rename an existing watchlist, retaining its instruments. Names are exact."""
+    return _watchlist_request("rename", name=name, new_name=new_name)
+
+
+@openalgo_tool('watchlists', title="Delete Watchlist", destructive=True, risk=RISK_EXTERNAL_TEXT, open_world=False)
+def delete_watchlist(name: str) -> str:
+    """Delete a saved watchlist and its entries only when explicitly requested.
+
+    To remove selected stocks use remove_watchlist_symbols instead. Does not
+    close positions or delete trading strategies.
+    """
+    return _watchlist_request("delete", name=name)
+
+
+# EXPIRED F&O — explicit provider symbols bypass the active contract master.
+
+
+def _expired_request(operation: str, **payload) -> str:
+    try:
+        return json.dumps(client._post(f"expired/{operation}", {"apikey": api_key, **payload}), indent=2)
+    except Exception as exc:
+        return _fail("getting expired F&O data", exc)
+
+
+@openalgo_tool('marketdata', title="Get Expired F&O Expiry Dates")
+def get_expired_expiry_dates(broker_symbol: str, start_date: str, end_date: str) -> str:
+    """Discover historical futures/options expiries (FYERS initially).
+
+    Use an underlying FYERS symbol such as NSE:SBIN-EQ or NSE:NIFTY50-INDEX.
+    Dates are YYYY-MM-DD, maximum 366 inclusive days. Returns separate futures
+    and options lists. Then call get_expired_contracts with a selected expiry.
+    """
+    return _expired_request("expiry-dates", broker_symbol=broker_symbol, start_date=start_date, end_date=end_date)
+
+
+@openalgo_tool('marketdata', title="Get Expired F&O Contracts")
+def get_expired_contracts(broker_symbol: str, expiry_date: str) -> str:
+    """Discover expired futures/options contract IDs for an underlying and expiry.
+
+    broker_symbol is the underlying (e.g. NSE:SBIN-EQ). expiry_date is YYYY-MM-DD
+    from get_expired_expiry_dates. Pass one returned contract unchanged to
+    get_expired_historical_data. These identifiers are not live order symbols.
+    """
+    return _expired_request("contracts", broker_symbol=broker_symbol, expiry_date=expiry_date)
+
+
+@openalgo_tool('marketdata', title="Get Expired F&O Historical Data")
+def get_expired_historical_data(broker_symbol: str, interval: str, start_date: str, end_date: str, include_oi: bool = True, bars: int = 100) -> str:
+    """Read intraday OHLCV/OI for a discovered expired contract (FYERS initially).
+
+    Use the exact contract from get_expired_contracts. ISO date range <=366 days;
+    minute requests split into <=100-day windows. Supported intervals: 5s, 1m,
+    2m, 3m, 5m, 10m, 15m, 20m, 30m, 45m, 1h, 2h, 3h, 4h. 5s requests <=30
+    calendar days, subject to broker retention. No daily/weekly/monthly/Greeks.
+    Return the last bars candles (1..5000), with total/truncation metadata.
+    """
+    if not 1 <= bars <= 5000:
+        return _error("bars must be between 1 and 5000", error_type="validation")
+    try:
+        response = client._post("expired/history", {"apikey": api_key, "broker_symbol": broker_symbol,
+            "interval": interval, "start_date": start_date, "end_date": end_date, "include_oi": include_oi})
+        if response.get("status") == "success":
+            data = response["data"]
+            total = len(data["candles"])
+            data.update(count=total, returned=min(bars, total), truncated=total > bars)
+            data["candles"] = data["candles"][-bars:]
+        return json.dumps(response, indent=2)
+    except Exception as exc:
+        return _fail("getting expired F&O historical data", exc)
 
 
 # INSTRUMENT SEARCH AND INFO TOOLS

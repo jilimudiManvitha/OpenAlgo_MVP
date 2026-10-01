@@ -1,5 +1,26 @@
 # OpenAlgo fork - AI agent context
 
+October 1 — user requested stopping OpenAlgo after MCP verification. SIGINT sent
+to PID 22153; verified app/launchers/strategy-script processes and listeners on
+5000/8765 are gone. Saved schedules, MCP configuration and local changes remain.
+Do not restart without a new instruction; this supersedes running notes below.
+
+October 1, 21:10 IST — MCP watchlist feature implemented and verified locally.
+Eight watchlist tools plus three expired F&O tools bring the shared registry to
+60. Authenticated `/api/v1/watchlist` updates the same saved lists as the chart;
+pasted comma/space/newline stock batches support add/remove and explicit replace.
+Installed Codex/ChatGPT desktop local entry in `~/.codex/config.toml` using a
+private key-file launcher. Repaired stale OpenCode key using the existing current
+application key with approval; no key rotation. Exact configured stdio handshake
+and live list read pass (HTTP 200; Mon/Tue/Wed/Thu/Fri). Clients need reload/new
+session; desktop UI reload itself remains unverified. Remote MCP stays disabled.
+User explicitly approved app start: **PID 22153**, terminal session **60287**,
+running since 21:01:50 on 127.0.0.1:5000/8765; **leave running**. No real watchlists,
+orders or schedules changed. **173 targeted tests pass**; owner-filter mutation
+detected; DB session cleanup verified through 100 isolated edit/error cycles.
+See canonical roadmap for details and [MCP guide](mcp/README.md) for prompts.
+Current MCP changes uncommitted/unpushed; prior snapshot pushed as `fc3d646b6`.
+
 October 1 synchronization: user authorized pushing pending changes to
 `jilimudiManvitha/OpenAlgo_MVP` origin/main. Snapshot includes expired F&O APIs,
 startup/session/scanner/subscription fixes and documentation. **403 tests pass**;

@@ -26,7 +26,57 @@ Applies to every tool below. Full detail in the [MCP Server Setup Guide](../mcp/
 
 ---
 
-## Order Management
+## Saved Watchlists
+
+These tools access the same named lists as the charting terminal, scoped to the
+OpenAlgo API-key owner. Reload the chart page to see changes made from another
+client. Use exact list names returned by `list_watchlists`.
+
+| Tool | Parameters | Purpose |
+|---|---|---|
+| `list_watchlists` | none | List names, IDs and item counts |
+| `get_watchlist` | `name` | Read all saved instruments |
+| `create_watchlist` | `name`, optional `symbols`, `exchange` | Create a list, optionally prefilled |
+| `add_watchlist_symbols` | `name`, `symbols`, optional `exchange`, `create_if_missing` | Append stocks; skip duplicates |
+| `remove_watchlist_symbols` | `name`, `symbols`, optional `exchange` | Remove just these stocks; report absent entries |
+| `replace_watchlist_symbols` | `name`, `symbols`, optional `exchange` | Replace all contents; empty string explicitly clears |
+| `rename_watchlist` | `name`, `new_name` | Rename while retaining entries |
+| `delete_watchlist` | `name` | Delete the entire list only when requested |
+
+`symbols` accepts commas, semicolons, spaces and newlines. Bare symbols use
+`exchange` (default NSE); `BSE:RELIANCE` overrides it for that entry. Use OpenAlgo
+symbols, not FYERS `-EQ` identifiers. Adds/create/replace validate every symbol
+against the active master before changing anything. Removing an old instrument
+does not require it still to exist in the master. Maximum 250 instruments per
+request/list and 50 lists; exceeding a cap rejects the entire transaction.
+
+Examples:
+
+- “Add SBIN, TCS, INFY and RELIANCE to my Thu watchlist.”
+- “Remove TCS and INFY from Thu; keep everything else.”
+- “Create Banks with SBIN, HDFCBANK and ICICIBANK.”
+- “Replace Friday with this list: SBIN, TCS, BSE:RELIANCE.”
+- “Show all my watchlists and then show the contents of Thu.”
+
+Watchlist changes do not submit orders, but can change the input universe of a
+strategy that reads that named list. All clients share the saved data. Stdio
+read-only mode omits writes. Remote OAuth reads require `read:account`; edits
+require the separate `write:watchlists` scope, which does not authorize trading.
+
+## Expired F&O Data
+
+| Tool | Parameters | Purpose |
+|---|---|---|
+| `get_expired_expiry_dates` | underlying `broker_symbol`, `start_date`, `end_date` | Historical futures/options expiries |
+| `get_expired_contracts` | underlying `broker_symbol`, `expiry_date` | Exact expired contract identifiers |
+| `get_expired_historical_data` | contract `broker_symbol`, `interval`, `start_date`, `end_date`, optional `include_oi`, `bars` | Intraday candles with OI |
+
+Example: “Find SBIN's March 2025 futures expiry and download its expiry-day
+five-minute candles with OI.” Discovery uses `NSE:SBIN-EQ`; history uses an exact
+contract returned by discovery. `bars` defaults to 100 and is limited to 5000;
+responses state total count and truncation. See [limits and response contract](api/market-data/expired-fno.md).
+
+## Order Management Tools
 
 ### `place_order`
 

@@ -77,6 +77,7 @@ from utils.mcp_tool_registry import (  # noqa: E402
     SCOPE_READ_MARKET,
     SCOPE_WRITE_ORDERS,
     TOOL_SCOPES,
+    WRITE_SCOPES,
     _load_mcpserver_module,
     get_tool_callable,
     list_tools_for_scopes,
@@ -210,7 +211,7 @@ def test_write_tools_require_the_write_scope(server):
         name
         for name, meta in server.TOOL_META.items()
         if not meta.read_only
-        and TOOL_SCOPES.get(name) != SCOPE_WRITE_ORDERS
+        and TOOL_SCOPES.get(name) not in WRITE_SCOPES
         and name not in WRITE_SCOPE_EXCEPTIONS
     ]
     assert not offenders, f"tools annotated as writes but not scoped write:orders: {offenders}"
@@ -220,7 +221,7 @@ def test_read_tools_do_not_require_the_write_scope(server):
     offenders = [
         name
         for name, meta in server.TOOL_META.items()
-        if meta.read_only and TOOL_SCOPES.get(name) == SCOPE_WRITE_ORDERS
+        if meta.read_only and TOOL_SCOPES.get(name) in WRITE_SCOPES
     ]
     assert not offenders, f"tools annotated read-only but scoped write:orders: {offenders}"
 

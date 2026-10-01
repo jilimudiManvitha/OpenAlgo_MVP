@@ -60,6 +60,7 @@ from .telegram_bot import api as telegram_ns
 from .ticker import api as ticker_ns
 from .tradebook import api as tradebook_ns
 from .whatsapp_bot import api as whatsapp_ns
+from .watchlist import api as watchlist_ns
 
 # Add namespaces
 api.add_namespace(place_order_ns, path="/placeorder")
@@ -71,6 +72,7 @@ api.add_namespace(cancel_all_order_ns, path="/cancelallorder")
 api.add_namespace(quotes_ns, path="/quotes")
 api.add_namespace(multiquotes_ns, path="/multiquotes")
 api.add_namespace(history_ns, path="/history")
+api.add_namespace(watchlist_ns, path="/watchlist")
 api.add_namespace(expired_data_ns, path="/expired")
 api.add_namespace(portfolio_ns, path="/portfolio")
 api.add_namespace(sip_ns, path="/sip")

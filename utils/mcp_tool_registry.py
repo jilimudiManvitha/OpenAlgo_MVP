@@ -43,6 +43,8 @@ logger = get_logger(__name__)
 SCOPE_READ_MARKET = "read:market"
 SCOPE_READ_ACCOUNT = "read:account"
 SCOPE_WRITE_ORDERS = "write:orders"
+SCOPE_WRITE_WATCHLISTS = "write:watchlists"
+WRITE_SCOPES = frozenset({SCOPE_WRITE_ORDERS, SCOPE_WRITE_WATCHLISTS})
 
 
 # --------------------------------------------------------------------
@@ -51,6 +53,17 @@ SCOPE_WRITE_ORDERS = "write:orders"
 # audit_registry() warns about omissions at boot.
 # --------------------------------------------------------------------
 TOOL_SCOPES: dict[str, str] = {
+    "list_watchlists": SCOPE_READ_ACCOUNT,
+    "get_watchlist": SCOPE_READ_ACCOUNT,
+    "create_watchlist": SCOPE_WRITE_WATCHLISTS,
+    "add_watchlist_symbols": SCOPE_WRITE_WATCHLISTS,
+    "remove_watchlist_symbols": SCOPE_WRITE_WATCHLISTS,
+    "replace_watchlist_symbols": SCOPE_WRITE_WATCHLISTS,
+    "rename_watchlist": SCOPE_WRITE_WATCHLISTS,
+    "delete_watchlist": SCOPE_WRITE_WATCHLISTS,
+    "get_expired_expiry_dates": SCOPE_READ_MARKET,
+    "get_expired_contracts": SCOPE_READ_MARKET,
+    "get_expired_historical_data": SCOPE_READ_MARKET,
     # ---- Order placement / modification / cancellation ----
     "place_order": SCOPE_WRITE_ORDERS,
     "place_smart_order": SCOPE_WRITE_ORDERS,
@@ -310,16 +323,16 @@ def audit_registry() -> None:
         scope = TOOL_SCOPES.get(name)
         if scope is None or name in WRITE_SCOPE_EXCEPTIONS:
             continue
-        if not meta.read_only and scope != SCOPE_WRITE_ORDERS:
+        if not meta.read_only and scope not in WRITE_SCOPES:
             logger.warning(
                 f"MCP tool '{name}' is annotated as a write "
                 f"(readOnlyHint=False) but carries scope '{scope}'. A read-only "
                 "token could call it. Fix the scope in "
                 "utils/mcp_tool_registry.py or the annotation in mcp/mcpserver.py."
             )
-        elif meta.read_only and scope == SCOPE_WRITE_ORDERS:
+        elif meta.read_only and scope in WRITE_SCOPES:
             logger.warning(
                 f"MCP tool '{name}' is annotated read-only but requires the "
-                f"'{SCOPE_WRITE_ORDERS}' scope. Clients will be denied a call "
+                f"'{scope}' scope. Clients will be denied a call "
                 "their annotations say is safe."
             )

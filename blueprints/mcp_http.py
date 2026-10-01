@@ -628,7 +628,7 @@ def _dispatch_tool_call(
             "rate_limited",
             data={
                 "scope": needed,
-                "limit": _RATE_LIMIT_WRITE if needed == SCOPE_WRITE_ORDERS else _RATE_LIMIT_READ,
+                "limit": _RATE_LIMIT_WRITE if needed.startswith("write:") else _RATE_LIMIT_READ,
             },
         )
 

@@ -11,6 +11,10 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 1: [MCP local desktop setup](../mcp/README.md) and
+[watchlist API](api/symbol-services/watchlist.md) — Codex/ChatGPT desktop/OpenCode,
+paste stock lists to add/remove from saved watchlists, plus expired F&O tools.
+
 October 1: [Expired F&O discovery and historical data](api/market-data/expired-fno.md)
 — three authenticated API endpoints, FYERS support, intraday candles/OI,
 date limits, error handling and a Python workflow.

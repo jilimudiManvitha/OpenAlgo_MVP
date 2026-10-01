@@ -1,5 +1,64 @@
 # Six-task implementation plan and agent handoff
 
+## Current process state — October 1: stopped at user's request
+
+After MCP verification, user explicitly requested stopping OpenAlgo. Sent SIGINT
+to app PID 22153. Verified the app, uv/caffeinate launchers and strategy-script
+processes are absent, and no listeners remain on ports 5000/8765. Saved schedules,
+MCP configuration and local changes are retained. Do not restart without a new
+user instruction. This supersedes the running-state checkpoint below.
+
+## Latest checkpoint — October 1, 21:10 IST: local MCP watchlists verified
+
+User authorized watchlist add/remove from pasted stock lists over MCP, local
+Codex and ChatGPT desktop configuration alongside OpenCode, and explicitly
+approved starting OpenAlgo for verification. This is separate from frozen tasks.
+
+Implemented authenticated `POST /api/v1/watchlist` and eight shared MCP tools:
+list/get/create/add/remove/replace/rename/delete. They use the browser's existing
+saved-watchlist tables, API-key ownership, symbol-master validation, bounded
+batches and atomic writes. Commas, spaces, semicolons, newlines and exchange
+prefixes are accepted; duplicates are skipped. Unknown additions reject the
+whole batch. Replacement/clearing is explicit. Reload the chart page after
+external edits. Added three expired F&O MCP tools; total registry is **60**.
+Remote OAuth has a separate `write:watchlists` scope; remote transport stays off.
+This exposes supported MCP functions, not every administrative application route.
+
+Installed local `openalgo` in `~/.codex/config.toml` using `mcp/launch_local.py`
+and private key file `~/.config/openalgo/mcp-api-key` (0600); all toolsets enabled.
+Existing OpenCode key was stale (matched zero stored keys). Reused and verified
+the single current application key, repairing both OpenCode and the private
+file with explicit filesystem approval. No key regenerated or printed; other
+client settings preserved. Claude Code setup is documented, not installed.
+Restart/reload MCP clients or open a new desktop session to discover the tools;
+the actual ChatGPT/Codex UI reload has not been exercised in this conversation.
+
+Live stdio verification using the exact installed Codex command initialized,
+listed all 60 tools and read saved lists over HTTP 200: Mon 0, Tue 16, Wed 18,
+Thu 0, Fri 0. No production watchlist entries changed and no orders placed.
+OpenAlgo started at 21:01:50 IST: app PID **22153**, launcher terminal session
+**60287**, listeners confirmed on 127.0.0.1:5000/8765. **Leave it running.**
+Eight schedules restored at startup; no strategy start or schedule edit requested.
+This supersedes earlier app-stopped/manual-restart-required notes.
+
+Verification: **173 tests passed** (24 new watchlist/API/MCP cases, 16 existing
+watchlist cases, 47 MCP integrity cases, 86 expired F&O cases). Tested real
+temporary SQLite transactions, concurrent adds, ownership, failed-commit rollback,
+remote scope dispatch and timeout advice. In-memory owner-filter removal made
+the real ownership regression fail; source unchanged. 100 add/remove/error cycles
+left no checked-out DB connections or scoped sessions; response failure cleanup
+also passed. Resource review: request-local bounded collections, existing shared
+SDK HTTP client/timeouts, finally-based auth/master/watchlist session cleanup,
+no new request-path threads or caches. This is not a production RSS/FD soak.
+Pydantic emits an existing incomplete-lifespan-definition warning; initialization
+and all checks succeed. New-file Ruff and diff checks pass.
+
+Reproduction: `.development/mcp-watchlist/verify_stdio.py` (live read-only),
+`verify_regressions.py` (offline ownership mutation). Setup/API instructions:
+[MCP README](../../mcp/README.md), [watchlist API](../api/symbol-services/watchlist.md).
+Current MCP changes are local, uncommitted and unpushed. Earlier expired F&O and
+startup snapshot was pushed as `fc3d646b6257c726b551eaf3292133df542505a3`.
+
 ## Repository synchronization — October 1
 
 User requested pushing changes to `https://github.com/jilimudiManvitha/OpenAlgo_MVP.git`.

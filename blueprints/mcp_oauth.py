@@ -101,6 +101,7 @@ TOKEN_RATE_LIMIT = "20 per minute"
 SCOPE_READ_MARKET = "read:market"
 SCOPE_READ_ACCOUNT = "read:account"
 SCOPE_WRITE_ORDERS = "write:orders"
+SCOPE_WRITE_WATCHLISTS = "write:watchlists"
 
 MAX_CLIENT_NAME_LEN = 200
 MAX_REDIRECT_URIS = 5
@@ -129,7 +130,7 @@ def _supported_scopes() -> list[str]:
     that flag is False the scope is not advertised in discovery and any
     DCR or token request that asks for it returns ``invalid_scope``.
     """
-    scopes = [SCOPE_READ_MARKET, SCOPE_READ_ACCOUNT]
+    scopes = [SCOPE_READ_MARKET, SCOPE_READ_ACCOUNT, SCOPE_WRITE_WATCHLISTS]
     if os.getenv("MCP_OAUTH_WRITE_SCOPE_ENABLED", "True").lower() == "true":
         scopes.append(SCOPE_WRITE_ORDERS)
     return scopes
@@ -558,7 +559,7 @@ _CONSENT_TEMPLATE = """\
       {% for s in scopes %}
       <li>
         <div class="scope-name">{{ s }}</div>
-        <div class="scope-desc">{% if s == 'read:market' %}Read live and historical market data — quotes, depth, history.{% elif s == 'read:account' %}Read your portfolio — orders, holdings, positions, funds.{% elif s == 'write:orders' %}Place, modify and cancel real orders on your behalf.{% else %}{{ s }}{% endif %}</div>
+        <div class="scope-desc">{% if s == 'read:market' %}Read live and historical market data — quotes, depth, history.{% elif s == 'read:account' %}Read your portfolio and saved watchlists.{% elif s == 'write:watchlists' %}Create, rename and delete watchlists; add, remove or replace their instruments.{% elif s == 'write:orders' %}Place, modify and cancel real orders on your behalf.{% else %}{{ s }}{% endif %}</div>
       </li>
       {% endfor %}
     </ul>
