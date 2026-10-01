@@ -19,6 +19,7 @@ from .cancel_order import api as cancel_order_ns
 from .chart_api import api as chart_ns
 from .close_position import api as close_position_ns
 from .depth import api as depth_ns
+from .expired_data import api as expired_data_ns
 from .expiry import api as expiry_ns
 from .funds import api as funds_ns
 from .gtt_orderbook import api as gtt_orderbook_ns
@@ -70,6 +71,7 @@ api.add_namespace(cancel_all_order_ns, path="/cancelallorder")
 api.add_namespace(quotes_ns, path="/quotes")
 api.add_namespace(multiquotes_ns, path="/multiquotes")
 api.add_namespace(history_ns, path="/history")
+api.add_namespace(expired_data_ns, path="/expired")
 api.add_namespace(portfolio_ns, path="/portfolio")
 api.add_namespace(sip_ns, path="/sip")
 api.add_namespace(depth_ns, path="/depth")

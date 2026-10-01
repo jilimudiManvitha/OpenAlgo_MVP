@@ -4,11 +4,13 @@ Converts OpenAlgo symbols to Fyers HSM format for WebSocket streaming
 Uses database lookup for brsymbol mapping
 """
 
-import json
 import logging
+import math
 
-import requests
+import httpx
 
+from broker.fyers.api.rate_limiter import apply_rate_limit, retry_delay_from_headers
+from utils.httpx_client import get_httpx_client
 from utils.logging import get_logger
 
 # Import database functions
@@ -22,6 +24,15 @@ except ImportError:
     get_br_symbol = None
     get_symbol_info = None
     logging.warning("Database not available - falling back to manual conversion")
+
+
+class TokenConversionError(RuntimeError):
+    """A service failure, distinct from a broker-confirmed invalid symbol."""
+
+    def __init__(self, message, *, retryable=True, retry_after=5):
+        super().__init__(message)
+        self.retryable = retryable
+        self.retry_after = retry_after
 
 
 class FyersTokenConverter:
@@ -150,114 +161,95 @@ class FyersTokenConverter:
 
             # Convert brsymbols to HSM format
             if brsymbols:
-                return self.convert_symbols_to_hsm(brsymbols, data_type)
+                tokens, mappings, rejected = self.convert_symbols_to_hsm(brsymbols, data_type)
+                return tokens, mappings, invalid_symbols + rejected
             else:
                 return [], {}, invalid_symbols
 
+        except TokenConversionError:
+            raise
         except Exception as e:
-            self.logger.error(f"OpenAlgo symbol conversion error: {e}")
-            return [], {}, [f"{info['symbol']}@{info['exchange']}" for info in symbol_info_list]
+            raise TokenConversionError("FYERS symbol resolution failed") from e
+
+    def _request_tokens(self, symbols):
+        """One paced request. The subscription worker owns cancellable retries."""
+        apply_rate_limit()
+        try:
+            response = get_httpx_client().post(
+                url=self.symbols_token_api,
+                headers={
+                    "Authorization": self.access_token,
+                    "Content-Type": "application/json",
+                },
+                json={"symbols": symbols},
+                timeout=10,
+            )
+        except httpx.HTTPError as exc:
+            raise TokenConversionError("FYERS symbol-token service connection failed") from exc
+        if response.status_code == 429:
+            delay = retry_delay_from_headers(response.headers, 0)
+            if not math.isfinite(delay):
+                delay = 60
+            raise TokenConversionError(
+                "FYERS symbol-token service rate limited", retry_after=max(60, delay)
+            )
+        if response.status_code >= 400:
+            raise TokenConversionError(
+                f"FYERS symbol-token service returned HTTP {response.status_code}",
+                retryable=response.status_code >= 500 or response.status_code == 408,
+            )
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise TokenConversionError("FYERS symbol-token service returned invalid JSON") from exc
+        if not isinstance(payload, dict):
+            raise TokenConversionError("FYERS symbol-token service returned an invalid response")
+        code = str(payload.get("code", ""))
+        if code in {"429", "-429"}:
+            raise TokenConversionError("FYERS symbol-token service rate limited", retry_after=60)
+        if code in {"401", "403", "-8", "-15", "-16", "-17"}:
+            raise TokenConversionError(
+                "FYERS symbol-token authentication failed; log in again", retryable=False
+            )
+        if payload.get("s") != "ok":
+            raise TokenConversionError("FYERS symbol-token service could not resolve this batch")
+        valid = payload.get("validSymbol")
+        invalid = payload.get("invalidSymbol", [])
+        if not isinstance(valid, dict) or not isinstance(invalid, (list, dict)):
+            raise TokenConversionError(
+                "FYERS symbol-token service returned invalid symbol mappings"
+            )
+        invalid = list(invalid)
+        if any(not isinstance(symbol, str) for symbol in invalid):
+            raise TokenConversionError("FYERS symbol-token service returned invalid rejections")
+        if any(not isinstance(token, str) or not token for token in valid.values()):
+            raise TokenConversionError("FYERS symbol-token service returned invalid tokens")
+        requested = set(symbols)
+        if set(valid) & set(invalid) or set(valid) | set(invalid) != requested:
+            raise TokenConversionError(
+                "FYERS symbol-token service returned incomplete symbol mappings"
+            )
+        return valid, invalid
 
     def convert_symbols_to_hsm(
         self, brsymbols: list[str], data_type: str = "SymbolUpdate"
     ) -> tuple[list[str], dict[str, str], list[str]]:
-        """
-        Convert brsymbols to HSM tokens for WebSocket subscription
-
-        Args:
-            brsymbols: List of broker symbols from database (e.g., ["NSE:RELIANCE-EQ", "BSE:TCS-A"])
-            data_type: Type of data subscription ("SymbolUpdate" or "DepthUpdate")
-
-        Returns:
-            Tuple of (hsm_tokens, token_to_symbol_mapping, invalid_symbols)
-        """
-        try:
-            # self.logger.info(f"Converting {len(brsymbols)} brsymbols to HSM tokens")
-            # self.logger.info(f"Brsymbols to convert: {brsymbols}")
-            # self.logger.info(f"Data type: {data_type}")
-
-            hsm_tokens = []
-            token_mappings = {}
-            invalid_symbols = []
-
-            # Process ALL symbols with API conversion to get proper fytokens for live data
-            # This ensures both NSE and non-NSE symbols get live data feeds
-            if brsymbols:
-                self.logger.debug(
-                    f"Processing all {len(brsymbols)} symbols with Fyers API conversion"
-                )
-                try:
-                    # Call Fyers API to get fytokens for all symbols
-                    data = {"symbols": brsymbols}
-                    response = requests.post(
-                        url=self.symbols_token_api,
-                        headers={
-                            "Authorization": self.access_token,
-                            "Content-Type": "application/json",
-                        },
-                        json=data,
-                        timeout=10,
+        """Resolve bounded batches; never invent tokens after a service failure."""
+        hsm_tokens, token_mappings, invalid_symbols = [], {}, []
+        symbols = list(dict.fromkeys(brsymbols))
+        # A conservative local payload size, not a claimed FYERS API limit.
+        for offset in range(0, len(symbols), 100):
+            valid, invalid = self._request_tokens(symbols[offset : offset + 100])
+            invalid_symbols.extend(invalid)
+            for symbol, token in valid.items():
+                hsm_token = self._convert_to_hsm_token(symbol, token, data_type)
+                if hsm_token is None:
+                    raise TokenConversionError(
+                        "FYERS returned an unsupported HSM token", retryable=False
                     )
-
-                    response_data = response.json()
-                    self.logger.debug(f"Fyers API response for all symbols: {response_data}")
-
-                    if response_data.get("s") == "ok":
-                        valid_symbols = response_data.get("validSymbol", {})
-                        api_invalid = response_data.get("invalidSymbol", [])
-
-                        self.logger.debug(
-                            f"API returned {len(valid_symbols)} valid symbols, {len(api_invalid)} invalid symbols"
-                        )
-
-                        # Process valid symbols with API tokens
-                        for symbol, fytoken in valid_symbols.items():
-                            hsm_token = self._convert_to_hsm_token(symbol, fytoken, data_type)
-                            if hsm_token:
-                                hsm_tokens.append(hsm_token)
-                                token_mappings[hsm_token] = symbol
-                                # self.logger.info(f"Converted: {symbol} -> {hsm_token} (fytoken: {fytoken})")
-                            else:
-                                invalid_symbols.append(symbol)
-                                self.logger.warning(
-                                    f"Failed to convert: {symbol} with fytoken: {fytoken}"
-                                )
-
-                        # Add API invalid symbols
-                        if api_invalid:
-                            invalid_symbols.extend(api_invalid)
-                            self.logger.warning(f"API invalid symbols: {api_invalid}")
-                    else:
-                        error_msg = response_data.get("message", "Unknown API error")
-                        self.logger.error(f"Fyers API error: {error_msg}")
-                        invalid_symbols.extend(brsymbols)
-
-                except requests.exceptions.RequestException as e:
-                    self.logger.error(f"API request failed: {e}")
-                    invalid_symbols.extend(brsymbols)
-
-            # If API conversion failed for all symbols, fall back to manual conversion
-            # But exclude symbols that were already processed and marked invalid (like depth+index)
-            remaining_symbols = [sym for sym in brsymbols if sym not in invalid_symbols]
-            if not hsm_tokens and remaining_symbols:
-                self.logger.warning(
-                    "API conversion failed for all symbols, using manual conversion as fallback"
-                )
-                fallback_tokens, fallback_mappings, fallback_invalid = self._manual_conversion(
-                    remaining_symbols, data_type
-                )
-                hsm_tokens.extend(fallback_tokens)
-                token_mappings.update(fallback_mappings)
-                invalid_symbols.extend(fallback_invalid)
-
-            # self.logger.info(f"Conversion complete: {len(hsm_tokens)} HSM tokens generated")
-            self.logger.debug(f"HSM tokens: {hsm_tokens}")
-
-            return hsm_tokens, token_mappings, invalid_symbols
-
-        except Exception as e:
-            self.logger.error(f"Brsymbol to HSM conversion error: {e}")
-            return [], {}, brsymbols
+                hsm_tokens.append(hsm_token)
+                token_mappings[hsm_token] = symbol
+        return hsm_tokens, token_mappings, invalid_symbols
 
     def _convert_to_hsm_token(self, symbol: str, fytoken: str, data_type: str) -> str | None:
         """

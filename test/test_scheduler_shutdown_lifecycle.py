@@ -124,6 +124,7 @@ def test_python_scheduler_stops_before_process_cleanup():
 @pytest.mark.parametrize("error", [None, RuntimeError, SystemExit, KeyboardInterrupt])
 def test_server_finally_runs_cleanup_on_every_exit(monkeypatch, error):
     from utils import shutdown as shutdown_mod
+    from utils.server_startup import allow_unsafe_werkzeug
 
     calls = []
     monkeypatch.setattr(shutdown_mod, "shutdown_runtime", lambda: calls.append("shutdown"))
@@ -145,6 +146,7 @@ def test_server_finally_runs_cleanup_on_every_exit(monkeypatch, error):
         "port": 0,
         "debug": False,
         "reloader_options": {},
+        "allow_unsafe_werkzeug": allow_unsafe_werkzeug,
     }
     if error:
         with pytest.raises(error):

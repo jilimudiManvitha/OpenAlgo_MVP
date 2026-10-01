@@ -4,6 +4,16 @@ from datetime import timedelta
 from urllib.parse import urlencode
 
 
+def _require_current_login(user):
+    from utils.session import has_login_this_trading_session
+
+    # Background startup can precede the request-driven token-expiry sweep.
+    # A non-revoked stored token alone does not prove today's broker login.
+    # Call inside the credential reader's try/finally to release the auth session.
+    if not has_login_this_trading_session(user):
+        raise ScannerError("Broker session expired at daily rollover. Log in again.", 401)
+
+
 def credentials(user, broker):
     from database.auth_db import db_session, get_auth_token, get_auth_token_dbquery, get_feed_token
 
@@ -11,6 +21,7 @@ def credentials(user, broker):
         record = get_auth_token_dbquery(user)
         if record is None or record.broker != broker:
             raise ScannerError("Broker session ended or changed. Log in again.", 401)
+        _require_current_login(user)
         token = get_auth_token(user, bypass_cache=True)
         if not token:
             raise ScannerError("Broker session expired. Log in again.", 401)
@@ -137,9 +148,10 @@ class ZerodhaScannerProvider(CommonScannerProvider):
 
 
 class ScannerError(Exception):
-    def __init__(self, message, status_code=400):
+    def __init__(self, message, status_code=400, retry_after=0):
         super().__init__(message)
         self.status_code = status_code
+        self.retry_after = retry_after
 
 
 def get_fyers_token(user):
@@ -149,6 +161,7 @@ def get_fyers_token(user):
         record = get_auth_token_dbquery(user)
         if record is None or record.broker != "fyers":
             raise ScannerError("Log in to Fyers to use the stock scanner.", 403)
+        _require_current_login(user)
         token = get_auth_token(user, bypass_cache=True)
         if not token:
             raise ScannerError("Your Fyers session has expired. Log in again.", 401)
@@ -186,20 +199,27 @@ def load_universe():
 
 
 class FyersScannerProvider:
+    # Bulk scans share account quota with interactive calls and strategy processes.
+    min_request_interval = 1.25
+
     def __init__(self, token):
         self._token = token
 
     def _request(self, endpoint):
         from broker.fyers.api.data import get_api_response
 
-        response = get_api_response(endpoint, self._token)
+        response = get_api_response(endpoint, self._token, retry_429=False)
         if not isinstance(response, dict):
             raise ScannerError("Fyers returned an invalid market-data response.", 502)
         code = str(response.get("code", ""))
         if code in {"401", "403", "-8", "-15", "-16", "-17"}:
             raise ScannerError("Fyers authentication failed. Log in again.", 401)
         if code == "429":
-            raise ScannerError("Fyers rate limit reached. Retry the scan later.", 429)
+            raise ScannerError(
+                "Fyers rate limit reached. Retry the scan later.",
+                429,
+                retry_after=response.get("retry_after", 0),
+            )
         if response.get("s") not in {"ok", "no_data"}:
             # Do not expose arbitrary broker messages or exception strings.
             raise ScannerError("Fyers could not provide market data.", 502)

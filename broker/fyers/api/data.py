@@ -21,7 +21,7 @@ class FyersHistoryError(RuntimeError):
         self.code = code
 
 
-def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0):
+def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0, *, retry_429=True):
     """
     Make API requests to Fyers API using shared connection pooling.
 
@@ -36,6 +36,7 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0):
         auth: Authentication token
         method: HTTP method (GET, POST, etc.)
         payload: Request payload as a string or dict
+        retry_429: Disable when the caller owns cancellable rate-limit retries.
 
     Returns:
         dict: Parsed JSON response from the API
@@ -50,7 +51,7 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0):
         url = f"https://api-t1.fyers.in{endpoint}"
         headers = {"Authorization": f"{api_key}:{AUTH_TOKEN}", "Content-Type": "application/json"}
 
-        if endpoint.startswith("/data/history?"):
+        if endpoint.startswith(("/data/history?", "/data/history/fno/expired/")):
             apply_rate_limit(history=True)
         else:
             apply_rate_limit()
@@ -83,6 +84,13 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0):
         return response_data
 
     except httpx.HTTPStatusError as e:
+        if e.response.status_code == 429 and not retry_429:
+            return {
+                "s": "error",
+                "code": 429,
+                "retry_after": retry_delay_from_headers(e.response.headers, _retry_count),
+                "message": "Fyers rate limit reached",
+            }
         if e.response.status_code == 429 and _retry_count < MAX_RETRIES:
             delay = retry_delay_from_headers(e.response.headers, _retry_count)
             logger.warning(

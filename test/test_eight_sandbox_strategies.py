@@ -8,9 +8,11 @@ from unittest.mock import Mock
 import pytest
 
 from strategies.top_gain_volumes.history import aggregate_minutes, shared_request
+from strategies.top_gain_volumes.profiles import PROFILES
 from strategies.top_gain_volumes.runtime import (
     IST,
     TickCandles,
+    enter,
     entries_blocked,
     maintain_positions,
 )
@@ -132,6 +134,47 @@ def seed5():
     rows = [[start - 86400 + i * 60, 100, 100, 100, 100, 10] for i in range(100)]
     rows += [[start + i * 60, 110, 112, 110, 111, 20] for i in range(5)]
     return rows, start
+
+
+@pytest.mark.parametrize("profile_id", list(PROFILES))
+def test_all_profiles_dispatch_on_intrabar_high_cross_before_entry_close(profile_id, tmp_path):
+    profile = PROFILES[profile_id]
+    minutes = profile["timeframe_minutes"]
+    interval = minutes * 60
+    start = int(datetime(2026, 10, 1, 9, 15, tzinfo=IST).timestamp())
+    raw = [[start - 86400 + i * 60, 100, 100, 100, 100, 10] for i in range(100)]
+    # Low-priced opening volume keeps session VWAP below the complete signal's
+    # HA low, so the stricter trailing profiles qualify without bypassing guards.
+    raw += [[start + i * 60, 90, 90, 90, 90, 1000] for i in range(minutes)]
+    raw += [[start + interval + i * 60, 110, 112, 110, 111, 1] for i in range(minutes)]
+    candle = TickCandles(
+        raw,
+        start + 2 * interval - 1,
+        strict_vwap=profile["trailing"],
+        timeframe_minutes=minutes,
+    )
+    entry_start = start + 2 * interval
+    volume = minutes * 1001
+    sink = sink_fixture(tmp_path)
+    sink.manager.get_order_status.return_value = status("open")
+
+    assert not candle.tick(entry_start, 111, volume)
+    assert candle.signal == (start + interval, 112, 95)
+    assert not candle.tick(entry_start + 1, 112, volume + 10)  # Touch is not a cross.
+    sink.manager.place_order.assert_not_called()
+
+    stamp = entry_start + 2
+    assert candle.tick(stamp, 113, volume + 20)
+    assert candle.last_completed[0] == start + interval
+    assert candle.bar[0] == entry_start and stamp < entry_start + interval
+    trade = enter("ABC", stamp, 113, candle, 0.05)
+    assert trade["entry_ts"] == stamp
+    quote = {"ltp": 113, "low": 90, "high": 113}
+    assert sink.enter(trade, quote, 0.05)
+    sink.manager.place_order.assert_called_once()
+    order = sink.manager.place_order.call_args.args[0]
+    assert order["action"] == "BUY" and order["price_type"] == "MARKET"
+    assert trade["entry_order_state"] == "pending"
 
 
 def test_five_minute_ha_aggregates_ohlcv_before_indicator_calculation():

@@ -1,5 +1,300 @@
 # Six-task implementation plan and agent handoff
 
+## Repository synchronization — October 1
+
+User requested pushing changes to `https://github.com/jilimudiManvitha/OpenAlgo_MVP.git`.
+The authorized snapshot includes expired F&O APIs and the pending October 1
+startup/session/scanner pacing/FYERS subscription fixes, tests and documentation.
+Fetched `origin`; remote main matched local `60b3b4df9` before this snapshot.
+Combined verification: **403 tests passed**. The broader check initially found
+four shutdown-harness failures because its extracted app block lacked the new
+`allow_unsafe_werkzeug` helper; the harness now supplies the real helper and
+all four cleanup cases pass. No production behavior changed for that test fix.
+Scoped credential screening of candidate files found no local .env secret-value
+matches or common GitHub-token/private-key markers; this is not a full audit.
+Runtime databases, credentials and caches remain excluded. Running app,
+schedules and strategy execution mode were not changed; new expired API routes
+still require a manual restart. Commit/push outcome is verified separately
+against remote main in the session response.
+
+## Latest feature checkpoint — October 1: expired F&O APIs implemented locally
+
+User explicitly authorized implementing the three FYERS expired F&O data APIs
+after a read-only absence check. This is a separate authorized data feature;
+it does not resume frozen tasks or change the eight strategy schedules.
+
+Added common authenticated POST endpoints `/api/v1/expired/expiry-dates`,
+`/api/v1/expired/contracts`, `/api/v1/expired/history`, with an optional provider
+interface and FYERS as its first implementation (other brokers return 501).
+Discovery accepts OpenAlgo symbol/exchange or explicit broker_symbol. Returned
+expired contract identifiers bypass today's live master for history; they are
+never inserted into the trading universe. Candles preserve epoch/OHLCV/OI.
+Schemas validate ISO dates, available exchanges, expiry, intervals and ranges.
+Minute history splits up to 366 days into <=100-day windows; 5s calls have a
+30-calendar-day response-size cap, separate from FYERS' 30-trading-day retention.
+Greeks and daily/weekly/monthly expired candles are rejected under the supplied
+contract. Broker errors, missing schemas, inconsistent candles and failed
+windows cannot become empty/partial successes; no-data windows remain explicit.
+
+Verification: **136 tests passed**, including **86 new feature tests**, registered
+Flask route workflow/authentication, provider formats, range boundaries,
+unsupported brokers, OI, malformed/duplicate candles, no-data and failure cases,
+plus existing FYERS history, history source, expiry and scanner pacing regressions.
+An in-memory 101-day-window mutation made the actual boundary test fail; the
+source was never modified by the mutation check. Scoped Ruff and diff checks pass.
+
+Live read-only FYERS smoke check succeeded on **2025-03-27 SBIN**: expiry
+discovery, one future and **150 option contracts**, **75 five-minute candles**
+each for discovered `NSE:SBIN25MARFUT` and `NSE:SBIN25MAR760CE`, both with OI.
+First futures candle: timestamp 1743047100, OHLC 762.15/765.15/759.5/765.15,
+volume 624750, OI 24410250. First option OI 1367250. This verifies NSE sample
+data, not live BSE/MCX/5s/multi-window coverage. First sandbox network attempt
+failed DNS; the approved external-network probe then passed.
+
+Resource audit: shared HTTP client/30s timeout and existing bounded rate limiter;
+auth and optional underlying-lookup DB sessions removed in finally blocks;
+no new threads, sockets, caches, files or registries in the request paths.
+Candle buffers are request-local with bounded input date ranges. This is static
+review plus mocked cleanup regressions, not a descriptor/RSS soak measurement.
+
+Docs: [Expired F&O API and Python workflow](../api/market-data/expired-fno.md).
+Reproduction: `.development/expired-fno/verify_live.py` (current FYERS login,
+read-only broker requests) and `verify_regressions.py` (offline mutation check).
+No app stop/restart, orders, credential/schedule changes, commit or push.
+**New HTTP routes require the user's next manual restart.** Registered routes
+were exercised through an isolated Flask test client; live smoke used the new
+service/provider directly, without replacing the running app. API-only scope:
+no browser picker, automatic Historify persistence or F&O trading strategy added.
+Preserved all earlier local fixes/unrelated changes; older operational process
+checks below remain historical and were not re-run for this feature.
+
+## Current checkpoint — October 1, 11:18 IST: manual startup verified
+
+User manually launched at 11:15:20 and requested a status check. Read-only checks
+verified app PID **7918** (uv 7916, caffeinate 7917), OpenAlgo listeners on
+127.0.0.1:5000/8765, and Web App HTTP **200**. Production errors.jsonl has **zero
+ERROR entries since this startup** (validated its `ts` schema; last entry remains
+the old 10:15 failure). User's log shows successful local/FYERS authentication.
+
+Scanner persisted snapshot at 11:18:33 is completed, phase done, error null,
+2670/2670 quotes processed and zero rate-limit retries. It contains 2632 valid
+rows; 2192 have WebSocket source (up from 1913 at 11:17:47), while remaining rows
+use polling. Fresh WebSocket quotes were directly verified for previously
+affected SONACOMS, SUNPHARMA, TATASTEEL and TCS plus SBIN (11:18:31–32 receipt).
+This verifies streaming recovery for sampled stocks, not every symbol's tick
+coverage. Proxy stats also report 2670 requested symbols and one local client.
+
+All **eight saved 09:15–15:00 schedules remain enabled**, but all have
+is_running=false/pid=null and no strategy-script process exists. This start was
+after 09:15; schedule restoration creates future cron triggers rather than
+starting every stopped strategy mid-session. Do not equate restored schedules
+with running strategies. No strategies were started, orders placed, schedules
+changed or app restarted during this check. Keep user's instance alive; current
+app/scanner health supersedes earlier stopped/pending-live-check notes.
+
+## Latest checkpoint — October 1: manual-start subscription failures fixed locally
+
+User authorized fixing all reported errors affecting manual OpenAlgo startup.
+Preserved the earlier login-rollover, scanner pacing and local-listener readiness
+fixes. Added the remaining FYERS token/subscription repair:
+
+- Symbol-token conversion uses the shared pooled HTTP client, explicit 10s HTTP
+  timeout and process-wide FYERS limiter. Requests are split into at most 100
+  symbols (local conservative size, not a claimed broker cap).
+- HTTP status is checked before parsing. Empty/non-JSON, incomplete responses,
+  transport/5xx failures and 429s become typed service errors, not mass-invalid
+  symbol lists. Auth failures are terminal. Explicit valid/invalid responses
+  preserve valid mappings; no fabricated-token fallback follows an outage.
+- The HSM batching worker now checks dispatch results, retries transient failures
+  up to three total attempts (5/10-second backoff; 429 at least 60 seconds or
+  longer Retry-After). Cooldown also defers new work on that adapter. Queue is
+  deduplicated/bounded, dispatch batches cap at 100, and only one flush runs per
+  adapter. Disconnect/unsubscribe invalidate old timers and filter removed
+  subscriptions before dispatch; stale generations cannot resurrect them.
+- Requested subscriptions expose pending/retrying/dispatched/rejected/failed
+  status. Inner active-subscription records are added only after successful send.
+  "Dispatched" is not broker acknowledgment or proof of subsequent live ticks.
+
+Verification: **232 focused tests passed**, including 27 new recovery cases,
+existing FYERS index/master/history checks, scanner/rollover/startup, shutdown
+and WebSocket contracts. Disabling the actual retry guard in memory made the
+recovery regression fail. Compilation/diff checks pass; scoped Ruff has no new
+findings (12 existing findings remain across the two older adapters; token
+converter/new tests are clean). No source mutation remained from the test.
+
+Resource review: shared client retained; bounded queue/registry ownership and
+timer cancellation checked on success/failure/timeout/unsubscribe/disconnect.
+100 real timer retry/disconnect cycles retained identical thread/descriptor
+counts; another 100 simulated exhausted-retry/cleanup cycles emptied queues,
+callbacks and subscription state. Broker HTTP was mocked in these tests; no
+live broker startup soak or all-symbol tick coverage is claimed. In-flight HTTP
+requests still use their timeout; queued delayed retries are cancellable.
+
+The user's manually launched instance was not stopped or restarted. Local changes
+load on the next controlled manual restart. Saved eight schedules, execution mode,
+credentials, frozen tasks/Crypto and unrelated edits are preserved. No orders,
+commit or push. Pending: live restart and quote coverage verification; a persistent
+FYERS outage/auth failure still surfaces truthfully after bounded retries.
+
+## Latest checkpoint — October 1, 10:18 IST: partial streaming failure diagnosed
+
+User manually restarted at 10:14:59 and asked whether the supplied log is healthy.
+Local proxy connects immediately (prior startup race absent in this restart),
+FYERS HSM and order-update authentication succeed, and eight schedules restore.
+At 10:15:03, symbol-token response JSON parsing fails; a large batch is labelled
+invalid and has no HSM tokens. The log does not establish HTTP status/cause or
+confirm live ticks for all advertised subscriptions. App left running; no
+restart, source fix or strategy/schedule mutation performed for this question.
+
+Offline reproduction with mocked HTTP confirmed converter returns zero tokens
+and labels the whole batch invalid after JSONDecodeError. A second reproduction
+confirmed _flush_hsm_batch ignores subscribe_quote(False), drains its queue and
+creates no retry timer. Pool subscription counts therefore do not prove broker
+subscription success. Pending fix: distinguish service/parse failures from
+genuine invalid symbols and recover failed subscription batches with bounded
+pacing/retries and accurate status. Do not infer another 429 from this log alone.
+Restored schedule count is not proof that eight strategy processes are running.
+Earlier stopped states are historical; user controls app restarts.
+
+## Current process state — October 1, 10:14 IST: stopped by user
+
+User requested stopping OpenAlgo and will restart manually. Sent SIGINT to
+app PID 5720; verified no app.py, uv/caffeinate launcher or strategies/scripts
+process remains and OpenAlgo listeners on 5000/8765 are gone. Unrelated macOS
+Control Center remains on port 5000. Saved schedules and local fixes are retained.
+Do not restart without a new instruction. Earlier running notes are historical.
+
+## Latest checkpoint — October 1: local WebSocket startup ordering
+
+User restarted manually at 10:07:47 and supplied a local connection refusal to
+127.0.0.1:8765 before the startup banner. The same log shows successful local
+connection/authentication at 10:07:52 and FYERS subscriptions across three
+connections through 10:07:54. This is a recovered startup race; no HTTP 429
+appears in that excerpt. Current browser/tick health was not independently
+checked. The manual restart supersedes the stopped state below.
+
+Root cause: scanner coordinator started inside create_app(), before the local
+proxy was launched. Moved coordinator startup after proxy integration. The
+threaded local proxy now signals readiness after websockets.serve succeeds;
+startup waits at most 10 seconds, releases on failure, and retains real error
+logging. Gunicorn subprocess and standalone proxy launch paths remain as before;
+the readiness wait applies to the integrated threaded local launch.
+
+Four regression cases failed before the fix (ordering, delayed thread startup,
+and readiness success/failure); six now cover these plus startup failure/timeout.
+Combined scanner/session/startup/shutdown/WebSocket suite: **163 passed**.
+Scoped Ruff clean except app.py's existing I001 at line 47, confirmed identical
+on HEAD; diff check clean. Resource review: one thread-local startup Event, no
+new threads/sockets/registries; existing event-loop cleanup retained, test threads
+joined on success/failure/timeout. This is static review and mocked regression
+verification, not a real broker startup soak.
+
+No app restart/stop, schedule change, order or commit/push performed. User's
+manual instance is left running. Local fix requires the next controlled restart;
+do not restart automatically. Earlier quota/rollover fixes and unrelated edits
+are preserved; frozen tasks/Crypto unchanged.
+
+## Previous process state — October 1, 10:07 IST: stopped by user
+
+User requested stopping OpenAlgo and will start it manually. Sent SIGINT to
+app PID 3321. Verified no app.py, uv/caffeinate launcher or strategies/scripts
+process remains, and both OpenAlgo listeners (5000/8765) are gone. macOS Control
+Center still listens on port 5000; it is unrelated and was left running.
+Saved schedules and local scanner fixes remain unchanged. Do not restart
+without a new user instruction. Earlier process states below are historical.
+
+## Latest checkpoint — October 1: scanner startup HTTP 429 mitigation
+
+User manually restarted OpenAlgo at 08:45 and supplied a successful startup log
+followed by FYERS quote HTTP 429 at 08:45:56–08:46:03. This supersedes the stopped
+process state below; no process was started, stopped or restarted in this fix.
+The supplied log does not establish the app's current health or quota recovery.
+
+Confirmed nested retries: the scanner's 60/120-second cooldown ran only after
+the HTTP helper's three short retries. Scanner quote batches also had no
+additional pacing beyond the process-local shared broker limiter. Added 1.25s
+minimum spacing across FYERS quote/Python-history calls within a scanner manager,
+using its existing cancellable wait. FYERS scanner calls now opt out of inner
+HTTP retries and propagate the server retry delay into the scanner cooldown
+(at least 60/120 seconds). Other callers retain the helper's default retries.
+The shared broker limiter remains active. This is additional scanner headroom,
+not an account-wide guarantee across independent processes/native downloads.
+
+Verification: all three inherited pacing regressions failed before changes;
+the scanner/session/live/routes/FYERS-history suite passes **113 tests** after
+the fix, including 54 simulated quote batches, history spacing, cancellation,
+Retry-After headers and default non-scanner retry behavior. No live broker
+requests/orders were made. Scoped resource review: reused pooled HTTP client
+and cancellation event; one scalar timestamp per bounded manager; no new
+threads, sockets, DB sessions or growing registries. Static review plus mocked
+regressions, not a live soak. Scoped Ruff and diff checks pass.
+
+Pending: user's controlled app restart to load the local patch, followed by
+live scanner verification. Do not interrupt the manually managed app or its
+eight schedules automatically. Existing rollover fix, entry-timing tests and
+unrelated changes preserved; no commit/push. Frozen tasks/Crypto unchanged.
+
+## Previous process state — October 1, 08:44 IST: stopped by user
+
+User requested stopping OpenAlgo to run it manually. Sent Ctrl+C to session
+59588 at 08:44:36 IST; schedulers, health collector and checkpoint writer logged
+cleanup, and terminal exited 130. Verified no app.py/uv/caffeinate/strategy
+process or WebSocket listener remains. Saved schedules are retained. Do not
+restart without a new instruction. User activity before shutdown completed
+FYERS master-contract processing at 08:43:53; earlier login-required observations
+describe the startup state. Older running-process notes below are historical.
+
+## Previous process state — October 1, 08:40 IST: startup fixed and running
+
+User requested fixing the startup FYERS 401 and launching OpenAlgo. Scanner
+coordinator started before request-driven session expiry, allowing yesterday's
+non-revoked token into the quote provider. Added the existing trading-session
+login check to both scanner credential readers (including strategy history's
+FYERS token reader). Stale sessions now return an actionable login-required
+scanner error before token use/provider creation; valid new logins resume through
+the existing retry path. No credential, schedule or execution-mode changes.
+
+Three regression tests failed on the original code and passed after the fix;
+scanner/provider/live/routes suite **79 passed**, scoped Ruff and diff checks
+passed. Resource review: the added active-session DB lookup is enclosed by each
+reader's existing `finally: db_session.remove()` on success/error/stale paths;
+cleanup assertions pass. No new threads, clients, caches or registries added.
+This is a scoped static/resource-lifecycle review, not a full-session soak.
+
+Started `caffeinate -i uv run --no-sync app.py`, terminal **59588**, app PID
+**3047**. Startup at 08:40:10 restored **8 schedules**, with no recurring startup
+quote 401. Verified Web App `http://127.0.0.1:5000/` HTTP 200 and WebSocket
+`ws://127.0.0.1:8765` HTTP 101. Saved schedules remain 09:15–15:00. FYERS still
+requires today's broker login; no authenticated market-data recovery is claimed.
+Keep this instance alive and avoid duplicates. Earlier process notes are historical.
+Changes are local; prior entry-timing tests/docs are preserved.
+
+## Previous process state — September 30, 23:06 IST: stopped by user
+
+User requested a clean stop and will start OpenAlgo manually tomorrow. Sent
+Ctrl+C to session 91797 at 23:06:36 IST. Shutdown logged scheduler, health
+collector and checkpoint-writer cleanup; terminal exited 130. Verified no
+app.py/uv/caffeinate or strategy process remains and no OpenAlgo WebSocket
+listener remains. Saved eight schedules are retained. Do not restart without
+a new user instruction. Earlier running-instance notes below are historical.
+
+## Entry timing verification — September 30 evening
+
+User asked to verify that all scheduled strategies enter on a signal-high
+breakout without waiting for the entry candle to close, and implement if absent.
+Already implemented: the shared runtime evaluates every valid Quote and submits
+a MARKET BUY on the first qualifying observation in the immediately following
+1m/5m candle. The signal candle must be complete; forming BB/VWAP/HA conditions,
+strict trailing-profile VWAP, eligibility and execution guards remain required.
+All eight enabled saved schedule paths and wrapper profile IDs were verified.
+Added eight regression cases using real candle calculations and the Sandbox
+execution path with a mocked order manager: touch does not enter, crossing two
+seconds into the entry candle dispatches before close (58s/298s remaining).
+All eight fail when a candle-boundary wait is injected in memory; source runtime
+is untouched. Focused suite: 69 passed; test-file Ruff passed. No runtime change,
+restart, schedule change or real order was required. These remain live-quote
+Sandbox strategies, not live broker execution. Tests/documentation changed locally.
+
 ## Repository synchronization — September 30 evening
 
 User authorized committing and pushing all pending changes to
@@ -18,7 +313,7 @@ The running app was not restarted for the merge; the remote HSM initialization
 change loads on the next restart. Push completion is verified against remote main
 in the session response.
 
-## Current process state — September 30, 22:25 IST: running at user request
+## Previous process state — September 30, 22:25 IST: running at user request
 
 User requested launching OpenAlgo again. Started `caffeinate -i uv run --no-sync
 app.py` in terminal session **91797**, app PID **99074**. Startup restored eight

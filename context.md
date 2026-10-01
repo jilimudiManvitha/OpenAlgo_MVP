@@ -1,15 +1,97 @@
 # OpenAlgo fork - AI agent context
 
+October 1 synchronization: user authorized pushing pending changes to
+`jilimudiManvitha/OpenAlgo_MVP` origin/main. Snapshot includes expired F&O APIs,
+startup/session/scanner/subscription fixes and documentation. **403 tests pass**;
+the broader run exposed an outdated shutdown-test namespace, now updated to
+include the actual startup helper. See canonical roadmap for validation and
+scope; final remote commit verification is recorded in the session response.
+No app restart or strategy/schedule changes.
+
+October 1 expired F&O feature: user authorized all three APIs. Implemented
+authenticated `/api/v1/expired/expiry-dates`, `/contracts`, `/history` with FYERS
+provider, validation, bounded history windows, exact discovered contract IDs,
+OHLCV/OI and explicit errors/no-data. **136 tests passed** (86 new); live FYERS
+SBIN 2025-03-27 discovery returned 1 future/150 options and 75 five-minute candles
+with OI each for SBIN25MARFUT and SBIN25MAR760CE. API/service scope only; no
+Historify UI/storage or F&O strategy was added. Existing app was not restarted;
+new HTTP routes load on the user's next manual restart. No orders or schedule
+changes. See canonical roadmap for evidence/limitations and
+[API guide](docs/api/market-data/expired-fno.md) for usage. Unrelated local changes
+and earlier fixes retained; no commit/push.
+
+Latest live check, October 1 11:18 IST: user's manual app PID 7918 is running,
+HTTP 200 and both listeners verified. No new ERROR logs since 11:15 startup.
+Scanner completed 2670-symbol scan, zero rate-limit retries, and fresh WebSocket
+ticks verified for TCS/SONACOMS/SUNPHARMA/TATASTEEL/SBIN. See canonical checkpoint
+for coverage limits. All eight schedules are enabled but **no strategy process
+is running** (configs false/null); app started after their 09:15 trigger. No
+strategy start, order, restart or schedule modification performed. Keep app alive.
+
+October 1 manual-start fixes: user authorized repairing the remaining reported
+failures. FYERS symbol-token HTTP now uses pooled/paced, bounded requests and
+separates service/JSON/auth failures from genuine invalid symbols. Subscription
+worker retries transient failures with bounded delays, honors Retry-After,
+cancels stale retries on teardown, and records pending/retrying/dispatched/
+rejected/failed status. Earlier startup-order, rollover and scanner pacing fixes
+remain. **232 focused tests pass**; real-timer 100-cycle thread/descriptor check
+is stable; no new Ruff findings. See canonical roadmap for limitations.
+User's app was not stopped/restarted; next manual restart loads the changes.
+No schedule/execution-mode/credential changes, orders, commit or push.
+
+October 1 10:18 diagnosis: user's 10:14:59 manual restart connected cleanly,
+but a symbol-token JSON parse failure prevented one later HSM subscription
+batch. Offline mocks confirm the converter incorrectly labels service failure
+as invalid symbols, and batch flush drops a False subscription result without
+retry. Not fixed in this status-check turn; see canonical roadmap. App left
+running, no schedule/source changes. Older stopped notes are historical.
+
+Latest process state, October 1 10:14 IST: stopped at user's request via SIGINT
+to app PID 5720. Verified app/launcher/strategy-script processes and OpenAlgo
+5000/8765 listeners exited. Saved schedules and local fixes retained. User will
+start manually; do not restart. Earlier running/stopped notes are historical.
+
+October 1 startup-order follow-up: user manually restarted at 10:07:47. Their
+log shows local WebSocket refusal followed by successful auth/subscriptions
+five seconds later. Scanner was starting inside create_app() before the proxy.
+Moved it after proxy integration and added a bounded listener-readiness wait
+for the threaded local proxy. 163 focused tests passed; no new Ruff findings.
+App left running, schedules unchanged; next manual restart loads the fix.
+See canonical roadmap for evidence/limitations. Earlier stopped states below
+are historical; no automatic restart is authorized.
+
+Latest process state, October 1 10:07 IST: stopped at the user's request using
+SIGINT to app PID 3321. Verified app, uv/caffeinate launcher and strategy-script
+processes exited, and OpenAlgo's 5000/8765 listeners are gone. User will start
+manually; do not restart. Saved schedules and scanner fixes remain unchanged.
+
+October 1 scanner 429 follow-up: user supplied manual startup at 08:45 with
+successful app initialization followed by FYERS quote throttling. Added local
+scanner batch pacing (1.25s), removed scanner-only nested HTTP retries and
+preserved server retry delays in cancellable cooldowns. Focused suite: 113
+passed; initial three pacing regressions failed before the fix. App was not
+restarted or stopped; live recovery is unverified and requires a controlled
+restart to load changes. See canonical roadmap for scope/resource review.
+The 08:44 stopped state below is historical. Eight schedules remain untouched.
+
+September 30 entry timing checked at user request: all eight saved scheduled
+profiles already submit on a qualifying intrabar signal-high cross, without
+waiting for the entry candle close. Added eight regression cases (including
+strict trailing and 5m); focused suite 69 passed. Runtime and Sandbox execution
+mode unchanged; see canonical roadmap for evidence and existing entry filters.
+
 September 30 source synchronization: user authorized pushing all pending changes
 to origin/main (jilimudiManvitha/OpenAlgo_MVP). Local snapshot `9b3033c5e` merged
 with remote `a6013c291`, preserving chart documentation and both HSM fixes.
 See the canonical roadmap synchronization checkpoint for validation and scope.
 
-Latest process state, September 30 22:25 IST: OpenAlgo restarted at the user's
-request with `caffeinate -i uv run --no-sync app.py`, session 91797, app PID 99074.
-Eight schedules restored; FYERS order-update WebSocket connected. Web App
-http://127.0.0.1:5000/ verified HTTP 200; ws://127.0.0.1:8765 verified HTTP 101.
-Keep this instance alive; do not launch a duplicate. Prior process notes are historical.
+Latest process state, October 1 08:44 IST: OpenAlgo stopped cleanly at the user's
+request via Ctrl+C to session 59588; terminal exited 130 after scheduler, health
+collector and checkpoint cleanup. Verified app PID 3047, uv/caffeinate and
+WebSocket listener are gone. Eight saved schedules remain. User will run manually;
+do not restart without a new instruction. Startup stale-session fix remains local
+(79 focused tests passed). User activity completed FYERS master-contract processing
+before shutdown. See canonical checkpoint; earlier running notes are historical.
 
 Current six-task request (2026-09-11): see
 [`docs/plans/2026-09-11-six-task-roadmap.md`](docs/plans/2026-09-11-six-task-roadmap.md)

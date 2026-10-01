@@ -253,6 +253,7 @@ def start_websocket_server():
         return None
 
     logger.debug("Starting WebSocket proxy server in a separate thread")
+    startup_complete = _original_threading.Event()
 
     def run_websocket_server():
         """Run the WebSocket server in an event loop"""
@@ -277,12 +278,15 @@ def start_websocket_server():
             _websocket_proxy_instance = WebSocketProxy(host=ws_host, port=ws_port)
 
             # Start the proxy
-            loop.run_until_complete(_websocket_proxy_instance.start())
+            loop.run_until_complete(_websocket_proxy_instance.start(on_ready=startup_complete.set))
 
         except Exception as e:
             logger.exception(f"Error in WebSocket server thread: {e}")
             _websocket_proxy_instance = None
         finally:
+            # Release startup callers on failure too; the exception above is
+            # authoritative. Never leave Flask waiting forever on a failed bind.
+            startup_complete.set()
             # Always close the event loop to prevent FD leak
             if loop is not None:
                 try:
@@ -337,6 +341,10 @@ def start_websocket_server():
     except Exception as e:
         logger.warning(f"Could not register signal handlers: {e}")
 
+    # Thread.start() alone does not mean the asyncio listener is accepting
+    # clients yet. Bound this wait so a stuck startup cannot hang the web app.
+    if not startup_complete.wait(timeout=10):
+        logger.warning("WebSocket proxy startup is still pending after 10 seconds")
     logger.debug("WebSocket proxy server thread started")
     return _websocket_thread
 

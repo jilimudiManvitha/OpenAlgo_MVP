@@ -11,6 +11,10 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 1: [Expired F&O discovery and historical data](api/market-data/expired-fno.md)
+— three authenticated API endpoints, FYERS support, intraday candles/OI,
+date limits, error handling and a Python workflow.
+
 September 29: [Stock symbols and category database](../Stock_Symbols/README.md)
 — supplied index/sector lists, industry groups, SQL queries and repeatable import.
 

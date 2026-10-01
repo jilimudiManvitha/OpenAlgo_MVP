@@ -233,6 +233,7 @@ class ScannerManager:
         self.jobs = {}
         self.active = None
         self._cache = None
+        self._last_broker_call = None
 
     @staticmethod
     def _default_cache():
@@ -377,11 +378,18 @@ class ScannerManager:
             job["cancel"].wait(min(1, max(0, deadline - time.monotonic())))
 
     def _call_broker(self, job, function, *args):
-        # The shared HTTP wrapper already retries individual 429s. If its
-        # short retries exhaust a minute quota, wait for that window to clear
-        # rather than discard a nearly finished full-market scan.
+        # One worker dispatches calls per manager. Keep quote/history pacing
+        # together and use cancellable waits; FYERS delegates 429 retries here.
+        provider = getattr(function, "__self__", None)
+        interval = getattr(provider, "min_request_interval", 0)
         for attempt in range(3):
             self._check_stop(job)
+            if interval and self._last_broker_call is not None:
+                delay = self._last_broker_call + interval - time.monotonic()
+                if delay > 0:
+                    self._wait_for_retry(job, delay)
+                    self._check_stop(job)
+            self._last_broker_call = time.monotonic()
             try:
                 return function(*args)
             except ScannerError as exc:
@@ -391,7 +399,11 @@ class ScannerManager:
                 self._update(
                     job, phase="rate_limited", rate_limit_retries=job["rate_limit_retries"] + 1
                 )
-                self._wait_for_retry(job, 60 * (attempt + 1))
+                try:
+                    retry_after = max(0, number(exc.retry_after))
+                except (TypeError, ValueError, OverflowError):
+                    retry_after = 0
+                self._wait_for_retry(job, max(60 * (attempt + 1), retry_after))
                 self._check_stop(job)
                 self._update(job, phase=phase)
 

@@ -151,6 +151,7 @@ from utils.logging import (  # Import centralized logging
 )
 from utils.plugin_loader import load_broker_auth_functions, load_broker_capabilities
 from utils.security_middleware import init_security_middleware  # Import security middleware
+from utils.server_startup import allow_unsafe_werkzeug  # Import Werkzeug dev-server guard
 from utils.socketio_error_handler import (
     init_socketio_error_handling,  # Import Socket.IO error handler
 )
@@ -327,8 +328,6 @@ def create_app():
     app.register_blueprint(admin_bp)  # Register Admin blueprint
     app.register_blueprint(historify_bp)  # Register Historify blueprint
     app.register_blueprint(market_scanner_bp)
-    from services.market_scanner_live import coordinator
-    coordinator()  # Lease election prevents duplicate workers across reloads.
     app.register_blueprint(ivchart_bp)  # Register IV chart blueprint
     app.register_blueprint(scalping_bp)  # Register Scalping terminal blueprint
     app.register_blueprint(watchlist_bp)  # Register charting watchlist blueprint
@@ -1109,6 +1108,12 @@ else:
     logger.debug("Starting WebSocket proxy")
     start_websocket_proxy(app)
 
+# Start scanner clients only after the integrated proxy's startup has settled.
+# Starting during create_app() races the listener and causes connection refusals.
+from services.market_scanner_live import coordinator
+
+coordinator()  # Lease election prevents duplicate workers across reloads.
+
 # Start Flask development server with SocketIO support if directly executed
 if __name__ == "__main__":
     host_ip = os.getenv("FLASK_HOST_IP", "127.0.0.1")
@@ -1265,7 +1270,17 @@ if __name__ == "__main__":
         install_signal_handlers()
 
     try:
-        socketio.run(app, host=host_ip, port=port, debug=debug, reloader_options=reloader_options)
+        socketio.run(
+            app,
+            host=host_ip,
+            port=port,
+            debug=debug,
+            reloader_options=reloader_options,
+            # Without this, Flask-SocketIO aborts startup whenever stdin is not
+            # a TTY (nohup, launchd, IDE run configs), so the instance never
+            # serves. Loopback is allowed by default; see allow_unsafe_werkzeug.
+            allow_unsafe_werkzeug=allow_unsafe_werkzeug(host_ip),
+        )
     finally:
         # Covers normal return, startup failure and reloader SystemExit too.
         # atexit alone is too late: concurrent.futures shuts down before it.

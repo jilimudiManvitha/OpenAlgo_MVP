@@ -15,7 +15,7 @@ from utils.logging import get_logger
 
 from .fyers_hsm_websocket import FyersHSMWebSocket
 from .fyers_mapping import FyersDataMapper
-from .fyers_token_converter import FyersTokenConverter
+from .fyers_token_converter import FyersTokenConverter, TokenConversionError
 
 
 class FyersAdapter:
@@ -54,6 +54,8 @@ class FyersAdapter:
         # the underlying auth/network failure rather than a generic message
         # (issue #1419). Reset on each connect() attempt.
         self.last_error: str | None = None
+        self.last_subscription_error = None
+        self.last_subscription_symbols = set()
 
         # Threading
         self.lock = threading.Lock()
@@ -169,30 +171,22 @@ class FyersAdapter:
             callback: Callback function to receive data
         """
         if not self.connected:
+            self.last_subscription_error = TokenConversionError("FYERS WebSocket is disconnected")
+            self.last_subscription_symbols = set()
             self.logger.error("Not connected to Fyers WebSocket")
             return False
 
         try:
             with self.lock:
+                self.last_subscription_error = None
+                self.last_subscription_symbols = set()
                 self.logger.debug("\n" + "=" * 60)
                 self.logger.debug(f"SUBSCRIBING TO {len(symbols)} SYMBOLS")
                 self.logger.debug(f"Data type: {data_type}")
                 self.logger.debug(f"Symbols to subscribe: {symbols}")
                 self.logger.debug("=" * 60)
 
-                # Store callback per symbol to prevent data mixing
-                # Use a unique key for each symbol and data type combination
-                for symbol_info in symbols:
-                    exchange = symbol_info.get("exchange", "NSE")
-                    symbol = symbol_info.get("symbol", "")
-                    if symbol:
-                        full_symbol = f"{exchange}:{symbol}"
-                        callback_key = f"{data_type}_{full_symbol}"
-                        # Store callback per symbol to ensure proper data routing
-                        self.subscription_callbacks[callback_key] = callback
-                        self.logger.debug(f"Stored callback for {callback_key}")
-
-                # Store subscription info for tracking
+                # Keep requested symbols separate from successfully dispatched ones.
                 valid_symbols = []
                 for symbol_info in symbols:
                     exchange = symbol_info.get("exchange", "NSE")
@@ -202,15 +196,6 @@ class FyersAdapter:
                         continue
 
                     valid_symbols.append({"exchange": exchange, "symbol": symbol})
-
-                    # Store subscription info
-                    full_symbol = f"{exchange}:{symbol}"
-                    self.active_subscriptions[full_symbol] = {
-                        "exchange": exchange,
-                        "symbol": symbol,
-                        "data_type": data_type,
-                        "subscribed_at": time.time(),
-                    }
 
                 if not valid_symbols:
                     self.logger.warning("No valid symbols to subscribe")
@@ -229,7 +214,9 @@ class FyersAdapter:
                     self.logger.warning(f"Invalid symbols: {invalid_symbols}")
 
                 if not hsm_tokens:
-                    self.logger.error("No valid HSM tokens generated")
+                    self.last_subscription_error = TokenConversionError(
+                        "FYERS rejected all symbols in this subscription batch", retryable=False
+                    )
                     return False
 
                 # Build the HSM<->OpenAlgo mapping by JOINING through brsymbol.
@@ -256,6 +243,7 @@ class FyersAdapter:
                         brsymbol_to_openalgo[br] = (s["exchange"], s["symbol"])
 
                 mapped_count = 0
+                resolved_symbols = set()
                 for hsm_token in hsm_tokens:
                     brsym = token_mappings.get(hsm_token)
                     if not brsym:
@@ -271,6 +259,8 @@ class FyersAdapter:
                     full_symbol = f"{exch}:{sym}"
                     self.symbol_to_hsm[full_symbol] = hsm_token
                     self.hsm_to_symbol[hsm_token] = full_symbol
+                    self.subscription_callbacks[f"{data_type}_{full_symbol}"] = callback
+                    resolved_symbols.add(full_symbol)
                     mapped_count += 1
                     self.logger.debug(f"Mapped {full_symbol} <-> {hsm_token} (brsymbol: {brsym})")
 
@@ -297,13 +287,25 @@ class FyersAdapter:
 
                 # Subscribe to HSM WebSocket with all tokens at once
                 self.ws_client.subscribe_symbols(hsm_tokens, token_mappings)
+                self.last_subscription_symbols = resolved_symbols
+                for symbol_info in valid_symbols:
+                    full_symbol = f"{symbol_info['exchange']}:{symbol_info['symbol']}"
+                    if full_symbol in resolved_symbols:
+                        self.active_subscriptions[full_symbol] = {
+                            **symbol_info, "data_type": data_type, "subscribed_at": time.time()
+                        }
 
                 # self.logger.info(f"\nSuccessfully sent subscription for {len(hsm_tokens)} HSM tokens")
                 # self.logger.info(f"Expected data for {len(self.active_subscriptions)} symbols")
                 # self.logger.info("="*60 + "\n")
                 return True
 
+        except TokenConversionError as exc:
+            self.last_subscription_error = exc
+            self.logger.warning("Subscription token lookup failed: %s", exc)
+            return False
         except Exception as e:
+            self.last_subscription_error = TokenConversionError("FYERS subscription dispatch failed")
             self.logger.error(f"Subscription error: {e}")
             return False
 

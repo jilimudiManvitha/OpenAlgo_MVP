@@ -36,6 +36,7 @@ from utils.logging import get_logger
 from .fyers_adapter import FyersAdapter
 from .fyers_mapping import FyersDataMapper
 from .fyers_tbt_websocket import FyersTbtWebSocket
+from .fyers_token_converter import TokenConversionError
 
 
 class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
@@ -74,7 +75,10 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
         # HSM batch queue: collects {data_type, exchange, symbol, callback}
         # entries from per-symbol subscribe() calls and flushes them together
         # so a single FyersAdapter.subscribe_symbols call covers many symbols.
-        self._hsm_batch_queue: list[dict] = []
+        self._hsm_batch_queue: dict[tuple, dict] = {}
+        self._hsm_flush_running = False
+        self._hsm_generation = 0
+        self._hsm_not_before = 0.0
         self._hsm_batch_timer: threading.Timer | None = None
         self._hsm_batch_lock = threading.Lock()
 
@@ -185,16 +189,7 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
             self.running = False
             self.connected = False
 
-            # Cancel any pending batch flush so it doesn't fire post-disconnect
-            with self._hsm_batch_lock:
-                if self._hsm_batch_timer is not None:
-                    try:
-                        self._hsm_batch_timer.cancel()
-                    except Exception:
-                        pass
-                    self._hsm_batch_timer = None
-                self._hsm_batch_queue.clear()
-                self._hsm_callback_registry.clear()
+            self._cancel_hsm_batches()
 
             # Clear all active subscriptions and callbacks
             with self.lock:
@@ -330,15 +325,18 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
                 # Depth) go through the batch queue so back-to-back subscribes
                 # from the UI collapse into one FyersAdapter.subscribe_symbols
                 # call (and thus one Fyers symbol-token POST).
+                hsm_queued = False
                 if mode == 1:  # LTP
                     self._enqueue_hsm_subscribe(
                         "SymbolUpdate", exchange, symbol, data_callback
                     )
+                    hsm_queued = True
                     success = True
                 elif mode == 2:  # Quote
                     self._enqueue_hsm_subscribe(
                         "SymbolUpdate", exchange, symbol, data_callback
                     )
+                    hsm_queued = True
                     success = True
                 elif mode == 3:  # Depth
                     # Check if 50-level depth is requested via symbol suffix (e.g., "TCS:50")
@@ -372,12 +370,14 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
                             self._enqueue_hsm_subscribe(
                                 "DepthUpdate", exchange, actual_symbol, data_callback
                             )
+                            hsm_queued = True
                             success = True
                     else:
                         # 5-level depth (HSM WebSocket) via batch queue
                         self._enqueue_hsm_subscribe(
                             "DepthUpdate", exchange, actual_symbol, data_callback
                         )
+                        hsm_queued = True
                         success = True
                         self.logger.debug(
                             f"Queued 5-level depth (HSM) for {exchange}:{actual_symbol}"
@@ -394,6 +394,7 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
                         "exchange": exchange,
                         "mode": mode,
                         "subscribed_at": time.time(),
+                        "stream_status": "pending" if hsm_queued else "dispatched",
                     }
 
                     self.logger.debug(f"Subscribed to {exchange}:{symbol} (mode: {mode})")
@@ -469,6 +470,7 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
                     # If no more subscriptions, disconnect completely to stop background data
                     # This is needed for Fyers HSM which doesn't support selective unsubscription
                     if len(self.subscriptions) == 0:
+                        self._cancel_hsm_batches()
                         self.logger.debug(
                             "No active subscriptions remaining - disconnecting from Fyers to stop all background data"
                         )
@@ -522,102 +524,169 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
             self.logger.error(f"Unsubscription error: {e}")
             return {"status": "error", "message": f"Unsubscription failed: {str(e)}"}
 
-    def _enqueue_hsm_subscribe(
-        self, data_type: str, exchange: str, symbol: str, callback
-    ) -> None:
-        """Queue a single HSM subscribe and arm the batch flush timer."""
+    def _cancel_hsm_batches(self):
         with self._hsm_batch_lock:
-            self._hsm_batch_queue.append(
-                {
-                    "data_type": data_type,
-                    "exchange": exchange,
-                    "symbol": symbol,
-                    "callback": callback,
-                }
-            )
-            if self._hsm_batch_timer is None:
-                self._hsm_batch_timer = threading.Timer(
-                    self.HSM_BATCH_DELAY_SEC, self._flush_hsm_batch
-                )
-                self._hsm_batch_timer.daemon = True
-                self._hsm_batch_timer.start()
-
-    def _flush_hsm_batch(self) -> None:
-        """
-        Drain the batched subscribe queue and dispatch one
-        FyersAdapter.subscribe_symbols call per data_type.
-
-        FyersAdapter takes a single callback and stores it for every symbol in
-        the call, so each flush installs a tiny dispatcher under that data_type.
-        The dispatcher routes each tick back to the original per-symbol closure
-        (which sets symbol/exchange/mode for the ZeroMQ topic before calling
-        _send_data). The lookup goes through `self._hsm_callback_registry`,
-        which is shared across flushes — so when reconnect bursts produce more
-        than one flush within the timer window, every symbol still resolves
-        correctly regardless of which flush registered the dispatcher that the
-        broker adapter happened to keep.
-        """
-        try:
-            with self._hsm_batch_lock:
-                pending = self._hsm_batch_queue
-                self._hsm_batch_queue = []
+            self._hsm_generation += 1
+            if self._hsm_batch_timer is not None:
+                self._hsm_batch_timer.cancel()
                 self._hsm_batch_timer = None
+            self._hsm_batch_queue.clear()
+            self._hsm_callback_registry.clear()
+            self._hsm_not_before = 0.0
 
+    def _schedule_hsm_batch_locked(self):
+        if (
+            self._hsm_batch_timer is not None
+            or self._hsm_flush_running
+            or not self._hsm_batch_queue
+            or not self.connected
+        ):
+            return
+        due = max(self._hsm_not_before, min(it["due"] for it in self._hsm_batch_queue.values()))
+        delay = max(self.HSM_BATCH_DELAY_SEC, due - time.monotonic())
+        self._hsm_batch_timer = threading.Timer(
+            delay, self._flush_hsm_batch, args=(self._hsm_generation,)
+        )
+        self._hsm_batch_timer.daemon = True
+        self._hsm_batch_timer.start()
+
+    def _enqueue_hsm_subscribe(self, data_type, exchange, symbol, callback):
+        """Deduplicate desired subscriptions; one timer/worker per adapter."""
+        key = (data_type, exchange, symbol)
+        with self._hsm_batch_lock:
+            if key not in self._hsm_batch_queue and len(self._hsm_batch_queue) >= 5000:
+                raise RuntimeError("FYERS pending subscription capacity reached")
+            self._hsm_batch_queue[key] = {
+                "data_type": data_type,
+                "exchange": exchange,
+                "symbol": symbol,
+                "callback": callback,
+                "attempt": 0,
+                "due": time.monotonic(),
+            }
+            self._schedule_hsm_batch_locked()
+
+    def _hsm_subscription_rows(self, item):
+        # Called under self.lock. A removed/replaced callback must not be retried.
+        modes = (3,) if item["data_type"] == "DepthUpdate" else (1, 2)
+        rows = []
+        for mode in modes:
+            for suffix in ("", ":50") if mode == 3 else ("",):
+                key = f"{item['exchange']}:{item['symbol']}{suffix}:{mode}"
+                if key in self.subscriptions and self.active_callbacks.get(key) is item["callback"]:
+                    rows.append(self.subscriptions[key])
+        return rows
+
+    def _flush_hsm_batch(self, generation=None):
+        with self._hsm_batch_lock:
+            if generation is None:
+                generation = self._hsm_generation
+            if generation != self._hsm_generation:
+                return
+            self._hsm_batch_timer = None
+            if self._hsm_flush_running or not self.connected:
+                return
+            now = time.monotonic()
+            pending = []
+            if now >= self._hsm_not_before:
+                for key, item in list(self._hsm_batch_queue.items()):
+                    if item["due"] <= now and len(pending) < 100:
+                        pending.append(self._hsm_batch_queue.pop(key))
             if not pending:
+                self._schedule_hsm_batch_locked()
                 return
-
-            if not self.fyers_adapter or not self.connected:
-                self.logger.warning(
-                    f"Dropping batch of {len(pending)} HSM subscribes — adapter not connected"
-                )
-                return
-
-            # Group by data_type, dedupe by full_symbol (last writer wins —
-            # matches the single-call semantics where the latest callback
-            # registration overwrites the prior one).
-            grouped: dict[str, dict[str, dict]] = {}
+            self._hsm_flush_running = True
+        try:
+            grouped = {}
             for item in pending:
-                full_symbol = f"{item['exchange']}:{item['symbol']}"
-                grouped.setdefault(item["data_type"], {})[full_symbol] = item
-
+                grouped.setdefault(item["data_type"], []).append(item)
             for data_type, items in grouped.items():
-                symbol_info = [
-                    {"exchange": it["exchange"], "symbol": it["symbol"]}
-                    for it in items.values()
-                ]
-
-                # Populate the SHARED registry BEFORE registering the dispatcher.
-                # Once subscribe_*() returns, ticks may start arriving immediately,
-                # and the dispatcher needs the registry entries to be visible.
-                for full_symbol, it in items.items():
-                    self._hsm_callback_registry[f"{data_type}_{full_symbol}"] = it[
-                        "callback"
-                    ]
-
-                # Capture data_type via default-arg to avoid Python's late-binding
-                # gotcha when this loop is iterated for multiple data_types.
-                def _dispatch(data, _data_type=data_type):
-                    if not data:
+                # Serialize dispatch with unsubscribe/disconnect so retries cannot
+                # revive a subscription after its owner has removed it.
+                with self.lock:
+                    if (
+                        generation != self._hsm_generation
+                        or not self.connected
+                        or not self.fyers_adapter
+                    ):
                         return
-                    full_symbol = f"{data.get('exchange')}:{data.get('symbol')}"
-                    cb = self._hsm_callback_registry.get(
-                        f"{_data_type}_{full_symbol}"
-                    )
-                    if cb:
-                        cb(data)
+                    items = [it for it in items if self._hsm_subscription_rows(it)]
+                    if not items:
+                        continue
+                    for it in items:
+                        self._hsm_callback_registry[
+                            f"{data_type}_{it['exchange']}:{it['symbol']}"
+                        ] = it["callback"]
 
-                try:
-                    if data_type == "DepthUpdate":
-                        self.fyers_adapter.subscribe_depth(symbol_info, _dispatch)
+                    def dispatch(data, _data_type=data_type):
+                        if data:
+                            key = f"{_data_type}_{data.get('exchange')}:{data.get('symbol')}"
+                            cb = self._hsm_callback_registry.get(key)
+                            if cb:
+                                cb(data)
+
+                    symbol_info = [
+                        {"exchange": it["exchange"], "symbol": it["symbol"]} for it in items
+                    ]
+                    error = None
+                    try:
+                        method = (
+                            self.fyers_adapter.subscribe_depth
+                            if data_type == "DepthUpdate"
+                            else self.fyers_adapter.subscribe_quote
+                        )
+                        success = method(symbol_info, dispatch)
+                        if not success:
+                            error = self.fyers_adapter.last_subscription_error
+                            if not isinstance(error, TokenConversionError):
+                                error = TokenConversionError("FYERS subscription dispatch failed")
+                    except Exception:
+                        error = TokenConversionError("FYERS subscription dispatch failed")
+                    if generation != self._hsm_generation or not self.connected:
+                        return
+                    if error is None:
+                        resolved = self.fyers_adapter.last_subscription_symbols
+                        for it in items:
+                            status = (
+                                "dispatched"
+                                if f"{it['exchange']}:{it['symbol']}" in resolved
+                                else "rejected"
+                            )
+                            for row in self._hsm_subscription_rows(it):
+                                row["stream_status"] = status
+                                row.pop("stream_error", None)
+                        continue
+
+                    retried = 0
+                    for it in items:
+                        it["attempt"] += 1
+                        retry = error.retryable and it["attempt"] < 3
+                        for row in self._hsm_subscription_rows(it):
+                            row["stream_status"] = "retrying" if retry else "failed"
+                            row["stream_error"] = str(error)
+                        if retry:
+                            delay = max(error.retry_after, 5 * 2 ** (it["attempt"] - 1))
+                            it["due"] = time.monotonic() + delay
+                            key = (it["data_type"], it["exchange"], it["symbol"])
+                            with self._hsm_batch_lock:
+                                if generation == self._hsm_generation:
+                                    self._hsm_batch_queue.setdefault(key, it)
+                                    self._hsm_not_before = max(self._hsm_not_before, it["due"])
+                            retried += 1
+                    if retried:
+                        self.logger.warning(
+                            "FYERS subscription batch pending retry (%s symbols): %s",
+                            retried,
+                            error,
+                        )
                     else:
-                        self.fyers_adapter.subscribe_quote(symbol_info, _dispatch)
-                    self.logger.debug(
-                        f"Flushed HSM batch: {len(symbol_info)} symbols ({data_type})"
-                    )
-                except Exception as e:
-                    self.logger.error(f"HSM batch subscribe failed for {data_type}: {e}")
-        except Exception as e:
-            self.logger.error(f"Error in _flush_hsm_batch: {e}")
+                        self.logger.error(
+                            "FYERS subscription batch failed (%s symbols): %s", len(items), error
+                        )
+        finally:
+            with self._hsm_batch_lock:
+                self._hsm_flush_running = False
+                self._schedule_hsm_batch_locked()
 
     def _subscribe_tbt_depth(
         self, symbol: str, exchange: str, callback, original_symbol: str = None
@@ -1088,8 +1157,14 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
         return status
 
     def get_subscriptions(self) -> dict[str, Any]:
-        """Get current subscriptions"""
-        return {"total": len(self.subscriptions), "subscriptions": dict(self.subscriptions)}
+        """Requested counts are distinct from broker dispatch and live tick receipt."""
+        with self.lock:
+            rows = {key: dict(row) for key, row in self.subscriptions.items()}
+        counts = {}
+        for row in rows.values():
+            status = row.get("stream_status", "unknown")
+            counts[status] = counts.get(status, 0) + 1
+        return {"total": len(rows), "subscriptions": rows, "stream_status_counts": counts}
 
     def __del__(self):
         """
@@ -1113,6 +1188,7 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
             # Stop all operations
             self.running = False
             self.connected = False
+            self._cancel_hsm_batches()
 
             # Clear subscriptions
             with self.lock:
@@ -1153,6 +1229,7 @@ class FyersWebSocketAdapter(BaseBrokerWebSocketAdapter):
             # Force close everything without error checking
             self.running = False
             self.connected = False
+            self._cancel_hsm_batches()
 
             if hasattr(self, "subscriptions"):
                 self.subscriptions.clear()

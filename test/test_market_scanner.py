@@ -387,7 +387,7 @@ def test_provider_classifies_raw_errors_without_exposing_broker_message(
 ):
     from broker.fyers.api import data
 
-    monkeypatch.setattr(data, "get_api_response", lambda endpoint, token: response)
+    monkeypatch.setattr(data, "get_api_response", lambda endpoint, token, **kwargs: response)
     with pytest.raises(ScannerError) as error:
         FyersScannerProvider("test-token")._request("/data/quotes?symbols=NSE:ABC-EQ")
     assert error.value.status_code == status

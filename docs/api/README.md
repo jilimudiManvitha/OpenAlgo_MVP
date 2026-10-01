@@ -25,7 +25,7 @@ Never put broker credentials or broker access tokens in these requests. The Open
 
 ## Registered REST Inventory
 
-The current v1 surface contains **66 method/path pairs**. A resource with both GET and POST counts as two endpoints.
+The inventory below includes the expired F&O data capability. A resource with both GET and POST counts as two endpoints.
 
 ### Order Management
 
@@ -67,6 +67,9 @@ The current v1 surface contains **66 method/path pairs**. A resource with both G
 | POST | `/multiquotes` | [Multiple quotes](./market-data/multiquotes.md) |
 | POST | `/depth` | [Market depth](./market-data/depth.md) |
 | POST | `/history` | [Historical candles](./market-data/history.md) |
+| POST | `/expired/expiry-dates` | [Historical F&O expiry dates](./market-data/expired-fno.md) |
+| POST | `/expired/contracts` | [Expired F&O contracts](./market-data/expired-fno.md) |
+| POST | `/expired/history` | [Expired F&O candles and OI](./market-data/expired-fno.md) |
 | POST | `/intervals` | [Supported intervals](./market-data/intervals.md) |
 | GET | `/ticker/<string:symbol>` | [Ticker-compatible history](./market-data/ticker.md) |
 | POST | `/symbol` | [Symbol information](./symbol-services/symbol.md) |

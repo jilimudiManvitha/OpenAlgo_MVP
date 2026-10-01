@@ -33,6 +33,7 @@ BSE_CSV = (
 class FakeResponse:
     def __init__(self, payload):
         self.payload = payload
+        self.status_code = 200
 
     def raise_for_status(self):
         pass
@@ -178,7 +179,10 @@ def converter(monkeypatch, names):
         "get_symbol_info",
         lambda symbol, exchange: Info(names[symbol]) if symbol in names else None,
     )
-    monkeypatch.setattr(ftc.requests, "post", fake_symbol_token_api)
+    from types import SimpleNamespace
+
+    monkeypatch.setattr(ftc, "get_httpx_client", lambda: SimpleNamespace(post=fake_symbol_token_api))
+    monkeypatch.setattr(ftc, "apply_rate_limit", lambda: None)
     return ftc.FyersTokenConverter("appid:token")
 
 

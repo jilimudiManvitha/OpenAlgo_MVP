@@ -133,7 +133,7 @@ class WebSocketProxy:
         # Receive all topics (market data + CACHE_INVALIDATE_*)
         self.socket.setsockopt(zmq.SUBSCRIBE, b"")
 
-    async def start(self):
+    async def start(self, on_ready=None):
         """Start the WebSocket server and ZeroMQ listener"""
         self.running = True
 
@@ -211,6 +211,8 @@ class WebSocketProxy:
                     ping_interval=ws_ping_interval,
                     ping_timeout=ws_ping_timeout,
                 )
+                if on_ready is not None:
+                    on_ready()
 
                 highlighted_success_address = highlight_url(f"{self.host}:{self.port}")
                 logger.debug(
