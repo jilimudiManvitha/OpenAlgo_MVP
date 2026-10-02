@@ -1,5 +1,33 @@
 # OpenAlgo fork - AI agent context
 
+October 2 — user requested a new Investment Portfolio section: ten asset classes
+(Stocks, Mutual Funds, ULIPs, Fixed Income, Bullion, Property, Loans, Other Assets,
+Other Borrowings) with full read/write, a timestamped transaction ledger, nine
+reports, portfolio scoring and charts. This is roadmap Task 6, which the user
+**unfroze**, replacing the September 12 freeze and the original 4-watchlist-style
+scope. Locked decisions: weighted-average cost basis on holdings screens; manual
+price entry plus CSV import for non-stock assets (the codebase has **no** AMFI/mfapi
+NAV provider); new code under the `investment` namespace because `/api/v1/portfolio`,
+`portfolio/`, `src/api/portfolio.ts` and `/portfolio` are all taken by the portfolio
+backtester — only the user-facing route is reclaimed, and `/portfolio-backtester`
+keeps working. Phase 1 = schema + ledger + API, Phase 2 = Dashboard + Stocks, then
+widen. **Phase 0 (decisions + plan) only; documentation changed, no implementation.**
+Full plan: [docs/plans/2026-10-02-portfolio-section-plan.md](docs/plans/2026-10-02-portfolio-section-plan.md).
+Four open questions remain in its section 12, the first being whether paper trading
+wires into the existing `database/sandbox_db.py` engine. No orders, schedules, strategies
+or the Crypto tree were touched.
+
+October 1 evening — user manually has OpenAlgo running; MCP calls succeeded.
+At user request cleared all 18 Wed entries and verified empty. Subsequent request
+completed today's backtests for all eight saved scheduled profiles: 73/73 scanner
+stocks, 20/20 current Thu stocks, both modeled paths, 1,240 ledger rows verified,
+69 focused tests passed. [Results](backtesting/eight_scheduled_20261001/README.md).
+Nifty500 fixed 1m +₹536.55/−₹631.85 OLHC/OHLC; all other profiles lost both paths.
+Retrospective scanner/current-watchlist selection, modeled ticks and illustrative
+cost limitations are documented. No orders, strategy starts, schedule edits or
+restart; app left running. This supersedes the stopped note below. See canonical
+roadmap checkpoint for details. Browser rendering unavailable; artifact checks pass.
+
 October 1 — user requested stopping OpenAlgo after MCP verification. SIGINT sent
 to PID 22153; verified app/launchers/strategy-script processes and listeners on
 5000/8765 are gone. Saved schedules, MCP configuration and local changes remain.

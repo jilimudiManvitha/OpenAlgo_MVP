@@ -11,6 +11,10 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 1: [Today's eight scheduled strategy backtests](../backtesting/eight_scheduled_20261001/README.md)
+— 73 scanner stocks, 20 Thu stocks, both modeled paths, full coverage and verified
+trade ledgers; interactive offline report and CSVs.
+
 October 1: [MCP local desktop setup](../mcp/README.md) and
 [watchlist API](api/symbol-services/watchlist.md) — Codex/ChatGPT desktop/OpenCode,
 paste stock lists to add/remove from saved watchlists, plus expired F&O tools.
@@ -33,13 +37,21 @@ September 30: [Four-strategy chart guide](../strategies/FOUR_STRATEGIES_CHART_GU
 — separate signal/entry/exit diagrams, sizing examples and offline interactive
 charts explaining fixed 3R versus BB-middle trailing, using illustrative prices.
 
+Current cross-project work: [Portfolio section plan (2026-10-02)](plans/2026-10-02-portfolio-section-plan.md)
+— a new Investment Portfolio section: ten asset classes (Stocks, Mutual Funds, ULIPs, Fixed Income,
+Bullion, Property, Loans, Other Assets, Other Borrowings) with full read/write, a timestamped
+transaction ledger, nine reports, portfolio scoring and charts. This unfreezes Task 6 of the
+six-task roadmap and supersedes its scope. Phase 0 (decisions and plan) is complete;
+implementation has not started.
+
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,
-mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. The separately authorized all-stock DuckDB runner and dashboard are implemented and verified with synthetic tests; historical execution has been launched and remains incomplete. Other Task 1 work and Tasks 3-6 remain frozen. Market-hours and broader broker operational verification remain documented follow-up.
+mobile parity and sandbox investment portfolios. Task 2 is integrated at `/market-scanner`, with backend/browser/build/resource checks passing. The subsequent strategy update and September 11 CSV comparison of all 404 HA/BB/VWAP V1 versions are complete. The separately authorized all-stock DuckDB runner and dashboard are implemented and verified with synthetic tests; historical execution has been launched and remains incomplete. Other Task 1 work and Tasks 3-5 remain frozen; Task 6 was unfrozen on 2026-10-02 and now follows the Portfolio section plan above. Market-hours and broader broker operational verification remain documented follow-up.
 
 | Read this when you need… | Entry point |
 |---|---|
 | The REST API (`/api/v1/`) — orders, market data, options, account, streaming | [api/README.md](api/README.md) |
+| Personal holdings — investment ledger, valuation, scoring and reports | [Portfolio section plan](plans/2026-10-02-portfolio-section-plan.md) |
 | The Python SDK — install, client, data/order/account calls | [<prompt/openalgo python sdk.md>](<prompt/openalgo python sdk.md>) |
 | Symbol format across exchanges (equity/futures/options) | [prompt/symbol-format.md](prompt/symbol-format.md) |
 | Order constants (exchange / product / price-type / action codes) | [prompt/order-constants.md](prompt/order-constants.md) |

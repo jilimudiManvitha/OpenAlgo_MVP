@@ -1,5 +1,37 @@
 # Six-task implementation plan and agent handoff
 
+## Latest checkpoint — October 1 evening: eight scheduled backtests complete
+
+User reported OpenAlgo running and requested clearing Wed using OpenAlgo MCP.
+Removed all 18 entries and read back the empty watchlist. User then requested
+today's backtest of every scheduled strategy. Verified the saved configuration
+contains exactly the eight existing 09:15–15:00 profiles and ran the shared replay
+for **2026-10-01**, both OLHC/OHLC modeled paths. The app was left running;
+the earlier stopped-state note below is historical. No restart, strategy start,
+order submission or schedule change was performed.
+
+[October 1 results and reproduction](../../backtesting/eight_scheduled_20261001/README.md)
+include offline HTML, summary CSV/JSON, all eight trade CSVs, frozen selection,
+schedule metadata and source/code hashes. Reports are also stored as
+`backtest-2026-10-01-<profile>` in the application report DB. Inputs cover **73/73
+scanner stocks and 20/20 Thu stocks**, 91 distinct symbols, all with 375 unique
+valid regular-session minute bars plus warmup. Thu was populated when reread;
+no watchlist was changed during backtesting. Wed's removal does not affect Thu.
+
+All eight ledgers and **1,240 modeled trade rows across 16 scenarios** verified;
+metrics/source hashes/timeframes/signal timing/cutoff checks pass. **69 focused
+strategy tests pass**. HTML table and nine local downloads pass structural checks;
+browser rendering remains unverified because no browser surface was available.
+Saved schedule configuration hash is unchanged. Source strategies were unchanged.
+
+Nifty500 fixed 1m net: **+₹536.55 OLHC / −₹631.85 OHLC**; every other profile lost
+under both paths. NIFTY gross benchmark **−0.6408%** (09:15–15:00). Results use
+₹10,000 per trade, 5 bps adverse slippage/side and illustrative 5 bps fees/fill,
+without a total portfolio cap. The 15:36 scanner snapshot and current Thu list
+are applied retrospectively; unknown intraday membership causes selection bias.
+Modeled paths are not actual ticks, forward fills or strict best/worst bounds.
+Realized drawdown excludes intratrade equity. Frozen tasks remain untouched.
+
 ## Current process state — October 1: stopped at user's request
 
 After MCP verification, user explicitly requested stopping OpenAlgo. Sent SIGINT
@@ -736,7 +768,7 @@ Usage details: [strategy and reports](../../strategies/top_gain_volumes/README.m
 The older September 25 pending-upload checkpoint below is historical; it is
 not the new dynamic strategy or the new schedule.
 
-Updated: 2026-09-15, Asia/Kolkata. Status: Task 2 integrated and locally verified. The September 11 comparison of 404 versions and separate ETH experiment are complete. The four-selected-version full DuckDB run remains stopped and incomplete. The user authorized a separate January-June 2026 Nifty 50 run; see the current checkpoint. Other Task 1 work and Tasks 3-6 remain frozen.
+Updated: 2026-10-02, Asia/Kolkata. Status: Task 2 integrated and locally verified. The September 11 comparison of 404 versions and separate ETH experiment are complete. The four-selected-version full DuckDB run remains stopped and incomplete. The user authorized a separate January-June 2026 Nifty 50 run; see the current checkpoint. Other Task 1 work and Tasks 3-5 remain frozen. **Task 6 was unfrozen on 2026-10-02** and replaced by the broader [Portfolio section plan](2026-10-02-portfolio-section-plan.md); its Phase 0 (decisions + plan) is complete and implementation has not started.
 
 This is the canonical plan for the user's six tasks from 2026-09-11. The task numbers below belong to this request; similarly numbered historical tasks in `context.md` are different work. Read this plan before resuming implementation. All future progress belongs in the checklist and handoff section here.
 
@@ -1449,6 +1481,18 @@ Acceptance: end-to-end parity checklist against web; Android device/emulator and
 
 ## Task 6 — Sandbox investment watchlists and portfolio tracking
 
+> **Superseded 2026-10-02.** The user unfroze T6 and requested a broader Investment Portfolio
+> section: ten asset classes (Stocks, Mutual Funds, ULIPs, Fixed Income, Bullion, Property, Loans,
+> Other Assets, Other Borrowings) with full read/write, a transaction ledger, nine reports,
+> portfolio scoring and charts. The authoritative scope, decisions and phasing are in
+> [2026-10-02-portfolio-section-plan.md](2026-10-02-portfolio-section-plan.md). The text below is
+> retained as the original design record. Locked-in decisions from the new plan that carry
+> forward: weighted-average cost basis on holdings screens, **not** FIFO — so this task's original
+> FIFO-for-capital-gains requirement is now an open Phase 4 decision; manual price entry plus CSV
+> import for non-stock assets, because the codebase has **no** AMFI/mfapi NAV provider; and new
+> code lives under the `investment` namespace because `/api/v1/portfolio`, `portfolio/`,
+> `src/api/portfolio.ts` and `/portfolio` are all taken by the portfolio backtester.
+
 Add a sandbox Investment Portfolio section with named watchlists categorized as Swing, Positional, Long-term and Mutual Funds. Reuse existing server watchlist identity/persistence where appropriate, while separating a symbol-to-watch from an actual recorded purchase. Entries support instrument, exchange/scheme ID, entry price, quantity/units, purchase date/time, optional SL/TP, notes and current quote/NAV with valuation timestamp.
 
 Use a transaction ledger for recorded buys/sells, partial exits, fees, adjustments and optional dividends/cash flows. Derive open lots, remaining quantity, weighted cost, realized/unrealized P&L, invested amount, market value, return and days held. Preserve original purchase timestamps and an audit history of corrections. A symbol can exist in several styles without merging ownership accidentally. Scope all data by instance/user, sandbox portfolio and instrument identity; include connection identity where multiple hosts are aggregated.
@@ -1480,7 +1524,7 @@ Acceptance: exact ATHER example; multi-lot purchases, partial sale and fees; sty
 | T3 | AlgoMirror shared calculator, Delta adapter, simultaneous accounts | Frozen by user on 2026-09-12; not started |
 | T4 | Theme foundation and full route-by-route UI migration | Frozen by user on 2026-09-12; not started |
 | T5 | Flutter parity matrix, implementation and Android artifact | Frozen by user on 2026-09-12; not started |
-| T6 | Sandbox style portfolios, ledger, valuations and watch thresholds | Frozen by user on 2026-09-12; not started |
+| T6 | Sandbox style portfolios, ledger, valuations and watch thresholds | **Unfrozen by user on 2026-10-02; in progress.** Scope superseded by the broader [Portfolio section plan](2026-10-02-portfolio-section-plan.md) — 10 asset classes with full read/write, reports, scoring and charts, replacing the 4 watchlist styles described below. Phase 0 (decisions + plan) complete; implementation not started. |
 
 Resume by reading root `AGENTS.md`, this file, then `context.md` for prior implementation history and `docs/INDEX.md` for canonical references. Check current Git status in every target repo and applicable nested instructions before editing. Do not redo the planning pass or treat older task numbers as these tasks.
 
