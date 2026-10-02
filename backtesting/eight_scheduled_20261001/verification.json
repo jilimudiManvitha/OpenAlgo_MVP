@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "profiles": 8,
+  "scenarios": 16,
+  "distinct_symbols": 91,
+  "full_session_minutes_per_symbol": 375,
+  "focused_tests_passed": 69,
+  "html_table_rows": 16,
+  "download_links_checked": 9,
+  "schedule_config_unchanged": true,
+  "browser_rendering": "unverified: no browser surface available"
+}

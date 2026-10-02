@@ -1,0 +1,117 @@
+{
+  "config_sha256": "efdf65f2f4d9489da82b807e657c3b1277e9eb5aa6e8752842f4f11f8dbe3a61",
+  "profiles": [
+    {
+      "name": "Nifty500 Scanner \u00b7 Fixed 3R \u00b7 10K",
+      "file_name": "Top_Gain_Volumes_Live_1L_stategy.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Fixed 3R \u00b7 10K",
+      "file_name": "Weekday_Watchlist_Fixed_3R_10K.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Trail after 3R \u00b7 10K",
+      "file_name": "Nifty500_Scanner_Trail_3R_10K.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Trail after 3R \u00b7 10K",
+      "file_name": "Weekday_Watchlist_Trail_3R_10K.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Fixed 3R \u00b7 10K \u00b7 5m HA",
+      "file_name": "Nifty500_Scanner_Fixed_3R_10K_5m.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Fixed 3R \u00b7 10K \u00b7 5m HA",
+      "file_name": "Weekday_Watchlist_Fixed_3R_10K_5m.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Trail after 3R \u00b7 10K \u00b7 5m HA",
+      "file_name": "Nifty500_Scanner_Trail_3R_10K_5m.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Trail after 3R \u00b7 10K \u00b7 5m HA",
+      "file_name": "Weekday_Watchlist_Trail_3R_10K_5m.py",
+      "schedule_start": "09:15",
+      "schedule_stop": "15:00",
+      "schedule_days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "is_scheduled": true
+    }
+  ]
+}

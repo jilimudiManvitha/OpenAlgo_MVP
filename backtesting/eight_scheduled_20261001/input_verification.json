@@ -1,0 +1,468 @@
+{
+  "day": "2026-10-01",
+  "passed": true,
+  "distinct_symbols": 91,
+  "sources": {
+    "AADHARHFC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e5642b6744c37ed5652c2a743a0984e43c3be317330c01e4d6df8db609862c91"
+    },
+    "ABB": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "a5a5d54fb2b39757478850fef68523069002daf0e1f181abdfc0fcdca7f8f5c9"
+    },
+    "ACC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e4524eebe315167b4e3ecd904dae7be67a80961bc78704f4880f6175f33279e1"
+    },
+    "ACMESOLAR": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "509e1393ed532461440e114304f19d6dd78bd10fdbfcd3a208a2978931f95799"
+    },
+    "ADANIENSOL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "eeb7b8f30a4d3adbd7f2f9de5f2fa18b742f49314efe7ad73f87b11361bd6467"
+    },
+    "AEGISLOG": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "c8fc6cb23d0749ea0abb0865b147eaf4dff4ae5b80d72da021f2e3004c8dc99f"
+    },
+    "ALKEM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "01984f0fd526d36e2926b8f52efa391e10d7f192d497793992d7e0eb734e5fb1"
+    },
+    "AMBUJACEM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e6810452ca73ad6518792a7dd14e32afa8975fc100129edcb0b60525f3f63d2a"
+    },
+    "ANGELONE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4cc6d712e032667b7dc5b9d645a8b1943915410b03a01cf2f10b781a6f5c243f"
+    },
+    "APARINDS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "9cbbb0a2a069e1938bfd4afa3689b0e702b3d80f7f0431d94e9ef776faf8020a"
+    },
+    "ASIANPAINT": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4dd2603919b9d8f427c4eeba599bb92d2b23a52aea3b45f891061fef6b63bf18"
+    },
+    "ASTERDM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "d2be2ce24807869578e690a0dc2b029c0b07352ee1a9c0766605b08b8a3b8a87"
+    },
+    "BAJAJFINSV": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "620583c1e689f4d8be5e3e88d011ed3d0e7313af0f354cba4df8ed408089a21f"
+    },
+    "BAJAJHFL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e7ad1c5fef7d07ce7a48c696f329aa8e0ea017500a3ad2383c4a77d330bbe943"
+    },
+    "BANKBARODA": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "1e680591864633ee50020ad9901883e9dbbfb4777e7615e1094dd1490e2371ca"
+    },
+    "BHEL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "2145e9b177d98b2add69ee7e9ed51c76cf7764aa74a2452245040bd9dfd62f3f"
+    },
+    "BLUEDART": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "0dd8e5d8f893c29a8e3215183d5e048ee1e58aeb084d4ac1b47a0a5fb15541b5"
+    },
+    "BLUEJET": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "b71c8d73c765e72a4f4932cf17ab31d650adc40fe844462f9875edb1b9c443d4"
+    },
+    "CCL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e5a326945a8062718f108c8fc3d578ba2cd611c3c4a702c8530c9b1d680b18ee"
+    },
+    "CGCL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "dd86978ce7dd00acdadb21f5b9896e8d242cea47ef232c21f929e0d47e3f2335"
+    },
+    "CGPOWER": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "02b965fbb248a350e81c54a6b5f869da06deb03e72d5a630a91e032d15b086e6"
+    },
+    "CLEAN": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "ca443e1003e87e502d8fb7ff86f46af75704b83be780f24a5a45d31c40aabcd8"
+    },
+    "COFORGE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e457bfd0c714e9fe531262ff3f7bcd0e90419fc9cbbecf6491ad34c2ba782152"
+    },
+    "COHANCE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "273ed67b17c07105756bee24f1c5f9a1ee1be709be9ececeae05727bf499af56"
+    },
+    "CUB": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "a131c2f6e9627cfb1f3749bc1794fd796e6d7d6b409694fa2da6d3f48db1f0c7"
+    },
+    "CUMMINSIND": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4fd660ec7d95f1f850818c0f56dbfc5e094944d47263f25237683d1e32470940"
+    },
+    "CUPID": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "2bcb9c4ba9727b684ec94b640285905670daaec95020d93dd44de9b72daccc58"
+    },
+    "DCMSHRIRAM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "5f48d7426aebc53567c80a7491e07fb534e6229a5065dd950c92dc1d9e06eda8"
+    },
+    "DMART": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "f417c33690808cded418fd3052629f28d5afdd5593bf5a59044fafc9583122f4"
+    },
+    "ENRIN": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "ba23803356de4cd57926ddfc0e3dbc206a93f877f549a5d71e9aa1676bcfc1af"
+    },
+    "FEDERALBNK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "148372a86c3d6a49a131ca5e00b35044a104349441e0ef2b3042072d2d4a8aa5"
+    },
+    "FORCEMOT": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "de93b5d7642ccf187f4586d851cf27448da05e40b33f0adf8cd691344b1811a4"
+    },
+    "FORTIS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e9cc299cd6486013d75db2aca6cb136af3918c7cb5858047de3a8d1d63537721"
+    },
+    "GRAPHITE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "98b84e10b16c53c67c66a18d56017127ddd911c45cd16b5ac1d0d0dc4ec69ccd"
+    },
+    "GVT&D": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "7ef64be3f28af8834b76e838713841980928fbc4e4056a5baeafcbb38f5ee991"
+    },
+    "HAVELLS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "67177f8e01539f31d42d78eed3f32045d708055366f7221534413096b21ac397"
+    },
+    "HDFCAMC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "30d4cdc67ccbbc0981cf0717d98c676491ed77ff58ce0066bf9bcfa9fd7fbe30"
+    },
+    "HDFCBANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "0ef0556bbaf92582f9f9e3b2893c7645324913295a93a7cfdce4a3af70aaf071"
+    },
+    "HDFCLIFE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "d5aa00ec507867eea855dad93f4d3cd7bdd41bc1ea027de8e39c41cc83fe68bd"
+    },
+    "HINDALCO": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "c6403617213d2284169ca6de3f72ba6c63f2abee86559d64af491e819697b576"
+    },
+    "HOMEFIRST": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "530afc5768aaa092be93724f23e4bb00dc61b5c56332afea9bd39adb32bb3454"
+    },
+    "IDBI": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e2011f3f8a7b4a2894f5404cf2b72fb670a7a38e7ae7b66d0f6a44b6cb130d4e"
+    },
+    "IDEAFORGE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "18d6306ba34cfcdbbbe9dba191a283ca1884ac7049a355bfb023a03db8bf3414"
+    },
+    "IKS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "8fad694433644cbf9b3456ea0ebc13a6f11d1a58a4557b7792e8f8776a528684"
+    },
+    "INDUSTOWER": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "8c39b542026c8397828351e9c877037454075ae56f24359eeb741983b502aad7"
+    },
+    "INFY": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "34d7bf8cc157c4974bfd9b324b9b7081c0a501011d35d01f0f0d68b3caa92e74"
+    },
+    "IOC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "039ea501683c8e2c3ffecad41c5f7d9f1f37b991478d544399cec90cf0a435e8"
+    },
+    "J&KBANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "c1467e35dfe3289acd30c2eb6fb6e63507455063d39672f5f335eff1b06f4cd2"
+    },
+    "KARURVYSYA": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "1cb98c8ebad7caa3d451e404f5fc67d49d47eeac40014adbbafe3703fe5005d0"
+    },
+    "KOTAKBANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "77b4702bb8d3bc00087a5c68b2c3d788c34dc3a4f3c5754d3a8dd671c15026a0"
+    },
+    "LALPATHLAB": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "51475eb9c094754cf72e3a56b9431ba234941a722d7aa33489b14a972747f20e"
+    },
+    "LEMONTREE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e550f70029d7478c91a667be16cafb35adaf1b0f6e3553194deed160581de299"
+    },
+    "LTTS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e47c3bf9b1c499c4a3fea2dc778ef1ca681b02c83a54c8c372c1b354261821b3"
+    },
+    "MAHABANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "082363978fe3b851acbe7bb2bc26c4d74e09dfb258c522524d76b9d2bdb87965"
+    },
+    "MAHLIFE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "b2c3630f320d18e928994283492c78fdc0739372c8731d64a3437bcf0c09268a"
+    },
+    "MANKIND": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4602d8de376db5e54ff09cf054b789bffc918bb3769c5ba72da10be6554317d9"
+    },
+    "MAXHEALTH": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "125bee51ecb980c92d22bd32900bf8a2368dd06bdb085d8e7662dc7eef66681a"
+    },
+    "MFSL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "32c9831d7f4c3ed2d8be2a56c0ae4283da02e422f695e1468b88138943672dd2"
+    },
+    "MOBIKWIK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e792461f2cfeb22abe747512d62fd3915e990d1de65e1ac1a700ea9ac25a7998"
+    },
+    "MPHASIS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "d47d62f9b276e8679ab72e77f9706989b62bc199d43a5dc56f811219b3dd2cdf"
+    },
+    "NATCOPHARM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "36c6abd9410ae7da9ef9159b8bf65d6c861af861fcb806c2c6b1706f0f0c9c30"
+    },
+    "NCC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4f6d2494f189b8895fe91986431cc54c501b5c0683abb077ccab75c708d4f269"
+    },
+    "NUVAMA": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "94cab9af8b4a890122415a3171ee3f7e266ca47f52dc59eac665d2ad966c1714"
+    },
+    "NYKAA": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "c204ae76cb3f55f86f16da8ea85a6224836f3ab8ff4afd9db257b6fd402fcaa9"
+    },
+    "ONGC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "054c57d55600cf226d7cdc52d7639f9d9a57c3c885bf5e1c292300ffa3d0194d"
+    },
+    "PAGEIND": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "c52f5788ab142b0b6e5428446c38fc1dee9513ca9c43abfaceec2aeb9c17757e"
+    },
+    "PERSISTENT": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "0f3c3b0eb33c2308ce25ce424df543284be2313fd329c6233720d4cc9899f383"
+    },
+    "POWERINDIA": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "a4a609aa3d6d0f8cb7958aaa72d5fcd443e2ea69d12442f224b018c64f648c39"
+    },
+    "PRESTIGE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "2d30c3ba63cc636bb41e9e01d76f1a07ce37646ba0f0826b7f8b9e78832bf908"
+    },
+    "RBLBANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "b4d97d2c3e1f1f51f6d405404591280e6874f641dc32955d0c47d803aa1d72a1"
+    },
+    "RELIANCE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "1eb14021b2897834f12e687d13f93efa295e07aebff6f19e7efcd43ab37c202e"
+    },
+    "RITES": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "0a3f8d40f4ebde096f6e99e65580c237c5b8350d614c781967d89290cede23bc"
+    },
+    "SAGILITY": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "ffc4164c09af3511cfa4eed442fd32c979a49f005de0efd090b2924732797b6c"
+    },
+    "SAILIFE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "b5f062677cd49419f1bb72f61f19ae8284dc8941f1dc0ddfe753e52ff4a8cf81"
+    },
+    "SBILIFE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "ae95d72a9a50889df3588f41ab4619759e5e32948b8102a9ae80c7bec2b54627"
+    },
+    "SCHNEIDER": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4be3d1a7b3703cc63a5db72f91490347f31209ff115395d9a88d8bc494e9b22e"
+    },
+    "SIEMENS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "f7dcb8ac46234eea3aa6a4dbcc1d1af98c8f474099156965c1f7678a7139238a"
+    },
+    "SIGNATURE": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "fcd1acf8f79043bb95b2484e297c9778cc83f5d3cea1d4a6bb930651b4107569"
+    },
+    "SRF": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4a411e158a512be7a8263241f5af52f2181907cc5872381b81153053e24dc5dd"
+    },
+    "SYMBIOTEC": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "3c33d8a87a59887075738585c778b0e192aef977d7fb53470b465d1c35ec7b41"
+    },
+    "TARIL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4e8c8427543be2465f3cdbdc92c5cd580900670d7859c7e79c8ee306f2687da8"
+    },
+    "TATACOMM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "d21c999bf6dd2387031e950334f0fcee749b8afc5f165d739368c407b82d58a1"
+    },
+    "TCS": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "8927de9a10c27f6b976ab6f1819044d961b10acb8ff1b54a6d21620781234480"
+    },
+    "TECHM": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "73fbfe37d02afa05ef1767a52359c7cdeb478b2f48262a7d77fce0110fe06a40"
+    },
+    "TRANSRAILL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "6cacccf870f72560ba99114097b820ba0220c0078d6b5e08373195edb631d231"
+    },
+    "TTML": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "fa4a48ad5b7888a45fe761afa4e08ba251325b1c88a4da251224175e1592e2b8"
+    },
+    "UBL": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "4b99fce0c8d5702e0c5604f89bbf0b5dc4d1f422a594d87756a4c718ff0374f0"
+    },
+    "WAAREEENER": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "e4337b0b952eb76cba73c8719f8f06b9adb4596e6789521d462a12867cce0c8c"
+    },
+    "WELSPUNLIV": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "d7e938d708f92eca8003f804f7d1b23862feaf6486c2e0d165d43f7552985dfc"
+    },
+    "YESBANK": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "fe1a6f8315caa30c4c788630c6eec242875ee3af4b2ff1de6208764836b6f5b4"
+    },
+    "ZENSARTECH": {
+      "rows": 2250,
+      "session_minutes": 375,
+      "sha256": "fae117730c5e4f21fcac0e488622d86023e19df94ec731922621b3a56b831586"
+    }
+  },
+  "code_sha256": {
+    "strategies/top_gain_volumes/replay_four.py": "26a19b5c198d1c5e741d9395b235d70ab2617e5ff4e3bff2d3642002491e7713",
+    "strategies/top_gain_volumes/runtime.py": "d0c45975701971a782ffc0ac216525767c44b2a3e3f1cf117bd0931b673b500e",
+    "strategies/top_gain_volumes/profiles.py": "24faa3358380d7b4f0a50c24eafee85a97bd3f87bac0c4726573edfc09952a74",
+    "strategies/top_gain_volumes/history.py": "044fcb75a7ddbfe6963d4cd86e4558992ac7ce26e79b0c3a11856374283e327c"
+  }
+}
