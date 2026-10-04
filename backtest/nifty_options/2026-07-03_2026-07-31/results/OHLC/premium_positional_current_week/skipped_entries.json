@@ -1,0 +1,10 @@
+[
+  {
+    "timestamp": "2026-07-08T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-07-22T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "strategy": "delta_positional_current_week",
+  "path": "OHLC",
+  "capital": 2000000,
+  "net_pnl": 46697.46999999997,
+  "realized_pnl": 42953.46999999999,
+  "fees": 414.53,
+  "return_pct": 2.33487349999999,
+  "max_drawdown_inr": -11553.75,
+  "closed_legs": 8,
+  "open_legs": 2,
+  "skipped_entries": 2,
+  "greek_unavailable_minutes": 0,
+  "vectorbt_reconciled": true,
+  "sharpe_daily_annualized": 18.062926080897196,
+  "sortino_daily_annualized": 83.61101685183901,
+  "max_drawdown_pct": -0.5680074991591066,
+  "trading_sessions": 21,
+  "closed_leg_win_rate_pct": 100.0,
+  "closed_leg_profit_factor": null
+}

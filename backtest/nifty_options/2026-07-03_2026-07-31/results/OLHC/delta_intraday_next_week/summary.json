@@ -1,0 +1,21 @@
+{
+  "strategy": "delta_intraday_next_week",
+  "path": "OLHC",
+  "capital": 2000000,
+  "net_pnl": 9013.75,
+  "realized_pnl": 9013.750000000005,
+  "fees": 3202.9999999999995,
+  "return_pct": 0.450687499999991,
+  "max_drawdown_inr": -32634.180000000168,
+  "closed_legs": 42,
+  "open_legs": 0,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "vectorbt_reconciled": true,
+  "sharpe_daily_annualized": 1.2436125362855885,
+  "sortino_daily_annualized": 1.427474306670069,
+  "max_drawdown_pct": -1.6248629891408073,
+  "trading_sessions": 21,
+  "closed_leg_win_rate_pct": 54.761904761904766,
+  "closed_leg_profit_factor": 1.103684979409667
+}

@@ -1,5 +1,27 @@
 # OpenAlgo fork - AI agent context
 
+October 4 — separate NIFTY options request is active. Twelve Sandbox-only Python
+variants are implemented under `strategies/nifty_options/` with separate parent
+launchers. User-approved restart installed 12 NFO weekday schedules (09:15–15:40,
+entries 09:30, intraday exits 15:20) alongside the eight original schedules;
+the original definitions were verified unchanged. NRML is used for all twelve
+to avoid the existing 15:15 MIS auto-square-off. Sandbox capital is ₹5 crore,
+₹20 lakh/₹20k loss threshold per variant. SQLite persists owner-scoped positions,
+loss cycles and uniquely tagged pending orders. **45 tests pass**; no orders placed.
+The user now says OpenAlgo is running: **leave it running**.
+
+Latest backtest scope **2026-07-03 through 2026-10-01 only** is now complete,
+replacing five years. All 7,096 contract archive requests finished; 64 sessions,
+24 modeled scenarios, 2,428 closed-leg records, 7,097 source hashes and 98 local
+links verified. Nine variants positive, three negative in both paths. Two open
+premium positional legs remain marked in each path. Price/Greek gaps, estimated
+margin/costs/deltas and assumed candle ordering are disclosed. Market-hour live
+fills remain unverified. No app restart or orders in this final completion turn.
+[Results](backtest/nifty_options/2026-07-03_2026-10-01/README.md).
+All new/future outputs belong in `backtest/`, never application Reports.
+[Full checkpoint](docs/plans/2026-10-03-nifty-options-strategies.md).
+Other six-task work/Crypto/investment remains untouched by this request.
+
 October 2 — user requested a new Investment Portfolio section: ten asset classes
 (Stocks, Mutual Funds, ULIPs, Fixed Income, Bullion, Property, Loans, Other Assets,
 Other Borrowings) with full read/write, a timestamped transaction ledger, nine

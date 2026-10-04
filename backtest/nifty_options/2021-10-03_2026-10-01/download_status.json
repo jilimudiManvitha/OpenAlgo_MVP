@@ -1,0 +1,10 @@
+{
+  "status": "interrupted",
+  "start": "2021-10-03",
+  "end": "2026-10-01",
+  "completed": 1333,
+  "contracts": 98304,
+  "current_expiry": "2021-11-25",
+  "updated_at": "2026-10-03T09:38:54.550450+00:00",
+  "error": "KeyboardInterrupt"
+}

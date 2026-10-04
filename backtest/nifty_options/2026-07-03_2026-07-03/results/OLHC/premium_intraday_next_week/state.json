@@ -1,0 +1,16 @@
+{
+  "config_hash": "3af38bcc7ca0198f8a41155d75ba93a98148633908244bcf46ea6ab4d00e63d5",
+  "legs": [],
+  "pending": null,
+  "cycle": 1,
+  "cycle_realized": 2163.7000000000007,
+  "total_realized": 2163.7000000000007,
+  "fees": 117.80000000000001,
+  "halted": false,
+  "last_entry_day": "2026-07-03",
+  "last_adjustment": "2026-07-03T09:30:00+05:30",
+  "last_timestamp": "2026-07-03T15:29:00+05:30",
+  "needs_reentry": false,
+  "expiry": "2026-07-14",
+  "cycle_start": "2026-07-03T09:30:00+05:30"
+}

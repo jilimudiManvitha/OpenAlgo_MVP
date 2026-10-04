@@ -1,0 +1,21 @@
+{
+  "strategy": "premium_positional_next_week",
+  "path": "OLHC",
+  "capital": 2000000,
+  "net_pnl": 8249.219999999972,
+  "realized_pnl": 5382.719999999999,
+  "fees": 272.28000000000003,
+  "return_pct": 0.4124610000000084,
+  "max_drawdown_inr": -5165.65000000014,
+  "closed_legs": 5,
+  "open_legs": 1,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "vectorbt_reconciled": true,
+  "sharpe_daily_annualized": 4.104981865955427,
+  "sortino_daily_annualized": 6.131571407006761,
+  "max_drawdown_pct": -0.2575093885755164,
+  "trading_sessions": 21,
+  "closed_leg_win_rate_pct": 40.0,
+  "closed_leg_profit_factor": 2.0939320506181627
+}

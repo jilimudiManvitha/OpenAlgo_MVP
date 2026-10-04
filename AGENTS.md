@@ -1,5 +1,11 @@
 # Agent handoff
 
+For the October 3 NIFTY options request, read
+`docs/plans/2026-10-03-nifty-options-strategies.md`. It is separate authorized
+work. Latest user instruction: backtest **only the last three months**, replacing
+five years. Save all new/future backtest output under `backtest/`; do not publish
+backtests into the application Reports database/page. Preserve existing reports.
+
 Before resuming the user's six tasks from 2026-09-11, read
 [`docs/plans/2026-09-11-six-task-roadmap.md`](docs/plans/2026-09-11-six-task-roadmap.md).
 It is the canonical task plan, status checklist, repository boundary and restart memory.

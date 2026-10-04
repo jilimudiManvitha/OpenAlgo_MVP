@@ -1,12 +1,362 @@
-1. Delta_based_short_strangle_nifty(intraday)
-2. Delta_based_short_strangle_nifty(postinal)
-3. Delta_based_short_strangle_bank_nifty(intraday)
-4. Delta_based_short_strangle_bank_nifty(postinal)
-5. Premium_based_short_strangle_nifty(intraday)
-6. premium_based_short_strangle_nifty(postinal)
-7. Premium_based_short_strangle_bank_nifty(intraday)
-8. premium_based_short_strangle_bank_nifty(postinal)
-9. iron_condor_nifty(intraday)
-10. iron_condor_nifty(postinal)
-11. iron_condor_bank_nifty(intraday)
-12. iron_condor_bank_nifty(postinal)
+### **Stage 1: Delta-Neutral Short Strangle (Intraday)**
+
+The first strategy is a structured, rule-based approach ideal for beginners looking for systematic entries and exits[4].
+
+* **Timing:** Enter the trade around **9:30 AM**[4][5].
+* **Strike Selection:** Using the option chain's Greeks view, select Call and Put options with a delta of **0.3 or 0.25**[5].
+* **Adjustment Rule:** Maintain **delta neutrality**[5]. If the market moves and the delta on one side rises while the other falls, 
+shift your strikes up or down to keep the net delta close to neutral (allowing a maximum difference of up to 0.05)
+
+1. Delta_based_short_strangle_nifty_current_week_expiry(intraday)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where delta is near 0.30,PE sell where delta is near 0.30 ,
+place this both legs as basket order. stoploss is 1% of capital. if maket move up/dowm adjust strangles/both legs . hold both legs untill 
+delta become 0.50.theme is we need to maintain dleta neautral .when stop loss hit 1% of capital exit all legs/position in this strategy.
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+capital for this strategy is 20 lakhs.
+hold untill day end probably 3:15PM
+
+1.1. Delta_based_short_strangle_nifty_next_week_expiry(intraday)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where delta is near 0.30,PE sell where delta is near 0.30 ,
+place this both legs as basket order. stoploss is 1% of capital. if maket move up/dowm adjust strangles/both legs . hold both legs untill 
+delta become 0.50.theme is we need to maintain dleta neautral .when stop loss hit 1% of capital exit all legs/position in this strategy.
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+capital for this strategy is 20 lakhs.
+hold untill day end probably 3:15PM
+
+2. Delta_based_short_strangle_nifty_current_week_expiry(postinal)
+morning at 9:30AM in option chain select nifty option chain CE sell where delta is near 0.10,PE sell where delta is near 0.10 ,
+place this both legs as basket order. stoploss is 1% of capital. if maket move up/dowm adjust strangles/both legs . hold both legs untill 
+delta become 0.50.theme is we need to maintain dleta neautral .when stop loss hit 1% of capital exit all legs/position in this strategy.
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+capital for this strategy is 20 lakhs.
+hold untill week expiry day morning 9:30AM
+
+2.1. Delta_based_short_strangle_nifty_next_week_expiry(postinal)
+morning at 9:30AM in option chain select nifty option chain CE sell where delta is near 0.10,PE sell where delta is near 0.10 ,
+place this both legs as basket order. stoploss is 1% of capital. if maket move up/dowm adjust strangles/both legs . hold both legs untill 
+delta become 0.50.theme is we need to maintain dleta neautral .when stop loss hit 1% of capital exit all legs/position in this strategy.
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+capital for this strategy is 20 lakhs.
+hold untill week expiry day morning 9:30AM
+
+### **Stage 2: Premium-Based Short Strangle (Positional)**
+
+To eliminate the stress of constant delta adjustments, the speaker shifted to a simpler, premium-focused mechanical system[10][11].
+
+* **Timing:** Deploy the strategy before **9:45 AM** to maximize theta decay over the course of the day[10].
+* **Strike Selection:** Ignore delta and focus strictly on selecting strikes with a fixed premium of **₹25 to ₹30** (or \~₹50 if trading 
+it as an intraday strategy)[11][12].
+* **Risk Management:**
+  * Set a maximum portfolio-wide stop loss of **1%** of your total deployed capital (e.g., a ₹2,000 stop loss on a ₹2 Lakh capital)[13].
+  * Set an individual stop loss of **30%** on each leg[12]. If a ₹30 premium expands to ₹39, exit that leg and hold the other
+
+3. Premium_based_short_strangle_nifty_current_week_expiry(intraday)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where premium[LTP] is around 50, PE sell where premium
+ is around 50. place this both legs as basket order. stoploss is 1% of capital ,for each leg stop loss is 30% SL for both CE and PE.
+ example CE premiun is 28.85+30%=37.50 here exit.hold PE.
+ PE premium is 26.60+30%=34.50 here exit.hold CE.
+ 1% of capital is stoploss for both legs.
+ capital for this strategy is 20 lakhs.
+ HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+hold untill day end probably 3:15PM
+note i want to try this with multiple capital,stoploss and based on time.
+
+
+
+3.1. Premium_based_short_strangle_nifty_next_week_expiry(intraday)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where premium[LTP] is around 50, PE sell where premium
+ is around 50. place this both legs as basket order. stoploss is 1% of capital ,for each leg stop loss is 30% SL for both CE and PE.
+ example CE premiun is 28.85+30%=37.50 here exit.hold PE.
+ PE premium is 26.60+30%=34.50 here exit.hold CE.
+ 1% of capital is stoploss for both legs.
+ capital for this strategy is 20 lakhs.
+ HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+hold untill day end probably 3:15PM
+note i want to try this with multiple capital,stoploss and based on time.
+
+4. premium_based_short_strangle_nifty_current_week_expiry(postinal)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where premium[LTP] is b/w 25-30 , PE sell where premium
+ is b/w 25-30 . place this both legs as basket order. stoploss is 1% of capital ,for each leg stop loss is 30% SL for both CE and PE.
+ example CE premiun is 28.85+30%=37.50 here exit.hold PE.
+ PE premium is 26.60+30%=34.50 here exit.hold CE.
+ 1% of capital is stoploss for both legs.
+ capital for this strategy is 20 lakhs.
+ HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+Hold untill week expiry day morning 9:30AM
+note i want to try this with multiple capital,stoploss and based on time
+
+4.1. premium_based_short_strangle_nifty_next_week_expiry(postinal)
+daily morning at 9:30AM in option chain select nifty option chain CE sell where premium[LTP] is b/w 25-30 , PE sell where premium
+ is b/w 25-30 . place this both legs as basket order. stoploss is 1% of capital ,for each leg stop loss is 30% SL for both CE and PE.
+ example CE premiun is 28.85+30%=37.50 here exit.hold PE.
+ PE premium is 26.60+30%=34.50 here exit.hold CE.
+ 1% of capital is stoploss for both legs.
+ capital for this strategy is 20 lakhs.
+ HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+Hold untill week expiry day morning 9:30AM
+note i want to try this with multiple capital,stoploss and based on time
+
+The Iron Condor (Hedged Strangle)
+* **Timing:** Keep a hard entry limit of **9:45 AM**, but use the time between 9:15 AM and 9:45 AM to observe the market's opening range[16][17].
+* **Execution:**
+* If the market breaks out in one direction (e.g., breaks the day's high), sell only the **Put option** first[17][18].
+* If the breakout fails or the market starts reversing, write a matching **Call option** to lock in a delta-neutral, premium-matched strangle[18].
+* **Deep OTM Strikes:** Sell extremely safe, far Out-of-the-Money (OTM) options with a tiny premium of around **₹10** (which typically have a very low delta of \~0.06)[19][20].
+* **Advanced Stop Loss:** Set a wide stop loss of **300% (4 times the initial premium)**[20]. A ₹10 premium must touch **₹40** before you exit
+To protect against catastrophic overnight gap risk (like a sudden 10% market movement) and optimize capital, the speaker converts their short strangle into an **Iron Condor**[2].
+
+* **The Setup:** Sell your ₹10 OTM Call and Put, then buy cheaper, protective OTM options **150 to 200 points further out** on both sides[3][24].
+* **Key Benefits:**
+  1. **Capped Risk:** Converts unlimited potential loss into a strictly capped maximum loss (e.g., ₹12,300 per lot)[2][24].
+  2. **Margin Reduction:** Slashes the capital requirement per lot from roughly **₹2 Lakhs down to ₹75,000**
+
+5. iron_condor_nifty_current_week_expiry(intraday)
+take entry before 9:45AM based on open range breakout.
+if breackout happen place CE sell where premium is 45-50.
+if breackdown happen place PE sell where premium is 45-50.
+any one leg first.stop loss per leg is when premium reaches 4x times exit leg.same for CE and PE.example premium is 10 when it reaches 40 
+rupees premium exit.
+if CE reaches 4X premium exit hold PE
+if PE reaches 4X premium exit hold CE.
+or 
+if any one leg hit 4x premium then exit both legs and again place both legs at that time where premium is 45-50.
+overall stoploss is 1% of capital.
+even stop loss does't hit try to adujust strangels to get profit.
+hold untill day end probably 3:15PM
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+
+5.1. iron_condor_nifty_next_week_expiry(intraday)
+take entry before 9:45AM based on open range breakout.
+if breackout happen place CE sell where premium is 45-50.
+if breackdown happen place PE sell where premium is 45-50.
+any one leg first.stop loss per leg is when premium reaches 4x times exit leg.same for CE and PE.example premium is 10 when it reaches 40 
+rupees premium exit.
+if CE reaches 4X premium exit hold PE
+if PE reaches 4X premium exit hold CE.
+or 
+if any one leg hit 4x premium then exit both legs and again place both legs at that time where premium is 45-50.
+overall stoploss is 1% of capital.
+even stop loss does't hit try to adujust strangels to get profit.
+hold untill day end probably 3:15PM
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+
+6. iron_condor_nifty_current_week_expiry(postinal)
+take entry before 9:45AM based on open range breakout.
+if breackout happen place CE sell where premium is 10.
+if breackdown happen place PE sell where premium is 10.
+any one leg first.stop loss per leg is when premium reaches 4x times exit leg.same for CE and PE.example premium is 10 when it reaches 40 
+rupees premium exit.
+if CE reaches 4X premium exit hold PE
+if PE reaches 4X premium exit hold CE.
+or 
+if any one leg hit 4x premium then exit both legs and again place both legs at that time where premium is 10.
+overall stoploss is 1% of capital.
+even stop loss does't hit try to adujust strangels to get profit.
+hold untill week expiry day morning 9:30AM
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+
+6.1. iron_condor_nifty_next_week_expiry(postinal)
+take entry before 9:45AM based on open range breakout.
+if breackout happen place CE sell where premium is 10.
+if breackdown happen place PE sell where premium is 10.
+any one leg first.stop loss per leg is when premium reaches 4x times exit leg.same for CE and PE.example premium is 10 when it reaches 40 
+rupees premium exit.
+if CE reaches 4X premium exit hold PE
+if PE reaches 4X premium exit hold CE.
+or 
+if any one leg hit 4x premium then exit both legs and again place both legs at that time where premium is 10.
+overall stoploss is 1% of capital.
+even stop loss does't hit try to adujust strangels to get profit.
+hold untill week expiry day morning 9:30AM
+HEDGES:- place to buy legs wich is away from CE sell + 200 points away from CE sell and PE sell + 200 points away from PE sell.
+both buy legs should be equal qnty/lots.
+--------------------------------------------------
+Nihaal_Strategy
+### **1\. Core Concept &amp; Timeline**
+
+* **Market View**: **Non-directional (Range-bound)** — assumes Nifty will remain bounded within a specific range over the upcoming weekly contract[3][4].
+* **Execution Timing**: Entered on **Wednesday morning** for the next week's expiry contract (e.g., following Tuesday expiry)[3][5].
+
+---
+
+### **2\. Setup &amp; Strike Selection (4-Leg Breakdown)**
+
+Under normal market conditions, the strategy involves selling Out-of-the-Money (OTM) options and buying further OTM options as protection[3][6]:
+
+1. **Sell OTM Call Option**: Select a Call strike roughly **500 points above spot** (trading around a **₹10 premium**)[5][7].
+2. **Sell OTM Put Option**: Select a Put strike roughly **500 points below spot** (trading around a **₹10–₹12 premium**)[5][7].
+3. **Buy Call Protection (Hedge)**: Buy a Call strike **200 points further OTM** from your sold Call (around a **₹4 premium**)[6].
+4. **Buy Put Protection (Hedge)**: Buy a Put strike **200 points further OTM** from your sold Put (around a **₹4–₹6 premium**)[6].
+5. **Net Credit**: Collecting \~₹6 net credit on the Call side and \~₹6 net credit on the Put side yields a **total net credit of \~₹12**, targeting roughly **1% profit per week** on deployed capital[5].
+
+---
+
+### **3\. Capital &amp; Margin Benefits**
+
+* **Margin Requirement**: Selling naked strangle legs requires \~₹2,00,000 in margin[4][6]. Adding 200-point protection hedges cuts the margin requirement by more than half to approximately **₹88,000–₹1,00,000**[6].
+* **Risk Capping**: Buying protection hedges defines and caps your maximum potential loss if a sudden gap-up or gap-down occurs[8].
+
+---
+
+### **4\. Impact of India VIX**
+
+* **Low VIX (\~11)**: Option premiums are lower, so sold strikes are typically selected around **500 points away** from spot[12][13].
+* **High VIX (15–16)**: Option premiums expand due to higher volatility, allowing you to select strikes further out (**up to 1,000 points away**) while collecting similar premiums[12][13].
+
+---
+
+### **5\. Risk Management &amp; Stop Loss Rules**
+
+* **Golden Rule (Portfolio Stop Loss)**: If your total P&amp;L shows a **\-1% loss** on deployed capital (e.g., -₹1,000 loss on ₹1,00,000 capital), **close all 4 legs immediately** and exit for the week[11][14].
+* **Individual Leg Threshold**: If a sold option premium (sold at \~₹10) doubles or triples to **₹20–₹30**, it signals that the position needs an adjustment or exit[14].
+
+---
+
+### **6\. Adjustment Techniques**
+
+If Nifty trends towards one side and pushes a sold option premium to ₹20–₹30, two primary adjustment methods can be applied:
+
+* **Method 1 (Beginner/Simple Adjustment)**: Square off the troubled leg. Sell a new OTM option further away whose premium matches the remaining safe leg's current premium (\~₹5–₹6)[15][16].
+* **Method 2 (Advanced Re-balancing)**: Square off the initial legs and re-open a fresh Iron Condor by selling new \~₹10 Call and Put options with 200-point hedges[17]. This shifts the range with market movement to keep positions delta-neutral[21][22].
+--------------------------------------------------------
+Set 10Cr capital for Sandox capital.
+-----------------------------------
+Day_trader telugu strategies.
+### **1\. Core Setup &amp; Execution**
+
+* **Selling Out-of-the-Money (OTM) Options**: Sell both a Call (CE) and a Put (PE) option far away from the current spot/futures price, targeting premiums around **₹115** (or \~₹100–₹115) on both sides[2].
+* **Margin Reduction &amp; Risk Protection**: To reduce capital requirements from over ₹1.5 Lakhs down to \~₹75,000, buy cheap OTM options (around **₹10–₹20** premium) far out on both sides[7].
+* **Target Return**: The overall aim is to earn a consistent **₹4,000 weekly profit** per lot (\~5% weekly or \~20% monthly return on margin capital)[1].
+
+---
+
+### **2\. The 5 Golden Rules for Adjustments**
+
+1. **Rule 1: Target Profit Exit (₹4,000 Target)**
+  * Exit the trade and lock in profit as soon as the cumulative position reaches **₹4,000 profit** (representing \~80% decay of the combined ₹200 sold premium)[6]. Once hit, close the position and move to the next week's contract[6].
+2. **Rule 2: Adjustment Trigger (Minimum 50% Premium Difference)**
+  * Do not make hasty adjustments for minor market fluctuations[15]. Start making adjustments ("firefighting") only when the larger premium becomes **at least 50% greater** than the smaller decaying premium[15].
+3. **Rule 3: Premium Rebalancing (80% – 95% Rule)**
+  * When adjusting, square off the smaller decaying/profiting side and re-enter a new option strike that is **80% to 95%** of the value of the larger increasing premium[17].
+  * *Practical approach*: Select a strike with a premium closest to the larger premium without exceeding it[21][23].
+4. **Rule 4: Overnight Balance Protection**
+  * Before the market closes for the day, ensure the Call and Put premiums are balanced at **at least 80% parity** (e.g., if CE is 100, PE should be at least 80) to avoid gap-up or gap-down opening risks[23].
+5. **Rule 5: Strangle to Straddle Conversion &amp; 10% Stop Loss**
+  * **Conversion**: As you continue rolling the profit side closer in a strongly trending market, the Short Strangle eventually shifts into a **Short Straddle** (selling At-The-Money CE and PE)[26].
+  * **Stop Loss**: If the market keeps moving aggressively past the Straddle point, calculate the combined entry premium of both ATM options (e.g., ₹300 CE + ₹300 PE = ₹600 total)[30]. Exit the trade with a **10% combined stop loss** once the combined total premium increases to **₹660**
+------------------------
+Nihaal
+delta based intraday
+at 9:30 sell CE and PE at near 0.30 delta each.hold untill 0.50 delta of both legs.
+if market moves up/down adjust both legs to maintain delta neutral.
+stop loss untill 1% of capital.
+
+delta based postional
+at 9:30 sell CE and PE at b/w >25&<30  premium each of both legs.
+if market moves up/down adjust both legs to maintain delta neutral.
+stop loss untill 1% of capital. 
+
+premium_based_postional
+at 9:30 sell CE and PE at b/w >25&<30  premium each.
+stop loss 1% on capital for this strategy
+per each leg 30% stop loss.example -premium 10+30%=13.
+exit if CE reach this 30% SL and hold PE
+exit if PE reach this 30% SL and hold CE
+
+premium _based_intraday
+at 9:30 sell CE and PE around 50 premium each.
+stop loss 1% on capital for this strategy
+per each leg 30% stop loss.example -premium 50+30%=65.
+exit if CE reach this 30% SL and hold PE
+exit if PE reach this 30% SL and hold CE
+
+iron_condar_postional_next_week
+based on opening range 5min candles place one CE sell leg where premium is b/w 9-11 which is near to 10.before 9:45AM entry time.
+next place PE sell which matches CE sell delta value.example -if CE sell delta is 0.30 then PE sell delta should be 0.30 as well.
+if in PE sell Dleta is same for multiple stikes like for 21600,21650,21700 for these dalta same then select which is high strike is 21700.
+stop loss per leg is if premium is 10 then if reach 4 times that is SL.means 10*4=40 rupees premium.
+if any one leg PE/CE 4times SL is hit then exit other legs as well.
+again place order all legs where premium is b/w 9-11 which is near to 10 at that time.
+hedges away 200 points
+CE sell at 23400 then hedge is CE buy 23600 
+PE sell 23350 then hedge is PE buy 23150
+even stop loss doesn't hit adjust both legs.to maintain neautral.
+selling/buying should be same lots.
+
+iron_condar_intraday_current_week
+based on opening range 5min candles place one CE sell leg where premium is near 50.before 9:45AM entry time.
+next place PE sell which matches CE sell delta value.example -if CE sell delta is 0.30 then PE sell delta should be 0.30 as well.
+if in PE sell Dleta is same for multiple stikes like for 21600,21650,21700 for these dalta same then select which is high strike is 21700.
+stop loss per leg is if premium is 50 then if reach 4 times that is SL.means 50*4=200 rupees premium.
+if any one leg PE/CE 4times SL is hit then exit other legs as well.
+again place order all legs where premium is near 50 at that time.
+hedges away 200 points
+CE sell at 23400 then hedge is CE buy 23600 
+PE sell 23350 then hedge is PE buy 23150
+even stop loss doesn't hit adjust both legs.to maintain neautral.
+selling/buying should be same lots.
+
+iron_condar_postional_current_week
+based on opening range 5min candles place one CE sell leg where premium is b/w 9-11 which is near to 10.before 9:45AM entry time.
+next place PE sell which matches CE sell delta value.example -if CE sell delta is 0.30 then PE sell delta should be 0.30 as well.
+if in PE sell Dleta is same for multiple stikes like for 21600,21650,21700 for these dalta same then select which is high strike is 21700.
+stop loss per leg is if premium is 10 then if reach 4 times that is SL.means 10*4=40 rupees premium.
+if any one leg PE/CE 4times SL is hit then exit other legs as well.
+again place order all legs where premium is b/w 9-11 which is near to 10 at that time.
+hedges away 200 points
+CE sell at 23400 then hedge is CE buy 23600 
+PE sell 23350 then hedge is PE buy 23150
+even stop loss doesn't hit adjust both legs.to maintain neautral.
+selling/buying should be same lots.
+
+iron_condar_intraday_next_week
+based on opening range 5min candles place one CE sell leg where premium is near 50.before 9:45AM entry time.
+next place PE sell which matches CE sell delta value.example -if CE sell delta is 0.30 then PE sell delta should be 0.30 as well.
+if in PE sell Dleta is same for multiple stikes like for 21600,21650,21700 for these dalta same then select which is high strike is 21700.
+stop loss per leg is if premium is 50 then if reach 4 times that is SL.means 50*4=200 rupees premium.
+if any one leg PE/CE 4times SL is hit then exit other legs as well.
+again place order all legs where premium is near 50 at that time.
+hedges away 200 points
+CE sell at 23400 then hedge is CE buy 23600 
+PE sell 23350 then hedge is PE buy 23150
+even stop loss doesn't hit adjust both legs.to maintain neautral.
+selling/buying should be same lots.
+
+current week means trade on present week expiry ends on every Tuesday
+next week means trade on the next week expiry starts from wednesday and end Tuesday.
+
+
+
+even application stop or restart results/postions should be persistence.
+set sandbox capital 5crore.
+per strategy capital is 20lakhs.
+per strategy SL is 1% of capital.
+give me code for these stratagies in python.
+each should have 4 version like iron_condar(intraday(current,next week expiry),postional(current,next week expiry))
+then delta based(intraday(current,next week expiry),postional(current,next week expiry))
+premium based(intraday(current,next week expiry),postional(current,next week expiry))
+create folder /strategies separete files
+shedule them 
+
+
+
+
+
+
+
+
+
+
+
+

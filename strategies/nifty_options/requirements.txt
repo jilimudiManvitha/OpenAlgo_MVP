@@ -1,0 +1,4 @@
+# Use the existing OpenAlgo project environment. Extra replay accounting dependency:
+vectorbt>=0.28,<0.29
+plotly>=6,<7
+openstatz

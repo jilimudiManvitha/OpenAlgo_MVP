@@ -11,6 +11,9 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 3: [Twelve NIFTY options strategies — active checkpoint](plans/2026-10-03-nifty-options-strategies.md)
+— persistent sandbox strategies; completed three-month backtest, verified ledgers and local dashboards.
+
 October 1: [Today's eight scheduled strategy backtests](../backtesting/eight_scheduled_20261001/README.md)
 — 73 scanner stocks, 20 Thu stocks, both modeled paths, full coverage and verified
 trade ledgers; interactive offline report and CSVs.

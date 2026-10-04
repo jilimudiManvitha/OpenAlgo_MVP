@@ -1,0 +1,29 @@
+{
+  "config_hash": "df22ffbf2ff793b30cd7f0fe63c22deed2e5272c8b243db1013023c40dc887c5",
+  "legs": [
+    {
+      "symbol": "NSE:NIFTY2680423750PE",
+      "expiry": "2026-08-04",
+      "strike": 23750.0,
+      "kind": "PE",
+      "side": -1,
+      "quantity": 195,
+      "lot_size": 65,
+      "entry": 25.6,
+      "entry_fee": 24.99,
+      "entry_ts": "2026-07-29T09:30:00+05:30"
+    }
+  ],
+  "pending": null,
+  "cycle": 6,
+  "cycle_realized": -1833.3699999999992,
+  "total_realized": 8754.990000000002,
+  "fees": 575.76,
+  "halted": false,
+  "last_entry_day": "2026-07-29",
+  "last_adjustment": "2026-07-29T09:30:00+05:30",
+  "last_timestamp": "2026-07-31T15:29:00+05:30",
+  "needs_reentry": false,
+  "expiry": "2026-08-04",
+  "cycle_start": "2026-07-29T09:30:00+05:30"
+}

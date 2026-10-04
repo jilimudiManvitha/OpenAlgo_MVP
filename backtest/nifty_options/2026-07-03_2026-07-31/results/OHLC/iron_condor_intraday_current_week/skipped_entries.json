@@ -1,0 +1,77 @@
+[
+  {
+    "timestamp": "2026-07-14T14:54:00+05:30",
+    "reason": "Selected shorts exceed the configured delta-match tolerance"
+  },
+  {
+    "timestamp": "2026-07-14T14:55:00+05:30",
+    "reason": "Selected shorts exceed the configured delta-match tolerance"
+  },
+  {
+    "timestamp": "2026-07-14T15:02:00+05:30",
+    "reason": "Required 200-point hedge is unavailable"
+  },
+  {
+    "timestamp": "2026-07-14T15:03:00+05:30",
+    "reason": "Required 200-point hedge is unavailable"
+  },
+  {
+    "timestamp": "2026-07-14T15:06:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:08:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:09:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:12:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424000CE"
+  },
+  {
+    "timestamp": "2026-07-14T15:13:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:14:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:15:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:17:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-14T15:18:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424000CE"
+  },
+  {
+    "timestamp": "2026-07-14T15:19:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2671424100PE"
+  },
+  {
+    "timestamp": "2026-07-28T09:30:00+05:30",
+    "reason": "Selected shorts exceed the configured delta-match tolerance"
+  }
+]

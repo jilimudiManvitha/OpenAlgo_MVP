@@ -1,0 +1,21 @@
+{
+  "strategy": "premium_positional_current_week",
+  "path": "OHLC",
+  "capital": 2000000,
+  "net_pnl": 12713.48999999999,
+  "realized_pnl": 8754.990000000002,
+  "fees": 575.76,
+  "return_pct": 0.6356744999999941,
+  "max_drawdown_inr": -5799.190000000177,
+  "closed_legs": 11,
+  "open_legs": 1,
+  "skipped_entries": 2,
+  "greek_unavailable_minutes": 0,
+  "vectorbt_reconciled": true,
+  "sharpe_daily_annualized": 5.216981174464177,
+  "sortino_daily_annualized": 7.599969007574412,
+  "max_drawdown_pct": -0.28853746330971264,
+  "trading_sessions": 21,
+  "closed_leg_win_rate_pct": 36.36363636363637,
+  "closed_leg_profit_factor": 1.7239411512009786
+}

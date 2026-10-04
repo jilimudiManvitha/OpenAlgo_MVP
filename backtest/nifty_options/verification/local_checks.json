@@ -1,0 +1,8 @@
+{
+  "reentry_mutation_detected": true,
+  "restored_tests_passed": true,
+  "state_and_lock_cycles": 200,
+  "fd_before": 3,
+  "fd_after": 3,
+  "scope": "Measured SQLite success/conflict and lock success/error paths; static bounded queue/cache review. Not a live market soak."
+}

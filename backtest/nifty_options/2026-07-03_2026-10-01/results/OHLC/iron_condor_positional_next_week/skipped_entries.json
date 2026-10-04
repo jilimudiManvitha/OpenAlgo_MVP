@@ -1,0 +1,40 @@
+[
+  {
+    "timestamp": "2026-07-03T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-14T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY26AUG23350PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-14T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY26AUG23350PE"
+  },
+  {
+    "timestamp": "2026-09-24T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY26O0624350CE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-24T09:16:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY26O0624350CE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-24T09:17:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY26O0624350CE"
+  }
+]

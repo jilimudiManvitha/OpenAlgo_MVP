@@ -1,0 +1,21 @@
+{
+  "strategy": "iron_condor_positional_current_week",
+  "path": "OLHC",
+  "capital": 2000000,
+  "net_pnl": 29271.52000000002,
+  "realized_pnl": 19186.769999999997,
+  "fees": 1265.4800000000002,
+  "return_pct": 1.4635759999999998,
+  "max_drawdown_inr": -40605.409999999916,
+  "closed_legs": 16,
+  "open_legs": 4,
+  "skipped_entries": 3,
+  "greek_unavailable_minutes": 0,
+  "vectorbt_reconciled": true,
+  "sharpe_daily_annualized": 1.844578168626948,
+  "sortino_daily_annualized": 3.1399952579947463,
+  "max_drawdown_pct": -1.9836980020320194,
+  "trading_sessions": 21,
+  "closed_leg_win_rate_pct": 50.0,
+  "closed_leg_profit_factor": 1.1532772225077919
+}

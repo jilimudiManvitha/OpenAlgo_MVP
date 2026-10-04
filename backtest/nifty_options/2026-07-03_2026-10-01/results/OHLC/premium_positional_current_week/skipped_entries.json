@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2026-07-08T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-07-22T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-12T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-26T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-27T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-28T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-08-31T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-09-01T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-09-17T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-09-24T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-09-28T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  },
+  {
+    "timestamp": "2026-09-29T09:30:00+05:30",
+    "reason": "No contract in requested premium band"
+  }
+]

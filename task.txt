@@ -3,7 +3,6 @@ Add news section for each stock.using dhan skills imran YT video.
 bot integration
 caffeinate -i uv run --no-sync app.py
 -----------------------------------------------------------------------------------------------------
-explain later we will remove these filters scanner.
 Minimum RVOL
 Minimum price
 Maximum price
@@ -14,31 +13,7 @@ Minimum RVOL
 Minimum price
 Maximum price
 Minimum volume
-scanner should also work with other brokers(mainly delta exchange D:\Personal\openalgo\delta-exchange-api-docs.md ).
-for Day change % add filter to see high % changes to low, low to high.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
-Completed **today’s backtest—30 September 2026—for all eight scheduled strategies**.
-
-Net P\&L after modeled costs:
-
-| Strategy | Candles | OLHC | OHLC |
-|---|---|---:|---:|
-| Nifty500 fixed 3R | 1 min | ₹8,013.60 | ₹6,599.20 |
-| Weekday fixed 3R | 1 min | −₹815.42 | −₹838.37 |
-| Nifty500 trailing | 1 min | ₹1,232.77 | ₹434.20 |
-| Weekday trailing | 1 min | −₹1,180.47 | −₹1,279.52 |
-| Nifty500 fixed 3R | 5 min | ₹3,785.33 | ₹3,472.24 |
-| Weekday fixed 3R | 5 min | −₹358.05 | −₹313.36 |
-| Nifty500 trailing | 5 min | ₹2,081.62 | ₹1,862.88 |
-| Weekday trailing | 5 min | ₹85.53 | ₹81.91 |
-
-OLHC/OHLC simulate two different price sequences within each minute. These are hypothetical results, with slippage and illustrative fees—not actual fills. The final scanner basket was selected retrospectively, which can bias performance.
-
-Coverage: **76 scanner stocks and 16 Wednesday-watchlist stocks**. GANESHBE and STLTECH were excluded by the existing EQ-only rule.
-
-All eight trade ledgers verified; **61 tests passed**. All eight schedules remain enabled for **09:15–15:00**.
-
-Interactive report (backtesting/eight\_scheduled\_20260930/index.html) · Summary CSV (backtesting/eight\_scheduled\_20260930/summary.csv) · Details and assumptions (backtesting/eight\_scheduled\_20260930/README.md)
 
  

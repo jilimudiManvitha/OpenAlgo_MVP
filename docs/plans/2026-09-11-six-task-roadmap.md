@@ -1,5 +1,19 @@
 # Six-task implementation plan and agent handoff
 
+## October 4 — separate NIFTY options request complete locally
+
+Twelve persistent NIFTY Sandbox strategies are installed and scheduled, with
+₹5 crore sandbox capital and ₹20 lakh/₹20,000 loss threshold per variant.
+Original eight schedule definitions preserved (20 total). **45 focused tests
+pass**. Latest requested three-month backtest **2026-07-03 through 2026-10-01**
+is complete: 64 sessions, 24 modeled scenarios, 2,428 closed-leg records and
+7,097 data hashes verified. Nine variants positive, three negative under both
+paths. See [active options checkpoint](2026-10-03-nifty-options-strategies.md)
+and [results/limitations](../../backtest/nifty_options/2026-07-03_2026-10-01/README.md).
+Market-hour live fills remain unverified. OpenAlgo is running; leave it running.
+All new/future backtests belong in `backtest/`, never application Reports.
+This does not unfreeze unrelated tasks; no push requested.
+
 ## Latest checkpoint — October 1 evening: eight scheduled backtests complete
 
 User reported OpenAlgo running and requested clearing Wed using OpenAlgo MCP.
