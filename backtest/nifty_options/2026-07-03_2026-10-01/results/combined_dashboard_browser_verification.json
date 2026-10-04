@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scenarios": 24,
+  "charts": 6,
+  "checked": [
+    "all strategy trade bars and cycle counts",
+    "displayed P&L totals",
+    "path and family filters",
+    "search and empty state",
+    "numeric sorting",
+    "CSV download",
+    "mobile overflow"
+  ],
+  "pageErrors": [],
+  "networkRequests": []
+}

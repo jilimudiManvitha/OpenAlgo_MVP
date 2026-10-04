@@ -130,3 +130,12 @@ flowchart LR
   F --> G[Sandbox orders and confirmed fills]
   G --> B
 ```
+
+## Combined comparison dashboard
+
+[Open the completed three-month dashboard](../../backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html).
+The offline report combines all 12 strategies with cycle-level win rate, profit
+factor, win/loss payoff, trade counts, return/drawdown charts, monthly P&L and
+trade-cycle details. It switches between modeled paths without double-counting.
+`reporting.build()` generates it for future runs. Rebuild from existing results
+with `python -m strategies.nifty_options.dashboard <results-folder>`.

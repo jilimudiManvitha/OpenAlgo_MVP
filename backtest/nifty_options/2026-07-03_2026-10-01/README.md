@@ -2,7 +2,7 @@
 
 **Period: July 3–October 1, 2026 · 64 trading sessions · 12 strategies · two modeled paths.**
 
-[Open interactive results](results/index.html) · [Summary CSV](results/summary.csv) · [Benchmark comparison](results/benchmark_comparison.csv) · [Ledger verification](results/ledger_verification.json) · [Run status](results/status.json)
+[Open combined dashboard — all 12 strategies](results/combined_dashboard.html) · [Combined metrics CSV](results/combined_metrics.csv) · [Detailed original results](results/index.html) · [Summary CSV](results/summary.csv) · [Benchmark comparison](results/benchmark_comparison.csv) · [Ledger verification](results/ledger_verification.json) · [Run status](results/status.json)
 
 Use `results/status.json` to confirm the current run finished. Results are local only; nothing is written to application Reports.
 
@@ -54,3 +54,28 @@ From the project root:
 The downloader resumes cached files. Replay recomputes this result folder; preserve a copy before changing assumptions if comparisons are needed. Future backtests also belong under `backtest/`, never application Reports.
 
 [Strategy rules, defaults and scheduling](../../../strategies/nifty_options/README.md)
+
+## Single combined dashboard
+
+`results/combined_dashboard.html` is a self-contained offline report covering the
+whole period. It has one row per strategy with closed trade counts, wins/losses,
+win rate, profit factor, win/loss payoff, expectancy, fees, returns, drawdown,
+Sharpe/Sortino and open positions. A trade means a full completed strategy cycle,
+including adjustments; individual option-leg counts are shown separately.
+Open cycles are excluded from trade win statistics, but their marked P&L remains
+in total results. OLHC/OHLC are switchable alternative scenarios, never added.
+
+Filters, numeric sorting, CSV export, six interactive charts and an embedded
+trade-cycle table were checked in Chrome for all 24 scenarios. Desktop/mobile
+layout checks pass, with no page errors or network requests. Monthly P&L sums
+to each strategy's full-period result. Input and renderer hashes are saved in
+`results/combined_dashboard_verification.json`; original simulation source and
+results remain unchanged. Browser evidence and screenshots are beside it.
+
+Rebuild the combined report from existing ledgers (no market-data requests):
+
+```sh
+.venv/bin/python -m strategies.nifty_options.dashboard backtest/nifty_options/2026-07-03_2026-10-01/results
+```
+
+Future replay reporting automatically generates the same combined dashboard.

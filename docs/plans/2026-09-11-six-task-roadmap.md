@@ -10,6 +10,7 @@ is complete: 64 sessions, 24 modeled scenarios, 2,428 closed-leg records and
 7,097 data hashes verified. Nine variants positive, three negative under both
 paths. See [active options checkpoint](2026-10-03-nifty-options-strategies.md)
 and [results/limitations](../../backtest/nifty_options/2026-07-03_2026-10-01/README.md).
+[Single combined dashboard](../../backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html) now adds cycle win rate/profit factor, trade counts and six charts, with verified offline browser interactions.
 Market-hour live fills remain unverified. OpenAlgo is running; leave it running.
 All new/future backtests belong in `backtest/`, never application Reports.
 This does not unfreeze unrelated tasks; no push requested.

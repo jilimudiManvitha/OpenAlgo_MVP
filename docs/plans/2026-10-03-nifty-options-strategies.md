@@ -128,3 +128,23 @@ are complete locally. Market-hour tick/fill timing and a live restart soak remai
 unverified; do not describe those as tested. Keep OpenAlgo running. No push and
 no Reports writes. Future backtests also go under `backtest/`. Unrelated frozen
 six-task/Crypto/investment work and existing user edits remain untouched.
+
+## October 4 follow-up — one combined dashboard
+
+User requested one full-period report with each strategy's win rate, win factor,
+trade count and charts. Added `dashboard.py` and its offline HTML template;
+`reporting.build()` generates it automatically for future replays.
+[Combined dashboard](../../backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html)
+and combined CSV contain all 12 variants per selected path, full-cycle trade
+counts/win rates/profit factors, average-win/loss payoff, expectancy, P&L, fees,
+returns, drawdowns, Sharpe/Sortino and open positions. Six interactive charts,
+monthly marked P&L, filtering/sorting/CSV export and embedded cycle details.
+Open cycles excluded from trade win metrics; no mixing of alternative paths.
+
+Reconciled metrics against original summaries and monthly sums against net P&L.
+Chrome verified all 24 strategy/path cycle counts and chart values, table totals,
+filters/search/empty state, sorting, CSV and mobile overflow; no page errors or
+network requests. Renderer/input hashes and browser verification are in the
+result directory. Original simulation files/frozen code remain unchanged;
+this is a reporting addition, not a rerun. OpenAlgo, schedules, trading code and
+Reports database untouched.

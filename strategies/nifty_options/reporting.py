@@ -178,6 +178,9 @@ def build(folder):
         "</table>", "</table></div>"
     )
     target.write_text(html)
+    from .dashboard import build as build_dashboard
+
+    build_dashboard(folder)
     return {"dashboards": len(links), "benchmark": benchmark}
 
 

@@ -11,6 +11,8 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 4: [Combined NIFTY three-month dashboard](../backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html) — all 12 strategies, cycle win rates, profit factors, trade counts and six comparison charts.
+
 October 3: [Twelve NIFTY options strategies — active checkpoint](plans/2026-10-03-nifty-options-strategies.md)
 — persistent sandbox strategies; completed three-month backtest, verified ledgers and local dashboards.
 

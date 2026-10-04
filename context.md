@@ -1,5 +1,12 @@
 # OpenAlgo fork - AI agent context
 
+October 4 follow-up — combined three-month dashboard is complete:
+[All 12 strategies in one offline report](backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html).
+Cycle win rate/profit factor/payoff, trade counts, six charts, monthly P&L and
+trade-cycle details; switch OLHC/OHLC without double counting. Metrics reconcile
+and browser interactions pass for all 24 scenarios. Reporting only; no rerun,
+app restart, schedule changes or Reports writes.
+
 October 4 — separate NIFTY options request is active. Twelve Sandbox-only Python
 variants are implemented under `strategies/nifty_options/` with separate parent
 launchers. User-approved restart installed 12 NFO weekday schedules (09:15–15:40,
