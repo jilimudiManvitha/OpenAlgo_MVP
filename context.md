@@ -1,5 +1,7 @@
 # OpenAlgo fork - AI agent context
 
+**October 7 options hedges:** Delta/Premium now buy 200-point wings, bringing all 12 variants under the hedge rule. Carried positions recover missing wings at next runner start; 129 isolated checks pass. See [current rules](strategies/nifty_options/README.md). Existing schedules and state preserved; historical backtests not rerun.
+
 **October 7 evening:** [Combined release: 28 schedules, equity 15:15 exits, restart recovery, Reports/Portfolio/Copier integration](docs/plans/2026-10-07-evening-combine.md). User starts OpenAlgo.
 
 **October 7 isolated Trade Copier:** [Local master/child copier handoff](docs/plans/2026-10-07-trade-copier.md) — native FYERS/Zerodha/Dhan, bridge for other OpenAlgo brokers, separate Sandbox children, durable copy state/risk/stop controls. Not activated; no real orders sent.

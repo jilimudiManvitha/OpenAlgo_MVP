@@ -94,11 +94,11 @@ def historical_lot_size(expiry, trade_day):
 def historical_margin(profile, selected, spot):
     """Illustrative conservative reserve, NOT historical SPAN/exposure margin.
 
-    Naked pair: 15% underlying notional per short. Condor: full wing width plus
-    3% underlying notional plus long premium. Neither claims a broker guarantee.
+    Hedged basket: full wing width plus 3% underlying notional and long premiums.
+    Legacy unhedged inputs retain the old notional reserve. No broker guarantee.
     """
     lot = selected[0][0].lot_size
     long_premium = sum(o.price for o, side in selected if side > 0)
-    if profile.family == "iron_condor":
+    if any(side > 0 for _, side in selected):
         return lot * (profile.hedge_width + 0.03 * spot + long_premium)
     return lot * 0.15 * spot * sum(side < 0 for _, side in selected)

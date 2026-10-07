@@ -1,5 +1,13 @@
 # October 7 evening local release
 
+**Hedge follow-up:** The user subsequently requested hedges for all Delta/Premium
+variants. All twelve options variants now select 200-point protective wings. Seven
+short legs in four saved Delta/Premium positional baskets still need protection;
+the updated runners attempt those hedge purchases when started with fresh quotes.
+No current positions were edited or orders submitted during development. See
+[options rules/recovery](../../strategies/nifty_options/README.md). 129 focused
+checks passed. Schedules stay at 28 with unchanged times.
+
 The user explicitly requested all isolated work combined locally, equity exits at
 15:15 IST, recent log investigation, and a Git push. OpenAlgo remains stopped;
 only the user starts production. This checkpoint supersedes earlier staged-only

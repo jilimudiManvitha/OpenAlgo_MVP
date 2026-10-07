@@ -15,7 +15,7 @@ from strategies.nifty_options.state import Store
 from test.test_nifty_options_strategies import EXPIRY, NOW, POLICY, chain, opened
 
 
-def executor_fixture(monkeypatch, tmp_path):
+def executor_fixture(monkeypatch, tmp_path, profile_name="iron_condor_intraday_current_week"):
     import database.sandbox_db
     import database.token_db
     import sandbox.execution_engine
@@ -66,7 +66,7 @@ def executor_fixture(monkeypatch, tmp_path):
     )
     monkeypatch.setattr(sandbox.execution_engine, "quote_looks_stale", lambda _: False)
     monkeypatch.setattr(module, "cleanup_sessions", lambda: None)
-    profile = PROFILES["iron_condor_intraday_current_week"]
+    profile = PROFILES[profile_name]
     store = Store(tmp_path / "state.db")
 
     def restore():
@@ -187,7 +187,7 @@ def test_replay_waits_for_actual_prices_and_bounds_missing_bars(monkeypatch, gap
     start = int(NOW.replace(hour=9, minute=15).timestamp())
     stamps = np.arange(start, start + 385 * 60, 60)
     contracts = [{"symbol": o.symbol, "expiry": str(EXPIRY)} for o in chain()]
-    arrays = {o.symbol: np.full((385, 4), 50.0) for o in chain()}
+    arrays = {o.symbol: np.full((385, 4), o.price, dtype=float) for o in chain()}
     arrays["P"][30 : 30 + gap, :] = np.nan
     archive = SimpleNamespace(
         spot={int(t): 24000 for t in stamps[:375]},
@@ -207,7 +207,7 @@ def test_replay_waits_for_actual_prices_and_bounds_missing_bars(monkeypatch, gap
     else:
         states, trades, curves, skipped = module.replay(archive, NOW.date(), NOW.date(), "OLHC")
         assert len(curves[profile.name]) == 384
-        assert len(trades[profile.name]) == 2
+        assert len(trades[profile.name]) == 4
         assert len([s for s in skipped[profile.name] if s.get("type") == "missing_held_bar"]) == 1
         assert not states[profile.name]["legs"]
 
@@ -218,17 +218,18 @@ def test_premium_stop_interpolates_instead_of_exiting_at_bar_high():
     segment(
         profile,
         state,
-        {"C": 50, "P": 50},
-        {"C": 80, "P": 30},
+        {"C": 50, "P": 50, "HC": 12, "HP": 12},
+        {"C": 80, "P": 30, "HC": 12, "HP": 12},
         NOW,
         NOW + timedelta(seconds=20),
         trades,
     )
-    assert len(trades) == 1
-    assert trades[0]["symbol"] == "C"
+    assert len(trades) == 2
+    assert {t["symbol"] for t in trades} == {"C", "HC"}
+    trades.sort(key=lambda t: t["side"])
     assert trades[0]["exit"] == pytest.approx(65.05)
     assert trades[0]["exit_ts"] == (NOW + timedelta(seconds=10)).isoformat()
-    assert [leg["symbol"] for leg in state["legs"]] == ["P"]
+    assert [leg["symbol"] for leg in state["legs"]] == ["HP", "P"]
     verify_vectorbt(trades, profile.capital)
 
 
@@ -238,13 +239,14 @@ def test_open_gap_fills_at_market_not_unavailable_stop_price():
     segment(
         profile,
         state,
-        {"C": 80, "P": 50},
-        {"C": 90, "P": 49},
+        {"C": 80, "P": 50, "HC": 12, "HP": 12},
+        {"C": 90, "P": 49, "HC": 12, "HP": 12},
         NOW,
         NOW + timedelta(seconds=20),
         trades,
     )
-    assert trades[0]["exit"] == pytest.approx(80.05)
+    short = next(t for t in trades if t["symbol"] == "C")
+    assert short["exit"] == pytest.approx(80.05)
 
 
 def test_capital_stop_uses_all_four_mtm_legs():

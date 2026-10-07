@@ -8,6 +8,7 @@ import math
 from datetime import datetime, time
 from zoneinfo import ZoneInfo
 
+from .hedges import stopped_spread_symbols
 from .selection import DataUnavailable, select_expiry, select_legs
 from .state import config_hash
 
@@ -114,7 +115,7 @@ def risk_decision(profile, policy, state, prices, timestamp):
         return {
             "action": "close_legs",
             "reason": "thirty_percent_stop",
-            "symbols": [leg["symbol"] for leg in hit],
+            "symbols": stopped_spread_symbols(profile, legs, hit),
         }
     return None
 

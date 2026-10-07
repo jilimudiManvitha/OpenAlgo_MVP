@@ -88,10 +88,10 @@ def test_put_delta_tie_prefers_highest_strike_and_exact_hedges():
     "premium,accepted", [(25, False), (25.05, True), (29.95, True), (30, False)]
 )
 def test_positional_strict_premium_band(premium, accepted):
-    options = chain(price=premium)[:2]
+    options = chain(price=premium)
     profile = PROFILES["premium_positional_current_week"]
     if accepted:
-        assert len(select_legs(profile, POLICY, options, EXPIRY)) == 2
+        assert len(select_legs(profile, POLICY, options, EXPIRY)) == 4
     else:
         with pytest.raises(DataUnavailable):
             select_legs(profile, POLICY, options, EXPIRY)
@@ -111,7 +111,7 @@ def test_stale_chain_rejected():
 
 def test_premium_selection_does_not_require_model_greeks():
     options = [replace(o, delta=None) for o in chain()]
-    assert len(select_legs(PROFILES["premium_intraday_current_week"], POLICY, options, EXPIRY)) == 2
+    assert len(select_legs(PROFILES["premium_intraday_current_week"], POLICY, options, EXPIRY)) == 4
     with pytest.raises(DataUnavailable):
         select_legs(PROFILES["delta_intraday_current_week"], POLICY, options, EXPIRY)
 
@@ -121,7 +121,10 @@ def test_unknown_held_delta_delays_adjustment_but_not_price_stop():
     options = [replace(o, delta=None) for o in options]
     with pytest.raises(DataUnavailable, match="Greek unavailable"):
         decision(p, POLICY, state, options, NOW, [EXPIRY])
-    assert risk_decision(p, POLICY, state, {"C": 1000, "P": 50}, NOW)["reason"] == "capital_stop"
+    assert (
+        risk_decision(p, POLICY, state, {"C": 1000, "P": 50, "HC": 12, "HP": 12}, NOW)["reason"]
+        == "capital_stop"
+    )
 
 
 @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1, 0])
@@ -142,14 +145,14 @@ def test_explicit_broker_no_data_is_empty_not_a_fabricated_candle(monkeypatch):
         regular_history("test-token", "NSE:NIFTY26O0617350CE", "2026-09-23", "2026-10-01")
 
 
-def test_premium_stop_closes_only_hit_leg_and_never_rolls_survivor():
+def test_premium_stop_closes_hit_spread_and_keeps_protected_survivor():
     p, state, quotes = opened("premium_intraday_current_week")
     now = NOW + timedelta(minutes=1)
     quotes = [replace(o, timestamp=now, price=65 if o.symbol == "C" else o.price) for o in quotes]
     action = decision(p, POLICY, state, quotes, now, [EXPIRY])
-    assert action["action"] == "close_legs" and action["symbols"] == ["C"]
-    apply_close(state, {"C": (65, 0)}, now, action["reason"])
-    assert [leg["symbol"] for leg in state["legs"]] == ["P"]
+    assert action["action"] == "close_legs" and action["symbols"] == ["C", "HC"]
+    apply_close(state, {"C": (65, 0), "HC": (12, 0)}, now, action["reason"])
+    assert [leg["symbol"] for leg in state["legs"]] == ["HP", "P"]
     assert decision(p, POLICY, state, quotes, now, [EXPIRY])["reason"] == "hold"
 
 
@@ -223,7 +226,7 @@ def test_exit_and_price_stop_do_not_depend_on_greeks():
         risk_decision(p, POLICY, state, {}, NOW.replace(hour=15, minute=20))["reason"]
         == "intraday_squareoff"
     )
-    assert risk_decision(p, POLICY, state, {"C": 65}, NOW)["symbols"] == ["C"]
+    assert risk_decision(p, POLICY, state, {"C": 65}, NOW)["symbols"] == ["C", "HC"]
 
 
 def test_positional_risk_stays_active_during_extended_session():
@@ -231,7 +234,7 @@ def test_positional_risk_stays_active_during_extended_session():
     now = NOW.replace(hour=15, minute=35)
     assert session_close(now.date()).isoformat() == "15:40:00"
     assert session_close(date(2026, 7, 31)).isoformat() == "15:30:00"
-    assert risk_decision(p, POLICY, state, {"C": 35.1}, now)["symbols"] == ["C"]
+    assert risk_decision(p, POLICY, state, {"C": 35.1}, now)["symbols"] == ["C", "HC"]
 
 
 def test_positional_carries_overnight_and_exits_expiry_at_1520():

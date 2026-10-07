@@ -5,6 +5,27 @@ Each launcher is a separate file in the parent `strategies/` folder:
 They share this package and trade directly through OpenAlgo's Sandbox manager.
 There is no live-order execution path or global mode switch.
 
+## October 7 hedge update
+
+All Delta and Premium variants now require both 200-point wings before new shorts
+can be dispatched. Premium stops close the hit short and then its matching wing;
+the surviving spread stays protected. Delta adjustments include hedge deltas under
+the existing `all_legs` policy. Missing eligible wings skip new entries.
+
+Carried positions retain their quantities, expiry, cycle and risk/P&L state.
+On the next runner start, clock/price exits take priority; otherwise missing wings
+are bought using fresh quotes before normal management continues. Hedge purchases
+use the existing persisted intent journal and confirmed fills, including recovery
+after a crash. A definitive rejection or stale recovery intent halts the strategy
+and starts closing shorts before releasing any filled wing. Ambiguous orders stay
+pending for reconciliation. Missing hedge contracts/quotes pause recovery while
+clock/price risk checks continue; protection exists only after the purchases fill.
+
+The saved config hash is unchanged: profile fields/policy values are unchanged,
+and carried-state recovery explicitly handles the old unhedged baskets. The runner
+never discards stored risk to make the new rules load. Previously saved backtest
+results describe the former Delta/Premium rules; they were not recomputed.
+
 ## Confirmed rules
 
 All initial entries are at 09:30 IST. Current/next refers to the nearest and
@@ -15,11 +36,12 @@ from the symbol master; historical symbols come from FYERS' expired catalogue.
 | Family | Intraday entry | Positional entry | Leg stop | Adjustment |
 |---|---|---|---|---|
 | Delta | CE and PE near absolute delta 0.30 | Both premiums strictly 25 < price < 30 | None | Absolute signed net delta >= 0.50 |
-| Premium | Both premiums nearest 50 | Both premiums strictly 25 < price < 30 | Entry * 1.30; retain surviving leg | None |
+| Premium | Both premiums nearest 50 | Both premiums strictly 25 < price < 30 | Entry * 1.30; close hit spread, retain other spread | None |
 | Iron condor | CE nearest 50, PE matched absolute delta | CE in inclusive [9,11] nearest 10, PE matched delta | Either short entry * 4 closes all four; reselect | Absolute signed net delta >= 0.50 including hedges |
 
-Condor PE exact delta ties choose the highest strike. Buy CE strike +200 and PE
-strike -200. Every leg has equal quantity. Open hedges first; cover shorts before
+Condor PE exact delta ties choose the highest strike. **All twelve variants** buy
+a CE at the short-call strike +200 and a PE at the short-put strike -200, using
+the same expiry. Every leg has equal quantity. Open hedges first; cover shorts before
 selling hedges. Rebalance by closing the whole old basket before opening a newly
 selected basket; no overlapping old/new baskets within one strategy.
 
@@ -106,8 +128,9 @@ matching [NSE's derivatives session change](https://www.nseindia.com/static/prod
 The index benchmark uses its available 09:15–15:29 minute closes. All weekday
 sessions are checked against the saved exchange holiday calendar.
 
-Historical margin model: naked pair reserves 15% spot notional per short;
-condor reserves 200 points plus 3% spot notional plus hedge premiums. Both keep a
+Historical margin model for all new hedged baskets reserves 200 points plus
+3% spot notional plus hedge premiums. Legacy unhedged inputs retain the former
+15%-of-spot-notional-per-short reserve. Both keep a
 10% cash reserve. This is not reconstructed historical SPAN. Live paper sizing
 uses FYERS basket margin with full-quantity verification and a 10% reserve.
 Illustrative historical costs: ₹20 plus 0.1% turnover per fill and ₹0.05 adverse

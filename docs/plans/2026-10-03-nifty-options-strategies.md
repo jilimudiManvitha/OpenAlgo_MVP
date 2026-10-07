@@ -1,5 +1,16 @@
 # NIFTY options strategies — October 3 implementation checkpoint
 
+**October 7 hedge follow-up:** User requested hedges for every remaining variant.
+All 12 now require same-expiry, equal-quantity wings 200 points beyond each short.
+Delta/Premium carried baskets acquire missing wings on the next runner start with
+fresh quotes; stored positions/P&L are preserved. Premium stop exits close the hit
+spread while retaining the other protected spread. [Current rules and recovery](../../strategies/nifty_options/README.md).
+Verification: 129 isolated tests pass, including all-variant execution ordering,
+carried-state crash recovery, rejection unwind, stop handling and replay. Removing
+wing selection or the short-dispatch protection guard makes the targeted checks
+fail. No production orders or database writes were made. Existing backtest results
+are historical and have not been rerun for the new hedge rules.
+
 **October 7 local release:** User authorized combining Portfolio and scheduled-strategy fixes and pushing. The normal frontend is built; 407 backend checks and 20 frontend checks pass. Stock report shutdown grace and zero-position square-off are additionally repaired. [Morning checklist and operational limits](2026-10-07-local-release-readiness.md). The October 6 historical reports stay unchanged.
 
 ## October 6 — capacity repair and all-schedule daily backtest

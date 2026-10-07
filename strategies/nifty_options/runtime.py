@@ -16,6 +16,7 @@ from .engine import IST, decision, initial_state, opening_plan, risk_decision, v
 from .execution import SandboxExecutor, cleanup_sessions
 from .feed import QuoteSubscriptions, connection_delay, required_contracts
 from .greeks import chain_options, session_close
+from .hedges import missing_hedges
 from .profiles import PROFILES, ROOT, Policy
 from .selection import DataUnavailable, select_legs
 from .state import Store
@@ -42,6 +43,25 @@ def publish_report(report, state, status, now, feed):
     except Exception as exc:
         print(f"Daily report update failed ({type(exc).__name__}); will retry", flush=True)
         return None
+
+
+def recover_hedges(executor, contracts, fresh, now):
+    """Called after clock/price exits and before entries or delta adjustments."""
+    hedges = missing_hedges(executor.profile, executor.state["legs"], contracts)
+    if not hedges:
+        return False
+    if not all(leg["symbol"] in fresh for leg in hedges):
+        raise DataUnavailable("Waiting for fresh quotes to protect carried shorts")
+    executor.begin(
+        {
+            "action": "add_hedges",
+            "reason": "protect_carried_shorts",
+            "expiry": executor.state["expiry"],
+        },
+        hedges,
+        now,
+    )
+    return True
 
 
 def instruments(day, held_expiry=None):
@@ -290,6 +310,8 @@ def run(profile_name, policy_path):
                             if action["action"] == "close_all" or leg["symbol"] in action["symbols"]
                         ]
                         executor.begin(action, legs, now)
+                        continue
+                    if state["legs"] and recover_hedges(executor, contracts, fresh, now):
                         continue
                     if not feed.ready or "NIFTY" not in fresh:
                         continue

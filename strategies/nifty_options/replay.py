@@ -26,6 +26,7 @@ from .engine import (
     risk_decision,
 )
 from .greeks import chain_options, historical_lot_size, historical_margin, session_close
+from .hedges import stopped_spread_symbols
 from .history import atomic_json, existing_cache_file, read_candles
 from .profiles import PROFILES, ROOT, Policy
 from .selection import DataUnavailable, select_expiry, select_legs
@@ -229,7 +230,12 @@ def segment(profile, state, a, b, begin, end, trades):
         elif profile.family == "iron_condor":
             action = {"action": "close_all", "reason": "four_times_stop", "reenter": True}
         else:
-            action = {"action": "close_legs", "reason": "thirty_percent_stop", "symbols": [symbol]}
+            hit = [leg for leg in state["legs"] if leg["symbol"] == symbol]
+            action = {
+                "action": "close_legs",
+                "reason": "thirty_percent_stop",
+                "symbols": stopped_spread_symbols(profile, state["legs"], hit),
+            }
         close_action(state, action, at, stamp, trades)
         # Exit fees can breach the basket loss limit; reevaluate survivors here.
         a, begin = at, stamp
@@ -531,7 +537,7 @@ def main():
             "trading_sessions": len(calendar["sessions"]),
             "option_session_close": "15:30 before 2026-08-03; 15:40 thereafter (NSE/FAOP/74467)",
             "nifty_gross_return_pct": benchmark,
-            "historical_margin": "Naked: 15% notional per short; condor: 200 points + 3% notional + long premium; 10% cash reserve",
+            "historical_margin": "All families hedged: wing width + 3% notional + long premiums per lot; 10% cash reserve",
             "costs": "Illustrative 0.1% turnover + INR20 per fill; INR0.05 adverse slippage",
             "greeks": "Estimated Black-76; parity-implied forward; zero interest rate",
             "missing_observations": "Basket decisions and equity marks omitted until next complete actual bar; gaps >5 consecutive minutes or missing final held marks abort. Gap counts are disclosed per strategy.",

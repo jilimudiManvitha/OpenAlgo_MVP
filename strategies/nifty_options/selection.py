@@ -104,12 +104,14 @@ def select_legs(profile: Profile, policy: Policy, options, expiry):
     if profile.family != "premium" and abs(ce.delta + pe.delta) > policy.delta_match_tolerance:
         raise DataUnavailable("Selected shorts exceed the configured delta-match tolerance")
     result = [(ce, -1), (pe, -1)]
-    if profile.family == "iron_condor":
-        for short, strike in ((ce, ce.strike + 200), (pe, pe.strike - 200)):
-            hedge = next((o for o in chain if o.kind == short.kind and o.strike == strike), None)
-            if hedge is None:
-                raise DataUnavailable("Required 200-point hedge is unavailable")
-            result.append((hedge, 1))
+    for short, strike in (
+        (ce, ce.strike + profile.hedge_width),
+        (pe, pe.strike - profile.hedge_width),
+    ):
+        hedge = next((o for o in chain if o.kind == short.kind and o.strike == strike), None)
+        if hedge is None:
+            raise DataUnavailable(f"Required {profile.hedge_width}-point hedge is unavailable")
+        result.append((hedge, 1))
     if len({o.lot_size for o, _ in result}) != 1:
         raise DataUnavailable("Leg lot sizes disagree")
     if profile.family != "premium" and policy.neutrality == "all_legs":

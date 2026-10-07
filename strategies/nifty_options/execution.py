@@ -13,6 +13,7 @@ from datetime import datetime
 from strategies.top_gain_volumes.coordination import dispatch_lock
 
 from .engine import apply_close
+from .hedges import protected_quantity
 from .profiles import ROOT
 
 
@@ -41,7 +42,9 @@ class SandboxExecutor:
     def begin(self, action, legs, now):
         if self.state["pending"]:
             raise RuntimeError("Reconcile pending action before creating another")
-        opening = action["action"] == "open"
+        opening = action["action"] in {"open", "add_hedges"}
+        if action["action"] == "add_hedges" and any(leg["side"] != 1 for leg in legs):
+            raise ValueError("Hedge recovery may only buy protective options")
         if action.get("halt"):
             self.state["halted"] = True
         steps = []
@@ -130,13 +133,20 @@ class SandboxExecutor:
                         or (now - datetime.fromisoformat(pending["created_at"])).total_seconds()
                         > 60
                         or (
-                            action["new_cycle"]
+                            action.get("new_cycle", False)
                             and not pending["initialized"]
                             and now.strftime("%H:%M") >= "09:31"
                         )
-                        or now.strftime("%H:%M") >= "15:20"
+                        or (action["action"] != "add_hedges" and now.strftime("%H:%M") >= "15:20")
                     ):
                         self._abort(pending, "stale_opening_intent", now)
+                        return
+                    if (
+                        opening
+                        and leg["side"] < 0
+                        and protected_quantity(self.profile, leg, held) < leg["quantity"]
+                    ):
+                        self._abort(pending, "short_without_confirmed_hedge", now)
                         return
                     quote = quotes.get(leg["symbol"])
                     if not quote or quote_looks_stale(quote):
@@ -188,7 +198,7 @@ class SandboxExecutor:
     def _fill(self, pending, step, price, now):
         leg, action = step["leg"], pending["action"]
         if pending["opening"]:
-            if not pending["initialized"]:
+            if not pending["initialized"] and action["action"] != "add_hedges":
                 if action["new_cycle"]:
                     self.state.update(
                         cycle=self.state["cycle"] + 1,
@@ -201,6 +211,8 @@ class SandboxExecutor:
                     last_entry_day=now.date().isoformat(),
                     last_adjustment=now.isoformat(),
                 )
+                pending["initialized"] = True
+            if action["action"] == "add_hedges":
                 pending["initialized"] = True
             self.state["legs"].append(
                 {**leg, "entry": price, "entry_ts": now.isoformat(), "orderid": step["orderid"]}
@@ -227,7 +239,8 @@ class SandboxExecutor:
             raise RuntimeError("Sandbox close rejected; positions persist for reconciliation")
         self.state["pending"] = None
         self.state["halted"] = True
-        self.state["last_entry_day"] = now.date().isoformat()
+        if pending["action"]["action"] != "add_hedges":
+            self.state["last_entry_day"] = now.date().isoformat()
         self.state["expiry"] = pending["action"].get("expiry", self.state["expiry"])
         self.persist("opening_aborted", {"reason": reason})
         if self.state["legs"]:
