@@ -1,0 +1,5 @@
+"strategy","path","net_pnl","return_pct","drawdown","closed_trades_or_cycles","win_rate","profit_factor","open_legs","coverage"
+"Premium Intraday Current Week","OHLC","5957.070000000065","0.29785350000000044","1963","1","100","","0","2 closed / 0 open legs"
+"Premium Intraday Next Week","OHLC","2965.4899999999907","0.14827449999998965","2936.4499999999534","1","100","","0","2 closed / 0 open legs"
+"Premium Positional Current Week","OHLC","0","0","0","0","","","0","0 closed / 0 open legs"
+"Premium Positional Next Week","OHLC","1867.5","0.09337499999999554","1705.8899999998976","0","","","1","1 closed / 1 open legs"

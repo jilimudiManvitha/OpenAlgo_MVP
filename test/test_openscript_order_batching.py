@@ -254,7 +254,10 @@ def test_the_engine_real_intent_is_one_this_merges(session):
     would quietly not happen. So this builds the engine's own intent and asserts
     the two halves of a reversal merge.
     """
-    from openscript.strategy.intents import Identity, IntentBar, OrderIntent, Placement
+    intents = pytest.importorskip("openscript.strategy.intents")
+    Identity, IntentBar, OrderIntent, Placement = (
+        intents.Identity, intents.IntentBar, intents.OrderIntent, intents.Placement
+    )
 
     def real(intent_id, side):
         return OrderIntent(

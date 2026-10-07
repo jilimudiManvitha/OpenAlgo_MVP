@@ -159,6 +159,8 @@ def shutdown_runtime() -> None:
 
 def _handle_signal(signum, _frame):
     """Tear down, then exit with the code a shell expects from a signal."""
+    if _shutdown_done:
+        return
     logger.info(f"Received signal {signum}, shutting down")
     shutdown_runtime()
     raise SystemExit(128 + int(signum))

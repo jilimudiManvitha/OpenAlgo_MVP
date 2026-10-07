@@ -13,10 +13,20 @@ from strategies.top_gain_volumes.coordination import dispatch_lock
 
 from .engine import IST, decision, initial_state, opening_plan, risk_decision, validate_state
 from .execution import SandboxExecutor, cleanup_sessions
+from .feed import QuoteSubscriptions, connection_delay, required_contracts
 from .greeks import chain_options, session_close
 from .profiles import PROFILES, ROOT, Policy
 from .selection import DataUnavailable, select_legs
 from .state import Store
+
+
+def publish_report(report, state, status, now, feed):
+    """Report storage must not interrupt management of an existing basket."""
+    try:
+        return report.save(state, status, now, feed)
+    except Exception as exc:
+        print(f"Daily report update failed ({type(exc).__name__}); will retry", flush=True)
+        return None
 
 
 def instruments(day, held_expiry=None):
@@ -133,7 +143,13 @@ def run(profile_name, policy_path):
     suffix = hashlib.sha256((owner + profile_name).encode()).hexdigest()[:20]
     with dispatch_lock(ROOT / f"db/nifty_options/runner-{suffix}.lock", timeout=1):
         today = datetime.now(IST).date()
-        contracts, expiries = instruments(today, state["expiry"])
+        active_expiry = state["expiry"] if state["legs"] or state["needs_reentry"] else None
+        if state["pending"]:
+            active_expiry = state["pending"]["action"].get("expiry") or state["expiry"]
+        contracts, expiries = instruments(today, active_expiry)
+        contracts = required_contracts(
+            contracts, expiries, profile, today, state["legs"], active_expiry
+        )
         if state["legs"] and not {leg["symbol"] for leg in state["legs"]} <= {
             c["symbol"] for c in contracts
         }:
@@ -160,31 +176,61 @@ def run(profile_name, policy_path):
             port=int(os.getenv("WEBSOCKET_PORT", "8765")),
         )
         client.register_callback("market_data", receive)
-        executor = SandboxExecutor(owner, profile, state, persist)
-        quotes, subscribed_socket = {}, None
+        quotes = {}
         last_eval = last_save = last_error = 0.0
-        specs = [{"symbol": c["symbol"], "exchange": "NFO"} for c in contracts]
+        # Subscribe held risk first, then the index and this profile's expiry chain.
+        specs = [{"symbol": leg["symbol"], "exchange": "NFO"} for leg in state["legs"]]
         specs.append({"symbol": "NIFTY", "exchange": "NSE_INDEX"})
+        specs.extend({"symbol": c["symbol"], "exchange": "NFO"} for c in contracts)
         allowed = {s["symbol"] for s in specs}
+        feed = QuoteSubscriptions(specs)
+        from .daily_reports import DailyReport
+
+        report = DailyReport(owner, profile, today, store, ROOT / "db/scanner_strategy_reports.db")
+        final_status = "stopped"
+        profile_index = list(PROFILES).index(profile_name)
+        next_connect = time.monotonic() + connection_delay(profile_index, bool(state["legs"]))
         try:
+            publish_report(report, state, "starting", datetime.now(IST), feed)
+            executor = SandboxExecutor(owner, profile, state, persist)
             while not stopped[0]:
                 now = datetime.now(IST)
                 if now.date() != today or now.time() >= session_close(today):
                     break
+                clock = time.monotonic()
+                if time.monotonic() - last_save >= 10:
+                    status = feed.error or "running"
+                    if feed.ready and not any(
+                        0 <= now.timestamp() - ts <= 15 for ts, _ in quotes.values()
+                    ):
+                        status = "waiting for fresh quotes — entries paused"
+                    if now.strftime("%H:%M") >= "09:31" and not state["last_entry_day"]:
+                        status += "; initial 09:30–09:31 entry window missed"
+                    publish_report(report, state, status, now, feed)
+                    persist("heartbeat", {"open_legs": len(state["legs"])})
+                    last_save = clock
                 if not client.connected:
                     quotes.clear()
-                    if not client.thread or not client.thread.is_alive():
+                    feed.reset()
+                    if clock >= next_connect and (
+                        not client.thread or not client.thread.is_alive()
+                    ):
                         client.disconnect()
                         client.connect()
+                        next_connect = time.monotonic() + connection_delay(
+                            profile_index, retry=True
+                        )
                     time.sleep(0.5)
                     continue
-                if client.authenticated and subscribed_socket is not client.ws:
+                if feed.socket is not client.ws:
                     quotes.clear()
-                    for offset in range(0, len(specs), 50):
-                        reply = client.subscribe(specs[offset : offset + 50], "Quote")
-                        if reply.get("status") != "success":
-                            raise DataUnavailable("Option subscription failed")
-                    subscribed_socket = client.ws
+                feed.step(client, clock)
+                if feed.failures and clock - last_error >= 60:
+                    persist("data_unavailable", {"message": feed.error})
+                    print(feed.error, flush=True)
+                    last_error = clock
+                # Acknowledgements may block; freshness must use the current clock.
+                now = datetime.now(IST)
                 try:
                     message = messages.get(timeout=0.1)
                 except queue.Empty:
@@ -230,7 +276,7 @@ def run(profile_name, policy_path):
                         ]
                         executor.begin(action, legs, now)
                         continue
-                    if "NIFTY" not in fresh:
+                    if not feed.ready or "NIFTY" not in fresh:
                         continue
                     prices = {s: float(q["ltp"]) for s, q in fresh.items()}
                     options = chain_options(
@@ -271,22 +317,35 @@ def run(profile_name, policy_path):
                         state.update(halted=True, needs_reentry=False)
                         persist("loss_latched", action)
                     state["last_timestamp"] = now.isoformat()
-                    if time.monotonic() - last_save >= 10:
-                        persist("heartbeat", {"open_legs": len(state["legs"])})
-                        last_save = time.monotonic()
                 except DataUnavailable as exc:
                     if time.monotonic() - last_error >= 60:
                         persist("data_unavailable", {"message": str(exc)})
                         print(str(exc), flush=True)
                         last_error = time.monotonic()
-        finally:
-            client.unregister_callback("market_data", receive)
-            client.disconnect()
-            cleanup_sessions()
-            persist(
-                "runner_stopped",
-                {"open_legs": len(state["legs"]), "pending": bool(state["pending"])},
+            final_status = (
+                "stopped — inspect pending orders"
+                if state["pending"]
+                else "session ended — open positions carried"
+                if state["legs"]
+                else "complete"
+                if state["last_entry_day"] == str(today)
+                else "no entry — entry window missed or market data unavailable"
             )
+        except BaseException as exc:
+            final_status = f"failed — {type(exc).__name__}: {exc}"
+            raise
+        finally:
+            try:
+                client.unregister_callback("market_data", receive)
+                client.disconnect()
+                cleanup_sessions()
+                persist(
+                    "runner_stopped",
+                    {"open_legs": len(state["legs"]), "pending": bool(state["pending"])},
+                )
+                publish_report(report, state, final_status, datetime.now(IST), feed)
+            finally:
+                report.close()
 
 
 def main(profile_name):

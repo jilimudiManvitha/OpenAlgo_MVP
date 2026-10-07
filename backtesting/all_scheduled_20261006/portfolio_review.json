@@ -1,0 +1,32 @@
+{
+  "frontend/src/pages/portfolio/Stocks.tsx": {
+    "exists": true,
+    "sha256": "158c5e573bb332e90dd051884f1595730cde1d77dc41c44a948be24a664a8a67"
+  },
+  "frontend/src/pages/portfolio/Reports.tsx": {
+    "exists": true,
+    "sha256": "4eb16dd72b5ef008270f6e7c7180340459dcc64dce7ed037026b967eabb19dc7"
+  },
+  "frontend/src/pages/portfolio/Watchlists.tsx": {
+    "exists": true,
+    "sha256": "8424bb2df3fa33694fb68ea77aa3ff30e012425eb919bac0a5efd2e24dc8c446"
+  },
+  "services/investment_reports.py": {
+    "exists": true,
+    "sha256": "9eb2bfceb61025f3cd0e138682e7dda8ff2b139a9c207b8a99f98776e081df92"
+  },
+  "services/investment_paper.py": {
+    "exists": true,
+    "sha256": "9b9947ae508796a6cf59d84825846fb5b0f63677b38e212471e12f31db835bae"
+  },
+  "services/investment_sandbox_guard.py": {
+    "exists": true,
+    "sha256": "ff5f1d3942044f1abd27a898f5c966292f095a4f3a84dbe4a6e842e78c17d29e"
+  },
+  "test/test_investment_extensions.py": {
+    "exists": true,
+    "sha256": "4d9393dce42116244c1c26d63a0f4a45a5924c07db88d4da70c9e45949a576ee"
+  },
+  "source_routes_present": true,
+  "production_bundle_contains_new_watchlist_screen": false
+}

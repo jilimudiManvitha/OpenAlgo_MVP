@@ -1472,7 +1472,7 @@ def export_to_csv(
 
         temp_dir = tempfile.gettempdir()
         abs_output = os.path.abspath(output_path)
-        if not abs_output.startswith(os.path.abspath(temp_dir)):
+        if not Path(abs_output).resolve().is_relative_to(Path(temp_dir).resolve()):
             return False, "Invalid output path: must be within temp directory"
 
         with get_connection() as conn:
@@ -2392,7 +2392,7 @@ def export_to_parquet(
         # Validate output path - must be within temp directory
         temp_dir = tempfile.gettempdir()
         abs_output = os.path.abspath(output_path)
-        if not abs_output.startswith(os.path.abspath(temp_dir)):
+        if not Path(abs_output).resolve().is_relative_to(Path(temp_dir).resolve()):
             return False, "Invalid output path: must be within temp directory", 0
 
         # IST timezone offset from UTC (5 hours 30 minutes = 19800 seconds)
@@ -2626,7 +2626,7 @@ def export_to_txt(
         # Validate output path
         temp_dir = tempfile.gettempdir()
         abs_output = os.path.abspath(output_path)
-        if not abs_output.startswith(os.path.abspath(temp_dir)):
+        if not Path(abs_output).resolve().is_relative_to(Path(temp_dir).resolve()):
             return False, "Invalid output path: must be within temp directory", 0
 
         query = f"""
@@ -2701,7 +2701,7 @@ def export_to_zip(
         # Validate output path
         temp_dir = tempfile.gettempdir()
         abs_output = os.path.abspath(output_path)
-        if not abs_output.startswith(os.path.abspath(temp_dir)):
+        if not Path(abs_output).resolve().is_relative_to(Path(temp_dir).resolve()):
             return False, "Invalid output path: must be within temp directory", 0
 
         total_records = 0
@@ -2982,7 +2982,7 @@ def export_bulk_csv(
         # Validate output path
         temp_dir = tempfile.gettempdir()
         abs_output = os.path.abspath(output_path)
-        if not abs_output.startswith(os.path.abspath(temp_dir)):
+        if not Path(abs_output).resolve().is_relative_to(Path(temp_dir).resolve()):
             return False, "Invalid output path: must be within temp directory", 0
 
         query = f"""

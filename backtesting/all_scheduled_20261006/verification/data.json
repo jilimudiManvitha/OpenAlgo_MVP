@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "stock_scenarios": 16,
+  "option_scenarios": 24,
+  "stock_sources_hashed": 92,
+  "option_and_index_sources_hashed": 961,
+  "stock_net_reconciled": true,
+  "option_realized_and_open_mtm_reconciled": true,
+  "missing_held_bar_minutes": 0
+}

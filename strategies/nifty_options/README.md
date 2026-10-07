@@ -116,9 +116,25 @@ itself books no brokerage; its live paper ledger excludes fees.
 
 Each path/variant exports trades, minute equity, final state and skipped entries.
 Summary CSV/JSON/HTML, Plotly daily curves, OpenStatz offline dashboards and hashes
-stay under `backtest/`. VectorBT independently
+stay under `backtesting/` for new runs (October 5 destination update). VectorBT independently
 reconciles every closed leg. NIFTY gross close return is the benchmark; drawdown
 uses minute-end marks and can miss intraminute lows. No Reports database writes.
+
+Scheduled sessions are separate: the twelve launchers now save daily Sandbox
+reports to the existing `/reports` page, including startup, feed-waiting,
+zero-entry and final states. They refresh every ten seconds and reconstruct
+confirmed closed legs from the persistent journal on restart. Closed-leg P&L
+is attributed to its realization date (full carried-trade profit, not daily
+mark-to-market); open unrealized P&L and brokerage are excluded. Statistics
+count legs rather than baskets, and capital metrics show premium turnover,
+not broker margin. New entries remain gated on subscription readiness and
+fresh prices. Partial/rejected subscriptions retry with pacing rather than
+terminating the process. The 09:30–09:31 initial entry window is unchanged.
+
+Existing accepted results and source archives under `backtest/` remain in place;
+replay can still read that cache. New downloads, replay results and verification
+artifacts use `backtesting/nifty_options/`. Do not import historical simulations
+into the daily Reports database.
 
 ```mermaid
 flowchart LR

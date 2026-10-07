@@ -41,6 +41,7 @@ export const navItems: NavItem[] = [
   { href: '/market-scanner', label: 'Scanner', icon: TrendingUp },
   { href: '/strategy-reports', label: 'Reports', icon: FileBarChart },
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/portfolio', label: 'Portfolio', icon: Layers },
   { href: '/orderbook', label: 'Orderbook', icon: ClipboardList },
   { href: '/tradebook', label: 'Tradebook', icon: FileText },
   { href: '/positions', label: 'Positions', icon: TrendingUp },
@@ -101,5 +102,5 @@ export const externalLinks = {
 // Shared utility to check if a route is active.
 // Every nav item is a leaf route, so an exact match is all that is needed.
 export function isActiveRoute(pathname: string, href: string): boolean {
-  return pathname === href
+  return pathname === href || (href === '/portfolio' && pathname.startsWith('/portfolio/'))
 }

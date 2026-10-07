@@ -1,0 +1,16 @@
+{
+  "strategy": "premium_positional_next_week",
+  "path": "OLHC",
+  "capital": 2000000,
+  "net_pnl": 1867.5,
+  "realized_pnl": -2149.500000000001,
+  "fees": 82.5,
+  "return_pct": 0.09337499999999554,
+  "max_drawdown_inr": -1705.8899999998976,
+  "closed_legs": 1,
+  "open_legs": 1,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "missing_held_bar_minutes": 0,
+  "vectorbt_reconciled": true
+}

@@ -9,6 +9,16 @@ from services.market_scanner_service import IST, quote_time
 from utils.real_threading import Event, Lock, Thread
 
 
+def stream_limit(broker):
+    """Leave FYERS pool capacity for scheduled equities, both option weeks and tools.
+
+    The scanner still refreshes its full universe through the existing REST pass.
+    FYERS has 3,000 shared slots; an unconstrained scanner formerly consumed 2,679.
+    """
+    requested = max(1, min(5000, int(os.environ.get("SCANNER_STREAM_LIMIT", "5000"))))
+    return min(requested, 1000) if broker == "fyers" else requested
+
+
 def merge_quote(row, message, now):
     """Only complete, newer, timestamped Quote ticks may refresh a scanner row."""
     if message.get("mode") not in (2, "2", "Quote", "QUOTE"):
@@ -71,7 +81,7 @@ class ScannerFeed:
         self.thread = None
         self.subscribed = 0
         self.status = "polling_fallback"
-        self.limit = max(1, min(5000, int(os.environ.get("SCANNER_STREAM_LIMIT", "5000"))))
+        self.limit = stream_limit(broker)
 
     def start(self):
         self.thread = Thread(target=self._run, daemon=True, name="scanner-shared-feed")

@@ -1,5 +1,22 @@
 # Six-task implementation plan and agent handoff
 
+**October 7 Task 6 checkpoint:** Completed Portfolio has been combined into the normal local frontend build at the user’s request. Verified with the scheduled-strategy repair; commit/push authorized. The user starts production. Other frozen tasks remain frozen. [Release checklist](2026-10-07-local-release-readiness.md).
+
+**October 6 Task 6 checkpoint:** Remaining Investment Portfolio phases are implemented and verified locally: all requested asset classes, nine reports, watchlists and existing-Sandbox paper GTT integration. [Completion handoff](2026-10-06-portfolio-completion.md). Deployment awaits “combine and launch”; other frozen tasks remain frozen.
+
+## October 4 final checkpoint — handoff complete; work stopped
+
+[Complete handoff](2026-10-04-readiness-portfolio-handoff.md): readiness fixes and locally deployed
+Task 6 investment ledger/Dashboard/Stocks, verification evidence, incidents, user decisions and
+remaining work. User explicitly accepted the ATHER reconciliation baseline, resolving the
+Phase 3 gate, then requested handoff and stop. Phase 3/reports/paper GTT integration have not
+started. Resume only when requested. OpenAlgo remains running (PID 15965), with twenty schedules
+restored and sandbox financial tables preserved. No orders, commit or push.
+
+## October 4 — Monday readiness checks passed; Task 6 begins
+
+[Readiness results and repair details](2026-10-04-monday-readiness.md): 5,932 backend tests and 2,956 frontend tests pass; 20 schedules restored on verified restart. OpenAlgo is running; leave it running. Sunday live fills remain unverified. Weekday watchlists intentionally empty until the user populates them before 09:00. Portfolio implementation may now proceed under its canonical phased plan, preserving the Phase 2 reconciliation gate.
+
 ## October 4 — separate NIFTY options request complete locally
 
 Twelve persistent NIFTY Sandbox strategies are installed and scheduled, with

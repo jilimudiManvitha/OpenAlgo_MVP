@@ -1,4 +1,4 @@
-"""Read-only FYERS historical capability probe; artifacts stay under backtest/."""
+"""Read-only FYERS historical capability probe; artifacts stay under backtesting/."""
 
 import argparse
 import json
@@ -6,7 +6,7 @@ import os
 import time
 from datetime import UTC, datetime
 
-from .profiles import ROOT
+from .profiles import BACKTEST_ROOT, ROOT
 
 
 def active_login():
@@ -97,7 +97,7 @@ def main():
     parser.add_argument("--start", required=True)
     parser.add_argument("--end", required=True)
     args = parser.parse_args()
-    folder = ROOT / "backtest" / "nifty_options" / "data_probe" / f"{args.start}_{args.end}"
+    folder = BACKTEST_ROOT / "data_probe" / f"{args.start}_{args.end}"
     folder.mkdir(parents=True, exist_ok=True)
     try:
         result = probe(args.start, args.end)

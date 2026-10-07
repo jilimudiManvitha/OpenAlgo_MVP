@@ -100,9 +100,10 @@ def broadcast_status_update(strategy_id: str, status: str, message: str = None):
 
 
 # File paths - use Path for cross-platform compatibility
-STRATEGIES_DIR = Path("strategies") / "scripts"
-LOGS_DIR = Path("log") / "strategies"  # Using existing log folder
-CONFIG_FILE = Path("strategies") / "strategy_configs.json"
+STRATEGY_DATA_DIR = Path(os.getenv("PYTHON_STRATEGY_DATA_DIR", "strategies"))
+STRATEGIES_DIR = STRATEGY_DATA_DIR / "scripts"
+LOGS_DIR = Path(os.getenv("LOG_DIR", "log")) / "strategies"
+CONFIG_FILE = STRATEGY_DATA_DIR / "strategy_configs.json"
 
 # Detect operating system
 OS_TYPE = platform.system().lower()  # 'windows', 'linux', 'darwin'
@@ -387,7 +388,7 @@ def create_subprocess_args():
 #   - 2GB container (5 strategies): STRATEGY_MEMORY_LIMIT_MB=256
 #   - 4GB container (3 strategies): STRATEGY_MEMORY_LIMIT_MB=512
 #   - 8GB+ container: STRATEGY_MEMORY_LIMIT_MB=1024 (default)
-STRATEGY_MEMORY_LIMIT_MB = int(os.environ.get('STRATEGY_MEMORY_LIMIT_MB', '1024'))
+STRATEGY_MEMORY_LIMIT_MB = int(os.environ.get("STRATEGY_MEMORY_LIMIT_MB", "1024"))
 STRATEGY_CPU_TIME_LIMIT_SEC = 3600  # Max CPU time (1 hour) - resets on each run
 
 
@@ -535,12 +536,11 @@ def start_strategy_process(strategy_id):
             strategy_env = os.environ.copy()
             strategy_env["STRATEGY_ID"] = strategy_id
             strategy_env["STRATEGY_NAME"] = config.get("name", strategy_id)
-            strategy_env["OPENALGO_STRATEGY_EXCHANGE"] = normalize_exchange(
-                config.get("exchange")
-            )
+            strategy_env["OPENALGO_STRATEGY_EXCHANGE"] = normalize_exchange(config.get("exchange"))
             strategy_env.setdefault("OPENALGO_HOST", "http://127.0.0.1:5000")
             try:
                 from database.auth_db import get_api_key_for_tradingview
+
                 user_id = config.get("user_id")
                 if user_id:
                     _api_key = get_api_key_for_tradingview(user_id)
@@ -630,6 +630,16 @@ def start_strategy_process(strategy_id):
             return False, f"Failed to start strategy: {str(e)}"
 
 
+def strategy_shutdown_timeout(config):
+    """Allow the bundled paper runners to reconcile and persist their exits."""
+    from strategies.nifty_options.profiles import PROFILES as options
+    from strategies.top_gain_volumes.profiles import PROFILES as stocks
+
+    filename = os.path.basename(config.get("file_path") or config.get("file_name") or "")
+    bundled = {p["file"] for p in stocks.values()} | {name + ".py" for name in options}
+    return 90 if filename in bundled else 5
+
+
 def stop_strategy_process(strategy_id):
     """Stop a running strategy process - cross-platform implementation.
 
@@ -670,12 +680,13 @@ def stop_strategy_process(strategy_id):
                 return False, "Strategy not running"
 
         STOPPING_STRATEGIES.add(strategy_id)
+        shutdown_timeout = strategy_shutdown_timeout(STRATEGY_CONFIGS.get(strategy_id, {}))
 
     try:
         # --- Terminate and wait, outside the lock -----------------------------
         if orphan_pid is not None:
             try:
-                terminate_process_cross_platform(orphan_pid)
+                terminate_process_cross_platform(orphan_pid, terminate_timeout=shutdown_timeout)
             except Exception as e:
                 logger.exception(f"Failed to stop orphaned strategy {strategy_id}: {e}")
                 return False, f"Failed to stop strategy: {str(e)}"
@@ -701,7 +712,9 @@ def stop_strategy_process(strategy_id):
 
         try:
             if isinstance(process, subprocess.Popen):
-                stopped = terminate_popen_safely(process, pid, terminate_timeout=5, kill_timeout=2)
+                stopped = terminate_popen_safely(
+                    process, pid, terminate_timeout=shutdown_timeout, kill_timeout=2
+                )
             elif hasattr(process, "terminate"):
                 # Restored strategies are tracked as psutil.Process objects.
                 # Do not call psutil.Process.wait(timeout): under
@@ -709,11 +722,11 @@ def stop_strategy_process(strategy_id):
                 # select.poll(), which eventlet removes from the patched
                 # select module.
                 stopped = terminate_psutil_process_safely(
-                    process, terminate_timeout=5, kill_timeout=2
+                    process, terminate_timeout=shutdown_timeout, kill_timeout=2
                 )
             else:
                 # Fallback: use PID directly
-                terminate_process_cross_platform(pid)
+                terminate_process_cross_platform(pid, terminate_timeout=shutdown_timeout)
                 stopped = not (pid and check_process_status(pid))
         except Exception as e:
             logger.exception(f"Failed to stop strategy {strategy_id}: {e}")
@@ -941,7 +954,7 @@ def _strategy_may_still_be_running(strategy_id) -> bool:
     return bool(pid) and check_process_status(pid)
 
 
-def terminate_process_cross_platform(pid):
+def terminate_process_cross_platform(pid, terminate_timeout=3):
     """Terminate a process in a cross-platform way"""
     try:
         process = psutil.Process(pid)
@@ -957,14 +970,14 @@ def terminate_process_cross_platform(pid):
         # Terminate main process
         process.terminate()
 
-        # Wait up to 3s for graceful exit, then kill any survivors.
+        # Wait for the caller's bounded graceful exit window, then kill survivors.
         # Manual polling — psutil.wait_procs calls select.poll(), which
         # eventlet's monkey-patched select does not expose on Linux
         # (gunicorn-eventlet production deployment). Plain time.sleep is
         # cooperatively patched under eventlet and is a no-op cost on
         # Windows/Mac dev servers using standard threading.
         all_procs = [process] + children
-        deadline = monotonic() + 3
+        deadline = monotonic() + terminate_timeout
         alive = list(all_procs)
         while alive and monotonic() < deadline:
             sleep(0.1)
@@ -1287,9 +1300,7 @@ def scheduled_start_strategy(strategy_id: str):
     today_day = day_names[now.weekday()]
 
     if config.get("manually_stopped"):
-        logger.info(
-            f"Strategy {strategy_id} manually stopped - skipping scheduled auto-start"
-        )
+        logger.info(f"Strategy {strategy_id} manually stopped - skipping scheduled auto-start")
         return
 
     schedule_days = [d.lower() for d in config.get("schedule_days", [])]
@@ -1307,9 +1318,7 @@ def scheduled_start_strategy(strategy_id: str):
         if not status.get("is_trading"):
             reason = status.get("reason") or "holiday"
             message = status.get("message", f"{exch} closed today")
-            logger.warning(
-                f"Strategy {strategy_id} ({exch}) scheduled start BLOCKED - {message}"
-            )
+            logger.warning(f"Strategy {strategy_id} ({exch}) scheduled start BLOCKED - {message}")
             STRATEGY_CONFIGS[strategy_id]["paused_reason"] = reason
             STRATEGY_CONFIGS[strategy_id]["paused_message"] = message
             save_configs()
@@ -1319,9 +1328,7 @@ def scheduled_start_strategy(strategy_id: str):
     STRATEGY_CONFIGS[strategy_id].pop("paused_reason", None)
     STRATEGY_CONFIGS[strategy_id].pop("paused_message", None)
 
-    logger.info(
-        f"Strategy {strategy_id} ({exch}) - all checks passed, starting"
-    )
+    logger.info(f"Strategy {strategy_id} ({exch}) - all checks passed, starting")
     start_strategy_process(strategy_id)
 
 
@@ -1382,9 +1389,7 @@ def daily_trading_day_check():
 
             reason = status.get("reason") or "holiday"
             message = status.get("message", f"{exch} closed today")
-            logger.info(
-                f"Daily check: stopping {strategy_id} ({exch}) - {message}"
-            )
+            logger.info(f"Daily check: stopping {strategy_id} ({exch}) - {message}")
             stop_strategy_process(strategy_id)
             STRATEGY_CONFIGS[strategy_id]["paused_reason"] = reason
             STRATEGY_CONFIGS[strategy_id]["paused_message"] = message
@@ -1423,9 +1428,7 @@ def is_within_schedule_time(strategy_id: str) -> bool:
         now_ms = int(now.timestamp() * 1000)
 
         # Resolve the user's window for today (epoch-ms)
-        midnight_ist = IST.localize(
-            datetime.combine(now.date(), datetime.min.time())
-        )
+        midnight_ist = IST.localize(datetime.combine(now.date(), datetime.min.time()))
         midnight_ms = int(midnight_ist.timestamp() * 1000)
 
         if schedule_start:
@@ -1505,7 +1508,12 @@ def market_hours_enforcer():
 
             if status.get("is_trading"):
                 # Exchange tradeable today — clear any stale pause reason
-                if config.get("paused_reason") in ("weekend", "holiday", "before_market", "after_market"):
+                if config.get("paused_reason") in (
+                    "weekend",
+                    "holiday",
+                    "before_market",
+                    "after_market",
+                ):
                     paused_reason = config.get("paused_reason")
                     is_running = _is_strategy_running(strategy_id, config)
                     if (
@@ -1538,9 +1546,7 @@ def market_hours_enforcer():
 
             reason = status.get("reason") or "holiday"
             message = status.get("message", f"{exch} closed today")
-            logger.info(
-                f"Enforcer: stopping {strategy_id} ({exch}) - {message}"
-            )
+            logger.info(f"Enforcer: stopping {strategy_id} ({exch}) - {message}")
             stop_strategy_process(strategy_id)
             STRATEGY_CONFIGS[strategy_id]["paused_reason"] = reason
             STRATEGY_CONFIGS[strategy_id]["paused_message"] = message
@@ -1858,9 +1864,7 @@ def new_strategy():
 
             schedule_start = request.form.get("schedule_start") or default_start
             schedule_stop = request.form.get("schedule_stop") or default_stop
-            schedule_days_json = request.form.get(
-                "schedule_days", json.dumps(default_days)
-            )
+            schedule_days_json = request.form.get("schedule_days", json.dumps(default_days))
 
             # Parse schedule days from JSON
             try:
@@ -2383,18 +2387,22 @@ def check_contracts():
     """Check master contracts and start pending strategies"""
     try:
         success, started_count, message = check_and_start_pending_strategies()
-        return jsonify({
-            "status": "success" if success else "error",
-            "message": message,
-            "data": {"started": started_count}
-        })
+        return jsonify(
+            {
+                "status": "success" if success else "error",
+                "message": message,
+                "data": {"started": started_count},
+            }
+        )
     except Exception as e:
         logger.exception(f"Error checking contracts: {e}")
-        return jsonify({
-            "status": "error",
-            "message": f"Error checking contracts: {str(e)}",
-            "data": {"started": 0}
-        }), 500
+        return jsonify(
+            {
+                "status": "error",
+                "message": f"Error checking contracts: {str(e)}",
+                "data": {"started": 0},
+            }
+        ), 500
 
 
 # =============================================================================

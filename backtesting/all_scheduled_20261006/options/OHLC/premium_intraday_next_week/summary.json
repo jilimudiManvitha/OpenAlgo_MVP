@@ -1,0 +1,16 @@
+{
+  "strategy": "premium_intraday_next_week",
+  "path": "OHLC",
+  "capital": 2000000,
+  "net_pnl": 2965.4899999999907,
+  "realized_pnl": 2965.4900000000016,
+  "fees": 128.51,
+  "return_pct": 0.14827449999998965,
+  "max_drawdown_inr": -2936.4499999999534,
+  "closed_legs": 2,
+  "open_legs": 0,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "missing_held_bar_minutes": 0,
+  "vectorbt_reconciled": true
+}

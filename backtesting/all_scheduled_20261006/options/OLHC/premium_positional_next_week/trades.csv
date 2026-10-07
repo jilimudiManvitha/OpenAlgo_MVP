@@ -1,0 +1,2 @@
+symbol,expiry,strike,kind,side,quantity,lot_size,entry,entry_fee,entry_ts,exit,exit_ts,gross_pnl,exit_fee,reason,cycle,net_pnl
+NSE:NIFTY26O1323100CE,2026-10-13,23100.0,CE,-1,260,65,26.25,26.82,2026-10-06T09:30:00+05:30,34.2,2026-10-06T09:55:39.772727+05:30,-2067.000000000001,28.89,thirty_percent_stop,1,-2122.710000000001

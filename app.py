@@ -69,18 +69,21 @@ from blueprints.gc_json import gc_json_bp
 from blueprints.gex import gex_bp  # Import the GEX blueprint
 from blueprints.health import health_bp  # Import the health monitoring blueprint
 from blueprints.historify import historify_bp  # Import the historify blueprint
+from blueprints.investments import investments_bp
 from blueprints.ivchart import ivchart_bp  # Import the IV chart blueprint
 from blueprints.ivsmile import ivsmile_bp  # Import the IV Smile blueprint
 from blueprints.latency import latency_bp  # Import the latency blueprint
-from blueprints.market_scanner import market_scanner_bp
 from blueprints.leverage import leverage_bp  # Import the leverage blueprint
 from blueprints.log import log_bp
 from blueprints.logging import logging_bp  # Import the logging blueprint
+from blueprints.market_scanner import market_scanner_bp
 from blueprints.master_contract_status import (
     master_contract_status_bp,  # Import the master contract status blueprint
 )
 from blueprints.oiprofile import oiprofile_bp  # Import the OI Profile blueprint
 from blueprints.oitracker import oitracker_bp  # Import the OI tracker blueprint
+from blueprints.openscript import openscript_bp
+from blueprints.openscript_runner import openscript_runner_bp
 from blueprints.orders import orders_bp
 from blueprints.platforms import platforms_bp
 from blueprints.playground import playground_bp  # Import the API playground blueprint
@@ -123,6 +126,7 @@ from database.auth_db import init_db as ensure_auth_tables_exists
 from database.chartink_db import init_db as ensure_chartink_tables_exists
 from database.flow_db import init_db as ensure_flow_tables_exists
 from database.historify_db import init_database as ensure_historify_tables_exists
+from database.investment_db import init_db as ensure_investment_tables_exists
 from database.latency_db import init_latency_db as ensure_latency_tables_exists
 from database.leverage_db import init_db as ensure_leverage_tables_exists
 from database.sandbox_db import init_db as ensure_sandbox_tables_exists
@@ -342,6 +346,9 @@ def create_app():
     app.register_blueprint(oiprofile_bp)  # Register OI Profile blueprint
     app.register_blueprint(arbitrage_bp)  # Register Arbitrage blueprint
     app.register_blueprint(flow_bp)  # Register Flow blueprint
+    app.register_blueprint(investments_bp)
+    app.register_blueprint(openscript_bp)
+    app.register_blueprint(openscript_runner_bp)
     app.register_blueprint(agent_bp)  # Register Agent blueprint
     app.register_blueprint(broker_credentials_bp)  # Register Broker credentials blueprint
     app.register_blueprint(system_permissions_bp)  # Register System permissions blueprint
@@ -761,6 +768,7 @@ def setup_environment(app):
                 ("Flow DB", ensure_flow_tables_exists),
                 ("Scalping DB", ensure_scalping_tables_exists),
                 ("Watchlist DB", ensure_watchlist_tables_exists),
+                ("Investment DB", ensure_investment_tables_exists),
                 ("Leverage DB", ensure_leverage_tables_exists),
                 ("Strategy Portfolio DB", ensure_strategy_portfolio_tables_exists),
                 ("Agent DB", ensure_agent_tables_exists),

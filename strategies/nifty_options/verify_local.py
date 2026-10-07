@@ -12,7 +12,7 @@ from strategies.top_gain_volumes.coordination import dispatch_lock
 
 from . import engine
 from .history import atomic_json
-from .profiles import ROOT
+from .profiles import BACKTEST_ROOT
 from .state import StateConflict, Store
 
 
@@ -73,7 +73,7 @@ def main():
         "fd_after": final,
         "scope": "Measured SQLite success/conflict and lock success/error paths; static bounded queue/cache review. Not a live market soak.",
     }
-    atomic_json(ROOT / "backtest/nifty_options/verification/local_checks.json", result)
+    atomic_json(BACKTEST_ROOT / "verification/local_checks.json", result)
     print(json.dumps(result, indent=2))
 
 

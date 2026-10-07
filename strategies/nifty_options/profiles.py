@@ -7,6 +7,7 @@ from datetime import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+BACKTEST_ROOT = ROOT / "backtesting" / "nifty_options"
 CAPITAL = 2_000_000
 SANDBOX_CAPITAL = 50_000_000
 

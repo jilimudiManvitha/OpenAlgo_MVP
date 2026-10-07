@@ -40,6 +40,21 @@ POSITION = {"x": 0, "y": 0}
 BASE_LEG = {"optionType": "CE", "action": "BUY", "quantity": 1}
 
 
+@pytest.fixture(autouse=True)
+def fixed_contract_reference_date(monkeypatch):
+    """The broker fixtures list August 2026 contracts; never depend on today's month."""
+    from datetime import datetime
+
+    import services.flow_node_contracts as contracts
+
+    class FixtureDateTime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return cls(2026, 8, 24, 12, tzinfo=tz)
+
+    monkeypatch.setattr(contracts, "datetime", FixtureDateTime)
+
+
 def validate_legs(*legs, strict=True, **node_overrides):
     """Codes raised for a custom multi-leg node carrying these legs."""
     data = {

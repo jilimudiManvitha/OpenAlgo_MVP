@@ -994,6 +994,20 @@ class PositionManager:
                     404,
                 )
 
+            # A scheduled/backup square-off may revisit a position another
+            # worker already closed. Never dispatch a zero-quantity order.
+            if position.quantity == 0:
+                return (
+                    True,
+                    {
+                        "status": "success",
+                        "message": f"Position already closed for {symbol}",
+                        "already_closed": True,
+                        "mode": "analyze",
+                    },
+                    200,
+                )
+
             # Determine action (opposite of current position)
             action = "SELL" if position.quantity > 0 else "BUY"
             quantity = abs(position.quantity)

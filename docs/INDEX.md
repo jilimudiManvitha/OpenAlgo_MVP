@@ -1,5 +1,7 @@
 # OpenAlgo Documentation Map
 
+**Latest local release:** [October 7 combined Portfolio/strategy readiness](plans/2026-10-07-local-release-readiness.md) — production frontend built by request, 407 backend / 20 frontend checks plus browser verification, all schedules preserved, user startup checklist.
+
 The entry point for humans and AI agents. This file is a **map, not a copy** —
 it points at the canonical docs that already live under `docs/`. Edit a source
 doc once; everything that reads through this map sees the change immediately.
@@ -11,7 +13,25 @@ need → drill into the specific file. Don't load everything at once.
 
 ## Using OpenAlgo (product, API, SDK)
 
+October 6 session review: [All 20 scheduled strategies — single HTML](../backtesting/all_scheduled_20261006/index.html), [results and evidence](../backtesting/all_scheduled_20261006/README.md), [option capacity repair](plans/2026-10-03-nifty-options-strategies.md#october-6--capacity-repair-and-all-schedule-daily-backtest). 139 focused checks pass; scanner budget activation requires the user's restart. All schedules preserved; no production mutation.
+
+October 6: [Investment Portfolio completion and deployment handoff](plans/2026-10-06-portfolio-completion.md) — all remaining asset classes, nine reports, categorized watchlists and existing-Sandbox paper GTT integration implemented and verified in development. Production deployment awaits “combine and launch.”
+
+October 5: [Scheduled NIFTY option startup repair and daily Reports](plans/2026-10-03-nifty-options-strategies.md#october-5--scheduled-startup-repair-and-daily-reports) — subscription retries, 109 passing checks, twenty schedules preserved; future backtest outputs under `backtesting/`. Running OpenAlgo untouched.
+
+October 4 final: [Complete readiness and Investment Portfolio handoff](plans/2026-10-04-readiness-portfolio-handoff.md) — what changed, architecture, verification, scheduler recovery, accepted decisions, running app state and remaining phases. Work stopped at user request; OpenAlgo left running.
+
+October 4: [Monday readiness checks](plans/2026-10-04-monday-readiness.md) — verified restart of 20 schedules, full automated checks and operational limits.
+
 October 4: [Combined NIFTY three-month dashboard](../backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html) — all 12 strategies, cycle win rates, profit factors, trade counts and six comparison charts.
+
+October 4 (evening): [Parallel-development standing order](plans/2026-10-04-readiness-portfolio-handoff.md#0-standing-order--develop-in-parallel-never-affect-the-users-openalgo)
+— **read before any work in this repository.** The user trades with OpenAlgo while
+Portfolio work continues. Never signal an OpenAlgo process, never start the production
+app, never write production databases, never run pytest without its data-directory
+isolation, never rebuild `frontend/dist` while the instance serves it. Development uses
+port 5011 and `log/test/` databases. Portfolio code ships only on "combine and launch".
+Also mirrored at the top of the root `AGENTS.md`.
 
 October 3: [Twelve NIFTY options strategies — active checkpoint](plans/2026-10-03-nifty-options-strategies.md)
 — persistent sandbox strategies; completed three-month backtest, verified ledgers and local dashboards.
@@ -46,8 +66,10 @@ Current cross-project work: [Portfolio section plan (2026-10-02)](plans/2026-10-
 — a new Investment Portfolio section: ten asset classes (Stocks, Mutual Funds, ULIPs, Fixed Income,
 Bullion, Property, Loans, Other Assets, Other Borrowings) with full read/write, a timestamped
 transaction ledger, nine reports, portfolio scoring and charts. This unfreezes Task 6 of the
-six-task roadmap and supersedes its scope. Phase 0 (decisions and plan) is complete;
-implementation has not started.
+six-task roadmap and supersedes its scope. The initial ledger + Dashboard/Stocks slice is
+implemented and deployed. User accepted the ATHER reconciliation baseline. Remaining classes, nine reports, categorized watchlists and existing-Sandbox paper GTT are now complete in development; deployment is pending.
+Work is stopped at user request; all OpenAlgo processes were stopped so the user can restart
+clean, and further development stays in an isolated lane per the standing order above.
 
 Current cross-project work: [Six-task roadmap and agent handoff (2026-09-11)](plans/2026-09-11-six-task-roadmap.md)
 — all-stock backtesting, live scanner, AlgoMirror crypto calculator, themes,

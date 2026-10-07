@@ -1,5 +1,48 @@
 # OpenAlgo fork - AI agent context
 
+October 7 local release — user authorized combining Portfolio and scheduled-strategy fixes and pushing to Git. Normal frontend rebuilt while production was stopped; 407 backend and 20 frontend tests pass, browser checks pass against this build on isolated 5011. Added bounded stock close/reconciliation grace and idempotent zero-position square-off. Four production DB hashes and twenty schedules preserved. The user starts OpenAlgo at 09:00 and logs in before 09:15; Wed/Thu lists are empty. [Full release checklist and limits](docs/plans/2026-10-07-local-release-readiness.md). This supersedes the prior Portfolio deployment hold.
+
+October 6 session review — today's 20 scheduled strategies replayed in 40 independent scenarios; [single offline HTML](backtesting/all_scheduled_20261006/index.html), [complete results/evidence](backtesting/all_scheduled_20261006/README.md). Twelve option runs missed entry amid shared-pool capacity errors and transport failures. FYERS scanner now capped at 1,000 streaming symbols with full REST universe retained; option runners select required/active expiry chains and stagger connections. 139 focused tests and three fault-injection regressions pass; real pool allocator fits the tested demand into 2,461/3,000 slots. **Scanner cap requires user restart**; app was not restarted. Six stale stock reports, network disruptions and MCX missing-quantity error remain follow-up items. Twenty schedules and all 520 protected files unchanged. Portfolio build scope complete locally; deployment/operational acceptance pending “combine and launch.” See [repair checkpoint](docs/plans/2026-10-03-nifty-options-strategies.md#october-6--capacity-repair-and-all-schedule-daily-backtest).
+
+October 6 — user resumed and requested completion of the remaining Investment Portfolio. Phases 3–5 are implemented and verified in isolated development: all requested classes, liabilities, dated CSV prices, nine reports, watchlists and existing-Sandbox paper GTTs with idempotent confirmed-fill reconciliation and reset protection. 59 portfolio backend / 113 Sandbox GTT / 20 frontend checks pass, plus type/lint/build and desktop/mobile browser verification. **Not deployed**; user’s “combine and launch” is still required. No production process, database, schedule or frontend build was changed. [Completion handoff](docs/plans/2026-10-06-portfolio-completion.md). This supersedes older portfolio “stopped / not started” notes below.
+
+October 5 — user authorized scheduled-options repair while OpenAlgo remains
+running. All twelve runners crashed on a rejected subscription batch; shared
+runtime now retries missing acknowledgements with pacing and publishes daily
+Sandbox reports to `/reports`. 109 focused tests pass; original-code regression
+fails as expected; 961 read-only quote subscriptions accepted after hours.
+Twenty schedules preserved byte-for-byte. New backtest outputs use
+`backtesting/nifty_options/` per latest user instruction; existing `backtest/`
+artifacts preserved. No orders, production DB writes, app restart or frontend
+build. Next separate strategy launch loads the repair; no late/replayed entries.
+[Complete repair checkpoint](docs/plans/2026-10-03-nifty-options-strategies.md#october-5--scheduled-startup-repair-and-daily-reports).
+Portfolio work remains stopped and unrelated local edits remain intact.
+
+October 4 evening — **parallel-development standing order is now in force.** The user
+intends to use OpenAlgo for live trading *while* Portfolio work continues. Every
+OpenAlgo process was stopped at the user's request so they can restart clean: the
+`caffeinate`/`uv` wrapper (15964/15963), app server (15965) and MCP helpers (82809,
+88903); ports 5000/8765 free. **The user restarts production, not an agent.** Agents
+work only in a development lane: fixture server on 5011, databases under `log/test/`,
+never signalling a process they did not start, never the production databases,
+schedules or `frontend/dist` rebuild. Portfolio code ships only on "combine and
+launch". Full rule set in handoff §0 and at the top of `AGENTS.md`.
+
+October 4 final checkpoint — [complete readiness and investment handoff](docs/plans/2026-10-04-readiness-portfolio-handoff.md).
+Initial investment ledger and Dashboard/Stocks deployed at `/portfolio`; weighted-average
+and FIFO, owner/CSRF protection, dated valuations, charts and stock transaction history.
+5,961 backend / 2,962 frontend full-suite passes; final focused 30 backend / 21 frontend
+passes after last small fixes. Browser workflow and deployment checks pass. User accepted
+the verified ATHER baseline, resolving the Phase 3 gate; existing sandbox/preserve holdings,
+FIFO and categorized paper GTT decisions are settled. Phase 3/reports/GTT integration are
+not started. Earlier note corrected: OpenAlgo is **not** running — it was stopped later on
+October 4 as described above; twenty schedules restored, sandbox financial
+tables unchanged, new investment tables empty. No orders. Only the separate NIFTY
+options work was committed and pushed (`55a706486`, `2af96f002`). Test server stopped.
+This supersedes earlier “implementation not started,” pending reconciliation and PID notes below.
+
+October 4 readiness: [checks and scheduler test-isolation repair](docs/plans/2026-10-04-monday-readiness.md) complete. OpenAlgo PID 11869 running, all 20 schedules restored; leave running. User confirms existing sandbox/preserve holdings, FIFO alongside weighted average, categorized paper GTT orders (examples only). FYERS read-only holdings API returned an empty account on October 4; no import/orders. Task 6 Phase 1 may now start; exact three-stock reconciliation remains pending.
+
 October 4 follow-up — combined three-month dashboard is complete:
 [All 12 strategies in one offline report](backtest/nifty_options/2026-07-03_2026-10-01/results/combined_dashboard.html).
 Cycle win rate/profit factor/payoff, trade counts, six charts, monthly P&L and

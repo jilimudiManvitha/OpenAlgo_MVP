@@ -14,6 +14,10 @@ const PAGE_TITLES: Record<string, string> = {
   '/orderbook': 'Order Book',
   '/tradebook': 'Trade Book',
   '/holdings': 'Holdings',
+  '/portfolio': 'Investment Portfolio',
+  '/portfolio/stocks': 'Investment Stocks',
+  '/portfolio/reports': 'Investment Reports',
+  '/portfolio/watchlists': 'Investment Watchlists',
   '/search': 'Search',
   '/search/token': 'Token Search',
   '/apikey': 'API Key',
@@ -76,6 +80,7 @@ const PAGE_TITLES: Record<string, string> = {
 
 /** Dynamic route patterns for parameterized routes */
 const DYNAMIC_TITLES: Array<{ pattern: RegExp; title: string }> = [
+  { pattern: /^\/portfolio\/assets\/[^/]+$/, title: 'Investment Assets' },
   { pattern: /^\/python\/[^/]+\/edit$/, title: 'Edit Strategy' },
   { pattern: /^\/python\/[^/]+\/logs$/, title: 'Strategy Logs' },
   { pattern: /^\/python\/[^/]+\/schedule$/, title: 'Schedule Strategy' },

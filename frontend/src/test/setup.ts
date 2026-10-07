@@ -2,6 +2,18 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 
+// Vitest can retain Node's native storage globals instead of installing jsdom's.
+// Node exposes them without a usable store when no local-storage file is set.
+// Browser tests must use this test environment's real, origin-scoped DOM storage.
+const testWindow = (globalThis as unknown as { jsdom: { window: Window } }).jsdom.window
+for (const key of ['localStorage', 'sessionStorage'] as const) {
+  Object.defineProperty(globalThis, key, {
+    configurable: true,
+    writable: true,
+    value: testWindow[key],
+  })
+}
+
 // Cleanup after each test case
 afterEach(() => {
   cleanup()

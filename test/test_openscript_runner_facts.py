@@ -34,11 +34,14 @@ from datetime import date, datetime
 from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
-import openscript.dates as engine_calendar
 import psutil
 import pytest
 from flask import Flask
 from sqlalchemy.orm import scoped_session, sessionmaker
+
+engine_calendar = pytest.importorskip(
+    "openscript.dates", reason="Optional OpenScript Python engine is not installed"
+)
 
 import openscript_host.openscript_runner as runner
 import services.openscript_books as books

@@ -5,6 +5,18 @@ Guidance for Claude Code working in this repository. This file carries what is
 constraints, and conventions. Structure, commands, and config are discoverable —
 read them from the repo.
 
+> **Local standing order (this Mac, October 4) — read before running anything.**
+> The user runs OpenAlgo for live trading while Investment Portfolio work is
+> developed in this same repository. Never signal an OpenAlgo process, never start
+> `uv run --no-sync app.py` (ports 5000/8765 belong to the user), never write
+> production databases, never run pytest without the `PYTHON_STRATEGY_DATA_DIR`
+> isolation in `test/conftest.py`, never rebuild `frontend/dist` while the
+> instance serves it, and never run the schedule installer. Develop through the
+> isolated fixture server on port 5011 with databases under `log/test/`. Portfolio
+> code ships only when the user says "combine and launch". Full rules:
+> `docs/plans/2026-10-04-readiness-portfolio-handoff.md` §0 and the root
+> `AGENTS.md`.
+
 ## Overview
 
 OpenAlgo is a production algorithmic trading platform: Flask backend, React 19

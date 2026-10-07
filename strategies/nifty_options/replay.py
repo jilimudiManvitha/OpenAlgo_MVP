@@ -26,7 +26,7 @@ from .engine import (
     risk_decision,
 )
 from .greeks import chain_options, historical_lot_size, historical_margin, session_close
-from .history import atomic_json, cache_file, read_candles
+from .history import atomic_json, existing_cache_file, read_candles
 from .profiles import PROFILES, ROOT, Policy
 from .selection import DataUnavailable, select_expiry, select_legs
 
@@ -101,7 +101,7 @@ class Archive:
         deadline = clock.monotonic() + 3600
         while self.wait_for_download:
             missing = sum(
-                not cache_file(c["symbol"], c["start"], c["end"]).exists()
+                not existing_cache_file(c["symbol"], c["start"], c["end"]).exists()
                 for c in self.catalogues[expiry]
             )
             if not missing:
@@ -117,7 +117,7 @@ class Archive:
             )
             clock.sleep(30)
         for contract in self.catalogues[expiry]:
-            path = cache_file(contract["symbol"], contract["start"], contract["end"])
+            path = existing_cache_file(contract["symbol"], contract["start"], contract["end"])
             if not path.exists():
                 raise DataUnavailable("History download incomplete for " + contract["symbol"])
             data = read_candles(path)
@@ -485,7 +485,9 @@ def main():
     end = args.end or date.fromisoformat(archive.manifest["end"])
     if str(start) < archive.manifest["start"] or str(end) > archive.manifest["end"] or start > end:
         parser.error("Replay dates must be inside the data manifest")
-    folder = ROOT / "backtest/nifty_options" / f"{start}_{end}" / "results"
+    from .profiles import BACKTEST_ROOT
+
+    folder = BACKTEST_ROOT / f"{start}_{end}" / "results"
     folder.mkdir(parents=True, exist_ok=True)
     source_folder = folder / "source"
     source_folder.mkdir(exist_ok=True)

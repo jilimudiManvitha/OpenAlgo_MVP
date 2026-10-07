@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "strategies": 20,
+  "scenarios": 40,
+  "chartsReconciled": 40,
+  "filters": true,
+  "csv": true,
+  "mobileOverflow": false,
+  "pageErrors": [],
+  "externalRequests": []
+}

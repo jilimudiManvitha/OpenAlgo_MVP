@@ -1,7 +1,23 @@
 # Portfolio Section — Implementation Plan
 
-**Status:** Phase 0 complete (decisions locked, plan written). Implementation not started.
+**October 7 deployment checkpoint:** User authorized combining for local startup and Git push. The normal frontend build contains completed Phases 3–5 and passed isolated desktop/mobile acceptance. No further build phase remains; broker/market-hour operational acceptance follows the user’s startup. [Release readiness](2026-10-07-local-release-readiness.md).
+
+**Status (October 6):** Phases 1–5 implemented and verified. Initial Dashboard/Stocks were deployed October 4; remaining asset classes, reports, watchlists and paper GTT integration are complete in isolated development only. Await the user’s “combine and launch” for deployment. [Completion evidence and operating limits](2026-10-06-portfolio-completion.md).
+**Current implementation and restart memory:** [Complete October 4 handoff](2026-10-04-readiness-portfolio-handoff.md). It distinguishes implemented endpoints/features from the future scope below.
 **Created:** 2026-10-02
+**October 4 decisions:** The user confirmed using the existing sandbox engine while
+preserving balances and long-term holdings, and FIFO alongside weighted-average
+holdings. Requested paper GTT orders categorized by investment purpose (examples:
+SBIN 10 shares Long-term; HDFCBANK 20 shares Swing). These are feature examples,
+not instructions to submit orders or seed holdings. Trigger/limit prices must be
+entered explicitly. Account names remain informational labels for the first phase;
+recurring automatic SIP execution has not been requested. Readiness checks passed before implementation.
+FYERS returned zero holdings when queried read-only. The user then explicitly accepted
+the tested ATHER worked example, including its partial sale, as the reconciliation
+baseline: **“Accept the ATHER baseline and continue.”** This supersedes the requirement
+to obtain the original three-stock figures. Do not ask for this approval again.
+The October 4 stop was superseded by the user’s request to complete the remaining portfolio work and October 6 “limit reseted continue.” Production isolation still applies.
+
 **Roadmap task:** Task 6 — "Sandbox investment watchlists and portfolio tracking"
 ([`2026-09-11-six-task-roadmap.md`](2026-09-11-six-task-roadmap.md):1482). **Unfrozen** by the
 user on 2026-10-02; the September 12 freeze on Tasks 3–6 is superseded for T6 only.
@@ -55,7 +71,7 @@ held. It must never overwrite entry cost with a current quote.
 | 0.3 | Pricing for non-stock assets | **Manual price + `price_as_of` date, plus CSV import** | There is **no** AMFI/mfapi/NAV provider anywhere in the codebase today (verified). Adding one would add a network dependency and MF NAV is daily-only, so "today's gain" would be unavailable anyway. Manual entry is honest and offline-safe. CSV import covers bulk updates from an AMFI statement. |
 | 0.4 | Delivery sequence | **Phase 1 = ledger + Dashboard + Stocks, then widen** | Proves the whole engine end-to-end before 9 more asset pages are built on it. |
 | 0.5 | Cost basis / realization policy | **Weighted average cost** | Matches Indian broker holdings screens (Zerodha/Groww/Kuvera) and matches the user's own holdings table, which shows one `Per Unit Cost` per stock rather than per-lot cost. |
-| 0.6 | Realized P&L for tax reports | Deferred to Phase 4 | Weighted average is not valid for Indian capital-gains tax reporting. The Capital Gain Report needs FIFO. Tracked as a Phase 4 decision, not silently conflated. |
+| 0.6 | Realized P&L for capital-gain reports | **FIFO alongside weighted average — confirmed October 4** | FIFO lot math is implemented. Full realization/report presentation remains Phase 4; do not conflate it with weighted-average holdings. |
 | 0.7 | Multiple accounts | **Yes, first-class from Phase 1** (`investment_accounts`) | The UI already shows a "My Accounts / Add·Manage / All" bar. Retrofitting multi-account later would require a data migration of every transaction. |
 
 ---
@@ -293,9 +309,12 @@ Requirements it must satisfy:
 
 - `npm run typecheck && npm run lint && npm run build` — clean
 - `npm run test:run` — nav count updated, all existing tests still pass
-- Reproduces the user's example exactly: ₹2,12,232 cost → ₹2,27,823 value → ₹15,591 (7.35%)
-  unrealized; today's −₹2,974 (−1.29%); 2 of 3 in profit (₹17,561, 8.7%), 1 in loss (−₹1,971,
-  −19%); Ather highest profit ₹15,871 (12.72%), Nitco highest loss −₹1,971 (−18.97%)
+- **Revised and accepted October 4:** ATHER buy 100 × ₹1,000 → ₹100,000 cost; value at
+  ₹1,100 → ₹10,000 unrealized gain (10%); at ₹950 → −₹5,000 (−5%). Sell 10 × ₹1,200:
+  remaining cost ₹90,000, value ₹99,000 at ₹1,100, unrealized ₹9,000, realized ₹2,000.
+  The user explicitly accepted this tested baseline instead of the original three-stock
+  screenshot totals, whose per-holding inputs were unavailable and whose rounded profit/loss
+  components differed by ₹1. FYERS holdings were empty. This acceptance gate is resolved.
 - Allocation pie renders for both cost and latest value
 - Live prices refresh; a broker failure degrades to last-known price **labeled stale**, never a
   blank screen
@@ -365,11 +384,11 @@ Mutual Funds, and — critically — that a **symbol-to-watch is kept separate f
 purchase**. `investment_assets.is_watch_only` carries this. Watching a stock must never create a
 lot, move money, or imply ownership.
 
-**⚠️ Requires a decision before coding.** Paper trading overlaps `database/sandbox_db.py`, which
+**October 4 decision confirmed: use the existing sandbox and preserve holdings/balances.** Paper trading overlaps `database/sandbox_db.py`, which
 already has `sandbox_orders`, `sandbox_trades`, `sandbox_positions`, `sandbox_holdings` and
-`sandbox_funds`. The options are: wire portfolio paper trading into that engine, or build a
-separate ledger. Wiring in is the recommendation — reusing a proven engine beats a second one —
-but it needs the user's confirmation because it affects the existing sandbox reset behavior.
+`sandbox_funds`. The user selected integration with that engine. Do not build a second
+paper balance engine or ask this question again. The integration remains Phase 5 and must
+preserve existing sandbox reset behavior and long-lived holdings as specified below.
 
 Two hard rules from the roadmap that survive into this phase:
 
@@ -389,13 +408,14 @@ Two hard rules from the roadmap that survive into this phase:
 | 0 | Decisions + plan | ✅ Done — this document |
 | 1 | Schema, ledger, API, tests | Ledger math proven against the ATHER example |
 | 2 | Dashboard + Stocks + transactions + charts | Reproduces the user's exact figures |
-| 3 | Other nine asset classes | Liabilities net; MF fractions exact |
-| 4 | Nine reports | Consistent with holdings; Capital Gain policy explicit |
-| 5 | Watchlists + paper trading | ⚠️ Blocked on the sandbox-integration decision (§8) |
+| 3 | Remaining requested asset classes | ✅ Complete in development; signed liabilities and exact MF fractions verified |
+| 4 | Nine reports | ✅ Complete in development; shared holdings service and explicit FIFO policy |
+| 5 | Watchlists + paper trading | ✅ Complete in development; existing Sandbox, durable GTT linkage, confirmed fills and reset protection |
 
-Each phase is independently valuable and independently mergeable. Do not start Phase 3 before
-Phase 2's numbers reconcile against the user's own figures — the ledger is the foundation, and
-every asset class inherits its bugs.
+Each phase is independently valuable and independently mergeable. The original gate required
+Phase 2 to reconcile against the user’s own figures. **October 4: the user explicitly
+accepted the verified ATHER worked example instead, so that gate is resolved.**
+The user resumed work; Phase 3–5 completion and verification are recorded in the October 6 checkpoint.
 
 ---
 
@@ -415,21 +435,27 @@ uv run pytest test/test_investment_ledger.py test/test_investment_api.py
 uv run ruff check database/investment_db.py services/investment_service.py blueprints/investments.py
 
 # Frontend
-cd frontend && npm run typecheck && npm run lint && npm run build
+cd frontend && npm run lint && npm run build
 cd frontend && npm run test:run
 ```
 
-Note: `test/conftest.py` creates `db/*-test.db` files and writes to `log/test/`. That is expected
-test behavior, not a side effect to guard against.
+Current isolation: `test/conftest.py` redirects test databases and scheduler data under `log/test/`; do not override it. The older build command above applies only to a user-authorized deployment. For lane-D preview use `node_modules/.bin/vite build --outDir ../.development/investment/dist` from `frontend/`, and `node_modules/.bin/tsc -b` for type checking.
 
 ---
 
-## 12. Open questions for the user
+## 12. Decision status at the October 4 handoff
 
-1. **Paper trading** — wire into the existing `sandbox_db` engine, or a separate ledger? (§8)
-2. **Capital Gain Report** — implement FIFO alongside weighted average, or ship the report labeled
-   as not tax-grade? (Decision 0.6, §7)
-3. **Account kinds** — `kind` is `live`/`paper`. Should accounts carry a broker link, or stay
-   informational labels like "Zerodha · Groww · Manual"?
-4. **SIP** — the Stocks form has "Add SIP for this Stock". A recurring schedule implies a future
-   date and an execution model. Is a SIP schedule in scope, or is the button Phase 6?
+1. **Paper trading — answered:** use the existing sandbox; preserve balances and holdings.
+2. **Capital Gain Report — answered:** FIFO alongside weighted-average holdings. Lot math is implemented; the complete report remains Phase 4.
+3. **Account kinds:** currently informational labels. Automatic per-account broker synchronization is not implemented or implied by an account label.
+4. **SIP / GTT:** user requested categorized paper GTT orders, with SBIN Long-term and HDFCBANK Swing as examples. No recurring automatic SIP execution or example orders were authorized.
+5. **Reconciliation — answered:** accepted the verified ATHER baseline instead of the unavailable original three-stock figures. FYERS returned an empty account.
+6. **Latest instruction (October 4, evening):** develop in parallel without touching the user's live OpenAlgo. All OpenAlgo processes were stopped so the user can restart clean; the user restarts it. This plan's remaining phases run in an isolated development lane only — port 5011, databases under `log/test/`, no signals sent to OpenAlgo processes, no production databases, no `frontend/dist` rebuild while the instance serves it. Read handoff §0 and the root `AGENTS.md` standing order before resuming.
+
+## 13. October 6 implementation checkpoint
+
+**Read handoff §0 before any work.** All remaining requested asset classes, CSV valuations, nine reports, categorized watchlists and existing-Sandbox paper GTT integration are implemented and verified in lane D. [Complete evidence, methods, file map and deployment handoff](2026-10-06-portfolio-completion.md).
+
+Weighted-average holdings and FIFO realizations remain separate. Liabilities reduce net worth; fractional fund units retain six decimals. Split-era price mismatches display unavailable. Paper GTTs have durable idempotent linkage and explicit confirmed-fill reconciliation; watch thresholds never submit orders. Reset protection preserves long-lived exposure by skipping/rejecting destructive resets until explicitly cleared. There is no automatic SIP execution or live-order integration.
+
+Verification: 59 portfolio backend tests, 113 existing Sandbox GTT tests, scheduler-isolation regression, 20 frontend tests, TypeScript/scoped lint, isolated Vite build and real desktop/mobile browser workflows pass. Mutation probes detect broken ownership/split/idempotency guards; 300 resource-audit cycles maintain four descriptors. Screenshots and artifacts are recorded in the completion handoff. The user's production frontend, databases and schedules were not changed; no commit/push or deployment was performed. Deployment waits for “combine and launch.”

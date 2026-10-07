@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from .engine import IST
 from .execution import cleanup_sessions
 from .history import atomic_json
-from .profiles import PROFILES, ROOT
+from .profiles import BACKTEST_ROOT, PROFILES, ROOT
 from .runtime import broker_margin, instruments
 from .schedule import verify
 
@@ -87,7 +87,7 @@ def main():
         client.unregister_callback("market_data", receive)
         client.disconnect()
         cleanup_sessions()
-    atomic_json(ROOT / "backtest/nifty_options/verification/live_checks.json", result)
+    atomic_json(BACKTEST_ROOT / "verification/live_checks.json", result)
     print(json.dumps(result, indent=2))
 
 

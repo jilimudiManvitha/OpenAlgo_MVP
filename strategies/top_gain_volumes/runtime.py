@@ -23,6 +23,7 @@ from strategies.top_gain_volumes.profiles import PROFILES, nifty500_symbols, wee
 
 IST = ZoneInfo("Asia/Kolkata")
 SQUARE_OFF_MINUTE = 15 * 60
+SHUTDOWN_GRACE_SECONDS = 60
 OPTIONS = validate_options({"limit": 50, "positive_only": True})
 
 
@@ -308,6 +309,17 @@ def maintain_positions(sink, traded, report, quotes, now, stopping=False):
                 sink.exit(trade, now, quote[1], "SQUARE_OFF")
 
 
+def stopping_phase(report, now, clock, deadline, persist):
+    """Persist a visible stopping state before a potentially slow exit batch."""
+    if deadline is None and now.hour * 60 + now.minute >= SQUARE_OFF_MINUTE:
+        deadline = clock + SHUTDOWN_GRACE_SECONDS
+    if deadline is not None and report["status"] != "stopping — reconciling positions":
+        report["status"] = "stopping — reconciling positions"
+        report["updated_at"] = now.isoformat()
+        persist()
+    return deadline
+
+
 def entries_blocked(traded):
     return any(
         t.get(field + "_state") in ("pending", "uncertain", "dispatch_intent")
@@ -426,7 +438,8 @@ def main(profile_id="nifty500_fixed"):
             overflow[0] = True
 
     def stop(*_):
-        stop_deadline[0] = time.monotonic() + 3
+        if stop_deadline[0] is None:
+            stop_deadline[0] = time.monotonic() + SHUTDOWN_GRACE_SECONDS
 
     signal.signal(signal.SIGTERM, stop)
     signal.signal(signal.SIGINT, stop)
@@ -478,12 +491,21 @@ def main(profile_id="nifty500_fixed"):
             raise RuntimeError("A paper run already owns this session")
         client.register_callback("market_data", receive)
         report["status"] = "running"
-        while not stopped[0] and datetime.now(IST).strftime("%H:%M:%S") < "15:00:03":
-            if stop_deadline[0] is not None and time.monotonic() >= stop_deadline[0]:
+        while not stopped[0]:
+            clock = time.monotonic()
+            stop_deadline[0] = stopping_phase(
+                report,
+                datetime.now(IST),
+                clock,
+                stop_deadline[0],
+                lambda: store.save(owner, report),
+            )
+            if stop_deadline[0] is not None and (
+                clock >= stop_deadline[0] or not any(t["exit_ts"] is None for t in traded.values())
+            ):
                 break
             if client._dispatch_dropped:
                 overflow[0] = True
-            clock = time.monotonic()
             if clock - last_feed >= 5 and stop_deadline[0] is None:
                 last_feed = clock
                 subscribed_socket = restore_quote_feed(
@@ -669,7 +691,9 @@ def main(profile_id="nifty500_fixed"):
                                 report.setdefault("rejected_entries", []).append(trade)
                                 store.save(owner, report)
                     latencies.append((time.perf_counter_ns() - decision_start) / 1000)
-            if overflow[0]:
+            if stop_deadline[0] is not None:
+                report["status"] = "stopping — reconciling positions"
+            elif overflow[0]:
                 report["status"] = "feed overflow — entries disabled"
             else:
                 report["status"] = (
@@ -714,6 +738,7 @@ def main(profile_id="nifty500_fixed"):
 
         def persist_final():
             if claimed:
+                report["updated_at"] = datetime.now(IST).isoformat()
                 report["candles"].update(
                     {s: list(trackers[s].chart) for s in traded if s in trackers}
                 )

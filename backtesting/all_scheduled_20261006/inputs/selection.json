@@ -1,0 +1,570 @@
+{
+  "scanner": [
+    "AARTIIND",
+    "ABB",
+    "ABCAPITAL",
+    "ABFRL",
+    "ACMESOLAR",
+    "AMBER",
+    "ANANTRAJ",
+    "ANGELONE",
+    "ANTHEM",
+    "ANURAS",
+    "AWL",
+    "BALRAMCHIN",
+    "BEML",
+    "BHARTIHEXA",
+    "BHEL",
+    "BLS",
+    "BLUESTARCO",
+    "BSE",
+    "CGPOWER",
+    "CHOICEIN",
+    "COLPAL",
+    "CUMMINSIND",
+    "DEEPAKFERT",
+    "DEEPAKNTR",
+    "DIVISLAB",
+    "FACT",
+    "FLUOROCHEM",
+    "GABRIEL",
+    "GALLANTT",
+    "GODREJCP",
+    "GPIL",
+    "GRAPHITE",
+    "GRAVITA",
+    "GROWW",
+    "HDFCLIFE",
+    "HONASA",
+    "IDEA",
+    "IRB",
+    "ITI",
+    "JSWENERGY",
+    "JYOTICNC",
+    "KOTAKBANK",
+    "KPIL",
+    "LAURUSLABS",
+    "MCX",
+    "MEESHO",
+    "MFSL",
+    "MOTILALOFS",
+    "NAVA",
+    "NESTLEIND",
+    "PATANJALI",
+    "PETRONET",
+    "PGEL",
+    "PIIND",
+    "PINELABS",
+    "POLICYBZR",
+    "PWL",
+    "RADICO",
+    "RKFORGE",
+    "RPOWER",
+    "RRKABEL",
+    "SHYAMMETL",
+    "SIEMENS",
+    "STARHEALTH",
+    "SUPREMEIND",
+    "TEJASNET",
+    "TIINDIA",
+    "TRENT",
+    "TRIDENT",
+    "UNOMINDA",
+    "URBANCO",
+    "VEDL",
+    "VOLTAS",
+    "VTL",
+    "WELCORP",
+    "WOCKPHARMA",
+    "ZYDUSWELL"
+  ],
+  "watchlist": [
+    "ACMESOLAR",
+    "ANGELONE",
+    "AWL",
+    "AXISBANK",
+    "GODREJCP",
+    "HAL",
+    "IEX",
+    "INDUSINDBK",
+    "IREDA",
+    "JSLL",
+    "JSWENERGY",
+    "JUNIPER",
+    "KOTAKBANK",
+    "LASERPOWER",
+    "MARICO",
+    "METROPOLIS",
+    "NH",
+    "STEAMHOUSE",
+    "SUNTECK",
+    "SWIGGY",
+    "TRENT",
+    "VEDL",
+    "ZYDUSLIFE"
+  ],
+  "snapshot_time": "2026-10-06T15:38:25.738569+05:30",
+  "stocks": {
+    "AARTIIND": {
+      "symbol": "AARTIIND",
+      "broker_symbol": "NSE:AARTIIND-EQ",
+      "tick_size": 0.05
+    },
+    "ABB": {
+      "symbol": "ABB",
+      "broker_symbol": "NSE:ABB-EQ",
+      "tick_size": 0.5
+    },
+    "ABCAPITAL": {
+      "symbol": "ABCAPITAL",
+      "broker_symbol": "NSE:ABCAPITAL-EQ",
+      "tick_size": 0.05
+    },
+    "ABFRL": {
+      "symbol": "ABFRL",
+      "broker_symbol": "NSE:ABFRL-EQ",
+      "tick_size": 0.01
+    },
+    "ACMESOLAR": {
+      "symbol": "ACMESOLAR",
+      "broker_symbol": "NSE:ACMESOLAR-EQ",
+      "tick_size": 0.05
+    },
+    "AMBER": {
+      "symbol": "AMBER",
+      "broker_symbol": "NSE:AMBER-EQ",
+      "tick_size": 0.5
+    },
+    "ANANTRAJ": {
+      "symbol": "ANANTRAJ",
+      "broker_symbol": "NSE:ANANTRAJ-EQ",
+      "tick_size": 0.05
+    },
+    "ANGELONE": {
+      "symbol": "ANGELONE",
+      "broker_symbol": "NSE:ANGELONE-EQ",
+      "tick_size": 0.05
+    },
+    "ANTHEM": {
+      "symbol": "ANTHEM",
+      "broker_symbol": "NSE:ANTHEM-EQ",
+      "tick_size": 0.05
+    },
+    "ANURAS": {
+      "symbol": "ANURAS",
+      "broker_symbol": "NSE:ANURAS-EQ",
+      "tick_size": 0.1
+    },
+    "AWL": {
+      "symbol": "AWL",
+      "broker_symbol": "NSE:AWL-EQ",
+      "tick_size": 0.01
+    },
+    "AXISBANK": {
+      "symbol": "AXISBANK",
+      "broker_symbol": "NSE:AXISBANK-EQ",
+      "tick_size": 0.1
+    },
+    "BALRAMCHIN": {
+      "symbol": "BALRAMCHIN",
+      "broker_symbol": "NSE:BALRAMCHIN-EQ",
+      "tick_size": 0.05
+    },
+    "BEML": {
+      "symbol": "BEML",
+      "broker_symbol": "NSE:BEML-EQ",
+      "tick_size": 0.1
+    },
+    "BHARTIHEXA": {
+      "symbol": "BHARTIHEXA",
+      "broker_symbol": "NSE:BHARTIHEXA-EQ",
+      "tick_size": 0.1
+    },
+    "BHEL": {
+      "symbol": "BHEL",
+      "broker_symbol": "NSE:BHEL-EQ",
+      "tick_size": 0.05
+    },
+    "BLS": {
+      "symbol": "BLS",
+      "broker_symbol": "NSE:BLS-EQ",
+      "tick_size": 0.01
+    },
+    "BLUESTARCO": {
+      "symbol": "BLUESTARCO",
+      "broker_symbol": "NSE:BLUESTARCO-EQ",
+      "tick_size": 0.1
+    },
+    "BSE": {
+      "symbol": "BSE",
+      "broker_symbol": "NSE:BSE-EQ",
+      "tick_size": 0.1
+    },
+    "CGPOWER": {
+      "symbol": "CGPOWER",
+      "broker_symbol": "NSE:CGPOWER-EQ",
+      "tick_size": 0.05
+    },
+    "CHOICEIN": {
+      "symbol": "CHOICEIN",
+      "broker_symbol": "NSE:CHOICEIN-EQ",
+      "tick_size": 0.05
+    },
+    "COLPAL": {
+      "symbol": "COLPAL",
+      "broker_symbol": "NSE:COLPAL-EQ",
+      "tick_size": 0.1
+    },
+    "CUMMINSIND": {
+      "symbol": "CUMMINSIND",
+      "broker_symbol": "NSE:CUMMINSIND-EQ",
+      "tick_size": 0.1
+    },
+    "DEEPAKFERT": {
+      "symbol": "DEEPAKFERT",
+      "broker_symbol": "NSE:DEEPAKFERT-EQ",
+      "tick_size": 0.1
+    },
+    "DEEPAKNTR": {
+      "symbol": "DEEPAKNTR",
+      "broker_symbol": "NSE:DEEPAKNTR-EQ",
+      "tick_size": 0.1
+    },
+    "DIVISLAB": {
+      "symbol": "DIVISLAB",
+      "broker_symbol": "NSE:DIVISLAB-EQ",
+      "tick_size": 0.5
+    },
+    "FACT": {
+      "symbol": "FACT",
+      "broker_symbol": "NSE:FACT-EQ",
+      "tick_size": 0.05
+    },
+    "FLUOROCHEM": {
+      "symbol": "FLUOROCHEM",
+      "broker_symbol": "NSE:FLUOROCHEM-EQ",
+      "tick_size": 0.1
+    },
+    "GABRIEL": {
+      "symbol": "GABRIEL",
+      "broker_symbol": "NSE:GABRIEL-EQ",
+      "tick_size": 0.1
+    },
+    "GALLANTT": {
+      "symbol": "GALLANTT",
+      "broker_symbol": "NSE:GALLANTT-EQ",
+      "tick_size": 0.05
+    },
+    "GODREJCP": {
+      "symbol": "GODREJCP",
+      "broker_symbol": "NSE:GODREJCP-EQ",
+      "tick_size": 0.05
+    },
+    "GPIL": {
+      "symbol": "GPIL",
+      "broker_symbol": "NSE:GPIL-EQ",
+      "tick_size": 0.01
+    },
+    "GRAPHITE": {
+      "symbol": "GRAPHITE",
+      "broker_symbol": "NSE:GRAPHITE-EQ",
+      "tick_size": 0.05
+    },
+    "GRAVITA": {
+      "symbol": "GRAVITA",
+      "broker_symbol": "NSE:GRAVITA-EQ",
+      "tick_size": 0.1
+    },
+    "GROWW": {
+      "symbol": "GROWW",
+      "broker_symbol": "NSE:GROWW-EQ",
+      "tick_size": 0.01
+    },
+    "HAL": {
+      "symbol": "HAL",
+      "broker_symbol": "NSE:HAL-EQ",
+      "tick_size": 0.1
+    },
+    "HDFCLIFE": {
+      "symbol": "HDFCLIFE",
+      "broker_symbol": "NSE:HDFCLIFE-EQ",
+      "tick_size": 0.05
+    },
+    "HONASA": {
+      "symbol": "HONASA",
+      "broker_symbol": "NSE:HONASA-EQ",
+      "tick_size": 0.05
+    },
+    "IDEA": {
+      "symbol": "IDEA",
+      "broker_symbol": "NSE:IDEA-EQ",
+      "tick_size": 0.01
+    },
+    "IEX": {
+      "symbol": "IEX",
+      "broker_symbol": "NSE:IEX-EQ",
+      "tick_size": 0.01
+    },
+    "INDUSINDBK": {
+      "symbol": "INDUSINDBK",
+      "broker_symbol": "NSE:INDUSINDBK-EQ",
+      "tick_size": 0.05
+    },
+    "IRB": {
+      "symbol": "IRB",
+      "broker_symbol": "NSE:IRB-EQ",
+      "tick_size": 0.01
+    },
+    "IREDA": {
+      "symbol": "IREDA",
+      "broker_symbol": "NSE:IREDA-EQ",
+      "tick_size": 0.01
+    },
+    "ITI": {
+      "symbol": "ITI",
+      "broker_symbol": "NSE:ITI-EQ",
+      "tick_size": 0.01
+    },
+    "JSLL": {
+      "symbol": "JSLL",
+      "broker_symbol": "NSE:JSLL-EQ",
+      "tick_size": 0.05
+    },
+    "JSWENERGY": {
+      "symbol": "JSWENERGY",
+      "broker_symbol": "NSE:JSWENERGY-EQ",
+      "tick_size": 0.05
+    },
+    "JUNIPER": {
+      "symbol": "JUNIPER",
+      "broker_symbol": "NSE:JUNIPER-EQ",
+      "tick_size": 0.01
+    },
+    "JYOTICNC": {
+      "symbol": "JYOTICNC",
+      "broker_symbol": "NSE:JYOTICNC-EQ",
+      "tick_size": 0.1
+    },
+    "KOTAKBANK": {
+      "symbol": "KOTAKBANK",
+      "broker_symbol": "NSE:KOTAKBANK-EQ",
+      "tick_size": 0.05
+    },
+    "KPIL": {
+      "symbol": "KPIL",
+      "broker_symbol": "NSE:KPIL-EQ",
+      "tick_size": 0.1
+    },
+    "LASERPOWER": {
+      "symbol": "LASERPOWER",
+      "broker_symbol": "NSE:LASERPOWER-EQ",
+      "tick_size": 0.05
+    },
+    "LAURUSLABS": {
+      "symbol": "LAURUSLABS",
+      "broker_symbol": "NSE:LAURUSLABS-EQ",
+      "tick_size": 0.1
+    },
+    "MARICO": {
+      "symbol": "MARICO",
+      "broker_symbol": "NSE:MARICO-EQ",
+      "tick_size": 0.05
+    },
+    "MCX": {
+      "symbol": "MCX",
+      "broker_symbol": "NSE:MCX-EQ",
+      "tick_size": 0.1
+    },
+    "MEESHO": {
+      "symbol": "MEESHO",
+      "broker_symbol": "NSE:MEESHO-EQ",
+      "tick_size": 0.01
+    },
+    "METROPOLIS": {
+      "symbol": "METROPOLIS",
+      "broker_symbol": "NSE:METROPOLIS-EQ",
+      "tick_size": 0.05
+    },
+    "MFSL": {
+      "symbol": "MFSL",
+      "broker_symbol": "NSE:MFSL-EQ",
+      "tick_size": 0.1
+    },
+    "MOTILALOFS": {
+      "symbol": "MOTILALOFS",
+      "broker_symbol": "NSE:MOTILALOFS-EQ",
+      "tick_size": 0.05
+    },
+    "NAVA": {
+      "symbol": "NAVA",
+      "broker_symbol": "NSE:NAVA-EQ",
+      "tick_size": 0.05
+    },
+    "NESTLEIND": {
+      "symbol": "NESTLEIND",
+      "broker_symbol": "NSE:NESTLEIND-EQ",
+      "tick_size": 0.1
+    },
+    "NH": {
+      "symbol": "NH",
+      "broker_symbol": "NSE:NH-EQ",
+      "tick_size": 0.1
+    },
+    "PATANJALI": {
+      "symbol": "PATANJALI",
+      "broker_symbol": "NSE:PATANJALI-EQ",
+      "tick_size": 0.05
+    },
+    "PETRONET": {
+      "symbol": "PETRONET",
+      "broker_symbol": "NSE:PETRONET-EQ",
+      "tick_size": 0.05
+    },
+    "PGEL": {
+      "symbol": "PGEL",
+      "broker_symbol": "NSE:PGEL-EQ",
+      "tick_size": 0.05
+    },
+    "PIIND": {
+      "symbol": "PIIND",
+      "broker_symbol": "NSE:PIIND-EQ",
+      "tick_size": 0.1
+    },
+    "PINELABS": {
+      "symbol": "PINELABS",
+      "broker_symbol": "NSE:PINELABS-EQ",
+      "tick_size": 0.01
+    },
+    "POLICYBZR": {
+      "symbol": "POLICYBZR",
+      "broker_symbol": "NSE:POLICYBZR-EQ",
+      "tick_size": 0.1
+    },
+    "PWL": {
+      "symbol": "PWL",
+      "broker_symbol": "NSE:PWL-EQ",
+      "tick_size": 0.01
+    },
+    "RADICO": {
+      "symbol": "RADICO",
+      "broker_symbol": "NSE:RADICO-EQ",
+      "tick_size": 0.1
+    },
+    "RKFORGE": {
+      "symbol": "RKFORGE",
+      "broker_symbol": "NSE:RKFORGE-EQ",
+      "tick_size": 0.05
+    },
+    "RPOWER": {
+      "symbol": "RPOWER",
+      "broker_symbol": "NSE:RPOWER-EQ",
+      "tick_size": 0.01
+    },
+    "RRKABEL": {
+      "symbol": "RRKABEL",
+      "broker_symbol": "NSE:RRKABEL-EQ",
+      "tick_size": 0.1
+    },
+    "SHYAMMETL": {
+      "symbol": "SHYAMMETL",
+      "broker_symbol": "NSE:SHYAMMETL-EQ",
+      "tick_size": 0.1
+    },
+    "SIEMENS": {
+      "symbol": "SIEMENS",
+      "broker_symbol": "NSE:SIEMENS-EQ",
+      "tick_size": 0.1
+    },
+    "STARHEALTH": {
+      "symbol": "STARHEALTH",
+      "broker_symbol": "NSE:STARHEALTH-EQ",
+      "tick_size": 0.05
+    },
+    "STEAMHOUSE": {
+      "symbol": "STEAMHOUSE",
+      "broker_symbol": "NSE:STEAMHOUSE-EQ",
+      "tick_size": 0.01
+    },
+    "SUNTECK": {
+      "symbol": "SUNTECK",
+      "broker_symbol": "NSE:SUNTECK-EQ",
+      "tick_size": 0.05
+    },
+    "SUPREMEIND": {
+      "symbol": "SUPREMEIND",
+      "broker_symbol": "NSE:SUPREMEIND-EQ",
+      "tick_size": 0.1
+    },
+    "SWIGGY": {
+      "symbol": "SWIGGY",
+      "broker_symbol": "NSE:SWIGGY-EQ",
+      "tick_size": 0.05
+    },
+    "TEJASNET": {
+      "symbol": "TEJASNET",
+      "broker_symbol": "NSE:TEJASNET-EQ",
+      "tick_size": 0.05
+    },
+    "TIINDIA": {
+      "symbol": "TIINDIA",
+      "broker_symbol": "NSE:TIINDIA-EQ",
+      "tick_size": 0.1
+    },
+    "TRENT": {
+      "symbol": "TRENT",
+      "broker_symbol": "NSE:TRENT-EQ",
+      "tick_size": 0.1
+    },
+    "TRIDENT": {
+      "symbol": "TRIDENT",
+      "broker_symbol": "NSE:TRIDENT-EQ",
+      "tick_size": 0.01
+    },
+    "UNOMINDA": {
+      "symbol": "UNOMINDA",
+      "broker_symbol": "NSE:UNOMINDA-EQ",
+      "tick_size": 0.1
+    },
+    "URBANCO": {
+      "symbol": "URBANCO",
+      "broker_symbol": "NSE:URBANCO-EQ",
+      "tick_size": 0.01
+    },
+    "VEDL": {
+      "symbol": "VEDL",
+      "broker_symbol": "NSE:VEDL-EQ",
+      "tick_size": 0.05
+    },
+    "VOLTAS": {
+      "symbol": "VOLTAS",
+      "broker_symbol": "NSE:VOLTAS-EQ",
+      "tick_size": 0.1
+    },
+    "VTL": {
+      "symbol": "VTL",
+      "broker_symbol": "NSE:VTL-EQ",
+      "tick_size": 0.05
+    },
+    "WELCORP": {
+      "symbol": "WELCORP",
+      "broker_symbol": "NSE:WELCORP-EQ",
+      "tick_size": 0.1
+    },
+    "WOCKPHARMA": {
+      "symbol": "WOCKPHARMA",
+      "broker_symbol": "NSE:WOCKPHARMA-EQ",
+      "tick_size": 0.1
+    },
+    "ZYDUSLIFE": {
+      "symbol": "ZYDUSLIFE",
+      "broker_symbol": "NSE:ZYDUSLIFE-EQ",
+      "tick_size": 0.1
+    },
+    "ZYDUSWELL": {
+      "symbol": "ZYDUSWELL",
+      "broker_symbol": "NSE:ZYDUSWELL-EQ",
+      "tick_size": 0.05
+    }
+  },
+  "selection_bias": "End-of-day ranked Nifty500 basket/current Tuesday watchlist applied retrospectively; not a point-in-time scanner replay"
+}

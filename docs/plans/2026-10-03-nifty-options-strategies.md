@@ -1,5 +1,115 @@
 # NIFTY options strategies — October 3 implementation checkpoint
 
+**October 7 local release:** User authorized combining Portfolio and scheduled-strategy fixes and pushing. The normal frontend is built; 407 backend checks and 20 frontend checks pass. Stock report shutdown grace and zero-position square-off are additionally repaired. [Morning checklist and operational limits](2026-10-07-local-release-readiness.md). The October 6 historical reports stay unchanged.
+
+## October 6 — capacity repair and all-schedule daily backtest
+
+The user confirmed **October 6 only** for this session review/backtest and asked
+to fix the scheduled options. All 20 strategies now have two modeled intraminute
+scenarios in [one offline HTML report](../../backtesting/all_scheduled_20261006/index.html).
+[Results, reproduction and limitations](../../backtesting/all_scheduled_20261006/README.md)
+include the strategy-wise table, source coverage, log findings and Portfolio review.
+
+Today's twelve runners stayed alive but did not enter: subscription retries could
+not overcome the shared 3,000-symbol capacity. The scanner could stream all 2,679
+equities while options required 960 contracts plus NIFTY. Handshake/HSM/network
+failures also occurred. Six stock reports retain pre-close `running` snapshots;
+their final fills require separate reconciliation. No saved report was rewritten.
+
+Implemented `market_scanner_feed.stream_limit()` caps FYERS scanner streaming at
+1,000 while retaining full-universe REST refresh. Option `feed.required_contracts()`
+selects each profile's complete required expiry and preserves held/pending cycle
+chains for adjustments. Runtime staggers flat startup handshakes by 0–11 seconds;
+held positions connect immediately, retries are paced. Entry windows and risk
+rules are unchanged. **The scanner change requires the user's OpenAlgo restart**;
+next scheduled subprocesses independently load the runner changes. This supersedes
+the October 5 claim below that the whole repair needs no application restart.
+
+Verification: **139 focused tests pass**, including the real shared-pool allocator
+offline (1,000 scanner + 500 disjoint equities + 960 options + NIFTY = 2,461 slots),
+all twelve actual runner loops, retry/error cleanup and carried expiry selection.
+Disabling each of the cap, chain filter and delay in memory makes its regression
+fail at the intended assertion. Scoped Ruff passes. No added resource owners or
+unbounded caches; existing 200-cycle report success/error FD test passes. No live
+market-hour soak or fill guarantee. Evidence: `log/test/scheduled-options-capacity.*`,
+`log/test/{capacity,chain,stagger}-regression.log`,
+`.development/scheduled-options/verify_capacity_regression.py`.
+
+All 40 report scenarios/chart endpoints reconcile in offline Chrome; filters,
+CSV download and desktop/mobile layout pass with no page errors or network
+requests. 92 unique stock histories are complete for the selected baskets;
+366 of 960 option contracts returned candles and 594 returned no candles.
+Three current-week positional profiles skipped because their premium selection
+band was unavailable. No bars/fills were synthesized. Historical membership is
+retrospective; all simulations start flat today, not from prior carried positions.
+
+Twenty schedules remain enabled and byte-identical:
+`da5150800eb92b1d6cc86f4e5bdfa38354a93bb5532b7508f03dec65776e905f`.
+All 520 protected schedule/frontend files match the captured baseline. No app
+signals/start, production DB writes, schedule installer, orders, production
+frontend build, commit or push. Portfolio implementation is locally complete;
+deployment still waits for “combine and launch.” Network disruptions, stale stock
+report reconciliation and the MCX missing-quantity error remain follow-up items.
+
+## October 5 — scheduled startup repair and daily Reports
+
+User authorized investigating today's failed schedules while OpenAlgo stays
+running. All twelve option logs show the same 09:15 crash: any non-success
+subscription batch raised `DataUnavailable` outside the recovery handler.
+The original proxy rejection detail was discarded, so the exact upstream
+morning trigger cannot be established. A read-only after-hours probe accepted
+all **960 options + NIFTY** in the original 50-symbol batches. This confirms
+current acceptance, not market-hour ticks/fills or the original rejection cause.
+
+Changes, shared by all twelve launchers:
+
+- Incremental, paced quote subscriptions retain per-symbol acknowledgements,
+  retry only missing symbols with 2–30 second backoff, restore subscriptions on
+  socket replacement, and preserve useful rejection details. Held symbols and
+  NIFTY are requested first. New entries wait for complete acknowledgement;
+  held-position price/clock risk still runs using fresh quotes during retries.
+- Connection failures are paced; freshness is rechecked after a blocking ack.
+  The 09:30–09:31 initial-entry window, capital/risk rules and Sandbox-only
+  execution remain unchanged; missed entries are not submitted late.
+- `daily_reports.py` publishes daily sessions to the existing Reports store,
+  including no-entry/failure status, confirmed closed legs and carried open
+  legs. Refresh every ten seconds and at shutdown. Restart rebuilding uses the
+  owner/strategy/day journal, avoiding duplicate fills. Report-save errors do
+  not interrupt basket management. P&L is full leg profit realized that day,
+  not daily MTM; open unrealized P&L/brokerage excluded, metrics count legs and
+  premium turnover rather than baskets/margin. No synthetic candles.
+- **Latest destination instruction supersedes the older `backtest/` default:**
+  new historical outputs use **`backtesting/nifty_options/`**, never Reports.
+  Accepted existing `backtest/` files stay untouched and legacy archives remain
+  readable. Historical backtests were not rerun or moved.
+- Test database defaults now live under `log/test/`, matching the standing
+  isolation rule. The existing isolated scheduler directory fix is preserved.
+
+Verification: **109 focused tests pass** (18 new), scoped Ruff and whitespace
+checks pass. Executing the original runtime in memory makes the actual recovery
+test fail at its original `Option subscription failed` line. A 200-cycle real
+SQLite report success/failure test keeps descriptor counts flat; retry sets and
+queues are bounded (static review plus repeated-failure regression). No live
+market soak or end-to-end fills were tested. Evidence:
+`log/test/scheduled-options-fix.log`, `.xml`,
+`.development/scheduled-options/verify_regression.py`, and `probe.py`.
+Pytest exits zero; the existing scheduler atexit logger emits closed-capture
+stream warnings after the passing suite. This is not a trading failure.
+
+Read-only checks: all **20 schedules enabled**, saved bytes unchanged
+(`4ca13320a7ffb9bb3f72cbd043b3c34ac722f05ad2a4413b0ed0d1cb0264e50f`);
+API key valid, four production databases pass quick_check, twelve option
+states have zero held legs/pending actions. Eight stock reports already exist
+for October 5 (several retain `running` status); no old report was rewritten.
+Monday watchlist now has 30 entries, supplied by the user.
+
+OpenAlgo remains running. No signals, app restart, orders, production database
+writes, schedule changes or frontend build were performed. The scheduler
+launches separate Python processes, so **the next strategy start loads this
+repair without an OpenAlgo restart**. Existing missed October 5 option entries
+were not replayed, and today's failure reports were not retroactively inserted.
+Daily option reports start with the next run. No commit or push requested.
+
 ## Authorized scope and confirmed rules
 
 Separate user request, not resumption of frozen scanner/Crypto/investment work.

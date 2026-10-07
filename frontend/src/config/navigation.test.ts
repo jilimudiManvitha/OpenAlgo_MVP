@@ -10,9 +10,12 @@ import {
 describe('Navigation Config', () => {
   describe('navItems', () => {
     it('contains the expected main navigation items', () => {
-      expect(navItems).toHaveLength(9)
+      expect(navItems).toHaveLength(12)
 
       const labels = navItems.map((item) => item.label)
+      expect(labels).toContain('Scanner')
+      expect(labels).toContain('Reports')
+      expect(labels).toContain('Portfolio')
       expect(labels).toContain('Dashboard')
       expect(labels).toContain('Tools')
       expect(labels).toContain('Orderbook')
@@ -99,4 +102,10 @@ describe('Navigation Config', () => {
       expect(isActiveRoute('/orderbookextra', '/orderbook')).toBe(false)
     })
   })
+})
+
+it('highlights only the investment section prefix', () => {
+  expect(isActiveRoute('/portfolio/stocks', '/portfolio')).toBe(true)
+  expect(isActiveRoute('/portfolio-backtester', '/portfolio')).toBe(false)
+  expect(isActiveRoute('/dashboard/sub', '/dashboard')).toBe(false)
 })

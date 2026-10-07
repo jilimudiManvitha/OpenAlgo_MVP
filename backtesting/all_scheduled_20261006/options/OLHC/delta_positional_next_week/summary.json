@@ -1,0 +1,16 @@
+{
+  "strategy": "delta_positional_next_week",
+  "path": "OLHC",
+  "capital": 2000000,
+  "net_pnl": 2507.3899999998976,
+  "realized_pnl": -53.61,
+  "fees": 53.61,
+  "return_pct": 0.12536949999999436,
+  "max_drawdown_inr": -2366.0,
+  "closed_legs": 0,
+  "open_legs": 2,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "missing_held_bar_minutes": 0,
+  "vectorbt_reconciled": true
+}

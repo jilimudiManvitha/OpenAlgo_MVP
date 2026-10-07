@@ -11,6 +11,11 @@ import { useBrokerStore } from '@/stores/brokerStore'
 // Lazy load all pages for code splitting
 // Public pages
 const Home = lazy(() => import('@/pages/Home'))
+const InvestmentPortfolio = lazy(() => import('@/pages/portfolio/PortfolioIndex'))
+const InvestmentDashboard = lazy(() => import('@/pages/portfolio/Dashboard'))
+const InvestmentStocks = lazy(() => import('@/pages/portfolio/Stocks'))
+const InvestmentReports = lazy(() => import('@/pages/portfolio/Reports'))
+const InvestmentWatches = lazy(() => import('@/pages/portfolio/Watchlists'))
 const PortfolioBacktester = lazy(() => import('@/pages/PortfolioBacktester'))
 const PortfolioBacktesterResults = lazy(() => import('@/pages/PortfolioBacktesterResults'))
 const SipBacktester = lazy(() => import('@/pages/SipBacktester'))
@@ -188,7 +193,7 @@ function App() {
               {/* Protected routes - requires broker auth */}
               <Route element={<Layout />}>
                 <Route path="/market-scanner" element={<MarketScanner />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/positions" element={<Positions />} />
                 <Route path="/orderbook" element={<OrderBook />} />
                 <Route path="/tradebook" element={<TradeBook />} />
@@ -206,12 +211,13 @@ function App() {
                   path="/portfolio-backtester/results"
                   element={<PortfolioBacktesterResults />}
                 />
-                {/* The page moved: /portfolio was ambiguous next to the
-                    analyzer. Redirect rather than 404 an existing bookmark. */}
-                <Route
-                  path="/portfolio"
-                  element={<Navigate to="/portfolio-backtester" replace />}
-                />
+                <Route path="/portfolio" element={<InvestmentPortfolio />}>
+                  <Route index element={<InvestmentDashboard />} />
+                  <Route path="stocks" element={<InvestmentStocks />} />
+                  <Route path="assets/:assetClass" element={<InvestmentStocks />} />
+                  <Route path="reports" element={<InvestmentReports />} />
+                  <Route path="watchlists" element={<InvestmentWatches />} />
+                </Route>
                 <Route path="/sip-backtester" element={<SipBacktester />} />
                 <Route path="/sip-backtester/results" element={<SipBacktesterResults />} />
                 <Route path="/portfolio-analyzer" element={<PortfolioAnalyzer />} />

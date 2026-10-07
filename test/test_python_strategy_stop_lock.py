@@ -213,7 +213,7 @@ def test_a_second_stop_during_the_wait_does_not_signal_twice(quiet_stop, monkeyp
     orphan_kills = []
     monkeypatch.setattr(ps, "check_process_status", lambda pid: True)
     monkeypatch.setattr(
-        ps, "terminate_process_cross_platform", lambda pid: orphan_kills.append(pid)
+        ps, "terminate_process_cross_platform", lambda pid, **_: orphan_kills.append(pid)
     )
 
     results = {}
@@ -329,7 +329,7 @@ def test_an_orphan_that_survives_termination_is_not_reported_stopped(quiet_stop,
     config must not be cleared on a survivor: doing so leaves a live trading
     process with nothing tracking it and no route to stop it.
     """
-    monkeypatch.setattr(ps, "terminate_process_cross_platform", lambda pid: None)
+    monkeypatch.setattr(ps, "terminate_process_cross_platform", lambda pid, **_: None)
     monkeypatch.setattr(ps, "check_process_status", lambda pid: True)  # never dies
 
     ps.STRATEGY_CONFIGS["sid-orphan"] = {

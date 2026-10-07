@@ -46,6 +46,13 @@ checkpoint.txt
 checkpoints.json
 log/ws_proxy_stats.json
 log/test/
+log/dev/
+.development/investment/dist/
+# Downloaded broker candle caches remain local; publish the self-contained report.
+backtesting/all_scheduled_20261006/inputs/options/
+backtesting/all_scheduled_20261006/inputs/raw/
+backtesting/all_scheduled_20261006/inputs/stocks/
+db/strategy_history_cache.lock
 
 
 # Strategy encryption key
@@ -157,3 +164,6 @@ backtesting/.test_polars_export_20260909/
 !**/skills/agp-9-upgrade/references/android/build/**
 # This bundled template contains empty credential fields, not live settings.
 !**/skills/fyers-trading/.env.example
+
+# Private broker snapshot used only for local investment reconciliation
+db/investment_fyers_reconciliation.json

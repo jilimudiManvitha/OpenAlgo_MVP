@@ -164,6 +164,13 @@ class FundManager:
         """Reset funds to starting capital"""
         with self._lock:
             try:
+                from services.investment_sandbox_guard import has_protected_portfolio
+
+                if has_protected_portfolio(self.user_id):
+                    logger.info(
+                        "Sandbox reset skipped: portfolio CNC holdings or paper GTTs are preserved"
+                    )
+                    return
                 logger.info(f"Resetting funds for user {self.user_id}")
 
                 # Reset all fund values

@@ -8,8 +8,9 @@ import hashlib
 import json
 import sqlite3
 from contextlib import closing, contextmanager
-from datetime import UTC, datetime
+from datetime import UTC, datetime, time, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 class StateConflict(RuntimeError):
@@ -30,6 +31,7 @@ class Store:
                     id INTEGER PRIMARY KEY, owner TEXT NOT NULL, strategy TEXT NOT NULL,
                     timestamp TEXT NOT NULL, kind TEXT NOT NULL, payload TEXT NOT NULL);
                 CREATE INDEX IF NOT EXISTS events_owner_strategy ON events(owner,strategy,id);
+                CREATE INDEX IF NOT EXISTS events_daily ON events(owner,strategy,kind,timestamp);
             """)
 
     @contextmanager
@@ -73,6 +75,22 @@ class Store:
                     (owner, strategy, stamp, kind, json.dumps(event, allow_nan=False)),
                 )
         return revision + 1
+
+    def closed_trades(self, owner, strategy, day):
+        start = datetime.combine(day, time(), ZoneInfo("Asia/Kolkata"))
+        end = start + timedelta(days=1)
+        with closing(sqlite3.connect(self.path, timeout=30)) as conn:
+            rows = conn.execute(
+                "SELECT payload FROM events WHERE owner=? AND strategy=? AND kind='trade' "
+                "AND timestamp>=? AND timestamp<? ORDER BY id",
+                (
+                    owner,
+                    strategy,
+                    start.astimezone(UTC).isoformat(),
+                    end.astimezone(UTC).isoformat(),
+                ),
+            ).fetchall()
+        return [leg for row in rows for leg in json.loads(row[0])]
 
 
 def config_hash(profile, policy):

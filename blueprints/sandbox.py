@@ -313,6 +313,15 @@ def reset_config():
     try:
         user_id = session.get("user")
 
+        from services.investment_sandbox_guard import has_protected_portfolio
+
+        if has_protected_portfolio(user_id):
+            return jsonify(
+                status="error",
+                message="Reset blocked to preserve Investment Portfolio CNC holdings and paper GTTs. "
+                "Cancel resting triggers/orders and close delivery positions explicitly before a destructive sandbox reset.",
+            ), 409
+
         # Default configurations
         default_configs = {
             "starting_capital": "10000000.00",

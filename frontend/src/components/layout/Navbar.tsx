@@ -210,11 +210,11 @@ export function Navbar({ fluid = false }: NavbarProps = {}) {
             Icon-only between md and 2xl so the scanner and existing tools fit
             laptops without crowding the logo or profile menu. Full labels
             appear on wider screens; every icon retains its title. */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex min-w-0 flex-1 items-center gap-1 overflow-x-auto" aria-label="Main navigation">
           {navItems.map((item) => {
             const active = isActive(item.href)
             const className = cn(
-              'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+              'flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
               active
                 ? 'bg-primary text-primary-foreground'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -252,7 +252,7 @@ export function Navbar({ fluid = false }: NavbarProps = {}) {
         </nav>
 
         {/* Right Side */}
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
           {/* Broker Badge — hidden below lg to keep the bar within narrow
               (portrait/small-laptop) widths */}
           {user?.broker && (

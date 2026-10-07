@@ -11,9 +11,9 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 from .data_probe import active_login, expired_call
-from .profiles import ROOT
+from .profiles import BACKTEST_ROOT, ROOT
 
-CACHE = ROOT / "backtest" / "nifty_options" / "cache"
+CACHE = BACKTEST_ROOT / "cache"
 
 
 def atomic_json(path, value):
@@ -27,6 +27,13 @@ def atomic_json(path, value):
 def cache_file(symbol, start, end):
     key = hashlib.sha256(f"{symbol}|{start}|{end}|1m".encode()).hexdigest()
     return CACHE / "candles" / (key + ".json.gz")
+
+
+def existing_cache_file(symbol, start, end):
+    """Read old archives without relocating or overwriting the accepted backtest."""
+    path = cache_file(symbol, start, end)
+    legacy = ROOT / "backtest/nifty_options/cache/candles" / path.name
+    return path if path.exists() or not legacy.exists() else legacy
 
 
 def write_candles(path, data):
@@ -219,7 +226,7 @@ def discover(token, start, end, folder):
 
 def download(start, end, catalogue_only=False):
     _, token = active_login()
-    folder = ROOT / "backtest" / "nifty_options" / f"{start}_{end}"
+    folder = BACKTEST_ROOT / f"{start}_{end}"
     folder.mkdir(parents=True, exist_ok=True)
     progress = {"status": "discovering", "start": str(start), "end": str(end), "completed": 0}
     try:

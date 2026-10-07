@@ -281,10 +281,13 @@ def react_sip_backtester():
     return serve_react_app()
 
 
-# The former path. Kept so an existing bookmark reaches the SPA, which
-# redirects it to the new one rather than showing a not-found.
-@react_bp.route("/portfolio")
-def react_portfolio_legacy():
+# Personal investment ledger; the historical backtester keeps its own routes.
+@react_bp.route("/portfolio", strict_slashes=False)
+@react_bp.route("/portfolio/stocks", strict_slashes=False)
+@react_bp.route("/portfolio/assets/<asset_class>", strict_slashes=False)
+@react_bp.route("/portfolio/reports", strict_slashes=False)
+@react_bp.route("/portfolio/watchlists", strict_slashes=False)
+def react_investments(asset_class=None):
     return serve_react_app()
 
 
