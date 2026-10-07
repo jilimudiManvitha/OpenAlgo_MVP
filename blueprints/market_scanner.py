@@ -202,6 +202,60 @@ def strategy_reports():
         store.close()
 
 
+@market_scanner_bp.get("/report-journal")
+@report_endpoint
+def report_journal():
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    from services.report_journal import journal
+    from services.report_strategy_runs import reports as execution_reports
+
+    today = datetime.now(ZoneInfo("Asia/Kolkata"))
+    try:
+        year = int(request.args.get("year", today.year - (today.month < 4)))
+        scenario = request.args.get("scenario", "PAPER")
+        data = journal(
+            session["user"],
+            year,
+            scenario,
+            request.args.get("strategy", ""),
+            request.args.get("symbol", ""),
+            session_broker=session.get("broker", ""),
+            charge_basis=request.args.get("charges", "estimated"),
+            extra_reports=execution_reports(session["user"], year, scenario),
+        )
+        return jsonify(status="success", data=data)
+    except ValueError as exc:
+        return jsonify(status="error", message=str(exc)), 400
+
+
+@market_scanner_bp.get("/report-journal/<report_id>")
+@report_endpoint
+def report_journal_detail(report_id):
+    from services.report_brokerage import charges_csv
+    from services.report_journal import journal_detail
+
+    try:
+        report = journal_detail(
+            session["user"],
+            report_id,
+            session.get("broker", ""),
+            request.args.get("charges", "estimated"),
+        )
+    except ValueError as exc:
+        return jsonify(status="error", message=str(exc)), 400
+    if report is None:
+        return jsonify(status="error", message="Report not found."), 404
+    if request.args.get("download") == "csv":
+        return Response(
+            charges_csv(report),
+            mimetype="text/csv",
+            headers={"Content-Disposition": 'attachment; filename="report-trades.csv"'},
+        )
+    return jsonify(status="success", data=report)
+
+
 @market_scanner_bp.get("/reports/<report_id>")
 @report_endpoint
 def strategy_report(report_id):

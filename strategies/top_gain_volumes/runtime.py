@@ -22,7 +22,7 @@ from strategies.top_gain_volumes.history import fetch_intraday_history
 from strategies.top_gain_volumes.profiles import PROFILES, nifty500_symbols, weekday_symbols
 
 IST = ZoneInfo("Asia/Kolkata")
-SQUARE_OFF_MINUTE = 15 * 60
+SQUARE_OFF_MINUTE = 15 * 60 + 15
 SHUTDOWN_GRACE_SECONDS = 60
 OPTIONS = validate_options({"limit": 50, "positive_only": True})
 
@@ -403,7 +403,7 @@ def main(profile_id="nifty500_fixed"):
         "note": profile["name"] + ". ₹10,000 per trade; fresh signals may re-enter after exits. "
         "Stop: 0.03% below signal HA low, rounded down to instrument tick. "
         "Observed Quote ticks; actual OpenAlgo Sandbox order IDs and confirmed fills. "
-        "09:15–15:00 IST; fresh quotes are required to square off at 15:00. "
+        "09:15–15:15 IST; fresh quotes are required to square off at 15:15. "
         "Sandbox does not book brokerage; reported P&L excludes charges. "
         "Realized drawdown excludes intratrade equity. No live broker orders.",
     }

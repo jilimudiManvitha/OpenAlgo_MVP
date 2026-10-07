@@ -1,0 +1,51 @@
+const path = require('node:path');
+const fs = require('node:fs');
+const { chromium, expect } = require(path.resolve(__dirname, '../../frontend/node_modules/@playwright/test'));
+(async () => {
+ const browser = await chromium.launch({channel:'chrome',headless:true});
+ try {
+  const page = await browser.newPage({viewport:{width:1512,height:1000}});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:5011/trade-copier');
+  await expect(page.getByRole('heading',{name:'Trade Copier',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Family · FYERS'})).toBeVisible();
+  await expect(page.getByText('LIVE · Real orders')).toBeVisible();
+  await page.getByRole('button',{name:'Review & arm'}).click();
+  await expect(page.getByRole('dialog')).toContainText('This authorizes real broker orders');
+  await page.getByRole('button',{name:'Confirm & arm'}).click();
+  await expect(page.getByRole('button',{name:'Disarm',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Add child'})).toBeDisabled();
+  await page.getByRole('button',{name:'Stop copying'}).click();
+  await expect(page.getByText('Stopped',{exact:true})).toBeVisible();
+  const out=path.join(__dirname,'artifacts');fs.mkdirSync(out,{recursive:true});
+  await page.screenshot({path:path.join(out,'copier-desktop.png'),fullPage:true,animations:'disabled'});
+  await page.getByRole('button',{name:'Add child'}).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.getByLabel('Account name',{exact:true}).fill('Browser child');
+  await page.getByLabel('Broker client ID').fill('UI-CHILD');
+  await page.getByLabel('Broker',{exact:true}).fill('angel');
+  await page.getByLabel('Connection type').selectOption('openalgo');
+  await page.getByLabel('Child OpenAlgo address').fill('http://127.0.0.1:5020');
+  await page.getByLabel('Child OpenAlgo API key').fill('FAKE-NOT-A-KEY');
+  await expect(page.getByRole('dialog')).toHaveCSS('opacity','1');
+  await page.screenshot({path:path.join(out,'copier-connect.png'),animations:'disabled'});
+  await page.getByRole('button',{name:'Save child account'}).click();
+  await expect(page.getByRole('heading',{name:'Browser child'})).toBeVisible();
+  // Mode change through fixture's actual session/CSRF API, then mount fresh mode state.
+  await page.evaluate(async()=>{const t=await(await fetch('/auth/csrf-token')).json();await fetch('/auth/analyzer-toggle',{method:'POST',headers:{'X-CSRFToken':t.csrf_token}})});
+  await page.reload();
+  await expect(page.getByText('SANDBOX · Paper orders')).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Browser child'})).toHaveCount(0);
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:path.join(out,'copier-mobile.png'),fullPage:true,animations:'disabled'});
+  if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)) throw Error('Mobile overflow');
+  await page.getByRole('button',{name:'Add child'}).click();
+  await expect(page.getByRole('dialog')).toContainText('No broker credentials are needed');
+  await expect(page.getByLabel('Access token',{exact:true})).toHaveCount(0);
+  await expect(page.getByRole('dialog')).toHaveCSS('opacity','1');
+  await page.screenshot({path:path.join(out,'copier-sandbox-connect-mobile.png'),animations:'disabled'});
+  await page.getByRole('button',{name:'Cancel',exact:true}).click();
+  if(errors.length) throw Error(errors.join('\n'));
+  console.log('PASS desktop/mobile, arming, stop, child connection, Live/Sandbox partition; no browser errors');
+ } finally {await browser.close()}
+})().catch(e=>{console.error(e);process.exit(1)});

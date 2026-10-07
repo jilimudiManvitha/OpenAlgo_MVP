@@ -275,3 +275,38 @@ def test_report_success_and_failure_cycles_release_descriptors(tmp_path):
         assert len(report.store.list("alice")) == 1
     finally:
         report.close()
+
+
+@pytest.mark.parametrize("failure", ["disconnect", "unregister", "persist", None])
+def test_shutdown_preserves_state_and_report_even_after_transport_error(monkeypatch, failure):
+    from strategies.nifty_options import runtime
+    from utils import httpx_client
+
+    called = []
+
+    def step(name):
+        def run(*args):
+            called.append(name)
+            if name == failure:
+                raise RuntimeError(name)
+
+        return run
+
+    monkeypatch.setattr(runtime, "cleanup_sessions", step("sessions"))
+    monkeypatch.setattr(httpx_client, "cleanup_httpx_client", step("http"))
+    client = SimpleNamespace(disconnect=step("disconnect"), unregister_callback=step("unregister"))
+    report = SimpleNamespace(close=step("report_close"))
+    if failure:
+        with pytest.raises(RuntimeError, match=failure):
+            runtime.shutdown_run(client, None, step("persist"), step("publish"), report)
+    else:
+        runtime.shutdown_run(client, None, step("persist"), step("publish"), report)
+    assert called == [
+        "unregister",
+        "disconnect",
+        "sessions",
+        "persist",
+        "publish",
+        "report_close",
+        "http",
+    ]

@@ -104,14 +104,14 @@ def test_targets_stops_and_clock_close_whole_position():
             assert trade["exit"] >= trade["target"]
 
 
-def test_forward_cutoff_is_1500_for_every_stock():
+def test_forward_cutoff_is_1515_for_every_stock():
     from strategies.top_gain_volumes.runtime import SQUARE_OFF_MINUTE
     candle, start = seeded()
     candle.tick(start + 60, 111, 110)
     candle.tick(start + 61, 113, 120)
     trade = enter("NON_FO_STOCK", start + 61, 113, candle, 0.05)
-    assert SQUARE_OFF_MINUTE == 900
-    assert exit_trade(trade, start + (900 - 555) * 60, 114, 0.05, SQUARE_OFF_MINUTE)
+    assert SQUARE_OFF_MINUTE == 915
+    assert exit_trade(trade, start + (915 - 555) * 60, 114, 0.05, SQUARE_OFF_MINUTE)
     assert trade["reason"] == "SQUARE_OFF"
 
 

@@ -4,10 +4,13 @@ from datetime import datetime
 
 from flask import Blueprint, Response, jsonify, request, session
 
+from services import investment_execution as execution
+from services import investment_mode
 from services import investment_service as service
 from utils.session import check_session_validity
 
 investments_bp = Blueprint("investments", __name__, url_prefix="/investments/api")
+investments_bp.before_request(investment_mode.begin_request)
 
 
 def payload():
@@ -43,7 +46,9 @@ def cleanup(_error):
 def accounts():
     if request.method == "GET":
         return result(service.accounts(user()))
-    return result(service.save_account(user(), payload()), 201)
+    data = payload()
+    data.setdefault("kind", investment_mode.active_mode())
+    return result(service.save_account(user(), data), 201)
 
 
 @investments_bp.route("/accounts/<int:record_id>", methods=["PATCH", "DELETE"])
@@ -221,9 +226,9 @@ def paper_gtt():
 @investments_bp.post("/paper/sync")
 @check_session_validity
 def paper_sync():
-    from services.investment_paper import reconcile
+    from services.investment_paper_charges import reconcile
 
-    return result(reconcile(user()))
+    return result(reconcile(user(), session.get("broker", "")))
 
 
 @investments_bp.delete("/paper/gtt/<int:record_id>")
@@ -232,3 +237,31 @@ def cancel_paper_gtt(record_id):
     from services.investment_paper import cancel
 
     return result(cancel(user(), record_id))
+
+
+@investments_bp.get("/execution/capabilities")
+@check_session_validity
+def execution_capabilities():
+    user()
+    return result(execution.capabilities(session.get("broker", ""), investment_mode.active_mode()))
+
+
+@investments_bp.route("/execution/orders", methods=["GET", "POST"])
+@check_session_validity
+def execution_orders():
+    owner, broker, mode = user(), session.get("broker", ""), investment_mode.active_mode()
+    if request.method == "GET":
+        return result(execution.orders(owner, broker, mode))
+    if request.args.get("mode") != mode or request.args.get("broker") != broker:
+        raise service.InvestmentError(
+            "An explicit mode and broker are required for order submission", 409
+        )
+    return result(execution.submit(owner, broker, mode, payload()))
+
+
+@investments_bp.post("/execution/estimate")
+@check_session_validity
+def execution_estimate():
+    body = payload()
+    data = execution.validate(user(), investment_mode.active_mode(), body, estimating=True)
+    return result(execution.estimate(session.get("broker", ""), data, body.get("trade_date")))

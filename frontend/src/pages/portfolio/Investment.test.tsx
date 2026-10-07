@@ -8,8 +8,8 @@ import { AddTransactionDialog } from '@/components/investment/AddTransactionDial
 import { InvestmentAllocation } from '@/components/investment/InvestmentAllocation'
 import type { InvestmentDashboard, InvestmentHolding } from '@/types/investment'
 import Dashboard from './Dashboard'
-import Stocks from './Stocks'
 import Reports from './Reports'
+import Stocks from './Stocks'
 
 vi.mock('./PortfolioIndex', () => ({
   useInvestmentContext: () => ({
@@ -26,6 +26,7 @@ vi.mock('@/api/investment', async (importOriginal) => {
       dashboard: vi.fn(),
       holdings: vi.fn(),
       addTransaction: vi.fn(),
+      estimateOrder: vi.fn(),
       report: vi.fn(),
     },
   }
@@ -189,4 +190,43 @@ describe('Investment portfolio', () => {
       expect.stringContaining('reports/performance?download=csv&account_id=1')
     )
   })
+})
+
+it('applies a broker estimate only on request and refuses stale estimated charges', async () => {
+  const user = userEvent.setup()
+  vi.mocked(investmentApi.estimateOrder).mockResolvedValue({
+    status: 'estimated',
+    total: 24.3,
+    broker: 'fyers',
+    version: 'fixture-v1',
+    breakdown: {
+      brokerage: 20,
+      stt: 0.25,
+      gst: 3.6,
+      stamp: 0.15,
+      sebi: 0.1,
+      exchange: 0.1,
+      ipft: 0.1,
+      clearing: 0,
+    },
+  })
+  mount(<AddTransactionDialog asset={holding} onClose={vi.fn()} />)
+  await user.type(screen.getByLabelText('Quantity'), '2')
+  await user.type(screen.getByLabelText('Price per unit (₹)'), '100')
+  expect(investmentApi.estimateOrder).not.toHaveBeenCalled()
+  await user.click(screen.getByRole('button', { name: 'Apply broker charge estimate' }))
+  expect(await screen.findByText(/Estimated charges applied for one executed/)).toBeVisible()
+  expect((screen.getByLabelText('Notes') as HTMLInputElement).value).toContain(
+    'Estimated charges: fyers'
+  )
+  await user.clear(screen.getByLabelText('Quantity'))
+  await user.type(screen.getByLabelText('Quantity'), '3')
+  expect(screen.getByRole('button', { name: 'Record transaction' })).toBeDisabled()
+  await user.click(screen.getByRole('button', { name: 'Apply broker charge estimate' }))
+  await vi.waitFor(() =>
+    expect(screen.getByRole('button', { name: 'Record transaction' })).toBeEnabled()
+  )
+  expect(investmentApi.estimateOrder).toHaveBeenLastCalledWith(
+    expect.objectContaining({ quantity: '3', kind: 'order' })
+  )
 })

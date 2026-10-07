@@ -23,6 +23,7 @@ export function AddTransactionDialog({
   const liability = asset.asset_class === 'LOAN' || asset.asset_class === 'OTHER_BORROWING'
   const [more, setMore] = useState(false)
   const [notice, setNotice] = useState('')
+  const [estimatedFor, setEstimatedFor] = useState('')
   const [form, setForm] = useState<TransactionInput>(() => ({
     asset_id: asset.id,
     action: 'BUY',
@@ -44,6 +45,8 @@ export function AddTransactionDialog({
     exchange_charges: '0',
     corporate_ratio: '',
   }))
+  const signature = [form.action, form.quantity, form.price, form.trade_date].join(':')
+  const staleEstimate = Boolean(estimatedFor && estimatedFor !== signature)
   const update = (key: keyof TransactionInput, value: string) =>
     setForm((old) => ({ ...old, [key]: value }))
   const save = useMutation({
@@ -52,8 +55,45 @@ export function AddTransactionDialog({
       await queryClient.invalidateQueries({ queryKey: investmentKeys.all })
       if (more) {
         setNotice('Transaction recorded. Enter the next transaction.')
-        setForm((old) => ({ ...old, quantity: '', price: '', notes: '' }))
+        setEstimatedFor('')
+        setForm((old) => ({
+          ...old,
+          quantity: '',
+          price: '',
+          notes: '',
+          brokerage: '0',
+          stt: '0',
+          gst: '0',
+          stamp_duty: '0',
+          sebi: '0',
+          exchange_charges: '0',
+        }))
       } else onClose()
+    },
+  })
+  const estimate = useMutation({
+    mutationFn: () => investmentApi.estimateOrder({ ...form, kind: 'order' }),
+    onSuccess: (result) => {
+      if (result.status !== 'estimated' || !result.breakdown) {
+        setNotice(result.message || 'Charge estimate unavailable.')
+        return
+      }
+      setEstimatedFor(signature)
+      const c = result.breakdown
+      setForm((old) => ({
+        ...old,
+        brokerage: String(c.brokerage),
+        stt: String(c.stt),
+        gst: String(c.gst),
+        stamp_duty: String(c.stamp),
+        sebi: String(c.sebi),
+        exchange_charges: String(Number((c.exchange + c.ipft + c.clearing).toFixed(2))),
+        notes:
+          `${old.notes} [Estimated charges: ${result.broker}, ${result.version}; excludes DP/account charges]`.trim(),
+      }))
+      setNotice(
+        'Estimated charges applied for one executed delivery order. Review against the contract note when available.'
+      )
     },
   })
   const amount = Number(form.quantity) * Number(form.price)
@@ -81,7 +121,7 @@ export function AddTransactionDialog({
           }}
           className="space-y-4"
         >
-          <fieldset disabled={save.isPending} className="space-y-4">
+          <fieldset disabled={save.isPending || estimate.isPending} className="space-y-4">
             <label className="block text-sm">
               Action
               <select
@@ -90,6 +130,19 @@ export function AddTransactionDialog({
                 value={form.action}
                 onChange={(e) => {
                   update('action', e.target.value)
+                  if (estimatedFor && !['BUY', 'SELL'].includes(e.target.value)) {
+                    setEstimatedFor('')
+                    setForm((old) => ({
+                      ...old,
+                      brokerage: '0',
+                      stt: '0',
+                      gst: '0',
+                      stamp_duty: '0',
+                      sebi: '0',
+                      exchange_charges: '0',
+                    }))
+                    setNotice('Charges cleared for the new transaction type.')
+                  }
                   if (e.target.value === 'CORPORATE_ACTION')
                     setForm((old) => ({
                       ...old,
@@ -160,6 +213,16 @@ export function AddTransactionDialog({
                 </p>
               </div>
             )}
+            {asset.asset_class === 'STOCK' && (form.action === 'BUY' || form.action === 'SELL') && (
+              <Button
+                type="button"
+                variant="outline"
+                disabled={!form.quantity || !form.price || estimate.isPending}
+                onClick={() => estimate.mutate()}
+              >
+                Apply broker charge estimate
+              </Button>
+            )}
             <details className="rounded border p-3">
               <summary className="text-sm cursor-pointer">
                 Detailed charges · {money(charges)}
@@ -192,9 +255,15 @@ export function AddTransactionDialog({
               Add another transaction after saving
             </label>
           </fieldset>
+          {estimate.isError && <ErrorMessage>{investmentError(estimate.error)}</ErrorMessage>}
           {save.isError && <ErrorMessage>{investmentError(save.error)}</ErrorMessage>}
+          {staleEstimate && (
+            <ErrorMessage>
+              Trade details changed. Apply the charge estimate again before saving.
+            </ErrorMessage>
+          )}
           {notice && <output className="block text-sm text-green-600">{notice}</output>}
-          <Button disabled={save.isPending}>
+          <Button disabled={save.isPending || estimate.isPending || staleEstimate}>
             {save.isPending ? 'Saving…' : 'Record transaction'}
           </Button>
         </form>

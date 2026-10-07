@@ -347,6 +347,10 @@ def create_app():
     app.register_blueprint(arbitrage_bp)  # Register Arbitrage blueprint
     app.register_blueprint(flow_bp)  # Register Flow blueprint
     app.register_blueprint(investments_bp)
+    from blueprints.trade_copier import trade_copier_bp
+
+    app.register_blueprint(trade_copier_bp)
+    csrf.exempt(app.view_functions["trade_copier.bridge"])
     app.register_blueprint(openscript_bp)
     app.register_blueprint(openscript_runner_bp)
     app.register_blueprint(agent_bp)  # Register Agent blueprint

@@ -28,7 +28,7 @@ def configurations(owner):
             "is_scheduled": True,
             "manually_stopped": False,
             "schedule_start": "09:15",
-            "schedule_stop": "15:00",
+            "schedule_stop": "15:15",
             "schedule_days": ["mon", "tue", "wed", "thu", "fri"],
         }
     return result
@@ -54,7 +54,7 @@ def install(owner):
         for field in ("is_error", "error_message", "error_time", "paused_reason", "paused_message"):
             scheduler.STRATEGY_CONFIGS[strategy_id].pop(field, None)
         if scheduler.SCHEDULER is not None:
-            scheduler.schedule_strategy(strategy_id, "09:15", "15:00", config["schedule_days"])
+            scheduler.schedule_strategy(strategy_id, "09:15", "15:15", config["schedule_days"])
     scheduler.save_configs()
     saved = json.loads(scheduler.CONFIG_FILE.read_text())
     if any(

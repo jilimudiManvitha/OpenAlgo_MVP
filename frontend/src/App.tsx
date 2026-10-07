@@ -91,6 +91,7 @@ const StrategyPortfolio = lazy(() => import('@/pages/StrategyPortfolio'))
 // Python Strategy pages
 const PythonStrategyIndex = lazy(() => import('@/pages/python-strategy/PythonStrategyIndex'))
 const StrategyReports = lazy(() => import('@/pages/StrategyReports'))
+const TradeCopier = lazy(() => import('@/pages/TradeCopier'))
 const NewPythonStrategy = lazy(() => import('@/pages/python-strategy/NewPythonStrategy'))
 const EditPythonStrategy = lazy(() => import('@/pages/python-strategy/EditPythonStrategy'))
 const PythonStrategyLogs = lazy(() => import('@/pages/python-strategy/PythonStrategyLogs'))
@@ -262,6 +263,7 @@ function App() {
                 {/* Phase 6: Python Strategies */}
                 <Route path="/python" element={<PythonStrategyIndex />} />
                 <Route path="/strategy-reports" element={<StrategyReports />} />
+                <Route path="/trade-copier" element={<TradeCopier />} />
                 <Route path="/python/new" element={<NewPythonStrategy />} />
                 <Route path="/python/:strategyId/edit" element={<EditPythonStrategy />} />
                 <Route path="/python/:strategyId/logs" element={<PythonStrategyLogs />} />

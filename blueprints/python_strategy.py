@@ -633,10 +633,13 @@ def start_strategy_process(strategy_id):
 def strategy_shutdown_timeout(config):
     """Allow the bundled paper runners to reconcile and persist their exits."""
     from strategies.nifty_options.profiles import PROFILES as options
+    from strategies.short_equity.profiles import PROFILES as shorts
     from strategies.top_gain_volumes.profiles import PROFILES as stocks
 
     filename = os.path.basename(config.get("file_path") or config.get("file_name") or "")
-    bundled = {p["file"] for p in stocks.values()} | {name + ".py" for name in options}
+    bundled = {p["file"] for p in (*stocks.values(), *shorts.values())} | {
+        name + ".py" for name in options
+    }
     return 90 if filename in bundled else 5
 
 

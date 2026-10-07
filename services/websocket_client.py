@@ -190,12 +190,18 @@ class WebSocketClient:
         """Disconnect from the WebSocket server"""
         self.running = False
 
-        if self.loop and self.ws:
+        loop = self.loop
+        if loop and self.ws and not loop.is_closed() and loop.is_running():
             # Scheduled, not awaited: the thread join below is what waits.
             # call_soon_threadsafe avoids building a concurrent Future whose
             # condition would belong to the wrong world.
-            coro = self._disconnect()
-            self.loop.call_soon_threadsafe(lambda: self.loop.create_task(coro))
+            # Create the coroutine on the loop, not before scheduling: an
+            # exhausted reconnect loop can close between this check and send.
+            try:
+                loop.call_soon_threadsafe(lambda: loop.create_task(self._disconnect()))
+            except RuntimeError:
+                if not loop.is_closed():
+                    raise
 
         # Wait for thread to finish
         if self.thread and self.thread.is_alive():
@@ -203,6 +209,13 @@ class WebSocketClient:
             # called from greenlets (scalping teardown, close_all_clients),
             # where a blocking join would stop the worker for 5s.
             _original_threading.join(self.thread, timeout=5)
+
+        if (
+            self._dispatch_thread
+            and self._dispatch_thread is not threading.current_thread()
+            and self._dispatch_thread.is_alive()
+        ):
+            _original_threading.join(self._dispatch_thread, timeout=1)
 
         self.connected = False
         self.authenticated = False
@@ -622,7 +635,15 @@ class WebSocketClient:
         except Exception as e:
             logger.exception(f"Error in event loop: {e}")
         finally:
+            pending = asyncio.all_tasks(self.loop)
+            for task in pending:
+                task.cancel()
+            if pending:
+                self.loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+            self.loop.run_until_complete(self.loop.shutdown_asyncgens())
             self.loop.close()
+            self.ws = None
+            self.connected = self.authenticated = False
 
     async def _connect_and_run(self):
         """Connect to WebSocket and handle messages"""

@@ -149,7 +149,7 @@ def test_eight_distinct_schedules_are_10k_nse_weekdays():
     assert len(configs) == 8
     assert len({r["file_path"] for r in configs.values()}) == 8
     for r in configs.values():
-        assert r["schedule_start"] == "09:15" and r["schedule_stop"] == "15:00"
+        assert r["schedule_start"] == "09:15" and r["schedule_stop"] == "15:15"
         assert r["schedule_days"] == ["mon", "tue", "wed", "thu", "fri"]
         assert r["exchange"] == "NSE" and r["user_id"] == "fixture"
 

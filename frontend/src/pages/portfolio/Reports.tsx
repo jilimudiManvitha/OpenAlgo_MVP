@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { investmentApi, investmentError } from '@/api/investment'
+import { investmentApi, investmentError, investmentScope } from '@/api/investment'
 import { ErrorMessage, Field, money, selectClass } from '@/components/investment/common'
 import { Button } from '@/components/ui/button'
 import { useInvestmentContext } from './PortfolioIndex'
@@ -32,6 +32,7 @@ export default function Reports() {
     ...(accountId ? { account_id: String(accountId) } : {}),
     ...(start ? { start } : {}),
     ...(end ? { end } : {}),
+    ...investmentScope(),
   })
   const points =
     name === 'performance'

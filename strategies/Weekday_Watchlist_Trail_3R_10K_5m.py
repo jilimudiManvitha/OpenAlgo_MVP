@@ -2,7 +2,7 @@
 
 5-minute Heikin-Ashi / BB(20,2) / session VWAP; Sandbox only.
 Same rules as its 1m counterpart: Rs 10,000 per entry, stop 0.03% below
-signal HA low, whole shares, 09:15-15:00 IST on NSE weekdays.
+signal HA low, whole shares, 09:15-15:15 IST on NSE weekdays.
 See strategies/top_gain_volumes/README.md.
 """
 import sys

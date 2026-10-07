@@ -107,7 +107,7 @@ def test_clock_squareoff_uses_fresh_cached_quote_without_new_tick(tmp_path):
     sink = sink_fixture(tmp_path)
     trade = trade_fixture()
     trade["entry_order_state"] = "complete"
-    now = datetime(2026, 10, 1, 15, 0, tzinfo=IST).timestamp()
+    now = datetime(2026, 10, 1, 15, 15, tzinfo=IST).timestamp()
     sink.manager.get_order_status.return_value = status("complete", 102)
     maintain_positions(
         sink, {"ABC": trade}, {"trades": [trade]}, {"ABC": (now - 1, {"ltp": 102})}, now
@@ -122,7 +122,7 @@ def test_cutoff_cancels_pending_entry_then_records_terminal_state(tmp_path):
     sink.enter(trade, {"ltp": 100}, 0.05)
     sink.manager.get_order_status.side_effect = [status("open"), status("cancelled")]
     report, traded = {"trades": [trade]}, {"ABC": trade}
-    now = datetime(2026, 10, 1, 15, 0, tzinfo=IST).timestamp()
+    now = datetime(2026, 10, 1, 15, 15, tzinfo=IST).timestamp()
     maintain_positions(sink, traded, report, {}, now)
     sink.manager.cancel_order.assert_called_once_with("one")
     assert not traded and not report["trades"]

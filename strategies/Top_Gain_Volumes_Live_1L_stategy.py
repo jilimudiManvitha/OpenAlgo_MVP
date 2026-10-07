@@ -13,8 +13,8 @@ candle is green with no lower wick. DO NOT WAIT FOR THE ENTRY CANDLE TO CLOSE.
 Stop: signal HA low minus 0.03% (low * 0.9997), rounded down to the instrument tick.
 Target: entry fill plus 3 times the entry-to-stop risk, rounded up to tick.
 One open position per stock; fresh signals may re-enter after exit. Whole shares,
-no portfolio-wide cap. Exit at stop/target or first fresh tick at/after 15:00 IST.
-The scheduled process stops at 15:00 IST with a short exit grace. A feed outage leaves positions visibly unresolved; never
+no portfolio-wide cap. Exit at stop/target or first fresh tick at/after 15:15 IST.
+The scheduled process stops at 15:15 IST with a short exit grace. A feed outage leaves positions visibly unresolved; never
 invent an exit. Stale data, missing minutes or queue overflow suppress entries.
 
 Actual OpenAlgo Sandbox orders and confirmed fills are recorded. No live broker

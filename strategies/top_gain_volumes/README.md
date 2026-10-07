@@ -1,5 +1,7 @@
 # Eight ₹10,000 Sandbox strategies
 
+**October 7 update:** All eight equity profiles now square off at 15:15 IST. See the [combined release](../../docs/plans/2026-10-07-evening-combine.md); older run examples below are historical.
+
 Updated September 30 evening, 2026. The user authorized fixing the September 30
 failures and adding four 5-minute HA variants to the four existing 1-minute
 variants. All eight use **09:15–15:00 IST, Monday–Friday**, subject to the NSE

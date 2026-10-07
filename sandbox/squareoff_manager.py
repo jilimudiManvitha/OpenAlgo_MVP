@@ -108,6 +108,14 @@ class SquareOffManager:
 
                     # Check if current time has passed square-off time
                     if current_time >= square_off_time:
+                        from sandbox.scheduled_equity import has_exposure, in_close_window
+
+                        if (
+                            exchange == "NSE"
+                            and in_close_window(current_time, square_off_time)
+                            and has_exposure(position.user_id, position.symbol)
+                        ):
+                            continue
                         positions_to_close.append(position)
             else:
                 logger.debug("No MIS positions to square-off")
@@ -231,6 +239,15 @@ class SquareOffManager:
 
                 # Check if current time has passed square-off time for this exchange
                 if current_time >= square_off_time:
+                    from sandbox.scheduled_equity import in_close_window, is_exit
+
+                    if (
+                        exchange == "NSE"
+                        and in_close_window(current_time, square_off_time)
+                        and is_exit(order.strategy, order.action)
+                        and order.price_type == "MARKET"
+                    ):
+                        continue
                     try:
                         order_manager = OrderManager(order.user_id)
                         success, response, status_code = order_manager.cancel_order(order.orderid)

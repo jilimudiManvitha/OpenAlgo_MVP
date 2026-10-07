@@ -174,7 +174,17 @@ class OrderManager:
                                 is_reducing = True  # Closing long
 
                         # Block only if opening/increasing position, allow if closing/reducing
-                        if not is_reducing:
+                        from sandbox.scheduled_equity import in_close_window, permits_exit
+
+                        scheduled_exit = (
+                            exchange == "NSE"
+                            and order_data["price_type"].upper() == "MARKET"
+                            and in_close_window(current_time, square_off_time)
+                            and permits_exit(
+                                self.user_id, symbol, order_data.get("strategy"), action, quantity
+                            )
+                        )
+                        if not is_reducing and not scheduled_exit:
                             return (
                                 False,
                                 {

@@ -1,5 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation, useOutletContext } from 'react-router'
 import { investmentApi, investmentError, investmentKeys } from '@/api/investment'
 import { ErrorMessage, Field, selectClass } from '@/components/investment/common'
@@ -11,6 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useAuthStore } from '@/stores/authStore'
+import { useThemeStore } from '@/stores/themeStore'
 import type { InvestmentAccount } from '@/types/investment'
 
 interface PortfolioContext {
@@ -19,6 +27,28 @@ interface PortfolioContext {
 }
 export const useInvestmentContext = () => useOutletContext<PortfolioContext>()
 export default function PortfolioIndex() {
+  const mode = useThemeStore((s) => s.appMode)
+  const user = useAuthStore((s) => s.user)
+  return <PortfolioScope key={`${user?.username}:${user?.broker}:${mode}`} />
+}
+function PortfolioScope() {
+  const [client] = useState(() => new QueryClient())
+  useEffect(
+    () => () => {
+      void client.cancelQueries()
+      client.clear()
+    },
+    [client]
+  )
+  return (
+    <QueryClientProvider client={client}>
+      <PortfolioContent />
+    </QueryClientProvider>
+  )
+}
+function PortfolioContent() {
+  const mode = useThemeStore((s) => s.appMode)
+  const accountKind = mode === 'analyzer' ? 'paper' : 'live'
   const { pathname } = useLocation()
   const queryClient = useQueryClient()
   const accounts = useQuery({ queryKey: investmentKeys.accounts, queryFn: investmentApi.accounts })
@@ -27,7 +57,7 @@ export default function PortfolioIndex() {
   const [editId, setEditId] = useState<number>()
   const [name, setName] = useState('')
   const [broker, setBroker] = useState('Manual')
-  const [kind, setKind] = useState<'paper' | 'live'>('paper')
+  const [kind, setKind] = useState<'paper' | 'live'>(accountKind)
   const save = useMutation({
     mutationFn: () => investmentApi.saveAccount({ name, broker_label: broker, kind }, editId),
     onSuccess: async (row) => {
@@ -48,7 +78,7 @@ export default function PortfolioIndex() {
     setEditId(row?.id)
     setName(row?.name ?? '')
     setBroker(row?.broker_label ?? 'Manual')
-    setKind(row?.kind ?? 'paper')
+    setKind(row?.kind ?? accountKind)
     save.reset()
     remove.reset()
     setOpen(true)
@@ -59,7 +89,7 @@ export default function PortfolioIndex() {
         <div>
           <h1 className="text-2xl font-semibold">Investment Portfolio</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Your accounts, purchases and dated valuations.
+            {mode === 'analyzer' ? 'Sandbox' : 'Live'} accounts, purchases and dated valuations.
           </p>
         </div>
         <Button onClick={() => showAccount()}>Add account</Button>
@@ -96,7 +126,7 @@ export default function PortfolioIndex() {
           ['/portfolio/stocks', 'Stocks & ETFs'],
           ['/portfolio/assets/MUTUAL_FUND', 'Other assets'],
           ['/portfolio/reports', 'Reports'],
-          ['/portfolio/watchlists', 'Watchlists & paper GTT'],
+          ['/portfolio/watchlists', 'Watchlists & orders'],
         ].map(([to, label]) => (
           <NavLink
             key={to}
@@ -146,10 +176,11 @@ export default function PortfolioIndex() {
               <select
                 className={selectClass}
                 value={kind}
+                disabled
                 onChange={(e) => setKind(e.target.value as typeof kind)}
               >
                 <option value="paper">Paper</option>
-                <option value="live">Recorded investments</option>
+                <option value="live">Live investments</option>
               </select>
             </label>
             {(save.isError || remove.isError) && (

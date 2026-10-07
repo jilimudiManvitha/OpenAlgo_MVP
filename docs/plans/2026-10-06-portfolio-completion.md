@@ -1,5 +1,8 @@
 # Investment Portfolio — development completion, October 6
 
+**October 7 mode follow-up:** [Live/Sandbox implementation and current limits](2026-10-07-live-sandbox-features.md) adds mode-separated Portfolio, real order/GTT tickets and confirmed Strategy Builder fill reports in both modes. Still isolated and not deployed.
+
+
 **October 7 update:** The user authorized combining the finished Portfolio with the scheduled strategies for local startup and a Git push. The normal frontend is now built and verified; the old deployment hold below is superseded. Production was not started by the agent. [Release readiness](2026-10-07-local-release-readiness.md).
 
 The user resumed work with “complete that portifolio section remaing” and “limit reseted continue.” Phases 3–5 are implemented locally and verified in development lane D. **They have not been deployed to the user's running app.** The [standing order](2026-10-04-readiness-portfolio-handoff.md#0-standing-order--develop-in-parallel-never-affect-the-users-openalgo) still governs production. No commit or push was requested or performed.

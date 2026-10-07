@@ -7,6 +7,7 @@ import os
 import queue
 import signal
 import time
+from contextlib import ExitStack
 from datetime import date, datetime
 
 from strategies.top_gain_volumes.coordination import dispatch_lock
@@ -18,6 +19,20 @@ from .greeks import chain_options, session_close
 from .profiles import PROFILES, ROOT, Policy
 from .selection import DataUnavailable, select_legs
 from .state import Store
+
+
+def shutdown_run(client, receive, persist, finish_report, report):
+    """Persist carried risk and final report even if transport cleanup fails."""
+    from utils.httpx_client import cleanup_httpx_client
+
+    with ExitStack() as cleanup:
+        cleanup.callback(cleanup_httpx_client)
+        cleanup.callback(report.close)
+        cleanup.callback(finish_report)
+        cleanup.callback(persist)
+        cleanup.callback(cleanup_sessions)
+        cleanup.callback(client.disconnect)
+        cleanup.callback(client.unregister_callback, "market_data", receive)
 
 
 def publish_report(report, state, status, now, feed):
@@ -335,17 +350,16 @@ def run(profile_name, policy_path):
             final_status = f"failed — {type(exc).__name__}: {exc}"
             raise
         finally:
-            try:
-                client.unregister_callback("market_data", receive)
-                client.disconnect()
-                cleanup_sessions()
-                persist(
+            shutdown_run(
+                client,
+                receive,
+                lambda: persist(
                     "runner_stopped",
                     {"open_legs": len(state["legs"]), "pending": bool(state["pending"])},
-                )
-                publish_report(report, state, final_status, datetime.now(IST), feed)
-            finally:
-                report.close()
+                ),
+                lambda: publish_report(report, state, final_status, datetime.now(IST), feed),
+                report,
+            )
 
 
 def main(profile_name):

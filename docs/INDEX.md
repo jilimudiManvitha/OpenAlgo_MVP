@@ -1,5 +1,18 @@
 # OpenAlgo Documentation Map
 
+**October 7 evening:** [Combined release: 28 schedules, equity 15:15 exits, restart recovery, Reports/Portfolio/Copier integration](plans/2026-10-07-evening-combine.md). User starts OpenAlgo.
+
+**October 7 isolated Trade Copier:** [Local master/child copier handoff](plans/2026-10-07-trade-copier.md) — native FYERS/Zerodha/Dhan, bridge for other OpenAlgo brokers, separate Sandbox children, durable copy state/risk/stop controls. Not activated; no real orders sent.
+
+**October 7 isolated equity shorts:** [Eight short counterparts and evening schedule handoff](plans/2026-10-07-short-equity-strategies.md) — 1m/5m Nifty500 and weekday-watchlist fixed/trailing variants, 109 checks passed; eight schedules staged, existing 20 unchanged. Not activated.
+
+**October 7 Live/Sandbox follow-up:** [Portfolio, Reports, brokerage and Screener modes](plans/2026-10-07-live-sandbox-features.md) — separate ledgers, explicit real/simulated order paths, confirmed strategy-fill reporting and isolation evidence; not deployed.
+
+**October 7 brokerage follow-up:** [Broker-dependent report fee estimates](plans/2026-10-07-report-brokerage.md) — standard retail profiles, Sandbox/live-report parity, adjusted net results, sources and isolated writer hook.
+
+**October 7 isolated Reports update:** [Daily report journal and performance calendar](plans/2026-10-07-report-journal.md) — combined day/strategy/stock metrics, FY calendar and streaks; verified in isolation, not deployed.
+
+
 **Latest local release:** [October 7 combined Portfolio/strategy readiness](plans/2026-10-07-local-release-readiness.md) — production frontend built by request, 407 backend / 20 frontend checks plus browser verification, all schedules preserved, user startup checklist.
 
 The entry point for humans and AI agents. This file is a **map, not a copy** —

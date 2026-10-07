@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { webClient } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
+import { useThemeStore } from '@/stores/themeStore'
 
 type Point = [string, number]
 type Row = {
@@ -110,6 +111,7 @@ export function PriceSparkline({
 }
 
 export default function MarketScanner() {
+  const appMode = useThemeStore((s) => s.appMode)
   const user = useAuthStore((s) => s.user)
   const preferenceKey = `scanner:${user?.username ?? 'session'}:${user?.broker}`
   const [tab, setTab] = useState<Tab>('volume_shockers')
@@ -242,6 +244,9 @@ export default function MarketScanner() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">Market Scanner</h1>
+          <p className="text-sm text-muted-foreground">
+            {appMode === 'analyzer' ? 'Sandbox' : 'Live'} · Live broker market data in both modes
+          </p>
           <p className="text-muted-foreground">NSE stocks · Today’s price and volume changes</p>
           <Link to="/strategy-reports" className="text-sm underline">
             Strategy reports and paper schedule

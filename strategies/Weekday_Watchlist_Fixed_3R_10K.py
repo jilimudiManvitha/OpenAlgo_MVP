@@ -2,7 +2,7 @@
 
 Rs 10,000 per entry, whole shares, fresh signals can re-enter after an exit.
 Stop: 0.03% below signal HA low (low * 0.9997), rounded down to instrument tick.
-One open position per symbol per strategy. 1-minute candles, 09:15-15:00 IST.
+One open position per symbol per strategy. 1-minute candles, 09:15-15:15 IST.
 See strategies/top_gain_volumes/README.md for complete rules and execution mode.
 """
 import sys

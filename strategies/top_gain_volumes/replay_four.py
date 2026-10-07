@@ -20,7 +20,7 @@ from strategies.top_gain_volumes.runtime import IST, TickCandles, enter, exit_tr
 
 def replay(symbol, raw, day, tick, trailing=False, path="OLHC", steps=8, timeframe_minutes=1):
     start = datetime.fromisoformat(day).replace(hour=9, minute=15, tzinfo=IST).timestamp()
-    cutoff = start + (900 - 555) * 60
+    cutoff = start + (915 - 555) * 60
     prior = [r for r in raw if r[0] < start and 555 <= (r[0] + 19800) % 86400 // 60 < 930]
     current = [r for r in raw if start <= r[0] <= cutoff]
     from strategies.top_gain_volumes.history import aggregate_minutes
@@ -64,7 +64,7 @@ def replay(symbol, raw, day, tick, trailing=False, path="OLHC", steps=8, timefra
             observed = stamp + fraction * 59.999
             qualifies = candle.tick(observed, price, cumulative + fraction * volume)
             if position is not None:
-                if exit_trade(position, observed, price, tick, 900, trailing, candle.middle):
+                if exit_trade(position, observed, price, tick, 915, trailing, candle.middle):
                     position = None
             elif qualifies and stamp < cutoff and candle.signal[0] != used_signal:
                 position = enter(symbol, observed, price, candle, tick)
@@ -286,7 +286,7 @@ def main():
                 },
                 "input_hashes": {},
                 "steps": args.steps,
-                "note": "₹10,000 per trade; 09:15–15:00 IST; repeated fresh signals, one open position/symbol. "
+                "note": "₹10,000 per trade; 09:15–15:15 IST; repeated fresh signals, one open position/symbol. "
                 "Stop: 0.03% below signal HA low, rounded down to instrument tick. "
                 "Two alternative modeled OHLC paths, not exchange ticks. 5 bps adverse slippage and "
                 "5 bps illustrative fee per fill. Actual Sandbox fills/fees differ. "

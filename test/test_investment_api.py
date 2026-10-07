@@ -11,6 +11,8 @@ from test.test_investment_ledger import ledger
 
 @pytest.fixture
 def client(ledger, monkeypatch):  # noqa: F811 - imported pytest fixture
+    from services import investment_mode
+    monkeypatch.setattr(investment_mode, "get_analyze_mode", lambda: True)
     from utils import session as auth
 
     monkeypatch.setattr(auth, "is_session_valid", lambda: True)

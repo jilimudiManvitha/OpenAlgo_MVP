@@ -2,11 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { investmentApi, investmentError, investmentKeys } from '@/api/investment'
 import { ErrorMessage, Field, money, selectClass } from '@/components/investment/common'
+import { ExecutionPanel } from '@/components/investment/ExecutionPanel'
 import { Button } from '@/components/ui/button'
+import { useThemeStore } from '@/stores/themeStore'
 import { useInvestmentContext } from './PortfolioIndex'
 
 const categories = ['Swing', 'Positional', 'Long-term', 'ETFs', 'Mutual Funds', 'Other']
 export default function Watchlists() {
+  const paperMode = useThemeStore((s) => s.appMode === 'analyzer')
   const { accountId, accounts } = useInvestmentContext()
   const queryClient = useQueryClient()
   const invalidate = () => queryClient.invalidateQueries({ queryKey: investmentKeys.all })
@@ -18,7 +21,11 @@ export default function Watchlists() {
     queryKey: ['investment', 'holdings', accountId],
     queryFn: () => investmentApi.holdings(accountId),
   })
-  const orders = useQuery({ queryKey: ['investment', 'paper'], queryFn: investmentApi.paperOrders })
+  const orders = useQuery({
+    queryKey: ['investment', 'paper'],
+    queryFn: investmentApi.paperOrders,
+    enabled: paperMode,
+  })
   const [watchId, setWatchId] = useState(0)
   const [name, setName] = useState('')
   const [category, setCategory] = useState('Long-term')
@@ -90,8 +97,9 @@ export default function Watchlists() {
   ].filter((q) => q.isError)
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Categorized watchlists & paper GTT</h2>
+      <h2 className="text-lg font-semibold">Categorized watchlists & orders</h2>
       <p className="text-sm text-muted-foreground">
+        Category names are shared between modes; instruments and balances follow the selected mode.
         Watching does not create a purchase. Watch SL/TP values are tracking-only, including
         mutual-fund NAV thresholds. A recorded price cannot establish a missed offline crossing.
       </p>
@@ -254,164 +262,170 @@ export default function Watchlists() {
               above.
             </p>
           )}
-          <details className="rounded border p-4">
-            <summary className="font-medium cursor-pointer">
-              Create a paper GTT for this category
-            </summary>
-            <p className="text-sm text-muted-foreground my-3">
-              Uses the existing Sandbox balance, CNC holdings and GTT monitor. Only confirmed fills
-              become ledger transactions. Enter the reference price explicitly; it sets the trigger
-              direction and is not an execution price. A limit order may remain unfilled. No live
-              broker order is sent.
-            </p>
-            <form
-              className="space-y-3"
-              onSubmit={(e) => {
-                e.preventDefault()
-                place.mutate()
-              }}
-            >
-              <label className="block text-sm">
-                Paper instrument
-                <select
-                  className={selectClass}
-                  value={order.asset_id}
-                  onChange={(e) => updateOrder('asset_id', e.target.value)}
-                  required
-                >
-                  <option value="">Choose stock / ETF in a paper account</option>
-                  {watch.items
-                    .filter(
-                      (i) =>
-                        i.asset.asset_class === 'STOCK' &&
-                        accounts.some((a) => a.id === i.asset.account_id && a.kind === 'paper')
+          {paperMode && (
+            <details className="rounded border p-4">
+              <summary className="font-medium cursor-pointer">
+                Create a paper GTT for this category
+              </summary>
+              <p className="text-sm text-muted-foreground my-3">
+                Uses the existing Sandbox balance, CNC holdings and GTT monitor. Only confirmed
+                fills become ledger transactions. Enter the reference price explicitly; it sets the
+                trigger direction and is not an execution price. A limit order may remain unfilled.
+                No live broker order is sent.
+              </p>
+              <form
+                className="space-y-3"
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  place.mutate()
+                }}
+              >
+                <label className="block text-sm">
+                  Paper instrument
+                  <select
+                    className={selectClass}
+                    value={order.asset_id}
+                    onChange={(e) => updateOrder('asset_id', e.target.value)}
+                    required
+                  >
+                    <option value="">Choose stock / ETF in a paper account</option>
+                    {watch.items
+                      .filter(
+                        (i) =>
+                          i.asset.asset_class === 'STOCK' &&
+                          accounts.some((a) => a.id === i.asset.account_id && a.kind === 'paper')
+                      )
+                      .map((i) => (
+                        <option key={i.id} value={i.asset_id}>
+                          {i.asset.symbol} ·{' '}
+                          {accounts.find((a) => a.id === i.asset.account_id)?.name}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <label className="text-sm">
+                    Action
+                    <select
+                      className={selectClass}
+                      value={order.action}
+                      onChange={(e) => updateOrder('action', e.target.value)}
+                    >
+                      <option>BUY</option>
+                      <option>SELL</option>
+                    </select>
+                  </label>
+                  <label className="text-sm">
+                    Trigger direction
+                    <select
+                      className={selectClass}
+                      value={order.direction}
+                      onChange={(e) => updateOrder('direction', e.target.value)}
+                    >
+                      <option value="below">At or below reference</option>
+                      <option value="above">At or above reference</option>
+                    </select>
+                  </label>
+                  {(['quantity', 'reference_price', 'trigger_price', 'limit_price'] as const).map(
+                    (k) => (
+                      <Field
+                        key={k}
+                        label={k.replaceAll('_', ' ')}
+                        type="number"
+                        step={k === 'quantity' ? '1' : '0.01'}
+                        value={order[k]}
+                        onChange={(v) => updateOrder(k, v)}
+                      />
                     )
-                    .map((i) => (
-                      <option key={i.id} value={i.asset_id}>
-                        {i.asset.symbol} · {accounts.find((a) => a.id === i.asset.account_id)?.name}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <div className="grid sm:grid-cols-2 gap-3">
-                <label className="text-sm">
-                  Action
-                  <select
-                    className={selectClass}
-                    value={order.action}
-                    onChange={(e) => updateOrder('action', e.target.value)}
-                  >
-                    <option>BUY</option>
-                    <option>SELL</option>
-                  </select>
-                </label>
-                <label className="text-sm">
-                  Trigger direction
-                  <select
-                    className={selectClass}
-                    value={order.direction}
-                    onChange={(e) => updateOrder('direction', e.target.value)}
-                  >
-                    <option value="below">At or below reference</option>
-                    <option value="above">At or above reference</option>
-                  </select>
-                </label>
-                {(['quantity', 'reference_price', 'trigger_price', 'limit_price'] as const).map(
-                  (k) => (
-                    <Field
-                      key={k}
-                      label={k.replaceAll('_', ' ')}
-                      type="number"
-                      step={k === 'quantity' ? '1' : '0.01'}
-                      value={order[k]}
-                      onChange={(v) => updateOrder(k, v)}
-                    />
-                  )
+                  )}
+                </div>
+                <Button disabled={place.isPending}>Create paper GTT</Button>
+                {place.data && (
+                  <output className="block text-sm">
+                    {place.data.gtt_id ?? `Request ${place.data.id}`} · {place.data.status} ·{' '}
+                    {place.data.message}
+                  </output>
                 )}
-              </div>
-              <Button disabled={place.isPending}>Create paper GTT</Button>
-              {place.data && (
-                <output className="block text-sm">
-                  {place.data.gtt_id ?? `Request ${place.data.id}`} · {place.data.status} ·{' '}
-                  {place.data.message}
-                </output>
-              )}
-            </form>
-          </details>
+              </form>
+            </details>
+          )}
         </>
       )}
-      <section className="space-y-3">
-        <div className="flex flex-wrap justify-between gap-3">
-          <h3 className="font-semibold">Portfolio paper triggers</h3>
-          <Button variant="outline" disabled={sync.isPending} onClick={() => sync.mutate()}>
-            Refresh triggers & import confirmed fills
-          </Button>
-        </div>
-        <p className="text-xs text-muted-foreground">
-          The existing Sandbox monitor continues while this page is closed. Refresh reconciles
-          committed triggers and fills after a restart; uncertain dispatches are never resubmitted
-          automatically.
-        </p>
-        {sync.data && (
-          <output className="block text-sm">
-            Updated {sync.data.updated}; imported {sync.data.imported} fills.
-            {sync.data.errors.map((e) => (
-              <p key={e}>{e}</p>
-            ))}
-          </output>
-        )}
-        <div className="overflow-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr>
-                {['Instrument', 'Category', 'Trigger', 'Status', 'Details', ''].map((c, i) => (
-                  <th key={`${c}-${i}`} className="p-2 text-left">
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {orders.data
-                ?.filter((o) => !accountId || assets.data?.some((a) => a.id === o.asset_id))
-                .map((o) => {
-                  const data = JSON.parse(o.payload) as Record<string, string | number>
-                  return (
-                    <tr key={o.id} className="border-t">
-                      <td className="p-2">
-                        {data.symbol} · {data.action} {data.quantity}
-                      </td>
-                      <td className="p-2">
-                        {watches.data?.find((w) => w.id === o.watchlist_id)?.name}
-                      </td>
-                      <td className="p-2">
-                        {data.triggerprice_sl ?? data.triggerprice_tg} · limit {data.price}
-                      </td>
-                      <td className="p-2">{o.status}</td>
-                      <td className="p-2">
-                        {o.gtt_id}
-                        <p className="text-xs">{o.message}</p>
-                      </td>
-                      <td className="p-2">
-                        {o.status === 'active' && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={cancel.isPending}
-                            onClick={() => cancel.mutate(o.id)}
-                          >
-                            Cancel
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  )
-                })}
-            </tbody>
-          </table>
-          {!orders.data?.length && <p className="p-3">No portfolio paper triggers.</p>}
-        </div>
-      </section>
+      <ExecutionPanel key={accountId ?? 'all'} />
+      {paperMode && (
+        <section className="space-y-3">
+          <div className="flex flex-wrap justify-between gap-3">
+            <h3 className="font-semibold">Portfolio paper triggers</h3>
+            <Button variant="outline" disabled={sync.isPending} onClick={() => sync.mutate()}>
+              Refresh triggers & import confirmed fills
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            The existing Sandbox monitor continues while this page is closed. Refresh reconciles
+            committed triggers and fills after a restart; uncertain dispatches are never resubmitted
+            automatically.
+          </p>
+          {sync.data && (
+            <output className="block text-sm">
+              Updated {sync.data.updated}; imported {sync.data.imported} fills.
+              {sync.data.errors.map((e) => (
+                <p key={e}>{e}</p>
+              ))}
+            </output>
+          )}
+          <div className="overflow-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr>
+                  {['Instrument', 'Category', 'Trigger', 'Status', 'Details', ''].map((c, i) => (
+                    <th key={`${c}-${i}`} className="p-2 text-left">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {orders.data
+                  ?.filter((o) => !accountId || assets.data?.some((a) => a.id === o.asset_id))
+                  .map((o) => {
+                    const data = JSON.parse(o.payload) as Record<string, string | number>
+                    return (
+                      <tr key={o.id} className="border-t">
+                        <td className="p-2">
+                          {data.symbol} · {data.action} {data.quantity}
+                        </td>
+                        <td className="p-2">
+                          {watches.data?.find((w) => w.id === o.watchlist_id)?.name}
+                        </td>
+                        <td className="p-2">
+                          {data.triggerprice_sl ?? data.triggerprice_tg} · limit {data.price}
+                        </td>
+                        <td className="p-2">{o.status}</td>
+                        <td className="p-2">
+                          {o.gtt_id}
+                          <p className="text-xs">{o.message}</p>
+                        </td>
+                        <td className="p-2">
+                          {o.status === 'active' && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled={cancel.isPending}
+                              onClick={() => cancel.mutate(o.id)}
+                            >
+                              Cancel
+                            </Button>
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+              </tbody>
+            </table>
+            {!orders.data?.length && <p className="p-3">No portfolio paper triggers.</p>}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

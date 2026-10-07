@@ -40,6 +40,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { href: '/market-scanner', label: 'Scanner', icon: TrendingUp },
   { href: '/strategy-reports', label: 'Reports', icon: FileBarChart },
+  { href: '/trade-copier', label: 'Trade Copier', icon: Workflow },
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/portfolio', label: 'Portfolio', icon: Layers },
   { href: '/orderbook', label: 'Orderbook', icon: ClipboardList },
