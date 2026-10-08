@@ -1,19 +1,9 @@
-"""
-Shared rate limiting and 429-retry helpers for all Fyers API calls.
+"""Process-local pacing for FYERS transaction/user-info calls and retry helpers.
 
-Fyers enforces a single global cap per API key across every REST endpoint --
-order, data, quotes, depth, history, funds: 10 requests/second, 200/minute,
-100000/day (see fyers-api-docs/FYERS_API_v3.md -> "Rate Limits"). Unlike Dhan,
-which has independent per-endpoint-class limits (charts vs marketfeed), Fyers'
-10 req/sec budget is shared process-wide, so pacing state MUST live in one
-place that every module importing it sees -- not per BrokerData instance.
-
-Services create a fresh BrokerData(auth_token) per request (see
-services/option_chain_service.py, services/oi_tracker_service.py, etc.), so
-any rate-limit state kept on `self` is reset away on every call and never
-actually paces anything against concurrent requests. That was the root cause
-of option-chain/depth bursts (many individual /data/depth calls for OI)
-routinely exceeding the real 10 req/sec cap and getting HTTP 429'd.
+Market data now uses data_budget.py: category-specific Standard/Prime quotas,
+persistent cross-process counters and shared 429 cooldown. The legacy history
+argument remains for compatibility; data.py no longer uses it for data requests.
+These process-local counters do not coordinate other machines or applications.
 """
 
 import threading

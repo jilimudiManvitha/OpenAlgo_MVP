@@ -52,6 +52,9 @@ Path("log/test").mkdir(parents=True, exist_ok=True)
 _strategy_test_dir = tempfile.TemporaryDirectory(prefix="python-strategies-", dir="log/test")
 os.environ["PYTHON_STRATEGY_DATA_DIR"] = _strategy_test_dir.name
 atexit.register(_strategy_test_dir.cleanup)
+# Rate-limit tests and mocked data calls must never alter the production quota.
+os.environ["FYERS_DATA_BUDGET_DIR"] = str(Path(_strategy_test_dir.name) / "fyers-budget")
+os.environ["FYERS_API_PLAN"] = "standard"
 
 
 # These are manual diagnostics, not pytest modules. test_bot_web.py starts the

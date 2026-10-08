@@ -197,3 +197,47 @@ def test_capital_routes_auth_csrf_and_owner(client, monkeypatch):  # noqa: F811
     assert response.status_code == 200 and response.json["data"]["owner"] == "alice"
     login(client, "zerodha")
     assert client.post(base + "/quote", json={}, headers=headers(client)).status_code == 403
+
+
+@pytest.mark.parametrize("name", list(capital.PROFILES))
+def test_all_variants_size_equal_four_leg_basket_with_reserve(name, monkeypatch):
+    import strategies.nifty_options.runtime as runtime
+
+    profile, _, options = opened(name)
+    calls = []
+
+    def margin(owner, selected, p, lots=1, **kw):
+        calls.append((lots, selected))
+        return {
+            "sizing_requirement": 170000 * lots,
+            "margin_total": 170000 * lots,
+            "margin_new_order": 160000 * lots,
+            "quoted_at": NOW.isoformat(),
+        }
+
+    monkeypatch.setattr(runtime, "broker_margin", margin)
+    legs, snapshot = runtime.prepare_opening("alice", profile, POLICY, options, EXPIRY)
+    assert [lots for lots, selected in calls] == [1, 10]
+    assert all(len(selected) == 4 for lots, selected in calls)
+    assert len(legs) == 4 and {leg["quantity"] for leg in legs} == {650}
+    assert sorted(leg["side"] for leg in legs) == [-1, -1, 1, 1]
+    assert snapshot["allocation"] == 2000000
+    assert snapshot["deployable_budget"] == 1800000
+    assert snapshot["basket"]["sizing_requirement"] == 1700000
+    assert snapshot["utilization_pct"] == 85
+
+
+def test_full_basket_over_budget_rejected_before_intent(monkeypatch):
+    import strategies.nifty_options.runtime as runtime
+
+    profile, _, options = opened(NAME)
+    calls = []
+
+    def margin(owner, selected, p, lots=1, **kw):
+        calls.append(lots)
+        return {"sizing_requirement": 170000 if len(calls) == 1 else 1800001}
+
+    monkeypatch.setattr(runtime, "broker_margin", margin)
+    with pytest.raises(DataUnavailable, match="exceeds strategy allocation"):
+        runtime.prepare_opening("alice", profile, POLICY, options, EXPIRY)
+    assert calls == [1, 10]

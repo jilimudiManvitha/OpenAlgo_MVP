@@ -6,6 +6,7 @@ import urllib.parse
 import httpx
 import pandas as pd
 
+from broker.fyers.api import data_budget
 from broker.fyers.api.rate_limiter import MAX_RETRIES, apply_rate_limit, retry_delay_from_headers
 from database.token_db import get_br_symbol
 from utils.constants import FNO_EXCHANGES
@@ -25,11 +26,9 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0, *
     """
     Make API requests to Fyers API using shared connection pooling.
 
-    Rate limited process-wide (broker.fyers.api.rate_limiter) since Fyers
-    caps all endpoints combined at 10 req/sec per API key -- see
-    fyers-api-docs/FYERS_API_v3.md -> "Rate Limits". On HTTP 429 this retries
-    with backoff (honoring the Retry-After / X-Retry-After-Ms headers when
-    present) instead of immediately surfacing the failure to the caller.
+    Data calls use the plan-aware shared data budget. Data HTTP 429 starts
+    a shared cooldown and returns promptly. Other calls keep the existing
+    bounded backoff policy.
 
     Args:
         endpoint: API endpoint (e.g., /api/v2/positions)
@@ -51,8 +50,8 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0, *
         url = f"https://api-t1.fyers.in{endpoint}"
         headers = {"Authorization": f"{api_key}:{AUTH_TOKEN}", "Content-Type": "application/json"}
 
-        if endpoint.startswith(("/data/history?", "/data/history/fno/expired/")):
-            apply_rate_limit(history=True)
+        if endpoint.startswith("/data/"):
+            data_budget.acquire()
         else:
             apply_rate_limit()
 
@@ -80,10 +79,41 @@ def get_api_response(endpoint, auth, method="GET", payload="", _retry_count=0, *
 
         # Parse and return the JSON response
         response_data = response.json()
+        if (
+            endpoint.startswith("/data/")
+            and isinstance(response_data, dict)
+            and str(response_data.get("code")) in {"429", "-429"}
+        ):
+            delay = data_budget.cooldown(retry_delay_from_headers(response.headers, _retry_count))
+            return {
+                "s": "error",
+                "code": 429,
+                "retry_after": delay,
+                "retryable": False,
+                "message": "FYERS data rate limit reached; shared cooldown active",
+            }
         logger.debug("API response: %s", response_data)
         return response_data
 
+    except data_budget.DataRateLimited as e:
+        return {
+            "s": "error",
+            "code": 429,
+            "retry_after": e.retry_after,
+            "retryable": False,
+            "message": str(e),
+        }
     except httpx.HTTPStatusError as e:
+        if e.response.status_code == 429 and endpoint.startswith("/data/"):
+            delay = data_budget.cooldown(retry_delay_from_headers(e.response.headers, _retry_count))
+            logger.warning("FYERS data API rate limited; shared cooldown for %.0fs", delay)
+            return {
+                "s": "error",
+                "code": 429,
+                "retry_after": delay,
+                "retryable": False,
+                "message": "FYERS data rate limit reached; shared cooldown active",
+            }
         if e.response.status_code == 429 and not retry_429:
             return {
                 "s": "error",
@@ -202,14 +232,15 @@ class BrokerData:
             logger.exception(f"Error fetching quotes for {exchange}:{symbol}")
             raise Exception(f"Error fetching quotes: {e}") from e
 
-    def get_multiquotes(self, symbols: list) -> list:
+    def get_multiquotes(self, symbols: list, *, include_oi: bool = True) -> list:
         """
         Get real-time quotes for multiple symbols with automatic batching.
 
-        OI policy: when the total request size is <= OI_THRESHOLD, OI is fetched
+        Set include_oi=False for price-only callers such as position MTM.
+        OI policy: when enabled and total size is <= OI_THRESHOLD, OI is fetched
         per-symbol via /data/depth for derivative exchanges only. When the total
-        exceeds OI_THRESHOLD, OI is set to 0 for every symbol — at 10 req/sec
-        the depth calls dominate latency and would push the request well past
+        exceeds OI_THRESHOLD, OI is set to 0 for every symbol — individual
+        depth calls consume the shared data quota and push the request past
         a usable response time.
 
         Args:
@@ -224,8 +255,8 @@ class BrokerData:
             RATE_LIMIT_DELAY = 0.1  # Delay in seconds between batch API calls
             OI_THRESHOLD = 100  # Skip OI entirely when total symbols exceed this
 
-            fetch_oi = len(symbols) <= OI_THRESHOLD
-            if not fetch_oi:
+            fetch_oi = include_oi and len(symbols) <= OI_THRESHOLD
+            if include_oi and not fetch_oi:
                 logger.info(
                     f"Multiquote size {len(symbols)} > {OI_THRESHOLD}: skipping OI fetch (oi=0 for all symbols)"
                 )
@@ -266,12 +297,8 @@ class BrokerData:
         """
         Fetch OI for a single derivative symbol via /data/depth.
 
-        Fyers' depth endpoint accepts one symbol at a time. Rate limiting
-        (and 429 retry) is handled process-wide by get_api_response via
-        broker.fyers.api.rate_limiter, so no per-instance pacing is needed
-        here -- a new BrokerData is created per request (see
-        services/option_chain_service.py etc.), so any pacing state kept on
-        `self` would never actually be shared across concurrent requests.
+        FYERS depth accepts one symbol at a time. get_api_response uses
+        the shared data budget and cooldown, including across processes.
 
         Returns 0 on any error so a single bad symbol doesn't fail the batch.
         """
@@ -290,7 +317,7 @@ class BrokerData:
         Process a single batch of symbols using the bulk /data/quotes endpoint.
 
         OI handling: Fyers' /data/depth accepts only one symbol per call (bulk
-        returns concatenated/incorrect arrays) at a 10 req/sec rate limit. When
+        returns concatenated/incorrect arrays). These calls share the data quota. When
         fetch_oi is True we fetch OI per-symbol for derivative exchanges only
         (FNO_EXCHANGES); equity/index symbols always get oi=0. When fetch_oi is
         False, all symbols get oi=0 — used by get_multiquotes when the total

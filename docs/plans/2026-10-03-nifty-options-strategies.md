@@ -1,5 +1,11 @@
 # NIFTY options strategies — October 3 implementation checkpoint
 
+**October 8 rate-limit repair:** User authorized stopping the app and testing morning
+capital/basket/charges work. Shared Standard data quotas/cooldown and price-only MTM
+implemented; 485 backend + 12 frontend tests passed, seven real FYERS margin quotes
+and 12/12 prices verified read-only. All 28 schedules/data preserved; app left stopped.
+Standard streaming entitlement remains a capacity constraint. [Repair handoff](2026-10-08-fyers-rate-limit-repair.md).
+
 **October 8 FYERS display:** Dashboard/Reports now show strategy allocations, saved
 entry sizing, current FYERS strategy/combined basket quotes and estimated charges.
 Built locally; no production restart or data changes. [Implementation and validation](2026-10-08-fyers-capital-display.md).

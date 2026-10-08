@@ -271,12 +271,13 @@ def test_http_429_is_not_multiplied_by_history_retries(adapter, monkeypatch):
 
     monkeypatch.setattr(data, "get_httpx_client", Client)
     monkeypatch.setattr(data, "apply_rate_limit", lambda **kw: None)
+    monkeypatch.setattr(data.data_budget, "acquire", lambda: None)
     monkeypatch.setattr(data.time, "sleep", waits.append)
     with pytest.raises(data.FyersHistoryError) as failure:
         adapter.get_history("IPO", "NSE", "1m", "2021-01-01", "2022-01-01")
     assert failure.value.code == 429
-    assert len(calls) == 4
-    assert waits == [2, 2, 2]
+    assert len(calls) == 1
+    assert waits == []
     assert all(call["timeout"] == 30.0 for call in calls)
 
 
@@ -407,9 +408,7 @@ def test_failed_retry_submission_can_be_retried_again(monkeypatch):
         raise RuntimeError("executor unavailable")
 
     monkeypatch.setattr(historify_db, "get_download_job", lambda *a: {"status": "failed"})
-    monkeypatch.setattr(
-        historify_db, "get_job_items", lambda *a: [{"id": 1, "status": "pending"}]
-    )
+    monkeypatch.setattr(historify_db, "get_job_items", lambda *a: [{"id": 1, "status": "pending"}])
     monkeypatch.setattr(historify_db, "update_job_item_status", lambda *a: True)
     monkeypatch.setattr(historify_db, "update_job_status", lambda *a: True)
     monkeypatch.setattr(jobs, "_job_executor", SimpleNamespace(submit=submit))
@@ -432,6 +431,7 @@ def test_disabled_debug_logging_does_not_serialize_candles(adapter, monkeypatch)
 
     monkeypatch.setattr(data, "get_httpx_client", Client)
     monkeypatch.setattr(data, "apply_rate_limit", lambda **kw: None)
+    monkeypatch.setattr(data.data_budget, "acquire", lambda: None)
     monkeypatch.setattr(
         data.json, "dumps", lambda *a, **kw: pytest.fail("Unexpected JSON formatting")
     )

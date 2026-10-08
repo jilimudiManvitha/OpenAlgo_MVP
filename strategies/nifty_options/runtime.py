@@ -164,6 +164,25 @@ def broker_margin(owner, selected, profile, lots=1, *, details=False):
         cleanup_sessions()
 
 
+def prepare_opening(owner, profile, policy, options, expiry):
+    """Verify complete one-lot/full baskets before any execution intent exists."""
+    selected = select_legs(profile, policy, options, expiry)
+    one_lot = broker_margin(owner, selected, profile, details=True)
+    legs = opening_plan(profile, policy, options, expiry, one_lot["sizing_requirement"] / 0.90)
+    lots = legs[0]["quantity"] // legs[0]["lot_size"]
+    full_margin = broker_margin(owner, selected, profile, lots, details=True)
+    if full_margin["sizing_requirement"] > profile.capital * 0.90:
+        raise DataUnavailable("Full basket margin exceeds strategy allocation")
+    return legs, {
+        "allocation": profile.capital,
+        "deployable_budget": profile.capital * 0.90,
+        "lots_per_leg": lots,
+        "one_lot": one_lot,
+        "basket": full_margin,
+        "utilization_pct": full_margin["sizing_requirement"] / profile.capital * 100,
+    }
+
+
 def run(profile_name, policy_path):
     from dotenv import load_dotenv
 
@@ -339,15 +358,7 @@ def run(profile_name, policy_path):
                     action = decision(profile, policy, state, options, now, expiries)
                     if action["action"] == "open":
                         expiry = date.fromisoformat(action["expiry"])
-                        selected = select_legs(profile, policy, options, expiry)
-                        one_lot = broker_margin(owner, selected, profile, details=True)
-                        legs = opening_plan(
-                            profile, policy, options, expiry, one_lot["sizing_requirement"] / 0.90
-                        )
-                        lots = legs[0]["quantity"] // legs[0]["lot_size"]
-                        full_margin = broker_margin(owner, selected, profile, lots, details=True)
-                        if full_margin["sizing_requirement"] > profile.capital * 0.90:
-                            raise DataUnavailable("Full basket margin exceeds strategy allocation")
+                        legs, snapshot = prepare_opening(owner, profile, policy, options, expiry)
                         dispatch_time = datetime.now(IST)
                         deadline = "09:31" if action["new_cycle"] else policy.reentry_cutoff
                         if (
@@ -357,16 +368,6 @@ def run(profile_name, policy_path):
                             raise DataUnavailable(
                                 "Margin verification finished after the entry deadline"
                             )
-                        snapshot = {
-                            "allocation": profile.capital,
-                            "deployable_budget": profile.capital * 0.90,
-                            "lots_per_leg": lots,
-                            "one_lot": one_lot,
-                            "basket": full_margin,
-                            "utilization_pct": full_margin["sizing_requirement"]
-                            / profile.capital
-                            * 100,
-                        }
                         executor.begin(
                             {**action, "capital_snapshot": snapshot}, legs, dispatch_time
                         )
