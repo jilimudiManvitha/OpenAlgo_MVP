@@ -211,6 +211,9 @@ class SandboxExecutor:
                     last_entry_day=now.date().isoformat(),
                     last_adjustment=now.isoformat(),
                 )
+                # Bind the quote to the actually started basket. Merely requesting
+                # margin must not overwrite the prior cycle's executed evidence.
+                self.state["capital_snapshot"] = action.get("capital_snapshot")
                 pending["initialized"] = True
             if action["action"] == "add_hedges":
                 pending["initialized"] = True

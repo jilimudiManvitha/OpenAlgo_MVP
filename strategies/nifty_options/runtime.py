@@ -96,7 +96,7 @@ def instruments(day, held_expiry=None):
     return [r for r in rows if r["expiry"] in allowed], [date.fromisoformat(e) for e in expiries]
 
 
-def broker_margin(owner, selected, profile, lots=1):
+def broker_margin(owner, selected, profile, lots=1, *, details=False):
     """Read-only broker basket margin, never an order API call."""
     from broker.fyers.api.rate_limiter import apply_rate_limit
     from broker.fyers.mapping.margin_data import transform_margin_positions
@@ -135,18 +135,31 @@ def broker_margin(owner, selected, profile, lots=1):
             if response.status_code != 200:
                 raise DataUnavailable(f"Broker margin HTTP {response.status_code}")
             body = response.json()
-            if body.get("s") != "ok":
+            if not isinstance(body, dict) or body.get("s") != "ok":
                 raise DataUnavailable("Broker margin request failed")
             # Conservatively retain the larger returned requirement, including
             # existing account positions when the broker includes those.
-            values = [
-                float(body.get("data", {}).get(k) or 0)
-                for k in ("margin_total", "margin_new_order")
-            ]
+            data = body.get("data", {})
+            values = [float(data[k]) for k in ("margin_total", "margin_new_order")]
+            if any(not math.isfinite(v) or v < 0 for v in values):
+                raise DataUnavailable("Broker returned invalid basket margin")
             margin = max(values)
             if not math.isfinite(margin) or margin <= 0:
                 raise DataUnavailable("Broker returned no positive basket margin")
+            if details:
+                return {
+                    "broker": "fyers",
+                    "quoted_at": datetime.now(IST).isoformat(),
+                    "margin_total": values[0],
+                    "margin_new_order": values[1],
+                    "sizing_requirement": margin,
+                    "legs": legs,
+                }
             return margin
+    except (KeyError, TypeError, ValueError) as exc:
+        if isinstance(exc, DataUnavailable):
+            raise
+        raise DataUnavailable("Broker margin response is incomplete or invalid") from None
     finally:
         cleanup_sessions()
 
@@ -327,11 +340,13 @@ def run(profile_name, policy_path):
                     if action["action"] == "open":
                         expiry = date.fromisoformat(action["expiry"])
                         selected = select_legs(profile, policy, options, expiry)
-                        margin = broker_margin(owner, selected, profile)
-                        legs = opening_plan(profile, policy, options, expiry, margin / 0.90)
+                        one_lot = broker_margin(owner, selected, profile, details=True)
+                        legs = opening_plan(
+                            profile, policy, options, expiry, one_lot["sizing_requirement"] / 0.90
+                        )
                         lots = legs[0]["quantity"] // legs[0]["lot_size"]
-                        full_margin = broker_margin(owner, selected, profile, lots)
-                        if full_margin > profile.capital * 0.90:
+                        full_margin = broker_margin(owner, selected, profile, lots, details=True)
+                        if full_margin["sizing_requirement"] > profile.capital * 0.90:
                             raise DataUnavailable("Full basket margin exceeds strategy allocation")
                         dispatch_time = datetime.now(IST)
                         deadline = "09:31" if action["new_cycle"] else policy.reentry_cutoff
@@ -342,7 +357,19 @@ def run(profile_name, policy_path):
                             raise DataUnavailable(
                                 "Margin verification finished after the entry deadline"
                             )
-                        executor.begin(action, legs, dispatch_time)
+                        snapshot = {
+                            "allocation": profile.capital,
+                            "deployable_budget": profile.capital * 0.90,
+                            "lots_per_leg": lots,
+                            "one_lot": one_lot,
+                            "basket": full_margin,
+                            "utilization_pct": full_margin["sizing_requirement"]
+                            / profile.capital
+                            * 100,
+                        }
+                        executor.begin(
+                            {**action, "capital_snapshot": snapshot}, legs, dispatch_time
+                        )
                     elif action["action"] in {"close_all", "close_legs"}:
                         legs = [
                             leg

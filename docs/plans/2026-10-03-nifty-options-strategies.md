@@ -1,5 +1,14 @@
 # NIFTY options strategies — October 3 implementation checkpoint
 
+**October 8 FYERS display:** Dashboard/Reports now show strategy allocations, saved
+entry sizing, current FYERS strategy/combined basket quotes and estimated charges.
+Built locally; no production restart or data changes. [Implementation and validation](2026-10-08-fyers-capital-display.md).
+
+**October 8 capital check:** Read-only inspection found that sizing uses FYERS
+basket margin while Sandbox blocks option premium times quantity. October 7
+initial baskets used 9–12 equal lots per leg; exact historical broker-margin
+responses were not retained. See [capital investigation](2026-10-08-options-capital-check.md).
+
 **October 7 hedge follow-up:** User requested hedges for every remaining variant.
 All 12 now require same-expiry, equal-quantity wings 200 points beyond each short.
 Delta/Premium carried baskets acquire missing wings on the next runner start with

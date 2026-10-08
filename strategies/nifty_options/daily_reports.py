@@ -48,6 +48,8 @@ class DailyReport:
             "coverage": [],
             "pending_action": bool(state["pending"]),
             "streaming_symbols": len(feed.accepted) if feed else 0,
+            "capital_snapshot": state.get("capital_snapshot"),
+            "capital_allocation": self.profile.capital,
             "note": (
                 "Scheduled NIFTY Sandbox session. Confirmed fills only; no backtest trades. "
                 "P&L counts full leg profit realized on this date, including carried positions; "

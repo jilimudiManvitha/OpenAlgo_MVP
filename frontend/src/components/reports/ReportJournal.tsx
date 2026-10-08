@@ -4,6 +4,7 @@ import { webClient } from '@/api/client'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/stores/authStore'
 import { useThemeStore } from '@/stores/themeStore'
+import { OptionsCapital } from './OptionsCapital'
 import { StrategyReportDetail } from './StrategyReportDetail'
 
 export type Metrics = {
@@ -287,6 +288,7 @@ export default function ReportJournal() {
   )
 }
 function JournalContent({ initialScenario }: { initialScenario: string }) {
+  const [capitalExpanded, setCapitalExpanded] = useState(false)
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })
   const [year, setYear] = useState(
     Number(today.slice(0, 4)) - (Number(today.slice(5, 7)) < 4 ? 1 : 0)
@@ -368,6 +370,17 @@ function JournalContent({ initialScenario }: { initialScenario: string }) {
           </Button>
         </div>
       </header>
+      {scenario === 'PAPER' && (
+        <details
+          className="rounded-xl border p-3"
+          onToggle={(e) => setCapitalExpanded(e.currentTarget.open)}
+        >
+          <summary className="cursor-pointer font-medium">
+            Current options capital &amp; charges
+          </summary>
+          <div className="mt-3">{capitalExpanded && <OptionsCapital />}</div>
+        </details>
+      )}
       <div className="flex flex-wrap gap-3">
         <select
           aria-label="Execution scenario"

@@ -3,6 +3,7 @@
 from functools import wraps
 
 from flask import Blueprint, Response, jsonify, request, session
+from flask_limiter.errors import RateLimitExceeded
 
 from services.market_scanner_provider import ScannerError, get_fyers_token, load_universe
 from services.market_scanner_service import scanner_manager
@@ -200,6 +201,45 @@ def strategy_reports():
         return jsonify(status="success", data=store.list(session["user"]))
     finally:
         store.close()
+
+
+@market_scanner_bp.get("/options-capital")
+@report_endpoint
+def options_capital():
+    from services.options_capital import overview
+
+    return jsonify(status="success", data=overview(session["user"]))
+
+
+@market_scanner_bp.post("/options-capital/quote")
+@report_endpoint
+def options_capital_quote():
+    from limiter import limiter
+    from services.options_capital import current_quote
+    from strategies.nifty_options.selection import DataUnavailable
+
+    if session.get("broker") != "fyers":
+        return jsonify(status="error", message="Log in to FYERS to calculate basket margin."), 403
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data, dict):
+        return jsonify(status="error", message="A JSON object is required."), 400
+    try:
+        with limiter.limit("15 per minute"):
+            quote = current_quote(session["user"], data.get("strategy_id"), data.get("fingerprint"))
+        return jsonify(status="success", data=quote)
+    except RateLimitExceeded:
+        return jsonify(
+            status="error", message="Too many margin quotes. Try again in a minute."
+        ), 429
+    except (DataUnavailable, ValueError) as exc:
+        return jsonify(status="error", message=str(exc)), 409
+    except ScannerError as exc:
+        return jsonify(status="error", message=str(exc)), exc.status_code
+    except Exception:
+        logger.exception("Options basket margin unavailable")
+        return jsonify(
+            status="error", message="FYERS margin unavailable. Check broker login and retry."
+        ), 502
 
 
 @market_scanner_bp.get("/report-journal")

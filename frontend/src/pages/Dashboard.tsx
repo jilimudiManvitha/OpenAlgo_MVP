@@ -1,11 +1,12 @@
 import { BarChart3, BookOpen, FileText, GraduationCap, Search, Zap } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { OptionsCapital } from '@/components/reports/OptionsCapital'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { useOrderEventRefresh } from '@/hooks/useOrderEventRefresh'
 import { cn } from '@/lib/utils'
-import { onModeChange } from '@/stores/themeStore'
+import { onModeChange, useThemeStore } from '@/stores/themeStore'
 
 interface MarginData {
   availablecash: string
@@ -60,6 +61,7 @@ function getPnLBadgeVariant(value: string | number): 'default' | 'destructive' |
 }
 
 export default function Dashboard() {
+  const appMode = useThemeStore((s) => s.appMode)
   const [marginData, setMarginData] = useState<MarginData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -425,7 +427,9 @@ export default function Dashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Utilised Margin</p>
+              <p className="text-sm text-muted-foreground">
+                {appMode === 'analyzer' ? 'Sandbox blocked funds' : 'Utilised Margin'}
+              </p>
               <p className="text-2xl font-bold text-cyan-500 dark:text-cyan-400">
                 {isLoading
                   ? '...'
@@ -443,6 +447,8 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {appMode === 'analyzer' && <OptionsCapital />}
 
       {/* Error Alert */}
       {error && (
