@@ -157,6 +157,7 @@ def test_pending_close_reserved_and_not_auto_cancelled(account, monkeypatch):
             filled_quantity=0,
             price_type="MARKET",
             order_status="open",
+            order_timestamp=datetime(2026, 10, 7, 15, 14),
             strategy=tag,
         )
     )

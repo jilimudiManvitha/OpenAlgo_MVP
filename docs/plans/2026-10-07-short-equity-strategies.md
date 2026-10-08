@@ -1,5 +1,7 @@
 # Eight short equity strategies — isolated implementation and evening handoff
 
+**Current status:** Integrated in the authorized evening local release. See the [consolidated feature map](2026-10-07-feature-implementation-status.md) for implemented behavior and remaining limits. Development-stage statements below are historical; they do not supersede this status.
+
 **Evening integration:** Combined into the normal local build with user authorization. [Current release and restart checklist](2026-10-07-evening-combine.md) supersedes the staged-only status below.
 
 ## Authorization and current state

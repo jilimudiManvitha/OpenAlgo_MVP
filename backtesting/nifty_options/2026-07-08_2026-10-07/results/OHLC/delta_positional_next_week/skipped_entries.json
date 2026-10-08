@@ -1,0 +1,19 @@
+[
+  {
+    "timestamp": "2026-08-19T09:30:00+05:30",
+    "reason": "Required 200-point hedge is unavailable"
+  },
+  {
+    "timestamp": "2026-09-03T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2691522950PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-03T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2691522950PE"
+  }
+]

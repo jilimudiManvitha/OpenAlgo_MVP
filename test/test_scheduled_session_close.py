@@ -42,7 +42,7 @@ def test_stopping_snapshot_is_durable_before_slow_batch_and_deadline_does_not_ex
         "trades": [],
         "paths": ["PAPER"],
     }
-    now = datetime(2026, 10, 7, 15, 0, tzinfo=IST)
+    now = datetime(2026, 10, 7, 15, 15, tzinfo=IST)
     try:
         deadline = stopping_phase(report, now, 100, None, lambda: store.save("test", report))
         assert deadline == 160 and SHUTDOWN_GRACE_SECONDS == 60

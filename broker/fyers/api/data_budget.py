@@ -12,6 +12,7 @@ import os
 import time
 from pathlib import Path
 
+from utils.broker_errors import BrokerDataRateLimitError
 from utils.file_lock import exclusive_file_lock
 
 # Headroom below published Standard 5/s, 50/min, 5000/day and Prime
@@ -19,10 +20,9 @@ from utils.file_lock import exclusive_file_lock
 PLANS = {"standard": (0.22, 45, 4800), "prime": (0.13, 450, 480000)}
 
 
-class DataRateLimited(RuntimeError):
+class DataRateLimited(BrokerDataRateLimitError):
     def __init__(self, delay, message="FYERS data budget/cooldown active"):
-        self.retry_after = max(1, math.ceil(delay))
-        super().__init__(message)
+        super().__init__(delay, message)
 
 
 def plan():

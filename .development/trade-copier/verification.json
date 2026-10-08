@@ -1,0 +1,10 @@
+{
+  "snapshot_and_duplicate_iterations": 300,
+  "fd_before": 4,
+  "fd_after": 4,
+  "retained_bytes_delta": 512,
+  "peak_bytes": 156683,
+  "loss_gate": "expected test failure observed",
+  "owner_partition": "expected test failure observed",
+  "fill_delta": "expected test failure observed"
+}

@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "samples": [
+    {
+      "iterations": 100,
+      "fds": 4,
+      "traced_bytes": 284306
+    },
+    {
+      "iterations": 200,
+      "fds": 4,
+      "traced_bytes": 289104
+    },
+    {
+      "iterations": 300,
+      "fds": 4,
+      "traced_bytes": 291202
+    }
+  ],
+  "scope": "300 mixed report/watch/dashboard/error cycles; no broker, order or production DB access"
+}

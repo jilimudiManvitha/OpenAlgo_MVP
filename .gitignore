@@ -167,3 +167,7 @@ backtesting/.test_polars_export_20260909/
 
 # Private broker snapshot used only for local investment reconciliation
 db/investment_fyers_reconciliation.json
+
+# Runtime locks and shared broker quota counters are machine-local.
+db/*.db.lock
+log/fyers-budget/

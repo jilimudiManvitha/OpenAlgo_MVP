@@ -1,0 +1,42 @@
+--- a/services/scanner_strategy_reports.py
++++ b/services/scanner_strategy_reports.py
+@@ -61,6 +61,14 @@
+             )
+ 
+     def save(self, owner, report):
++        from services.report_brokerage import capture_context
++
++        try:
++            capture_context(owner, report, self.get(owner, report["id"]))
++        except Exception:
++            # Fee metadata must never interrupt execution/intent persistence.
++            report["brokerage_capture_status"] = "unavailable"
++
+         # Recalculate each scenario separately; never add OLHC and OHLC together.
+         report["metrics"] = {
+             p: metrics([t for t in report["trades"] if t["path"] == p]) for p in report["paths"]
+@@ -81,12 +89,22 @@
+ 
+     def claim(self, owner, report):
+         """Atomically reserve one paper session, including concurrent processes."""
++        from services.report_brokerage import capture_context
++
++        try:
++            capture_context(owner, report)
++        except Exception:
++            report["brokerage_capture_status"] = "unavailable"
+         report["metrics"] = {p: metrics([]) for p in report["paths"]}
+         with self.engine.begin() as conn:
+             result = conn.execute(
+                 text("INSERT INTO reports VALUES(:u,:i,:d,:p) ON CONFLICT(owner,id) DO NOTHING"),
+-                {"u": owner, "i": report["id"], "d": report["day"],
+-                 "p": json.dumps(report, allow_nan=False)},
++                {
++                    "u": owner,
++                    "i": report["id"],
++                    "d": report["day"],
++                    "p": json.dumps(report, allow_nan=False),
++                },
+             )
+             return result.rowcount == 1
+ 

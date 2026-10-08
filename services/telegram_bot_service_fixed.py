@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from openalgo import api as openalgo_api
+    from telegram import Update
+    from telegram.ext import ContextTypes
+
+
 import asyncio
 import base64
 import io

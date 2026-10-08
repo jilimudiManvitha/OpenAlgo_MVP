@@ -5,7 +5,13 @@ import concurrent.futures
 import logging
 import os
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
+
+if TYPE_CHECKING:
+    from openalgo import api as openalgo_api
+    from telegram import Update
+    from telegram.ext import ContextTypes
+
 
 # Import the original threading module to run the bot in a real OS thread,
 # bypassing eventlet's monkey-patching which causes event loop conflicts.

@@ -409,12 +409,12 @@ def test_expired_http_uses_shared_client_timeout_and_history_budget(monkeypatch)
             return httpx.Response(200, json={"s": "no_data"}, request=httpx.Request("GET", url))
 
     monkeypatch.setattr(http_data, "get_httpx_client", lambda: Client())
-    monkeypatch.setattr(http_data, "apply_rate_limit", lambda **kwargs: budgets.append(kwargs))
+    monkeypatch.setattr(http_data.data_budget, "acquire", lambda: budgets.append("data"))
     monkeypatch.setenv("BROKER_API_KEY", "test-client")
     result = http_data.get_api_response(
         provider.BASE + "historical-data?symbol=test", "test-token", retry_429=False
     )
-    assert result["s"] == "no_data" and budgets == [{"history": True}]
+    assert result["s"] == "no_data" and budgets == ["data"]
     assert calls[0][1]["timeout"] == 30.0
     assert calls[0][1]["headers"]["Authorization"] == "test-client:test-token"
 

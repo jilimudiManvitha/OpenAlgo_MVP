@@ -1,0 +1,129 @@
+[
+  {
+    "timestamp": "2026-07-08T09:30:00+05:30",
+    "reason": "Required 200-point hedge is unavailable"
+  },
+  {
+    "timestamp": "2026-07-23T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2680422650PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-07-23T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2680422650PE"
+  },
+  {
+    "timestamp": "2026-08-10T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2681823450PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-10T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2681823450PE"
+  },
+  {
+    "timestamp": "2026-08-21T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2690123250PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-21T09:16:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2690123250PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-21T09:17:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2690123250PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-21T09:18:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2690123250PE"
+  },
+  {
+    "timestamp": "2026-08-24T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2690123050PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-24T09:16:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2690123050PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-08-24T09:17:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2690123050PE"
+  },
+  {
+    "timestamp": "2026-09-04T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2691522600PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-04T09:16:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY2691522600PE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-04T09:17:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY2691522600PE"
+  },
+  {
+    "timestamp": "2026-09-17T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY26SEP24550CE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-09-17T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY26SEP24550CE"
+  },
+  {
+    "timestamp": "2026-10-01T09:15:00+05:30",
+    "type": "missing_held_bar",
+    "symbols": [
+      "NSE:NIFTY26O1324050CE"
+    ],
+    "reason": "No complete observed basket; wait for next actual prices, no mark/fill invented"
+  },
+  {
+    "timestamp": "2026-10-01T09:16:00+05:30",
+    "type": "greek_unavailable",
+    "reason": "Missing price for held leg NSE:NIFTY26O1324050CE"
+  }
+]

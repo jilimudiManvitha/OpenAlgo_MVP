@@ -1,13 +1,15 @@
 # Broker-aware report estimates — October 7, 2026
 
+**Current status:** Integrated in the authorized evening local release. See the [consolidated feature map](2026-10-07-feature-implementation-status.md) for implemented behavior and remaining limits. Development-stage statements below are historical; they do not supersede this status.
+
 **Evening integration:** Combined into the normal local build with user authorization. [Current release and restart checklist](2026-10-07-evening-combine.md) supersedes the staged-only status below.
 
-**October 7 mode follow-up:** [Live/Sandbox implementation and current limits](2026-10-07-live-sandbox-features.md) adds mode-separated Portfolio, real order/GTT tickets and confirmed Strategy Builder fill reports in both modes. Still isolated and not deployed.
+**October 7 mode follow-up:** [Live/Sandbox implementation and current limits](2026-10-07-live-sandbox-features.md) adds mode-separated Portfolio, real order/GTT tickets and confirmed Strategy Builder fill reports in both modes. Included in the combined local build.
 
 
 User requested broker-dependent brokerage in Sandbox and live reports and explicitly
 selected **standard retail rates**. This supersedes the earlier journal's
-recorded-fees-only limitation. Implementation remains isolated and **not deployed**.
+recorded-fees-only limitation. Implementation and the broker-context report writer are included in the combined local build.
 
 ## Behavior
 

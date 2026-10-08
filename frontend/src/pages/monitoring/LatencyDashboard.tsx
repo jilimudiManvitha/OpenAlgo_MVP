@@ -1,5 +1,6 @@
-import { ArrowLeft, CheckCircle, Download, Gauge, RefreshCw, XCircle, Zap } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { ArrowLeft, Download, Gauge, RefreshCw } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { webClient } from '@/api/client'
 import { Badge } from '@/components/ui/badge'
@@ -12,7 +13,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Progress } from '@/components/ui/progress'
 import {
   Table,
   TableBody,
@@ -21,601 +21,527 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { showToast } from '@/utils/toast'
 
-interface LatencyLog {
+interface Stats {
+  total: number
+  successful: number
+  failed: number
+  partial: number
+  success_rate: number | null
+  timed_successes: number
+  invalid_timings: number
+  avg_ms: number | null
+  p50_ms: number | null
+  p95_ms: number | null
+  p99_ms: number | null
+  max_ms: number | null
+  fast_pct: number | null
+  distribution: Record<string, number>
+  http_ms: number | null
+  other_ms: number | null
+  measured_count: number
+}
+interface Log {
   id: number
   timestamp: string
   order_id: string
   broker: string | null
   symbol: string | null
   order_type: string
-  rtt_ms: number
-  validation_latency_ms: number
-  response_latency_ms: number
-  overhead_ms: number
-  total_latency_ms: number
+  total_latency_ms: number | null
   status: string
   error: string | null
+  mode: string
+  category: string
+  http_ms: number | null
+  other_ms: number | null
+  legacy_rtt_ms: number | null
+  legacy_overhead_ms: number | null
+  http_calls: number | null
+  timing_basis: string
 }
-
-interface BrokerStats {
-  avg_total: number
-  p50_total: number
-  p99_total: number
-  sla_150ms: number
-  total_orders: number
+interface Snapshot {
+  as_of: string
+  matched_count: number
+  sample_count: number
+  sample_limit: number
+  truncated: boolean
+  stats: Stats
+  brokers: Record<string, Stats>
+  operations: Record<string, Stats>
+  recent: Log[]
+  failures: { reason: string; count: number }[]
+  notice: string
 }
+const ms = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(2)} ms`)
+const pct = (n: number | null | undefined) => (n == null ? '—' : `${n.toFixed(1)}%`)
+const stamp = (t: string) => new Date(t).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+const speed = (n: number | null) =>
+  n == null
+    ? 'Unmeasured'
+    : n < 150
+      ? 'Excellent'
+      : n < 250
+        ? 'Good'
+        : n < 400
+          ? 'Acceptable'
+          : 'Slow'
 
-interface LatencyStats {
-  total_orders: number
-  success_rate: number
-  failed_orders: number
-  avg_total: number
-  sla_150ms: number
-  broker_stats: Record<string, BrokerStats>
-  broker_histograms?: Record<
-    string,
-    {
-      bins: string[]
-      counts: number[]
-      avg_rtt: number
-      min_rtt: number
-      max_rtt: number
-    }
-  >
+function Comparison({ title, rows }: { title: string; rows: Record<string, Stats> }) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>
+          Successful request response times · identical filters and sample
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                {[
+                  'Name',
+                  'Requests',
+                  'Failed / partial',
+                  'Average',
+                  'P50',
+                  'P95',
+                  'P99',
+                  'Under 150 ms',
+                  'Measured HTTP',
+                  'Remaining time',
+                ].map((h) => (
+                  <TableHead key={h} className="whitespace-nowrap">
+                    {h}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(rows).map(([name, s]) => (
+                <TableRow key={name}>
+                  <TableCell className="font-medium">{name}</TableCell>
+                  <TableCell>{s.total}</TableCell>
+                  <TableCell>
+                    {s.failed} / {s.partial}
+                  </TableCell>
+                  <TableCell>{ms(s.avg_ms)}</TableCell>
+                  <TableCell>{ms(s.p50_ms)}</TableCell>
+                  <TableCell>{ms(s.p95_ms)}</TableCell>
+                  <TableCell>{ms(s.p99_ms)}</TableCell>
+                  <TableCell>{pct(s.fast_pct)}</TableCell>
+                  <TableCell>{ms(s.http_ms)}</TableCell>
+                  <TableCell>{ms(s.other_ms)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        {!Object.keys(rows).length && (
+          <p className="py-6 text-center text-muted-foreground">No matching requests.</p>
+        )}
+      </CardContent>
+    </Card>
+  )
 }
 
 export default function LatencyDashboard() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [logs, setLogs] = useState<LatencyLog[]>([])
-  const [stats, setStats] = useState<LatencyStats | null>(null)
-  const [selectedOrder, setSelectedOrder] = useState<LatencyLog | null>(null)
-  const [isRefreshing, setIsRefreshing] = useState(false)
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only initial fetch + fixed 30s auto-refresh interval; fetchData is recreated each render and adding it would tear down/recreate the interval on every render
-  useEffect(() => {
-    fetchData()
-    // Auto-refresh every 30 seconds
-    const interval = setInterval(fetchData, 30000)
-    return () => clearInterval(interval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchData = async () => {
-    try {
-      const [logsResponse, statsResponse] = await Promise.all([
-        webClient.get<LatencyLog[]>('/latency/api/logs'),
-        webClient.get<LatencyStats>('/latency/api/stats'),
-      ])
-
-      setLogs(Array.isArray(logsResponse.data) ? logsResponse.data : [])
-      setStats(statsResponse.data)
-    } catch (_error) {
-      showToast.error('Failed to load latency data', 'monitoring')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleRefresh = async () => {
-    setIsRefreshing(true)
-    await fetchData()
-    setIsRefreshing(false)
-    showToast.success('Data refreshed', 'monitoring')
-  }
-
-  const handleExport = () => {
-    window.open('/latency/export', '_blank')
-  }
-
-  const getSpeedRating = (
-    latency: number
-  ): {
-    label: string
-    color: string
-    variant: 'default' | 'secondary' | 'destructive' | 'outline'
-  } => {
-    if (latency < 150) return { label: 'Excellent', color: 'text-green-500', variant: 'secondary' }
-    if (latency < 250) return { label: 'Good', color: 'text-yellow-500', variant: 'outline' }
-    if (latency < 400) return { label: 'Acceptable', color: 'text-orange-500', variant: 'outline' }
-    return { label: 'Slow', color: 'text-red-500', variant: 'destructive' }
-  }
-
-  const formatTimestamp = (timestamp: string) => {
-    try {
-      const date = new Date(timestamp)
-      return date.toLocaleString('en-IN', {
-        timeZone: 'Asia/Kolkata',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      })
-    } catch {
-      return timestamp
-    }
-  }
-
-  // Calculate distribution for chart-like display
-  const getDistribution = () => {
-    const excellent = logs.filter((l) => (l.total_latency_ms || 0) < 150).length
-    const good = logs.filter(
-      (l) => (l.total_latency_ms || 0) >= 150 && (l.total_latency_ms || 0) < 250
-    ).length
-    const acceptable = logs.filter(
-      (l) => (l.total_latency_ms || 0) >= 250 && (l.total_latency_ms || 0) < 400
-    ).length
-    const slow = logs.filter((l) => (l.total_latency_ms || 0) >= 400).length
-    const total = logs.length || 1
-    return { excellent, good, acceptable, slow, total }
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    )
-  }
-
-  const distribution = getDistribution()
-
+  const [kind, setKind] = useState('orders'),
+    [period, setPeriod] = useState('today')
+  const [broker, setBroker] = useState(''),
+    [operation, setOperation] = useState('')
+  const [status, setStatus] = useState('all'),
+    [mode, setMode] = useState('all')
+  const [selected, setSelected] = useState<Log | null>(null)
+  const parameters = new URLSearchParams({
+    kind,
+    period,
+    broker,
+    operation,
+    status,
+    mode,
+  }).toString()
+  const query = useQuery({
+    queryKey: ['latency-dashboard', parameters],
+    queryFn: async ({ signal }) =>
+      (await webClient.get<Snapshot>(`/latency/api/dashboard?${parameters}`, { signal })).data,
+    refetchInterval: 30000,
+  })
+  const data = query.data,
+    s = data?.stats
+  const selectClass = 'h-10 w-full rounded-md border border-input bg-background px-3 text-sm'
+  const fields = [
+    {
+      label: 'Request category',
+      value: kind,
+      set: setKind,
+      options: [
+        ['orders', 'Order actions'],
+        ['data', 'Data & account reads'],
+        ['all', 'All requests'],
+      ],
+    },
+    {
+      label: 'Period',
+      value: period,
+      set: setPeriod,
+      options: [
+        ['today', 'Today (IST)'],
+        ['24h', 'Last 24 hours'],
+        ['7d', 'Last 7 days'],
+        ['30d', 'Last 30 days'],
+        ['all', 'All retained history'],
+      ],
+    },
+    {
+      label: 'Result',
+      value: status,
+      set: setStatus,
+      options: [
+        ['all', 'All results'],
+        ['SUCCESS', 'Successful'],
+        ['FAILED', 'Failed'],
+        ['PARTIAL', 'Partial'],
+      ],
+    },
+    {
+      label: 'Mode at request',
+      value: mode,
+      set: setMode,
+      options: [
+        ['all', 'All modes'],
+        ['live', 'Live'],
+        ['sandbox', 'Sandbox'],
+        ['unknown', 'Unknown / legacy'],
+      ],
+    },
+  ]
   return (
-    <div className="py-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 py-6">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <Link to="/dashboard" className="text-muted-foreground hover:text-foreground">
+          <div className="flex items-center gap-2">
+            <Link to="/dashboard" aria-label="Back to dashboard">
               <ArrowLeft className="h-4 w-4" />
             </Link>
-            <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Gauge className="h-6 w-6" />
-              Order Latency Monitor
-            </h1>
+            <Gauge className="h-6 w-6" />
+            <h1 className="text-2xl font-bold">Request Latency Monitor</h1>
           </div>
-          <p className="text-muted-foreground">Track how fast brokers confirm your orders</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Separate order actions from data reads. Measure endpoint responses, not exchange fills.
+          </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing}>
-            <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <Button
+            variant="outline"
+            disabled={query.isFetching}
+            onClick={() => void query.refetch()}
+          >
+            <RefreshCw className={`mr-2 h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
-          <Button onClick={handleExport}>
-            <Download className="h-4 w-4 mr-2" />
-            Export to CSV
+          <Button variant="outline" asChild>
+            <a href={`/latency/export?${parameters}`}>
+              <Download className="mr-2 h-4 w-4" />
+              Export CSV
+            </a>
           </Button>
         </div>
       </div>
-
-      {/* Key Performance Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Orders Tracked</p>
-                <p className="text-2xl font-bold text-primary">{stats?.total_orders || 0}</p>
-                <p className="text-xs text-muted-foreground">All time</p>
-              </div>
-              <Zap className="h-8 w-8 text-primary opacity-20" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Success Rate</p>
-                <p className="text-2xl font-bold text-green-500">
-                  {(stats?.success_rate || 0).toFixed(1)}%
-                </p>
-                <p className="text-xs text-muted-foreground">{stats?.failed_orders || 0} failed</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-green-500 opacity-20" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Average Confirmation Time</p>
-                <p className={`text-2xl font-bold ${getSpeedRating(stats?.avg_total || 0).color}`}>
-                  {(stats?.avg_total || 0).toFixed(2)}ms
-                </p>
-                <p className="text-xs text-muted-foreground">End-to-end order confirmation</p>
-              </div>
-              <Gauge
-                className={`h-8 w-8 ${getSpeedRating(stats?.avg_total || 0).color} opacity-20`}
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Fast Orders</p>
-                <p
-                  className={`text-2xl font-bold ${
-                    (stats?.sla_150ms || 0) >= 95
-                      ? 'text-green-500'
-                      : (stats?.sla_150ms || 0) >= 85
-                        ? 'text-yellow-500'
-                        : 'text-red-500'
-                  }`}
-                >
-                  {(stats?.sla_150ms || 0).toFixed(1)}%
-                </p>
-                <p className="text-xs text-muted-foreground">Under 150ms (Target: 95%)</p>
-              </div>
-              <div className="relative h-16 w-16">
-                <Progress value={stats?.sla_150ms || 0} className="h-16 w-16 rounded-full" />
-                <span className="absolute inset-0 flex items-center justify-center text-xs font-bold">
-                  {Math.round(stats?.sla_150ms || 0)}%
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Performance Levels Reference */}
       <Card>
-        <CardHeader>
-          <CardTitle>Performance Levels</CardTitle>
-          <CardDescription>
-            Total end-to-end time from order submission to confirmation
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-3">
-              <Badge className="bg-green-500">Excellent</Badge>
-              <span className="text-sm text-muted-foreground">Under 150ms</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Badge className="bg-yellow-500">Good</Badge>
-              <span className="text-sm text-muted-foreground">150-250ms</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Badge className="bg-orange-500">Acceptable</Badge>
-              <span className="text-sm text-muted-foreground">250-400ms</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Badge variant="destructive">Slow</Badge>
-              <span className="text-sm text-muted-foreground">Over 400ms</span>
-            </div>
-          </div>
+        <CardContent className="grid gap-4 pt-6 sm:grid-cols-2 lg:grid-cols-3">
+          {fields.map((f) => (
+            <label key={f.label} className="space-y-2 text-sm">
+              <span>{f.label}</span>
+              <select
+                aria-label={f.label}
+                value={f.value}
+                onChange={(e) => {
+                  f.set(e.target.value)
+                  setSelected(null)
+                }}
+                className={selectClass}
+              >
+                {f.options.map(([v, t]) => (
+                  <option key={v} value={v}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+          <label className="space-y-2 text-sm">
+            <span>Broker (optional)</span>
+            <input
+              aria-label="Broker"
+              placeholder="e.g. fyers"
+              className={selectClass}
+              value={broker}
+              maxLength={50}
+              onChange={(e) => setBroker(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
+            />
+          </label>
+          <label className="space-y-2 text-sm">
+            <span>Operation (optional)</span>
+            <input
+              aria-label="Operation"
+              placeholder="e.g. HISTORY"
+              className={selectClass}
+              value={operation}
+              maxLength={50}
+              onChange={(e) =>
+                setOperation(e.target.value.replace(/[^a-zA-Z0-9_-]/g, '').toUpperCase())
+              }
+            />
+          </label>
         </CardContent>
       </Card>
-
-      {/* Latency Distribution */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Latency Distribution</CardTitle>
-          <CardDescription>Breakdown of order speeds</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Excellent (&lt;150ms)</span>
-                <span className="font-bold">{distribution.excellent}</span>
-              </div>
-              <div className="h-4 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-green-500"
-                  style={{ width: `${(distribution.excellent / distribution.total) * 100}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {((distribution.excellent / distribution.total) * 100).toFixed(1)}%
-              </p>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Good (150-250ms)</span>
-                <span className="font-bold">{distribution.good}</span>
-              </div>
-              <div className="h-4 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-yellow-500"
-                  style={{ width: `${(distribution.good / distribution.total) * 100}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {((distribution.good / distribution.total) * 100).toFixed(1)}%
-              </p>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Acceptable (250-400ms)</span>
-                <span className="font-bold">{distribution.acceptable}</span>
-              </div>
-              <div className="h-4 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-orange-500"
-                  style={{ width: `${(distribution.acceptable / distribution.total) * 100}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {((distribution.acceptable / distribution.total) * 100).toFixed(1)}%
-              </p>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Slow (&gt;400ms)</span>
-                <span className="font-bold">{distribution.slow}</span>
-              </div>
-              <div className="h-4 bg-muted rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-red-500"
-                  style={{ width: `${(distribution.slow / distribution.total) * 100}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {((distribution.slow / distribution.total) * 100).toFixed(1)}%
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Broker Performance Comparison */}
-      {stats?.broker_stats && Object.keys(stats.broker_stats).length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Broker Performance Comparison</CardTitle>
-            <CardDescription>Latency breakdown by broker</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="border rounded-md">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Broker</TableHead>
-                    <TableHead>Avg Latency</TableHead>
-                    <TableHead>Median (P50)</TableHead>
-                    <TableHead>Worst 1% (P99)</TableHead>
-                    <TableHead>Fast Orders %</TableHead>
-                    <TableHead>Total Orders</TableHead>
-                    <TableHead>Performance</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {Object.entries(stats.broker_stats).map(([broker, data]) => (
-                    <TableRow key={broker}>
-                      <TableCell className="font-semibold">{broker}</TableCell>
-                      <TableCell>
-                        <Badge variant={getSpeedRating(data.avg_total).variant}>
-                          {data.avg_total?.toFixed(2)}ms
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{data.p50_total?.toFixed(2)}ms</TableCell>
-                      <TableCell>{data.p99_total?.toFixed(2)}ms</TableCell>
-                      <TableCell>{data.sla_150ms?.toFixed(1)}%</TableCell>
-                      <TableCell>{data.total_orders}</TableCell>
-                      <TableCell>
-                        <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className={`h-full ${
-                              data.avg_total < 150
-                                ? 'bg-green-500'
-                                : data.avg_total < 250
-                                  ? 'bg-yellow-500'
-                                  : 'bg-red-500'
-                            }`}
-                            style={{
-                              width: `${Math.max(0, Math.min(100, ((400 - data.avg_total) / 400) * 100))}%`,
-                            }}
-                          />
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+      {query.isError && (
+        <div role="alert" className="rounded-md border border-destructive p-4 text-destructive">
+          Could not refresh latency data.{' '}
+          {data ? 'Showing the previous snapshot; its time is shown below.' : 'Please retry.'}
+        </div>
       )}
-
-      {/* Recent Orders Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
-          <CardDescription>{logs.length} orders tracked</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="border rounded-md">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Time</TableHead>
-                  <TableHead>Order ID</TableHead>
-                  <TableHead>Broker</TableHead>
-                  <TableHead>Symbol</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Latency</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="w-[80px]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {logs.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
-                      No order latency data available
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  logs.map((log) => {
-                    const rating = getSpeedRating(log.total_latency_ms || 0)
-                    return (
-                      <TableRow key={log.id}>
-                        <TableCell className="text-sm">{formatTimestamp(log.timestamp)}</TableCell>
-                        <TableCell className="font-mono text-sm">{log.order_id}</TableCell>
-                        <TableCell>{log.broker || 'N/A'}</TableCell>
-                        <TableCell className="font-semibold">{log.symbol || 'N/A'}</TableCell>
+      {query.isPending && <output>Loading latency snapshot…</output>}
+      {data && s && (
+        <>
+          <p className="text-sm text-muted-foreground">
+            Snapshot {stamp(data.as_of)} IST · {data.sample_count.toLocaleString('en-IN')} requests
+            {data.truncated
+              ? ` out of ${data.matched_count.toLocaleString('en-IN')} matching records; newest ${data.sample_limit.toLocaleString('en-IN')} only`
+              : ''}
+            . Cards, distribution, comparisons and export use this same bounded selection. Recent
+            table shows up to 100 rows. Export captures a fresh snapshot.
+          </p>
+          {data.truncated && (
+            <p role="note" className="rounded-md border border-amber-500 p-3">
+              Sample limit reached. Narrow the period or operation to compare the complete matching
+              population.
+            </p>
+          )}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              [
+                'Requests tracked',
+                String(s.total),
+                `${s.successful} successful · ${s.failed} failed · ${s.partial} partial`,
+              ],
+              ['Success rate', pct(s.success_rate), 'Request outcome; not trade fill success'],
+              [
+                'Average response time',
+                ms(s.avg_ms),
+                `${s.timed_successes} successful timed requests`,
+              ],
+              ['Fast successful requests', pct(s.fast_pct), 'Under 150 ms · target 95%'],
+            ].map(([title, value, hint]) => (
+              <Card key={title}>
+                <CardContent className="pt-6">
+                  <p className="text-sm text-muted-foreground">{title}</p>
+                  <p className="my-2 text-3xl font-bold">{value}</p>
+                  <p className="text-xs text-muted-foreground">{hint}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Response-time distribution</CardTitle>
+              <CardDescription>
+                All {s.timed_successes} successful timed requests in the selection. Failed requests
+                do not improve speed scores.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  ['excellent', 'Excellent · under 150 ms', 'bg-green-500'],
+                  ['good', 'Good · 150 to under 250 ms', 'bg-yellow-500'],
+                  ['acceptable', 'Acceptable · 250 to under 400 ms', 'bg-orange-500'],
+                  ['slow', 'Slow · 400 ms or more', 'bg-red-500'],
+                ].map(([k, label, color]) => (
+                  <div key={k}>
+                    <div className="mb-2 text-sm">{label}</div>
+                    <div className="h-3 overflow-hidden rounded bg-muted">
+                      <div
+                        className={`h-full ${color}`}
+                        style={{
+                          width: `${s.timed_successes ? (100 * s.distribution[k]) / s.timed_successes : 0}%`,
+                        }}
+                      />
+                    </div>
+                    <p className="mt-2 text-sm">
+                      {s.distribution[k]} ·{' '}
+                      {s.timed_successes ? pct((100 * s.distribution[k]) / s.timed_successes) : '—'}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                P50 {ms(s.p50_ms)} · P95 {ms(s.p95_ms)} · P99 {ms(s.p99_ms)} · Maximum{' '}
+                {ms(s.max_ms)}
+                {s.invalid_timings ? ` · ${s.invalid_timings} invalid timings excluded` : ''}
+              </p>
+            </CardContent>
+          </Card>
+          <Comparison title="Operation comparison" rows={data.operations} />
+          <Comparison title="Broker comparison" rows={data.brokers} />
+          <Card>
+            <CardHeader>
+              <CardTitle>Measurement scope</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm text-muted-foreground">
+              <p>{data.notice}</p>
+              <p>
+                Measured HTTP and remaining time cover {s.measured_count} successful records with
+                the new instrumentation. Remaining time includes validation, rate-limit waits,
+                retries and other processing; it is not a pure CPU measurement. No captured HTTP
+                call does not prove that every downstream transport is instrumented. Legacy
+                breakdowns are shown only in request details.
+              </p>
+              <p>
+                Installation diagnostics may include multiple sessions. Data requests retained by
+                the existing collector expire after seven days; “all retained history” cannot
+                recover deleted records. Live/Sandbox is the captured request context, not the quote
+                source.
+              </p>
+            </CardContent>
+          </Card>
+          {data.failures.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Failure reasons</CardTitle>
+                <CardDescription>
+                  Authentication and validation failures are not broker execution delays.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {data.failures.map((f) => (
+                    <li key={f.reason} className="flex justify-between gap-4 text-sm">
+                      <span className="break-words">{f.reason}</span>
+                      <Badge variant="secondary">{f.count}</Badge>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent requests</CardTitle>
+              <CardDescription>{data.recent.length} displayed · time in IST</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      {[
+                        'Time',
+                        'Operation',
+                        'Broker / mode',
+                        'Symbol',
+                        'Response time',
+                        'Status',
+                        '',
+                      ].map((h) => (
+                        <TableHead key={h}>{h}</TableHead>
+                      ))}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.recent.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell className="whitespace-nowrap">{stamp(row.timestamp)}</TableCell>
+                        <TableCell>{row.order_type}</TableCell>
                         <TableCell>
-                          <Badge variant="outline">{log.order_type}</Badge>
+                          {row.broker || 'Unattributed'}
+                          <div className="text-xs text-muted-foreground">{row.mode}</div>
+                        </TableCell>
+                        <TableCell>{row.symbol || '—'}</TableCell>
+                        <TableCell className="whitespace-nowrap">
+                          {ms(row.total_latency_ms)}
                         </TableCell>
                         <TableCell>
-                          <Badge variant={rating.variant}>
-                            {(log.total_latency_ms || 0).toFixed(2)}ms
+                          <Badge variant={row.status === 'SUCCESS' ? 'secondary' : 'destructive'}>
+                            {row.status}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          {log.status === 'SUCCESS' ? (
-                            <Badge className="bg-green-500">SUCCESS</Badge>
-                          ) : (
-                            <Badge variant="destructive">{log.status}</Badge>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <Button size="sm" variant="ghost" onClick={() => setSelectedOrder(log)}>
+                          <Button variant="ghost" size="sm" onClick={() => setSelected(row)}>
                             Details
                           </Button>
                         </TableCell>
                       </TableRow>
-                    )
-                  })
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Order Details Modal */}
-      <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
-        <DialogContent className="max-w-2xl">
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              {!data.recent.length && (
+                <p className="py-8 text-center text-muted-foreground">
+                  No matching requests. Select Data &amp; account reads or a wider period to inspect
+                  history.
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        </>
+      )}
+      <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
+        <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-xl">
           <DialogHeader>
-            <DialogTitle>Order Latency Breakdown</DialogTitle>
+            <DialogTitle>Request timing breakdown</DialogTitle>
             <DialogDescription>
-              Detailed latency analysis for order {selectedOrder?.order_id}
+              {selected?.order_type} · {selected?.timestamp ? stamp(selected.timestamp) : ''} IST
             </DialogDescription>
           </DialogHeader>
-
-          {selectedOrder && (
-            <div className="space-y-6">
-              {/* Order Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <Card>
-                  <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Order ID</p>
-                    <p className="font-mono font-semibold">{selectedOrder.order_id}</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Performance</p>
-                    <p
-                      className={`text-lg font-bold ${getSpeedRating(selectedOrder.total_latency_ms).color}`}
-                    >
-                      {getSpeedRating(selectedOrder.total_latency_ms).label}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Latency Breakdown */}
-              <div className="space-y-4">
-                <h4 className="font-semibold">Latency Breakdown</h4>
-
-                {/* Total Confirmation Time */}
-                <div className="bg-muted p-4 rounded-lg">
-                  <div className="flex justify-between mb-2">
-                    <div>
-                      <span className="font-semibold">Total Confirmation Time</span>
-                      <p className="text-xs text-muted-foreground">
-                        What you experience end-to-end
-                      </p>
-                    </div>
-                    <span className="text-lg font-bold">
-                      {(selectedOrder.total_latency_ms || 0).toFixed(2)}ms
-                    </span>
-                  </div>
-                  <Progress
-                    value={Math.min(100, ((selectedOrder.total_latency_ms || 0) / 500) * 100)}
-                  />
-                </div>
-
-                <p className="text-xs text-muted-foreground">This consists of:</p>
-
-                {/* Broker API Call */}
-                <div className="bg-secondary/50 p-3 rounded-lg ml-4">
-                  <div className="flex justify-between items-start mb-1">
-                    <div>
-                      <span className="font-semibold text-sm">Broker API Call</span>
-                      <Badge variant="outline" className="ml-2 text-xs">
-                        HTTP
-                      </Badge>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Network latency + broker processing
-                      </p>
-                    </div>
-                    <span className="font-bold">{(selectedOrder.rtt_ms || 0).toFixed(2)}ms</span>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-2 space-y-0.5">
-                    <p>Network round-trip time</p>
-                    <p>Broker risk checks & validation</p>
-                    <p>Exchange order submission</p>
-                  </div>
-                </div>
-
-                {/* Platform Processing */}
-                <div className="bg-secondary/50 p-3 rounded-lg ml-4">
-                  <div className="flex justify-between items-start mb-1">
-                    <div>
-                      <span className="font-semibold text-sm">Platform Processing</span>
-                      <Badge variant="outline" className="ml-2 text-xs">
-                        OpenAlgo
-                      </Badge>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Authentication, validation & logging
-                      </p>
-                    </div>
-                    <span className="font-bold">
-                      {(selectedOrder.overhead_ms || 0).toFixed(2)}ms
-                    </span>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-2 space-y-0.5">
-                    <p>API key authentication (~5-10ms)</p>
-                    <p>Request validation (~3-5ms)</p>
-                    <p>Symbol lookup & transformation (~5-10ms)</p>
-                    <p>Latency database logging (~10-15ms)</p>
-                    <p>Response formatting (~5-10ms)</p>
-                  </div>
-                </div>
-
-                {/* Total Summary */}
-                <div className="bg-primary/10 p-4 rounded-lg border-2 border-primary">
-                  <div className="flex justify-between">
-                    <span className="font-bold">Total Latency</span>
-                    <span className="text-xl font-bold text-primary">
-                      {(selectedOrder.total_latency_ms || 0).toFixed(2)}ms
-                    </span>
-                  </div>
-                </div>
-
-                {/* Error Display */}
-                {selectedOrder.error && (
-                  <div className="bg-destructive/10 p-4 rounded-lg border border-destructive flex items-center gap-3">
-                    <XCircle className="h-5 w-5 text-destructive" />
-                    <span className="text-sm">{selectedOrder.error}</span>
-                  </div>
-                )}
-              </div>
+          {selected && (
+            <div className="space-y-4 text-sm">
+              <p>
+                Order/request ID:{' '}
+                <span className="break-all font-mono">
+                  {selected.order_id === 'unknown'
+                    ? 'Not supplied / not applicable'
+                    : selected.order_id}
+                </span>
+              </p>
+              <p className="text-2xl font-semibold">
+                {ms(selected.total_latency_ms)}{' '}
+                <span className="text-sm text-muted-foreground">
+                  {speed(selected.total_latency_ms)}
+                </span>
+              </p>
+              <p>{selected.timing_basis}</p>
+              {selected.http_ms != null ? (
+                <dl className="grid grid-cols-2 gap-3">
+                  <dt>Captured HTTP calls</dt>
+                  <dd>{selected.http_calls}</dd>
+                  <dt>Measured HTTP time</dt>
+                  <dd>{ms(selected.http_ms)}</dd>
+                  <dt>Remaining endpoint time</dt>
+                  <dd>{ms(selected.other_ms)}</dd>
+                </dl>
+              ) : (
+                <>
+                  <p>
+                    Historical attribution is uncertain: older instrumentation could keep only the
+                    last HTTP call, or label the entire local endpoint as broker time.
+                  </p>
+                  <p>
+                    Recorded legacy HTTP: {ms(selected.legacy_rtt_ms)}
+                    <br />
+                    Recorded legacy overhead: {ms(selected.legacy_overhead_ms)}
+                  </p>
+                </>
+              )}
+              <p className="text-muted-foreground">
+                Timing starts at endpoint instrumentation and ends when the handler returns. It
+                excludes earlier middleware, client network transit and asynchronous telemetry
+                persistence. Broker acceptance is not an exchange fill.
+              </p>
+              {selected.error && <p className="break-words text-destructive">{selected.error}</p>}
             </div>
           )}
         </DialogContent>

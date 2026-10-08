@@ -199,6 +199,11 @@ class BrokerData:
             )
             logger.debug(f"Fyers quotes API response: {response}")
 
+            if str(response.get("code")) in {"429", "-429"}:
+                raise data_budget.DataRateLimited(
+                    response.get("retry_after", 60),
+                    response.get("message", "FYERS data rate limit active"),
+                )
             if response.get("s") != "ok":
                 error_msg = f"Error from Fyers API: {response.get('message', 'Unknown error')}"
                 logger.error(error_msg)
@@ -228,6 +233,8 @@ class BrokerData:
                 "oi": int(depth_data.get("oi", 0)),
             }
 
+        except data_budget.DataRateLimited:
+            raise
         except Exception as e:
             logger.exception(f"Error fetching quotes for {exchange}:{symbol}")
             raise Exception(f"Error fetching quotes: {e}") from e
@@ -671,6 +678,11 @@ class BrokerData:
             )
             logger.debug(f"Fyers depth API FULL response: {json.dumps(response, indent=2)}")
 
+            if str(response.get("code")) in {"429", "-429"}:
+                raise data_budget.DataRateLimited(
+                    response.get("retry_after", 60),
+                    response.get("message", "FYERS data rate limit active"),
+                )
             if response.get("s") != "ok":
                 error_msg = f"Error from Fyers API: {response.get('message', 'Unknown error')}"
                 logger.error(error_msg)
@@ -717,6 +729,8 @@ class BrokerData:
                 "oi": int(depth_data.get("oi", 0)),
             }
 
+        except data_budget.DataRateLimited:
+            raise
         except Exception as e:
             logger.exception(f"Error fetching market depth for {exchange}:{symbol}")
             raise Exception(f"Error fetching market depth: {e}") from e

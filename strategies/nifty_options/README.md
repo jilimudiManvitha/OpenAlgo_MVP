@@ -1,3 +1,13 @@
+## October 8: current hedged three-month results
+
+The latest completed replay covers **July 8–October 7, 2026**, all 12 current
+200-point-wing strategies, and FYERS standard retail estimated execution charges.
+[Open the single offline report](../../backtesting/options_3months_2026-10-07.html)
+or [read the results and limitations](../../backtesting/nifty_options/2026-07-08_2026-10-07/README.md).
+64 sessions; net ₹7,88,522.66 (OLHC) / ₹7,91,755.49 (OHLC), on ₹20 lakh allocated
+separately per strategy. These are alternate modeled paths, not additive results.
+Earlier July 3–October 1 backtests below retain their historical unhedged rules.
+
 # Twelve NIFTY option paper strategies
 
 Each launcher is a separate file in the parent `strategies/` folder:

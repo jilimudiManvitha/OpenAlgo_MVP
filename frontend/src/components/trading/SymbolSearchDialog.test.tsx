@@ -61,7 +61,7 @@ describe('SymbolSearchDialog', () => {
   it('ranks an index above a same-scoring cash-equity match in ALL results', async () => {
     renderDialog()
 
-    await userEvent.type(screen.getByLabelText('Search symbol'), 'NIFTY')
+    await userEvent.type(await focusedBox(), 'NIFTY')
 
     await waitFor(() => expect(screen.getByText('NIFTY100QUALTY30')).toBeInTheDocument())
 
@@ -84,7 +84,7 @@ describe('SymbolSearchDialog', () => {
   it('filters to only index rows when the Index chip is selected', async () => {
     renderDialog()
 
-    await userEvent.type(screen.getByLabelText('Search symbol'), 'NIFTY')
+    await userEvent.type(await focusedBox(), 'NIFTY')
     await waitFor(() => expect(screen.getByText('NIFTY100QUALTY30')).toBeInTheDocument())
 
     await userEvent.click(screen.getByRole('button', { name: 'Index' }))
@@ -153,7 +153,7 @@ describe('SymbolSearchDialog', () => {
 
   it('warns that a computed chart cannot be traded', async () => {
     renderDialog()
-    await userEvent.type(screen.getByLabelText('Search symbol'), 'NIFTY100EW/NIFTY100QUALTY30')
+    await userEvent.type(await focusedBox(), 'NIFTY100EW/NIFTY100QUALTY30')
     await waitFor(() => expect(screen.getByText(/cannot be traded/)).toBeInTheDocument())
   })
 

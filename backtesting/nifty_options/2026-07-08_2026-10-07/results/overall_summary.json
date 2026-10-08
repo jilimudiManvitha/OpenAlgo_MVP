@@ -1,0 +1,36 @@
+{
+  "OLHC": {
+    "capital": 24000000,
+    "gross_pnl": 1169743.25,
+    "net_pnl": 788522.66,
+    "fees": 381220.59,
+    "realized_pnl": 743675.91,
+    "unrealized_pnl": 44846.75,
+    "winning_profit": 3861575.33,
+    "losing_loss": 3098486.71,
+    "completed_cycles": 434,
+    "wins": 252,
+    "losses": 182,
+    "open_cycles": 4,
+    "open_legs": 12,
+    "max_drawdown_inr": -545928.0799999982,
+    "common_mark_minutes": 24448
+  },
+  "OHLC": {
+    "capital": 24000000,
+    "gross_pnl": 1172912.0,
+    "net_pnl": 791755.49,
+    "fees": 381156.51,
+    "realized_pnl": 746908.74,
+    "unrealized_pnl": 44846.75,
+    "winning_profit": 3864484.66,
+    "losing_loss": 3098065.9,
+    "completed_cycles": 434,
+    "wins": 252,
+    "losses": 182,
+    "open_cycles": 4,
+    "open_legs": 12,
+    "max_drawdown_inr": -545377.2899999954,
+    "common_mark_minutes": 24448
+  }
+}

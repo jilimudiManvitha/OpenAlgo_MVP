@@ -65,6 +65,7 @@ def test_shutdown_joins_active_jobs_and_scheduler_without_holding_locks(kind):
     else:
         owner = SimpleNamespace(_scheduler=scheduler, _initialized=True)
         load_functions(f"services/{kind}_scheduler_service.py", ["shutdown"], namespace)
+
         def stop():
             namespace["shutdown"](owner)
 
@@ -283,3 +284,50 @@ def test_persistent_scheduler_shutdown_keeps_saved_jobs(name):
         finally:
             if scheduler.running:
                 scheduler.shutdown()
+
+
+@pytest.mark.parametrize("name", ["flow", "historify"])
+def test_persistent_shutdown_waits_for_dispatch_bookkeeping(name, monkeypatch):
+    from apscheduler.schedulers.base import STATE_PAUSED
+
+    scheduler = BackgroundScheduler()
+    owner = SimpleNamespace(_scheduler=scheduler, _initialized=True)
+    namespace = {"logger": logging.getLogger(__name__)}
+    load_functions(f"services/{name}_scheduler_service.py", ["shutdown"], namespace)
+    removing, release_dispatch, release_job, paused = (threading.Event() for _ in range(4))
+    original_remove, original_pause = scheduler.remove_job, scheduler.pause
+
+    def remove(*args, **kwargs):
+        removing.set()
+        assert release_dispatch.wait(5)
+        return original_remove(*args, **kwargs)
+
+    def pause():
+        original_pause()
+        paused.set()
+
+    monkeypatch.setattr(scheduler, "remove_job", remove)
+    monkeypatch.setattr(scheduler, "pause", pause)
+    scheduler.add_job(lambda: release_job.wait(5))
+    scheduler.start()
+    stopper = threading.Thread(target=lambda: namespace["shutdown"](owner))
+    try:
+        assert removing.wait(5)
+        stopper.start()
+        assert paused.wait(5)
+        # The old shutdown changed state to STOPPED while dispatch still needed
+        # remove_job(), which then searched pending jobs and raised JobLookupError.
+        stopper.join(timeout=0.1)
+        assert scheduler.state == STATE_PAUSED
+        release_dispatch.set()
+        release_job.set()
+        stopper.join(timeout=5)
+        assert not stopper.is_alive()
+        assert not scheduler.running
+    finally:
+        release_dispatch.set()
+        release_job.set()
+        if stopper.ident is not None:
+            stopper.join(timeout=5)
+        if scheduler.running:
+            scheduler.shutdown()

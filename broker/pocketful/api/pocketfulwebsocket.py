@@ -542,37 +542,35 @@ class PocketfulSocket:
         data = get_snapquotedata()
         return data
 
-    def subscribe_order_update(self, orderupdate_payload):
-        subscription_pkt = [orderupdate_payload["client_id"], "web"]
-        th_order_update = threading.Thread(
-            target=send_message, args=("OrderUpdateMessage", subscription_pkt)
-        )
-        th_order_update.start()
+    def _set_updates_subscription(self, payload, subscribe):
+        """Pocketful multiplexes order/trade messages on the same updates channel."""
+        try:
+            client_id = (payload or {}).get("client_id", self.client_id)
+            if not client_id or websock is None:
+                return False
+            websock.send(json.dumps({
+                "a": "subscribe" if subscribe else "unsubscribe",
+                "v": [client_id, "web"], "m": "updates",
+            }))
+            return True
+        except Exception:
+            logger.exception("Could not change Pocketful updates subscription")
+            return False
 
-    def unsubscribe_order_update(self, orderupdate_payload):
-        unsubscription_pkt = [orderupdate_payload["client_id"], "web"]
-        th_order_update = threading.Thread(
-            target=unsubscribe_update, args=("OrderUpdateMessage", unsubscription_pkt)
-        )
-        th_order_update.start()
+    def subscribe_order_update(self, orderupdate_payload=None):
+        return self._set_updates_subscription(orderupdate_payload, True)
+
+    def unsubscribe_order_update(self, orderupdate_payload=None):
+        return self._set_updates_subscription(orderupdate_payload, False)
 
     def read_order_update_data(self):
-        data = get_order_update()
-        return data
+        return get_order_update()
 
-    def subscribe_trade_update(self, tradeupdate_payload):
-        subscription_pkt = [tradeupdate_payload["client_id"], "web"]
-        th_trade_update = threading.Thread(
-            target=send_message, args=("TradeUpdateMessage", subscription_pkt)
-        )
-        th_trade_update.start()
+    def subscribe_trade_update(self, tradeupdate_payload=None):
+        return self._set_updates_subscription(tradeupdate_payload, True)
 
-    def unsubscribe_trade_update(self, tradeupdate_payload):
-        unsubscription_pkt = [tradeupdate_payload["client_id"], "web"]
-        th_trade_update = threading.Thread(
-            target=unsubscribe_update, args=("OrderUpdateMessage", unsubscription_pkt)
-        )
-        th_trade_update.start()
+    def unsubscribe_trade_update(self, tradeupdate_payload=None):
+        return self._set_updates_subscription(tradeupdate_payload, False)
 
     def read_trade_update_data(self):
         data = get_trade_update()

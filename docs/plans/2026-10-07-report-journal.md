@@ -1,11 +1,13 @@
 # Daily strategy reports and performance calendar
 
+**Current status:** Integrated in the authorized evening local release. See the [consolidated feature map](2026-10-07-feature-implementation-status.md) for implemented behavior and remaining limits. Development-stage statements below are historical; they do not supersede this status.
+
 **Evening integration:** Combined into the normal local build with user authorization. [Current release and restart checklist](2026-10-07-evening-combine.md) supersedes the staged-only status below.
 
-**October 7 mode follow-up:** [Live/Sandbox implementation and current limits](2026-10-07-live-sandbox-features.md) adds mode-separated Portfolio, real order/GTT tickets and confirmed Strategy Builder fill reports in both modes. Still isolated and not deployed.
+**October 7 mode follow-up:** [Live/Sandbox implementation and current limits](2026-10-07-live-sandbox-features.md) adds mode-separated Portfolio, real order/GTT tickets and confirmed Strategy Builder fill reports in both modes. Included in the combined local build.
 
 
-**Brokerage follow-up:** [Broker-specific retail estimates](2026-10-07-report-brokerage.md) now implemented in isolation; supersedes recorded-fees-only limits below. The production writer hook is staged separately to avoid affecting scheduled subprocesses.
+**Brokerage follow-up:** [Broker-specific retail estimates](2026-10-07-report-brokerage.md) is included in the combined release; it supersedes the original recorded-fees-only limits below. The broker-context writer hook is integrated.
 
 User request: build in isolation while local OpenAlgo continues running. Combine
 all strategy reports under each IST trading date, with strategy and symbol groups,

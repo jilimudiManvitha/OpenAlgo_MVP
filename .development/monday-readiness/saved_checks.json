@@ -1,0 +1,164 @@
+{
+  "checked_at": "2026-10-07T14:53:57.597043+05:30",
+  "passed": true,
+  "saved_schedules": [
+    {
+      "name": "Nifty500 Scanner \u00b7 Fixed 3R \u00b7 10K",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "eb8a29a7feaa1942f810f60986b4f1a0f2d62b97196514511e9855f73a1722eb"
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Fixed 3R \u00b7 10K",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "f433a330eeac8393395da816ba80286907178984aa13821226e1f50dffccbfef"
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Trail after 3R \u00b7 10K",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "9d12205752434b8b727101963e6c8745bc2678c9702f19fabc39a9384b4de0e2"
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Trail after 3R \u00b7 10K",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "3e6f32b43a5e8355f745b3c178101e4aaad7f4f6c2746bf220c66e7c9b9ba240"
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Fixed 3R \u00b7 10K \u00b7 5m HA",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "e8ff50d2fab7c4b1df7663182307782527a9d6929fa21ae86d005a9f78dc82fe"
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Fixed 3R \u00b7 10K \u00b7 5m HA",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "d0760c70f047c08953238de01f2f8cbfe496cee108428c009bc41f8aeb112972"
+    },
+    {
+      "name": "Nifty500 Scanner \u00b7 Trail after 3R \u00b7 10K \u00b7 5m HA",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "4e42ff7c59f28639ffc6a2fdf4059f340bc1ca0e5f0788ac5012f9ad41902139"
+    },
+    {
+      "name": "Weekday Watchlist \u00b7 Trail after 3R \u00b7 10K \u00b7 5m HA",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:00",
+      "exchange": "NSE",
+      "source_sha256": "69dcc4d95b1f6f8a9a8c197951dddc1c3f4c11e3faa58499cbb4106a59fa6d80"
+    },
+    {
+      "name": "iron_condor_intraday_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "29d6e2d1467a011907a3dd7fa0cd564a20e9e550e5cbe93a32aab59993d46007"
+    },
+    {
+      "name": "iron_condor_intraday_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "f5b4a585f7dae9b366e3b65d4406f70d8fc3ab5ef3b9790b631eddbce11d6258"
+    },
+    {
+      "name": "iron_condor_positional_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "2ca50f42f1caa4a2303055e2aca4951ea351d78e66db4a2bf645438c6f95a0a2"
+    },
+    {
+      "name": "iron_condor_positional_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "f089b0423e96eae39358c10d091147a8d1836e8da3f42afb39d2c39b1a325004"
+    },
+    {
+      "name": "delta_intraday_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "0116eef53783952c522e681e02b6139abd02016e4fed6d608c1c1a6d71b1c90b"
+    },
+    {
+      "name": "delta_intraday_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "fabe1b06ecb169cf98e41ff25e5ed23bbaec6046eb8bee2c293d846b6a8d2993"
+    },
+    {
+      "name": "delta_positional_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "64518f245535ea5aa4697f412c9bde9f0aae129bf33b17a37ba5bb38a9ec9fd6"
+    },
+    {
+      "name": "delta_positional_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "86030530d834812c499f71adae1d65e27dc02f7c99d673d2c08d2401c3cf16ac"
+    },
+    {
+      "name": "premium_intraday_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "97cb4f3ac354c605a246d957f534d4a890da040fe0953f3ff6a22436ecadecbb"
+    },
+    {
+      "name": "premium_intraday_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "5c05540f4df9986fa12128454052fef665b4b7b2d342e46bd6490facb31ed980"
+    },
+    {
+      "name": "premium_positional_current_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "1e410f367f22d58427a227f03cc4cd35b898b19d209775639d4b11714b1d6166"
+    },
+    {
+      "name": "premium_positional_next_week",
+      "next_start_ist": "2026-10-05T09:15:00+05:30",
+      "stop": "15:40",
+      "exchange": "NFO",
+      "source_sha256": "3b091339589095650c819a4daff564cba58fd810d07096b560cf3d2c8e41ecbf"
+    }
+  ],
+  "scheduler_key_valid": true,
+  "nifty500_symbols": 500,
+  "monday_watchlist_symbols": 30,
+  "watchlist_note": "User will populate before 09:00; empty is explicitly accepted for now.",
+  "sqlite_quick_check": {
+    "openalgo.db": "ok",
+    "sandbox.db": "ok",
+    "market_scanner_live.db": "ok",
+    "scanner_strategy_reports.db": "ok"
+  },
+  "sandbox_funds": [
+    50000000,
+    49034089.07,
+    940080.62,
+    -25830.28
+  ],
+  "config_sha256": "0bf5128a5974f20a7410183bbc8518a02b5196adf786418624a016a4e95710c3",
+  "limits": "Saved configuration and premarket prerequisites; does not claim Monday ticks or fills are verified."
+}

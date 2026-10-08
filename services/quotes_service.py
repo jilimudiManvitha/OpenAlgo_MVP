@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 from database.auth_db import get_auth_token_broker
 from database.token_db import get_token
+from utils.broker_errors import BrokerDataRateLimitError
 from utils.constants import VALID_EXCHANGES
 from utils.logging import get_logger
 
@@ -141,6 +142,12 @@ def get_quotes_with_auth(
             return False, {"status": "error", "message": "Failed to fetch quotes"}, 500
 
         return True, {"status": "success", "data": quotes}, 200
+    except BrokerDataRateLimitError as e:
+        logger.debug("Market-data request throttled; retry after %ss", e.retry_after)
+        return False, {
+            "status": "error", "message": str(e), "code": 429,
+            "retry_after": e.retry_after,
+        }, 429
     except Exception as e:
         # Check if this is a permission error
         error_msg = str(e)

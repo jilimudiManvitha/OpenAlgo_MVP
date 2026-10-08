@@ -1837,69 +1837,23 @@ def direct_place_order(
     product="CNC",
     order_reference_id=None,
 ):
+    """Place an NSE cash order through the shared REST adapter.
+
+    Retains the convenience helper's dictionary return without requiring an
+    optional SDK or a second HTTP client. Symbols use OpenAlgo's NSE format.
     """
-    Directly place an order with Groww SDK (for testing)
-
-    Args:
-        auth_token (str): Authentication token
-        symbol (str): Trading symbol
-        quantity (int): Quantity to trade
-        price (float, optional): Price for limit orders. Defaults to None.
-        order_type (str, optional): Order type. Defaults to "MARKET".
-        transaction_type (str, optional): BUY or SELL. Defaults to "BUY".
-        product (str, optional): Product type. Defaults to "CNC".
-        order_reference_id (str, optional): Custom reference ID. If None, a valid ID will be generated.
-
-    Returns:
-        dict: Order response
-    """
-    try:
-        # Initialize Groww API client
-        groww = init_groww_client(auth_token)
-
-        # Default exchange and segment
-        exchange = EXCHANGE_NSE
-        segment = SEGMENT_CASH
-        validity = VALIDITY_DAY
-
-        # Generate a valid Groww order reference ID if not provided
-        if not order_reference_id:
-            timestamp = datetime.now().strftime("%Y%m%d")
-            uuid_part = str(uuid.uuid4()).replace("-", "")[:8]
-            order_reference_id = f"{timestamp}-{uuid_part}"
-
-            # Ensure it meets Groww's requirements
-            order_reference_id = re.sub(r"[^a-zA-Z0-9-]", "", order_reference_id)[:20]
-            if len(order_reference_id) < 8:
-                order_reference_id = order_reference_id.ljust(8, "0")
-
-        logger.debug(
-            f"Placing {transaction_type} order for {quantity} of {symbol} at {price if price else 'MARKET'}"
-        )
-        logger.debug(
-            f"SDK Parameters: exchange={{exchange}}, segment={{segment}}, product={{product}}, order_type={order_type}"
-        )
-        logger.debug(f"Using order reference ID: {order_reference_id}")
-
-        # Place order using SDK
-        response = groww.place_order(
-            trading_symbol=symbol,
-            quantity=quantity,
-            price=price,
-            validity=validity,
-            exchange=exchange,
-            segment=segment,
-            product=product,
-            order_type=order_type,
-            transaction_type=transaction_type,
-            order_reference_id=order_reference_id,
-        )
-        logger.debug(f"Direct order response: {response}")
-        return response
-
-    except Exception as e:
-        logger.exception(f"Direct order error: {e}")
-        return {"status": "error", "message": str(e)}
+    data = {
+        "symbol": symbol,
+        "exchange": "NSE",
+        "quantity": quantity,
+        "price": price if price is not None else 0,
+        "pricetype": order_type,
+        "action": transaction_type,
+        "product": product,
+        "order_reference_id": order_reference_id,
+    }
+    _, response, _ = direct_place_order_api(data, auth_token)
+    return response
 
 
 def place_smartorder_api(data, auth):
@@ -2414,9 +2368,9 @@ def cancel_order(orderid, auth, segment=None, symbol=None, exchange=None):
                                 elif order.get("segment") in ["FNO", "F&O", "OPTIONS", "FUTURES"]:
                                     segment = SEGMENT_FNO
                                 elif order.get("segment") == "CURRENCY":
-                                    segment = SEGMENT_CURRENCY
+                                    raise ValueError("Currency segment is not supported by this Groww adapter")
                                 elif order.get("segment") == "COMMODITY":
-                                    segment = SEGMENT_COMMODITY
+                                    raise ValueError("Commodity segment is not supported by this Groww adapter")
                                 logger.debug(
                                     f"Found order {orderid} in order book with segment {segment}"
                                 )
@@ -3057,9 +3011,9 @@ def cancel_all_orders_api(data, auth):
                         elif segment_value in ["FNO", "F&O", "OPTIONS", "FUTURES"]:
                             segment = SEGMENT_FNO
                         elif segment_value == "CURRENCY":
-                            segment = SEGMENT_CURRENCY
+                            raise ValueError("Currency segment is not supported by this Groww adapter")
                         elif segment_value == "COMMODITY":
-                            segment = SEGMENT_COMMODITY
+                            raise ValueError("Commodity segment is not supported by this Groww adapter")
 
                     # Use our enhanced cancel_order function which returns (response_data, status_code)
                     cancel_result = cancel_order(orderid, auth, segment)
@@ -3236,9 +3190,9 @@ def get_order_trades(orderid, auth, segment=None):
                             elif order.get("segment") in ["FNO", "F&O", "OPTIONS", "FUTURES"]:
                                 segment = SEGMENT_FNO
                             elif order.get("segment") == "CURRENCY":
-                                segment = SEGMENT_CURRENCY
+                                raise ValueError("Currency segment is not supported by this Groww adapter")
                             elif order.get("segment") == "COMMODITY":
-                                segment = SEGMENT_COMMODITY
+                                raise ValueError("Commodity segment is not supported by this Groww adapter")
 
                             # Store order info for synthetic trade creation if needed
                             original_order_info["segment"] = order.get("segment", "UNKNOWN")

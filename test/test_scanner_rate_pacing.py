@@ -12,9 +12,15 @@ from services.market_scanner_provider import FyersScannerProvider, ScannerError
 from services.market_scanner_service import IST, ScannerManager
 
 
+@pytest.fixture(autouse=True)
+def isolated_budget(monkeypatch, tmp_path):
+    # Each 429 case must exercise its own response, not a previous case's cooldown.
+    monkeypatch.setenv("FYERS_DATA_BUDGET_DIR", str(tmp_path))
+
+
 @pytest.mark.parametrize(
     "headers, expected_delay",
-    [({"Retry-After": "180"}, 180), ({"X-Retry-After-Ms": "90000"}, 90), ({}, 1)],
+    [({"Retry-After": "180"}, 180), ({"X-Retry-After-Ms": "90000"}, 90), ({}, 60)],
 )
 def test_scanner_http_429_returns_once_without_short_nested_retries(
     monkeypatch, headers, expected_delay
@@ -100,9 +106,9 @@ def test_cancel_during_pacing_prevents_next_http_call(monkeypatch):
     request.assert_called_once()
 
 
-def test_other_fyers_callers_keep_existing_http_retries(monkeypatch):
+def test_non_data_fyers_callers_keep_existing_http_retries(monkeypatch):
     client = Mock()
-    request = httpx.Request("GET", "https://api-t1.fyers.in/data/quotes")
+    request = httpx.Request("GET", "https://api-t1.fyers.in/api/v3/orders")
     client.get.side_effect = [
         httpx.Response(429, request=request),
         httpx.Response(200, request=request, json={"s": "ok", "d": []}),
@@ -111,6 +117,6 @@ def test_other_fyers_callers_keep_existing_http_retries(monkeypatch):
     monkeypatch.setattr(data, "apply_rate_limit", lambda **kwargs: None)
     sleep = Mock()
     monkeypatch.setattr(data.time, "sleep", sleep)
-    assert data.get_api_response("/data/quotes", "fixture")["s"] == "ok"
+    assert data.get_api_response("/api/v3/orders", "fixture")["s"] == "ok"
     assert client.get.call_count == 2
     sleep.assert_called_once_with(1)

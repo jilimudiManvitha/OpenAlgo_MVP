@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 import pytz
-from flask import session
+from flask import has_request_context, session as flask_session
 
 from broker.fivepaisaxts.api.auth_api import get_feed_token as refresh_feed_token
 from broker.fivepaisaxts.baseurl import MARKET_DATA_URL
@@ -789,10 +789,10 @@ class BrokerData:
             # Try to get from session if not found in instance
             if (
                 not user_id
-                and hasattr(session, "marketdata_userid")
-                and session.get("marketdata_userid")
+                and has_request_context()
+                and flask_session.get("marketdata_userid")
             ):
-                user_id = session.get("marketdata_userid")
+                user_id = flask_session.get("marketdata_userid")
                 logger.debug(f"Using session user_id: {user_id}")
 
             # If no user ID is available, use the one from feed token authentication
@@ -812,10 +812,10 @@ class BrokerData:
             # Try to get from session if not found in instance
             if (
                 not feed_token
-                and hasattr(session, "marketdata_token")
-                and session.get("marketdata_token")
+                and has_request_context()
+                and flask_session.get("marketdata_token")
             ):
-                feed_token = session.get("marketdata_token")
+                feed_token = flask_session.get("marketdata_token")
                 logger.debug("Using session feed_token")
 
             # If still no feed token, try to get a new one

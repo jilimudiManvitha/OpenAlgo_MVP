@@ -127,7 +127,7 @@ const { chromium, expect } = require(path.join(root, 'frontend/node_modules/@pla
     await download.saveAs(path.join(out,'capital-gains.csv'));
     assert.match(fs.readFileSync(path.join(out,'capital-gains.csv'),'utf8'),/2000.0000/);
     await page.screenshot({path:path.join(out,'reports-desktop.png'),fullPage:true});
-    await page.getByRole('link',{name:'Watchlists & paper GTT',exact:true}).click();
+    await page.getByRole('link',{name:'Watchlists & orders',exact:true}).click();
     await page.getByLabel('Watchlist name').fill('Long-term fixture');
     await page.getByRole('button',{name:'Create watchlist',exact:true}).click();
     await expect(page.getByLabel('Watchlist name')).toHaveValue('');

@@ -38,7 +38,10 @@ class Quotes(Resource):
                 symbol=symbol, exchange=exchange, api_key=api_key
             )
 
-            return make_response(jsonify(response_data), status_code)
+            response = make_response(jsonify(response_data), status_code)
+            if status_code == 429 and "retry_after" in response_data:
+                response.headers["Retry-After"] = str(response_data["retry_after"])
+            return response
 
         except ValidationError as err:
             return make_response(jsonify({"status": "error", "message": err.messages}), 400)

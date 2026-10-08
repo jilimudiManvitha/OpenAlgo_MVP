@@ -272,12 +272,6 @@ export function SymbolSearchDialog({
    * things a trader types and `NSE:BAJAJ-AUTO` is what this dialog itself
    * writes back into the box.
    */
-  const namesWholeBox = (row: SearchRow): boolean => {
-    const typed = query.trim().toUpperCase()
-    const symbol = String(row.symbol).toUpperCase()
-    return typed === symbol || typed === `${String(row.exchange).toUpperCase()}:${symbol}`
-  }
-
   /**
    * Whether the box is arithmetic or an instrument whose name contains a `-`.
    *
@@ -293,11 +287,14 @@ export function SymbolSearchDialog({
    * onto the end of `BAJAJ-` and leaving a box that can never recover, which is
    * the state this was reported in.
    */
-  const expression = useMemo(
-    () => mode === 'symbol' && isExpression(query) && !rows.some(namesWholeBox),
-    // biome-ignore lint/correctness/useExhaustiveDependencies: namesWholeBox reads `query`
-    [query, mode, rows]
-  )
+  const expression = useMemo(() => {
+    const typed = query.trim().toUpperCase()
+    const namesWholeBox = (row: SearchRow): boolean => {
+      const symbol = String(row.symbol).toUpperCase()
+      return typed === symbol || typed === `${String(row.exchange).toUpperCase()}:${symbol}`
+    }
+    return mode === 'symbol' && isExpression(query) && !rows.some(namesWholeBox)
+  }, [query, mode, rows])
   const { prefix, leg } = useMemo(
     () => (mode === 'comparison' ? { prefix: '', leg: query } : splitLeg(query)),
     [query, mode]

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checked": [
+    "account and stock create",
+    "real CSRF-protected ledger purchase",
+    "manual dated price",
+    "oversell rejection and correction",
+    "partial sell WA/FIFO",
+    "persisted reload",
+    "dashboard reconciliation",
+    "cost/value chart switch",
+    "fractional mutual fund",
+    "CSV NAV import",
+    "liability borrowing and negative value",
+    "all nine reports",
+    "FIFO CSV download",
+    "watchlist create and thresholds edit",
+    "paper form without submission",
+    "mobile overflow"
+  ],
+  "expected": {
+    "quantity": 90,
+    "cost": 90000,
+    "value": 99000,
+    "unrealized": 9000,
+    "realized": 2000,
+    "netWorth": 98623.58
+  },
+  "fixture": "isolated database; no operator data or orders",
+  "pageErrors": []
+}

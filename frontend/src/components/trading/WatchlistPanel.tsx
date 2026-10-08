@@ -495,7 +495,6 @@ export function WatchlistPanel({ apiKey, onPick, search, activeSymbol }: Props) 
    * Watching the map's identity is what turns that into an observation.
    */
   const [lastSnapshotAt, setLastSnapshotAt] = useState<number | null>(null)
-  // biome-ignore lint/correctness/useExhaustiveDependencies: multiQuotes is the signal; its identity changes only when a fetch actually resolved
   useEffect(() => {
     if (multiQuotes.size > 0) setLastSnapshotAt(Date.now())
   }, [multiQuotes])

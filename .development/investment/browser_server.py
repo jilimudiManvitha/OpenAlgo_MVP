@@ -22,6 +22,9 @@ from blueprints.investments import investments_bp
 
 db.Base.metadata.drop_all(db.engine)  # Only this explicitly isolated fixture database.
 db.Base.metadata.create_all(db.engine)
+from database import settings_db
+settings_db.init_db()
+settings_db.set_analyze_mode(True)
 PREVIEW = ROOT / ('frontend/dist' if '--production-bundle' in sys.argv else '.development/investment/dist')
 if not (PREVIEW / 'index.html').is_file():
     raise RuntimeError('Build the isolated investment preview before starting this fixture')

@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 from database.auth_db import Auth, db_session, get_auth_token_broker, verify_api_key
 from database.token_db import get_token
+from utils.broker_errors import BrokerDataRateLimitError
 from utils.constants import VALID_EXCHANGES
 from utils.logging import get_logger
 
@@ -111,6 +112,12 @@ def get_depth_with_auth(
             return False, {"status": "error", "message": "Failed to fetch market depth"}, 500
 
         return True, {"status": "success", "data": depth}, 200
+    except BrokerDataRateLimitError as e:
+        logger.debug("Market-data request throttled; retry after %ss", e.retry_after)
+        return False, {
+            "status": "error", "message": str(e), "code": 429,
+            "retry_after": e.retry_after,
+        }, 429
     except Exception as e:
         logger.exception(f"Error in broker_module.get_depth: {e}")
         return False, {"status": "error", "message": str(e)}, 500

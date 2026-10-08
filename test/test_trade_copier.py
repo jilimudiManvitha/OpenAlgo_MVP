@@ -673,6 +673,10 @@ def test_multiplier_decimal_does_not_drop_a_share(rig):
 
 
 def test_bridge_lost_ack_returns_receipt_without_second_broker_call(rig, monkeypatch):
+    from limiter import limiter
+
+    # This receipt test sends back-to-back requests; rate limiting is tested separately.
+    monkeypatch.setattr(limiter, "enabled", False)
     # Exercise the actual endpoint with an ambiguous broker submission.
     from flask import Flask
 

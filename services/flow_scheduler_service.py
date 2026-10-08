@@ -349,6 +349,10 @@ class FlowScheduler:
         self._initialized = False
         if scheduler is not None and scheduler.running:
             scheduler.pause()
+            # get_jobs() acquires the job-store lock: let an in-flight dispatch
+            # finish its one-shot removal before shutdown changes scheduler state.
+            # Unlike remove_all_jobs(), this preserves persistent schedules.
+            scheduler.get_jobs()
             scheduler.shutdown(wait=True)
             logger.info("Flow Scheduler shutdown")
 

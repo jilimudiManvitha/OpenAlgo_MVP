@@ -1,12 +1,14 @@
 # October 7 — isolated local Trade Copier
 
+**Current status:** Integrated in the authorized evening local release. See the [consolidated feature map](2026-10-07-feature-implementation-status.md) for implemented behavior and remaining limits. Development-stage statements below are historical; they do not supersede this status.
+
 **Evening integration:** Combined into the normal local build with user authorization. [Current release and restart checklist](2026-10-07-evening-combine.md) supersedes the staged-only status below.
 
 ## User request and boundary
 
 Implement `trade_copier_production_guide.docx`, using AlgoDelta and ZuluTrade as product references. The current logged-in account is master; children can have different brokers. Both Live and Sandbox are required. Local deployment first; cloud later. User explicitly clarified that a FYERS master must support FYERS, Zerodha and Dhan children, with other brokers possible.
 
-This implementation is **not activated in the running installation**. No production app restart, production database writes, broker orders, normal `frontend/dist` build, schedule installation, commit or push was performed. Only the user starts production. Existing Portfolio/Reports/Screener mode work remains intact; its checkpoint is [Live/Sandbox features](2026-10-07-live-sandbox-features.md).
+The dashboard/backend are **integrated in the normal local build**, and the feature is enabled in the local environment following the authorized evening combination. This creates no child and arms no copying: the user configures accounts and deliberately arms them. No real orders were sent during development or verification. Only the user starts production. Existing Portfolio/Reports/Screener behavior is documented in [Live/Sandbox features](2026-10-07-live-sandbox-features.md). Earlier isolation/build notes below record the development phase.
 
 ## Implemented
 

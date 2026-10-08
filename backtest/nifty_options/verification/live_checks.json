@@ -5,7 +5,7 @@
   "next_expiry": "2026-10-13",
   "websocket_authenticated": true,
   "subscription_accepted": true,
-  "sample_messages": 2,
+  "sample_messages": 1,
   "orders_submitted": 0,
   "broker_sample_basket_margin_inr": 294105.07,
   "limitation": "Outside market hours: fresh live ticks and market-hour order fills remain unverified."
