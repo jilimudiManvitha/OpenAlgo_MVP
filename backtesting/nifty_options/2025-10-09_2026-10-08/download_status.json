@@ -1,0 +1,15 @@
+{
+  "status": "interrupted",
+  "contracts": 26080,
+  "spot_chunks": 4,
+  "completed": 6733,
+  "remaining": 19351,
+  "requests_this_run": 599,
+  "reused_this_run": 0,
+  "reserve_requests": 1000,
+  "pid": 13318,
+  "updated_at": "2026-10-08T22:59:15.217663+05:30",
+  "shared_budget_used": 3677,
+  "reason": "Stopped at user request; validated chunks retained. Do not resume without a new user request.",
+  "stopped_by_user": true
+}

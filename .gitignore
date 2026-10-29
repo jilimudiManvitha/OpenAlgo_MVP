@@ -116,6 +116,7 @@ nul
 
 # Personal backtests and reports are included in this private migration repository.
 !backtesting/**/*.csv
+!backtest/options_intraday_2026-10-13/**/*.csv
 !Stock_Symbols/*.csv
 !narasimha_pc_backtest/**/*.csv
 

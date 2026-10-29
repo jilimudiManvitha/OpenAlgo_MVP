@@ -165,6 +165,7 @@ def build(folder):
         "end": metadata["end"],
         "sessions": metadata["trading_sessions"],
         "costs": metadata["costs"],
+        "special_sessions": metadata.get("special_sessions", ""),
         "overall": overall,
         "scenarios": scenarios,
         "benchmark": {

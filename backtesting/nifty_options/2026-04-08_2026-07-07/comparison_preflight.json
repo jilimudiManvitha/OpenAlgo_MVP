@@ -1,0 +1,50 @@
+{
+  "prior_report": "backtesting/options_3months_2026-10-07.html",
+  "new_period": [
+    "2026-04-08",
+    "2026-07-07"
+  ],
+  "code": {
+    "engine.py": {
+      "current_sha256": "3a49c233384abdcb26ad210d13b9a97cdcce377343a2e0d180055497910b16d7",
+      "previous_report_sha256": "3a49c233384abdcb26ad210d13b9a97cdcce377343a2e0d180055497910b16d7",
+      "identical": true
+    },
+    "profiles.py": {
+      "current_sha256": "ce9f5514d075a93cc3017b2ff43fa6fb9dd7740bd57274b6ac75482ca170d803",
+      "previous_report_sha256": "ce9f5514d075a93cc3017b2ff43fa6fb9dd7740bd57274b6ac75482ca170d803",
+      "identical": true
+    },
+    "policy.json": {
+      "current_sha256": "899d29a205f7af66937af66a5543287e3891c025afd66076adc037136e910528",
+      "previous_report_sha256": "899d29a205f7af66937af66a5543287e3891c025afd66076adc037136e910528",
+      "identical": true
+    },
+    "selection.py": {
+      "current_sha256": "22b62282c033243ef77fc53f05f19a0f4bcf530f71b086655960fc65bd6cc7db",
+      "previous_report_sha256": "22b62282c033243ef77fc53f05f19a0f4bcf530f71b086655960fc65bd6cc7db",
+      "identical": true
+    },
+    "greeks.py": {
+      "current_sha256": "bde4be87e76d1ab6b54e1366f35eaec19a71e869d5ecadffb2145979a0e2bb7e",
+      "previous_report_sha256": "bde4be87e76d1ab6b54e1366f35eaec19a71e869d5ecadffb2145979a0e2bb7e",
+      "identical": true
+    },
+    "hedges.py": {
+      "current_sha256": "0d302696a32910eaa66e7f5496bc436793e79e5eeb0f87623a240fbce407dbdf",
+      "previous_report_sha256": "0d302696a32910eaa66e7f5496bc436793e79e5eeb0f87623a240fbce407dbdf",
+      "identical": true
+    },
+    "state.py": {
+      "current_sha256": "92fa288cd422cf912926ad8b66a7a2c67b4dd8a2ef94da407225e1fad834054c",
+      "previous_report_sha256": "92fa288cd422cf912926ad8b66a7a2c67b4dd8a2ef94da407225e1fad834054c",
+      "identical": true
+    },
+    "report_brokerage.py": {
+      "current_sha256": "e645ece4da3eca42a1a3decb956918c64ee79e9149e720336267732e84720725",
+      "previous_report_sha256": "e645ece4da3eca42a1a3decb956918c64ee79e9149e720336267732e84720725",
+      "identical": true
+    }
+  },
+  "annual_download_remains_stopped": true
+}

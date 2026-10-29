@@ -1,0 +1,14 @@
+{
+  "start": "2025-10-09",
+  "end": "2026-10-08",
+  "contracts": 26080,
+  "exact_cache_missing": 20420,
+  "plan": "standard",
+  "data_budget_used": 2433,
+  "daily_budget_limit": 4800,
+  "oldest_probe": {
+    "symbol": "NSE:NIFTY25O1425000CE",
+    "rows": 1500,
+    "first": 1759981500
+  }
+}

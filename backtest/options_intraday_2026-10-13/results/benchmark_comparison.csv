@@ -1,0 +1,13 @@
+strategy,path,strategy_return_pct,nifty_gross_return_pct,strategy_max_drawdown_pct,nifty_max_drawdown_pct,sharpe,sortino,note
+iron_condor_intraday_current_week,OLHC,0.0,1.7956064091679824,0.0,-0.4033294056151604,,,One session; annualized ratios withheld
+iron_condor_intraday_next_week,OLHC,-1.0496115000000028,1.7956064091679824,-1.470324837919701,-0.4033294056151604,,,One session; annualized ratios withheld
+delta_intraday_current_week,OLHC,0.0,1.7956064091679824,0.0,-0.4033294056151604,,,One session; annualized ratios withheld
+delta_intraday_next_week,OLHC,-1.0548134999999959,1.7956064091679824,-1.4028555042413515,-0.4033294056151604,,,One session; annualized ratios withheld
+premium_intraday_current_week,OLHC,-1.0237390000000013,1.7956064091679824,-2.0158073936172527,-0.4033294056151604,,,One session; annualized ratios withheld
+premium_intraday_next_week,OLHC,0.6602074999999985,1.7956064091679824,-0.9350936508618735,-0.4033294056151604,,,One session; annualized ratios withheld
+iron_condor_intraday_current_week,OHLC,0.0,1.7956064091679824,0.0,-0.4033294056151604,,,One session; annualized ratios withheld
+iron_condor_intraday_next_week,OHLC,-1.0544765000000011,1.7956064091679824,-1.4751691531056266,-0.4033294056151604,,,One session; annualized ratios withheld
+delta_intraday_current_week,OHLC,0.0,1.7956064091679824,0.0,-0.4033294056151604,,,One session; annualized ratios withheld
+delta_intraday_next_week,OHLC,-1.054812000000005,1.7956064091679824,-1.40285400951764,-0.4033294056151604,,,One session; annualized ratios withheld
+premium_intraday_current_week,OHLC,-1.0237785000000055,1.7956064091679824,-2.0255985960359824,-0.4033294056151604,,,One session; annualized ratios withheld
+premium_intraday_next_week,OHLC,0.6650735000000019,1.7956064091679824,-0.9302320562687316,-0.4033294056151604,,,One session; annualized ratios withheld

@@ -1,0 +1,13 @@
+{
+  "lots": null,
+  "intraday_exit": "15:20",
+  "positional_exit": "15:20",
+  "loss_reset": "cycle",
+  "delta_trigger": "imbalance",
+  "imbalance": 0.50,
+  "neutrality": "all_legs",
+  "condor_entry": "at_0930",
+  "delta_match_tolerance": 0.05,
+  "adjustment_cooldown_seconds": 60,
+  "reentry_cutoff": "15:15"
+}

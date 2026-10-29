@@ -1,5 +1,7 @@
 # Six-task implementation plan and agent handoff
 
+**October 29 archive checkpoint:** [Consolidated project handoff](../../PROJECT_HANDOFF.md) records the final feature map and migration procedure. Task 2 scanner and Task 6 Portfolio are implemented/integrated; Task 1 and Tasks 3–5 remain frozen. Annual/quarter options research is incomplete/stopped. This archival request does not resume implementation, data collection or trading. Historical status tables below are retained as dated evidence.
+
 **October 7 Task 6 checkpoint:** Completed Portfolio has been combined into the normal local frontend build at the user’s request. Verified with the scheduled-strategy repair; commit/push authorized. The user starts production. Other frozen tasks remain frozen. [Release checklist](2026-10-07-local-release-readiness.md).
 
 **October 6 Task 6 checkpoint:** Remaining Investment Portfolio phases are implemented and verified locally: all requested asset classes, nine reports, watchlists and existing-Sandbox paper GTT integration. [Completion handoff](2026-10-06-portfolio-completion.md). Deployment awaits “combine and launch”; other frozen tasks remain frozen.

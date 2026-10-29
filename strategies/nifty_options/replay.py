@@ -25,7 +25,8 @@ from .engine import (
     opening_plan,
     risk_decision,
 )
-from .greeks import chain_options, historical_lot_size, historical_margin, session_close
+from .greeks import chain_options, historical_lot_size, historical_margin
+from .replay_calendar import CORRECTIONS, SOURCES, corrected_sessions, session_window
 from .hedges import stopped_spread_symbols
 from .history import atomic_json, existing_cache_file, read_candles
 from .profiles import PROFILES, ROOT, Policy
@@ -77,6 +78,7 @@ class Archive:
             for i in range((end - start).days + 1)
             if (start + timedelta(days=i)).weekday() < 5 and start + timedelta(days=i) not in closed
         }
+        expected = corrected_sessions(expected, start, end)
         actual = {
             datetime.fromtimestamp(t, IST).date()
             for t in self.spot
@@ -90,6 +92,7 @@ class Archive:
             "sessions": [str(d) for d in sorted(expected)],
             "holidays": holidays,
             "calendar_source": "OpenAlgo seeded NSE/NFO calendar; NSE/FAOP/71777 for 2026",
+            "calendar_corrections": {**CORRECTIONS, "sources": SOURCES},
         }
 
     def expiry_data(self, expiry):
@@ -143,8 +146,9 @@ class Archive:
         following = select_expiry(day, self.expiries, "next")
         selected = {str(current), str(following)} | set(held_expiries)
         contracts, arrays = [], {}
-        start = int(datetime.combine(day, time(9, 15), IST).timestamp())
-        finish = int(datetime.combine(day, session_close(day), IST).timestamp())
+        opening, closing = session_window(day)
+        start = int(datetime.combine(day, opening, IST).timestamp())
+        finish = int(datetime.combine(day, closing, IST).timestamp())
         stamps = np.arange(start, finish, 60)
         for expiry in sorted(selected):
             for contract in self.catalogues[expiry]:
@@ -584,6 +588,7 @@ def main():
             "policy": policy.to_dict(),
             "trading_sessions": len(calendar["sessions"]),
             "option_session_close": "15:30 before 2026-08-03; 15:40 thereafter (NSE/FAOP/74467)",
+            "special_sessions": "2025-10-21 Muhurat 13:45–14:45; 2026-02-01 Budget Sunday 09:15–15:30. Original 09:30 weekday entry rule retained; carried baskets monitored during these sessions.",
             "nifty_gross_return_pct": benchmark,
             "historical_margin": "All families hedged: wing width + 3% notional + long premiums per lot; 10% cash reserve",
             "costs": (

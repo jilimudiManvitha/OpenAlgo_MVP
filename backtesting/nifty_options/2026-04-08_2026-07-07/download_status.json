@@ -1,0 +1,40 @@
+{
+  "status": "blocked",
+  "contracts": 6961,
+  "spot_chunks": 1,
+  "completed": 2404,
+  "remaining": 4558,
+  "requests_this_run": 1665,
+  "reused_this_run": 0,
+  "reserve_requests": 0,
+  "deferred_ranges": [
+    {
+      "symbol": "NSE:NIFTY2642123100CE",
+      "start": "2026-04-08",
+      "end": "2026-04-21",
+      "reason": "Invalid provider candles"
+    },
+    {
+      "symbol": "NSE:NIFTY2650520250PE",
+      "start": "2026-04-22",
+      "end": "2026-05-05",
+      "reason": "Invalid provider candles"
+    },
+    {
+      "symbol": "NSE:NIFTY2650525250PE",
+      "start": "2026-04-22",
+      "end": "2026-05-05",
+      "reason": "Invalid provider candles"
+    },
+    {
+      "symbol": "NSE:NIFTY2651225450PE",
+      "start": "2026-04-29",
+      "end": "2026-05-12",
+      "reason": "Invalid provider candles"
+    }
+  ],
+  "pid": 10258,
+  "updated_at": "2026-10-09T15:58:14.390637+05:30",
+  "shared_budget_used": 5000,
+  "reason": "Daily data reserve reached; resume after quota reset and valid login"
+}

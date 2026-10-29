@@ -1,5 +1,13 @@
 # OpenAlgo Documentation Map
 
+**October 29 complete handoff:** [Project history, feature status, backtests, remaining work and migration instructions](../PROJECT_HANDOFF.md). Start here before deleting or restoring this installation. Private local data is preserved separately in the migration ZIP, not plaintext Git files.
+
+**October 13 intraday options:** [Six-strategy report](../backtest/options_intraday_2026-10-13/results/index.html) · [results and verification](plans/2026-10-13-options-intraday.md). Complete; net about -₹49,359 under either modeled path. OpenAlgo left stopped by request; 28 schedules unchanged.
+
+**October 9 previous three months:** [April 8–July 7 backtest status and resume instructions](plans/2026-10-08-options-previous-quarter.md). Full 5,000-request quota exhausted at 15:58; 2,404 histories cached (34.5%), 4,558 ranges remain including four invalid ranges. Collector stopped; report pending.
+
+**October 8 annual options request:** [Collection, calendar corrections and resume instructions](plans/2026-10-08-options-one-year.md). Final filename `backtesting/options_1yearBacktest.html`; annual results pending complete data.
+
 **October 8 after-hours latency:** [Mock order timings, running-app probes and FYERS throttle fix](plans/2026-10-08-after-hours-latency.md). OpenAlgo is running; 300 mock/paper orders passed, no real orders sent. Market-closed measurements do not establish live execution latency.
 
 **October 8 options backtest:** [Single offline HTML](../backtesting/options_3months_2026-10-07.html), [all 12 strategy results and assumptions](../backtesting/nifty_options/2026-07-08_2026-10-07/README.md) — July 8–October 7, current hedged rules, standard FYERS charges.

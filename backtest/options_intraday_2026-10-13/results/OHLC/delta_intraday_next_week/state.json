@@ -1,0 +1,17 @@
+{
+  "config_hash": "f55c9f091ac87aa3bbab91276538c84f570d15a99ec0922b2bbe9fe0f3c9d5b3",
+  "legs": [],
+  "pending": null,
+  "cycle": 1,
+  "cycle_realized": -21096.240000000005,
+  "total_realized": -21096.240000000005,
+  "fees": 1303.74,
+  "halted": true,
+  "last_entry_day": "2026-10-13",
+  "last_adjustment": "2026-10-13T09:30:00+05:30",
+  "last_timestamp": "2026-10-13T15:39:00+05:30",
+  "needs_reentry": false,
+  "expiry": "2026-10-19",
+  "cycle_start": "2026-10-13T09:30:00+05:30",
+  "peak_capital_used": 1783760.42
+}

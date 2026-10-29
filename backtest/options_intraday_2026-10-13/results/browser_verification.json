@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scenarios": 12,
+  "charts": 2,
+  "checked": [
+    "rendered P&L agrees with ledgers",
+    "six strategy traces per panel",
+    "mobile page width",
+    "offline network independence"
+  ],
+  "errors": [],
+  "requests": []
+}

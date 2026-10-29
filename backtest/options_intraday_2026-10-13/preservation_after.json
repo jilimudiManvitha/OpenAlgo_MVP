@@ -1,0 +1,8 @@
+{
+  "schedules": 28,
+  "schedule_unchanged": true,
+  "ports_not_accepting": {
+    "5000": true,
+    "8765": true
+  }
+}

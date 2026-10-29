@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "variants": 12,
+  "closed_leg_rows_checked": 32,
+  "source_files_hashed": 1898,
+  "local_links_checked": 40,
+  "trading_sessions": 1,
+  "checks": "Exported cash flow, fees, final source marks, drawdown, chronological whole-lot fills, source integrity and local links. Simulation assumptions remain estimates."
+}

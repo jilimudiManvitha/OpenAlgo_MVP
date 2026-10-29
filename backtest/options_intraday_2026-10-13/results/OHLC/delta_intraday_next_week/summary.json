@@ -1,0 +1,23 @@
+{
+  "strategy": "delta_intraday_next_week",
+  "path": "OHLC",
+  "capital": 2000000,
+  "peak_capital_used": 1783760.42,
+  "net_pnl": -21096.23999999999,
+  "realized_pnl": -21096.240000000005,
+  "fees": 1303.74,
+  "return_pct": -1.054812000000005,
+  "max_drawdown_inr": -28156.11999999988,
+  "closed_legs": 4,
+  "open_legs": 0,
+  "skipped_entries": 0,
+  "greek_unavailable_minutes": 0,
+  "missing_held_bar_minutes": 0,
+  "vectorbt_reconciled": true,
+  "completed_cycles": 1,
+  "wins": 0,
+  "losses": 1,
+  "breakeven": 0,
+  "win_rate_pct": 0.0,
+  "max_drawdown_pct": -1.40285400951764
+}

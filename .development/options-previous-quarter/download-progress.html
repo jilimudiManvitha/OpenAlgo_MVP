@@ -1,0 +1,46 @@
+<div id="quarter-download-progress">
+  <h3>April 8–July 7 backtest</h3>
+  <div class="viz-row">
+    <span class="text-destructive">Stopped · collection error</span>
+    <span class="tabular-nums">10.6% downloaded</span>
+  </div>
+  <div class="progress" role="progressbar" aria-label="History files downloaded" aria-valuenow="739" aria-valuemin="0" aria-valuemax="6962" aria-valuetext="739 of 6,962 files downloaded, 10.6 percent; collection stopped">
+    <div class="progress-bar" style="width:10.6148%"></div>
+  </div>
+  <div class="viz-row tabular-nums">
+    <span>739 cached</span>
+    <span>6,223 remaining</span>
+    <span>Report pending</span>
+  </div>
+  <p class="text-small text-muted">Last progress: October 9, 3:07 PM IST · Snapshot, not an automatic live feed</p>
+  <div class="viz-controls">
+    <button class="btn btn-primary" type="button" id="quarter-progress-recheck">Check again</button>
+    <span id="quarter-progress-feedback" class="text-small" aria-live="polite"></span>
+  </div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('quarter-download-progress');
+  const button = root.querySelector('#quarter-progress-recheck');
+  const feedback = root.querySelector('#quarter-progress-feedback');
+  button.addEventListener('click', async () => {
+    if (!window.openai || typeof window.openai.sendFollowUpMessage !== 'function') {
+      feedback.textContent = 'Send “check backtest status” in this chat to refresh.';
+      return;
+    }
+    button.disabled = true;
+    feedback.textContent = 'Requesting a fresh status check…';
+    try {
+      await window.openai.sendFollowUpMessage({
+        prompt: 'Check the current April 8–July 7, 2026 options backtest status. Read backtesting/nifty_options/2026-04-08_2026-07-07/download_status.json and the latest quarter collector log, verify whether its process is running, and refresh the progress bar in .development/options-previous-quarter/download-progress.html. Previously it stopped at 739 of 6962 files with Collection failed: RuntimeError. Report the actual state; this is a status check, not authorization to restart OpenAlgo.',
+        title: 'Check backtest progress'
+      });
+      feedback.textContent = 'Status check requested; the reply will contain a fresh snapshot.';
+    } catch (_) {
+      feedback.textContent = 'Check was not sent. Try again or ask in the chat.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+</script>
